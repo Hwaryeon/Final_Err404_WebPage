@@ -64,6 +64,7 @@
   $(document).ready(function() {
 
     $('#calendar').fullCalendar({
+    
       header: {
         left: 'prev,next today',
         center: 'title',
@@ -90,32 +91,24 @@
       select: function(start, end) {
         var title = prompt('Event Title :');
         /* var content = prompt('Event content : '); */
-        var eventData;
         if (title) {
 
-        	
-        	//이제 이부분을 데이터 베이스로 보내면 된다.
+        	 var eventNum;
         	var sDateFormat = moment(start, 'YYYY-MM-DD');
         	var eDateFormat = moment(end, 'YYYY-MM-DD');
-        	/* console.log("title : " + title);
-        	console.log("sDate : " + sDateFormat.format('YYYY-MM-DD'));
-        	console.log("eDate : " + eDateFormat.format('YYYY-MM-DD')); */
         	
         	var sDate = sDateFormat.format('YYYY-MM-DD');
         	var eDate = eDateFormat.format('YYYY-MM-DD');
         	
-        	var sDate;
-        	var sId;
-        	
         	  $.ajax({
 				url:"addCalendar2.bd",
 				type:"post",
+				async: false,
 				data:{title:title, sDate:sDate, eDate:eDate},
 				success:function(data){
 					console.log(data.next);
 					
-					sId = data.next;
-					
+					eventNum = data.next;
 					alert("일정 추가 완료");
 				},error:function(){
 					console.log("일정 추가 실패");
@@ -125,18 +118,17 @@
         	 /* location.href="addCalendar.bd?title="+title+"&sDate="+sDate+"&eDate="+eDate; */
         	 
         	
-        	
            /* eventData = {
             title: title,
             start: start,
             end: end
           };  */
-          eventData = {
-        		  id: sId,							
+           eventData = {
+        		  id: eventNum,							
 		            title: title,
 		            start: start,
 		            end: end
-		          }; 
+		          };  
           $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
         }
         $('#calendar').fullCalendar('unselect');
@@ -159,18 +151,41 @@
       ]
       , eventClick:function(event) {
           if(event.title) {
-              /* alert(event.title + "\n" + event.start + "\n" + event.end, "width=700,height=600"); */
-              /* alert(event.id + "\n" + event.title, "width=700,height=600"); */
-              
-              document.getElementById('modal1Title').innerHTML = event.title;
-              
-              document.getElementById('modal1Desc').innerHTML = event.start;
-              
-              $('#dId').val(event.id);
-              
-              location.href="#modal";
-              
-              return false;
+        	  if(event.url){
+	              
+	              document.getElementById('modal1Title').innerHTML = event.title;
+	              
+	              document.getElementById('modal1Desc').innerHTML = event.start;
+	              
+	              var con = document.getElementById('delBu');
+	              
+	              con.style.display = 'none';
+	              
+	              location.href="#modal";
+	              
+	              return false;
+        		  
+        		  
+        	  }else{
+        		  
+	              /* alert(event.title + "\n" + event.start + "\n" + event.end, "width=700,height=600"); */
+	              /* alert(event.id + "\n" + event.title, "width=700,height=600"); */
+	              
+	              document.getElementById('modal1Title').innerHTML = event.title;
+	              
+	              document.getElementById('modal1Desc').innerHTML = event.start;
+	              
+	              $('#dId').val(event.id);
+	              
+				  var con = document.getElementById('delBu');
+	              
+	              con.style.display = '-webkit-inline-box';
+	              
+	              location.href="#modal";
+	              
+	              return false;
+        		  
+        	  }
           }
       }
 
@@ -254,15 +269,6 @@
 		</table>
 		
 		<br>
-		
-		
-		<div class="remodal-bg">
-  <a href="#modal">Modal №1</a><br>
-  <br><br>
-
-  
-  <br>
-</div>
 
 <div class="remodal" data-remodal-id="modal" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
   <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
@@ -274,7 +280,7 @@
   </div>
   <br>
   <input type="hidden" id="dId" value=""/> 
-  <button data-remodal-action="cancel" class="remodal-cancel">삭제</button>
+  <button id="delBu" data-remodal-action="cancel" class="remodal-cancel">삭제</button>
   <button data-remodal-action="confirm" class="remodal-confirm">확인</button>
 </div>
 
