@@ -19,4 +19,8 @@ public interface MemberDao {
 
 	int insertMemberProfile(SqlSessionTemplate sqlSession, Profile pf);
 
+	Profile selectMemberProfile(SqlSessionTemplate sqlSession, int mid);
+
+	int insertChangedProfile(SqlSessionTemplate sqlSession, Profile pf);
+
 }

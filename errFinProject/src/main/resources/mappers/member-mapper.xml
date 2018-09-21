@@ -61,6 +61,19 @@
 		INSERT INTO PROFILE
 		VALUES(SEQ_PID.NEXTVAL, #{originName}, #{editName}, #{fileSrc},  SYSDATE, '1', #{mid}, NULL)
 	</insert>
+	
+	<!-- 프사 찾기 -->
+	<select id = "selectMemberProfile" parameterType = "int" resultMap = "ProFileResultSet">
+		SELECT *
+		FROM PROFILE
+		WHERE MID = #{mid} 
+		AND FDATE = (SELECT MAX(FDATE) FROM PROFILE WHERE MID = #{mid})
+	</select>
+	
+	<insert id="insertChangedProfile" parameterType = "Profile">
+		INSERT INTO PROFILE
+		VALUES(SEQ_PID.NEXTVAL, #{originName}, #{editName}, #{fileSrc},  SYSDATE, '1', #{mid}, NULL)
+	</insert>
 </mapper>
 
 
