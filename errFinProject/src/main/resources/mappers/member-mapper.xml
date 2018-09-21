@@ -43,7 +43,16 @@
 	<!-- 비밀번호 일치 시 회원 정보 조회용 쿼리문 -->
 	<select id="selectLoginUser" resultMap="memberResultSet"
 		parameterType="Member">
-		SELECT * FROM MEMBER WHERE MEMAIL = #{mEmail} AND MSTATUS = 'Y'
+		SELECT * FROM MEMBER 
+		WHERE 1=1
+		<choose>
+			<when test = "mid == 0">
+				AND MEMAIL = #{mEmail} AND MSTATUS = 'Y'
+			</when>
+			<otherwise>
+				AND MID = #{mid}
+			</otherwise>
+		</choose>
 	</select>
 	
 	<select id = "selectmName" resultType="_int" parameterType="java.lang.String">
@@ -61,6 +70,28 @@
 		INSERT INTO PROFILE
 		VALUES(SEQ_PID.NEXTVAL, #{originName}, #{editName}, #{fileSrc},  SYSDATE, '1', #{mid}, NULL)
 	</insert>
+	
+	<!-- 프사 찾기 -->
+	<select id = "selectMemberProfile" parameterType = "int" resultMap = "ProFileResultSet">
+		SELECT *
+		FROM PROFILE
+		WHERE MID = #{mid} 
+		AND FDATE = (SELECT MAX(FDATE) FROM PROFILE WHERE MID = #{mid})
+	</select>
+	
+	<insert id="insertChangedProfile" parameterType = "Profile">
+		INSERT INTO PROFILE
+		VALUES(SEQ_PID.NEXTVAL, #{originName}, #{editName}, #{fileSrc},  SYSDATE, '1', #{mid}, NULL)
+	</insert>
+	
+	<select id = "selectMemberName" parameterType = "Member" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER WHERE MNAME = #{mName}
+	</select>
+	
+	<update id = "updateMemberName" parameterType = "Member">
+		UPDATE MEMBER SET MNAME = #{mName}
+		WHERE MID = #{mid}
+	</update>
 </mapper>
 
 

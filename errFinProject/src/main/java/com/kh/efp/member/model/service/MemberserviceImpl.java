@@ -2,7 +2,6 @@ package com.kh.efp.member.model.service;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +16,6 @@ public class MemberserviceImpl implements MemberService {
 	@Autowired private SqlSessionTemplate sqlSession;
 	@Autowired private MemberDao md;
 	@Autowired private BCryptPasswordEncoder passwordEncoder;
-	@Autowired private DataSourceTransactionManager transactionManager; 
 
 	@Override
 	public Member loginMember(Member m) throws LoginException {
@@ -64,6 +62,35 @@ public class MemberserviceImpl implements MemberService {
 			result = 0;
 		}
 		return result;
+	}
+	
+	@Override
+	public Profile selectMemberProfile(int mid) {
+		Profile pf = md.selectMemberProfile(sqlSession, mid);
+		
+		return pf;
+	}
+ 	@Override
+	public int insertChangedProfile(Profile pf) {
+		return md.insertChangedProfile(sqlSession, pf);
+	}
+
+	@Override
+	public int updatemName(Member m) {
+		int ck = md.selectMemberName(sqlSession, m);
+		int result = 0;
+
+		if(ck == 0){
+			result = md.updateMemberName(sqlSession, m);
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Member selectMember(Member m) {
+		// TODO Auto-generated method stub
+		return md.selectMember(sqlSession, m);
 	}
 
 
