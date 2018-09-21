@@ -42,7 +42,7 @@
                   <ul class="share-social">
                      <li><a target="_blank" href="" style="border:0px;"><img src="${ contextPath }/resources/images/al.png " alt="" width=25px; height=25px;></a></li>
                      <li><a target="_blank" href="" style="border:0px;"><img src="${ contextPath }/resources/images/message.png " alt="" width=25px; height=25px;></a></li>
-                     <li><a target="_blank" href="" style="border:0px;"><img src="${ contextPath }/resources/images/profile.png " alt="" width=25px; height=25px;></a></li>
+                     <li><a target="_blank" href="showMemberInfo.me" style="border:0px;"><img src="${ contextPath }/resources/images/profile.png " alt="" width=25px; height=25px;></a></li>
                   </ul>
               </div>
             </div>

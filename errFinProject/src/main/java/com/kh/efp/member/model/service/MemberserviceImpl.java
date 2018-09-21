@@ -66,5 +66,17 @@ public class MemberserviceImpl implements MemberService {
 		return result;
 	}
 
+	@Override
+	public Profile selectMemberProfile(int mid) {
+		Profile pf = md.selectMemberProfile(sqlSession, mid);
+		
+		return pf;
+	}
+
+	@Override
+	public int insertChangedProfile(Profile pf) {
+		return md.insertChangedProfile(sqlSession, pf);
+	}
+
 
 }

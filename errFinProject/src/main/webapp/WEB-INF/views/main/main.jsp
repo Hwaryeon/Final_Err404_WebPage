@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,10 +10,10 @@
 <meta name="viewport" content=" width=device-width, initial-scale=1">
 <title>밴드 홈 | 밴드</title>
 <!-- CSS -->
-<link href="../resources/css/bootstrap.min.css" rel="stylesheet">
-<link href="../resources/css/font-awesome.min.css" rel="stylesheet">
-<link href="../resources/css/style.css" rel="stylesheet">
-<link href="../resources/css/responsive.css" rel="stylesheet">
+<link href="resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="resources/css/font-awesome.min.css" rel="stylesheet">
+<link href="resources/css/style.css" rel="stylesheet">
+<link href="resources/css/responsive.css" rel="stylesheet">
 <style>
 	.myband{
 		margin-left:auto;
@@ -199,6 +199,11 @@
 					<h1>
 						<a href="#" title="Weekend Magazine">상단바위치</a>
 					</h1>
+					
+					
+					<a href = '<c:url value = "showMemberInfo_update.me">
+					<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
+					</c:url>'>이동</a>
 				</div>
 			</div>
 			<div class="col-md-6 col-xs-12">
@@ -461,9 +466,9 @@
 			</div>
 		</div>
 	</div>
-	<script src="../resources/js/jquery.min.js"></script>
-	<script src="../resources/js/bootstrap.min.js"></script>
-	<script src="../resources/js/jquery.bxslider.min.js"></script>
-	<script src="../resources/js/custom.js"></script>
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/bootstrap.min.js"></script>
+	<script src="resources/js/jquery.bxslider.min.js"></script>
+	<script src="resources/js/custom.js"></script>
 </body>
 </html>

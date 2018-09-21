@@ -11,4 +11,8 @@ public interface MemberService {
 	int checkmName(String mName);
 
 	int insertMember(Member m, Profile pf);
+
+	Profile selectMemberProfile(int mid);
+
+	int insertChangedProfile(Profile pf);
 }
