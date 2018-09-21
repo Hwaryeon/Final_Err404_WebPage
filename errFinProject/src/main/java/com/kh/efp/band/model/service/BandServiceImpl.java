@@ -20,7 +20,7 @@ public class BandServiceImpl implements BandService {
 
 	@Autowired private SqlSessionTemplate sqlSession;
 	@Autowired private BandDao bd;
-
+ 
 	@Override
 	public int insertScehdule(Scehdule s) {
 		int result = -99;
