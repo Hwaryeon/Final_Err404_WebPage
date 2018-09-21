@@ -14,6 +14,10 @@ public interface BandDao {
 
 	List<Object> scehduleList(SqlSessionTemplate sqlSession);
 
+	void deleteScehdule(SqlSessionTemplate sqlSession, int did);
+
+	int selectCurrval(SqlSessionTemplate sqlSession);
+
 
 
 

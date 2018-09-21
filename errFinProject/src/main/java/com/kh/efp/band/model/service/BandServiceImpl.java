@@ -39,6 +39,22 @@ public class BandServiceImpl implements BandService {
 		return bd.scehduleList(sqlSession);
 	}
 
+	@Override
+	public int deleteScehdule(int did) {
+		
+		int result = - 99;
+		
+		bd.deleteScehdule(sqlSession, did);
+		
+		return result;
+	}
+
+	@Override
+	public int selectCurrval() {
+		
+		return bd.selectCurrval(sqlSession);
+	}
+
 
 
 }

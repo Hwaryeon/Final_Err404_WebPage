@@ -23,6 +23,20 @@
 		SELECT *
 		FROM SCEHDULE
 	</select>
+	
+	<!-- 일정 삭제용 메소드 -->
+	<delete id="deleteScehdule" parameterType="int">
+		DELETE FROM SCEHDULE WHERE DID = #{did}
+	</delete>
+	
+	<select id = "selectmName" resultType="_int" parameterType="java.lang.String">
+		SELECT COUNT(*) FROM MEMBER WHERE MNAME = #{mName} AND MSTATUS = 'Y'
+	</select>
+	
+	<!-- 일정 시퀀스값 호출 메소드 -->
+	<select id="selectCurrval" resultType="_int">
+		SELECT SEQ_SCEHDULE.currval FROM DUAL
+	</select>
 
 </mapper>
 

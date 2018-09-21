@@ -23,13 +23,28 @@ public class BandDaoImpl implements BandDao{
 	@Override
 	public List<Object> scehduleList(SqlSessionTemplate sqlSession) {
 		
-		System.out.println("BandDaoImpl 호출됨..");
-		
 		List<Object> objectList = new ArrayList<Object>(sqlSession.selectList("Scehdule.scehduleList"));
 		
 		
 		return objectList;
 	}
+
+	@Override
+	public void deleteScehdule(SqlSessionTemplate sqlSession, int did) {
+		
+		System.out.println("BandDaoImpl 호출됨..");
+		
+		sqlSession.delete("Scehdule.deleteScehdule", did);
+		
+		
+	}
+
+	@Override
+	public int selectCurrval(SqlSessionTemplate sqlSession) {
+
+		return sqlSession.selectOne("Scehdule.selectCurrval");
+	}
+
 
 	
 	

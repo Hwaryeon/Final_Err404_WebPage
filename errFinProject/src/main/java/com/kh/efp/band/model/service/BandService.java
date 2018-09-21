@@ -12,6 +12,10 @@ public interface BandService {
 	int insertScehdule(Scehdule s);
 
 	List<Object> scehduleList();
+
+	int deleteScehdule(int did);
+
+	int selectCurrval();
 	
 
 }
