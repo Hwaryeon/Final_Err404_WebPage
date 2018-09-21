@@ -1,0 +1,158 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+    <meta name="viewport" content=" width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Weekend Magazine</title>
+    <!-- CSS -->
+    <link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/light-pink-blue.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>-->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body class="home page page-id-4 page-template page-template-template_home-php">
+
+    <!-- TOP NAV -->
+    <div class="navbar navbar-default top-nav-bar" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".topmenu">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse topmenu">
+                <div class="menu-header-templates-menu-container">
+                    <ul class="nav navbar-nav">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="article.html">Article</a></li>
+                        <li><a href="article-review.html">Article Review</a></li>
+                        <li><a href="archives.html">Archives</a></li>
+                        <li><a href="category.html">Category</a></li>
+                        <li><a href="fullwidth.html">Full Width</a></li>
+                        <li><a href="shortcodes.html">Shortcodes</a></li>
+                        <li><a href="404.html">404</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="bandCalendarList.bd">달력 호출</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOGO AREA -->
+    <div class="fullwidth bg-pink">
+       <div class="col-md-6 col-xs-12" style="min-width:600px;">
+          <div class="logo" style="width:120px; min-width:120px; float:left;">
+            <h1><a href="#" title="Weekend Magazine">ERR404</a></h1>
+          </div>
+         
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="main col-xs-push-4 col-md-12 col-xs-12" style="width : 100%; margin-bottom: 20px;">
+            <div class="widget" style="width : 45%; text-align: center; margin: auto;">
+
+                <div style="width:400px; height:700px; display: inline-block;">
+                    <div style="height : 140px; border : 1px solid black; margin-bottom: 50px;">
+                        이미지? 공백?
+                    </div>
+                    <div class="col-xs-12">
+                    	<form action = "login.me" method = "post" id = "insertLogin">
+                        <input class="form-control" type="text" name = "mEmail" id = "mEmail" placeholder="이메일">
+                        <br>
+                        <input class="form-control" type="password" name = "mPwd" id = "mPwd" placeholder="비밀번호">
+                        <br>
+                        <a class = "button-orange button-link" onclick = "moveMain();">로그인</a>
+                        <br>
+                    	</form>
+                        <hr>
+                        <div style="border : 1px solid black; height : 50px;">
+                            구글 로그인
+                        </div>
+                        <br>
+                        <div style="border : 1px solid black; height : 50px;">
+                            페이스북 로그인
+                        </div>
+                        <br>
+                        <div style="border : 1px solid black; height : 50px;">
+                            네이버 로그인
+                        </div>
+                        <hr>
+                        <a href = "memberJoinForm.me">회원가입</a><br>
+                        <a>아이디 / 비밀번호 찾기 </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="pull-left">
+                    <div id="text-6">
+                        <div class="textwidget"><a href="#">Weekend Magazine</a> &copy; 2015 All rights reserved</div>
+                    </div>
+                </div>
+                <div class="pull-right hidden-xs">
+                    <div id="text-7">
+                        <div class="textwidget">Theme by <a title="Email me now" href="#">JKthemes</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom hidden-xs">
+            <div class="container">
+                <div id="nav_menu-2">
+                    <div class="menu-footer-menu-container">
+                        <ul id="menu-footer-menu" class="menu">
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">News</a></li>
+                            <li><a href="#">Economy</a></li>
+                            <li><a href="#">Sports</a></li>
+                            <li><a href="#">Shows</a></li>
+                            <li><a href="#">Culture &#038; Art</a></li>
+                            <li><a href="#">Gossips</a></li>
+                            <li><a href="#">Fashion</a></li>
+                            <li><a href="#">Health &#038; Body</a></li>
+                            <li><a href="#">Technology</a></li>
+                            <li><a href="#">Science</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <a class="footer-nav-scroll pull-right"></a>
+            </div>
+        </div>
+    </div>
+    <script>
+    	function moveMain(){
+    		$("#insertLogin").submit();
+    	}
+    </script>
+    <script src="${ contextPath }/resources/js/jquery.min.js"></script>
+    <script src="${ contextPath }/resources/js/bootstrap.min.js"></script>
+    <script src="${ contextPath }/resources/js/jquery.bxslider.min.js"></script>
+    <script src="${ contextPath }/resources/js/custom.js"></script>
+</body>
+</html>
