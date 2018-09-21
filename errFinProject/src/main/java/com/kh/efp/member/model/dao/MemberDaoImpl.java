@@ -47,15 +47,4 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.insert("Member.insertMemberProfile", pf);
 	}
 
-	@Override
-	public Profile selectMemberProfile(SqlSessionTemplate sqlSession, int mid) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("Member.selectMemberProfile", mid);
-	}
-
-	@Override
-	public int insertChangedProfile(SqlSessionTemplate sqlSession, Profile pf) {
-		return sqlSession.insert("Member.insertChangedProfile", pf);
-	}
-
 }

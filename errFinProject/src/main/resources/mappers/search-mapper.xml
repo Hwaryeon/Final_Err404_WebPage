@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="Search">
+	<resultMap type="Search" id="SearchResultSet">
+		<id property="bid" column="BID" />
+		<result property="bName" column="BNAME" />
+		<result property="bOpen_Status" column="BOPEN_STATUS" />
+		<result property="bIntro" column="BINTRO" />
+		<result property="mName" column="MNAME" />
+		<result property="cName" column="CNAME" />
+		<result property="boardId" column="BOARDID" />
+		<result property="bContent" column="BCONTENT" />
+		<result property="bDate" column="BDATE" />
+		<result property="pid" column="PID" />
+		<result property="P_edit_Name" column="EDIT_NAME" />
+		<result property="P_file_Src" column="FILE_SRC" />
+		<result property="fType" column="FTYPE" />
+		<result property="fid" column="FID" />
+		<result property="A_edit_Name" column="EDIT_NAME" />
+		<result property="A_file_Src" column="FILE_SRC" />
+		<result property="fLevel" column="FLEVEL" />
+	</resultMap>
+	<!-- 모든 검색 리스트 가져오기 -->
+	<select id="selectSearchAll" resultMap="SearchResultSet" parameterType="java.lang.String">
+		SELECT B.BID, B.BNAME, B.BOPEN_STATUS, B.BINTRO, M.MNAME, 
+		C.CNAME, BOD.BOARDID, BOD.BCONTENT, BOD.BDATE, P.PID, P.EDIT_NAME, 
+		P.FTYPE, P.FILE_SRC, AT.FID, AT.EDIT_NAME, AT.FILE_SRC, AT.FLEVEL
+		FROM BAND B
+		JOIN MEMBER_BAND MB ON(B.BID = MB.BID)
+		JOIN MEMBER M ON(MB.MID = M.MID)
+		JOIN CATEGORY C ON(B.CID = C.CID)
+		JOIN BOARDS BOD ON(BOD.BID = B.BID)
+		JOIN PROFILE P ON(B.BID = P.BID)
+		RIGHT JOIN ATTFILE AT ON(AT.BOARDID = BOD.BOARDID)
+		WHERE B.BOPEN_STATUS != 'PRV'
+		AND B.BSTATUS = 'Y'
+<!-- 		AND B.BNAME LIKE '%'||'%'
+		AND BOD.BCONTENT LIKE '%'||'%' -->
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

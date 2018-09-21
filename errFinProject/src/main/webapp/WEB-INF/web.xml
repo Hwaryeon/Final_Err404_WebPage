@@ -95,4 +95,21 @@
 		<servlet-name>searchServlet</servlet-name>
 		<url-pattern>*.search</url-pattern>
 	</servlet-mapping>
+
+	<!-- 다운로드 매핑 -->
+	<servlet>
+		<servlet-name>downloadServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/download-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>downloadServlet</servlet-name>
+		<url-pattern>*.down</url-pattern>
+	</servlet-mapping>
+
 </web-app>

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"    pageEncoding="UTF-8"%>
+	<%@ page language="java" contentType="text/html; charset=UTF-8"    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var='contextPath' value='${pageContext.request.contextPath}' scope='application'/>
 <html>
@@ -20,12 +20,10 @@
   <link href="${contextPath}/resources/skins/light-pink-blue.css" rel="stylesheet">
   <!-- Script -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="${contextPath}/resources/js/jquery.min.js"></script>
   <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
   <script src="${contextPath}/resources/js/jquery.bxslider.min.js"></script>
   <script src="${contextPath}/resources/js/sss.min.js"></script>
   <script src="${contextPath}/resources/js/custom.js"></script>
-  <script src="${contextPath}/resources/js/sampleData/bootstrap-select.js"></script>
   <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
   <script src='//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js'></script>
 </head>
@@ -91,7 +89,7 @@
 <body class="home page page-id-4 page-template page-template-template_home-php">
 
     <jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
-    
+    <script src="${contextPath}/resources/js/sampleData/bootstrap-select.js"></script>
     <!--  내용  -->
 
     <div class="container">
@@ -251,11 +249,11 @@
 			//행 갯수 스피너
 			 $( "#row_amount" ).spinner({
 		      	spin: function( event, ui ) {
-		        if ( ui.value > 100000 ) {
+		        if ( ui.value > 10000 ) {
 		          $( this ).spinner( "value", 1 );
 		          return false;
 		        } else if ( ui.value < 1 ) {
-		          $( this ).spinner( "value", 100000 );
+		          $( this ).spinner( "value", 10000 );
 		          return false;
 		        }
 		      }
@@ -264,8 +262,8 @@
 		
 		function makeCSV(){
 			var amount = $('#row_amount').val();
-			if((amount <= 0) || (amount > 100000)){
-				errorAlert('행 갯수는 "최소 1 최대 100000" 까지만 생성할수 있습니다.');
+			if((amount <= 0) || (amount > 10000)){
+				errorAlert('행 갯수는 "최소 1 최대 10000" 까지만 생성할수 있습니다.');
 				return false;
 			}
 			var JsonArrays = new Array();
@@ -287,7 +285,7 @@
 			// 테이블값 보내기
 			$.ajax({
 		        method :"POST",
-		        url:'CreateServlet.sample',
+		        url:'CreateServlet.down',
 		        data : {
 		        	valueJson : valueJson,
 		        	row_amount : amount
@@ -297,6 +295,14 @@
 		        	successAlert(Waiting_Time/1000 + '초 가 걸렸습니다. ');
 		        	$('.btn-box').show();
 		        	$('#lodingImg').hide();
+		        	
+		        	
+		        	var blob=new Blob([data]);
+		            var link=document.createElement('a');
+		            link.href=window.URL.createObjectURL(blob);
+		            link.download="sampleData.csv";
+		            link.click();
+		        	
 		        },
 		        error : function(data){
 		        	errorAlert('서버 에러');
@@ -366,26 +372,8 @@
 		    });
 		}
 		
-		function custom_alert( message, title ) {
-		    if ( !title )
-		        title = 'Alert';
-
-		    if ( !message )
-		        message = 'No Message to Display.';
-
-		    $('<div></div>').html( message ).dialog({
-		        title: title,
-		        resizable: false,
-		        modal: true,
-		        buttons: {
-		            'Ok': function()  {
-		                $( this ).dialog( 'close' );
-		            }
-		        }
-		    });
-		}
-		
 		//토스트 설정
+		
 		toastr.options = {
 		  "closeButton": true,
 		  "debug": false,
@@ -403,6 +391,7 @@
 		  "showMethod": "fadeIn",
 		  "hideMethod": "fadeOut"
 		}
+
 		
 		//에러 토스트
 		function errorAlert(msg){
