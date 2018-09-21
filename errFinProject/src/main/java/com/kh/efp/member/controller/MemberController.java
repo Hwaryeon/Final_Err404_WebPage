@@ -39,7 +39,7 @@ public class MemberController {
 			@RequestParam(name="userImage", required=false)MultipartFile photo){
 		Profile pf = new Profile();
 		m.setmPwd(passwordEncoder.encode(m.getmPwd()));
-		
+		System.out.println(passwordEncoder.encode(m.getmPwd()));
 		String root = "";
 		String filePath = "";
 		String originFileName = "";
@@ -67,7 +67,7 @@ public class MemberController {
 		
 		pf.setFileSrc(filePath);
 		pf.setOriginName(originFileName);
-		pf.setEditName(changeName + ext);
+		pf.setEditName(changeName);
 		System.out.println("controller m : " + m + " / pf : " + pf);
 		try {
 			photo.transferTo(new File(filePath + "\\" + changeName + ext));
@@ -93,10 +93,8 @@ public class MemberController {
 		System.out.println("login m : " + m);
 		try {
 			model.addAttribute("loginUser", ms.loginMember(m));
-			/*model.addAttribute("memberProfile", ms.selectMemberProfile(m));*/
-			
+
 			return "main/main";
-			/*return "member/memberInfo_update";*/
 
 		} catch (LoginException e) {
 			model.addAttribute("msg", e.getMessage());
@@ -118,78 +116,4 @@ public class MemberController {
 		return hmap;
 	}
 
-	@RequestMapping("showMemberInfo_update.me")
-	public String showMemberInfoUpdate(@RequestParam int mid, Model model){
-		System.out.println("info mid : " + mid);
-		
-		model.addAttribute("memberProfile", ms.selectMemberProfile(mid));
-		
-		System.out.println(model);
-		
-		return "member/memberInfo_update";
-	}
-	
-	@RequestMapping("showMemberInfo_write.me")
-	public String showMemberInfoWrite(){
-		return "member/memberInfo_write";
-	}
-	
-	@RequestMapping("showMemberInfo_bandlist.me")
-	public String showMemberInfoList(int mid, Model model){
-		
-		return "member/memberInfo_bandlist";
-	}
-	
-	@RequestMapping("insertChangedProfile.me")
-	public @ResponseBody HashMap<String, Object> insertChangedProfile(Model model, HttpServletRequest request,
-			@RequestParam(name="uploadFile", required=false)MultipartFile photo){
-		
-		int mid = Integer.parseInt(request.getParameter("mid"));
-		
-		String root = request.getSession().getServletContext().getRealPath("resources");
-
-		String filePath = root + "\\upload_images";
-
-		String originFileName = photo.getOriginalFilename();
-		String ext = originFileName.substring(originFileName.lastIndexOf("."));
-
-		String changeName = CommonUtils.getRandomString();
-		
-		
-		Profile pf = new Profile();
-		
-		pf.setEditName(changeName + ext);
-		pf.setFileSrc(filePath);
-		pf.setOriginName(originFileName);
-		pf.setMid(mid);
-		
-		try {
-			photo.transferTo(new File(filePath + "\\" + changeName + ext));
-			System.out.println("digh");
-			
-			int result = ms.insertChangedProfile(pf);
-
-			
-			if(result == 0){
-				System.out.println("인설트안됌");
-				return null;
-			}else{
-				HashMap<String, Object> hmap = new HashMap<String, Object>();
-				
-				hmap.put("photo", photo);
-				System.out.println("뭐여이건");
-				return hmap;
-			}
-
-		} catch (Exception e) {
-			new File(filePath + "\\" + changeName + ext).delete();
-			return null;
-		}
-		
-		
-		
-		
-	}
-	
-	
 }

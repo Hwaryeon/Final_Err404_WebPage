@@ -1,7 +1,15 @@
 package com.kh.efp.SampleData.controller;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,12 +41,12 @@ public class CreateSampleData{
 		res = this.res;
 	}
 
-	public String createData(String valueJson, int row_amount){
+	public boolean createData(String valueJson, int row_amount){
 		
 		ArrayList<String[]> colunm_list = new ArrayList<String[]>();		//생성할 컬럼및 행들
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");			//날짜 포멧 객체
 		GregorianCalendar ggc = new GregorianCalendar();					//랜덤 날자용 객체
-		
+		boolean bool = false;
 		try {
 			JSONArray array = new JSONArray(valueJson);
 			int length = array.length();
@@ -50,10 +58,13 @@ public class CreateSampleData{
 				colunm_val[i][2] = array.getJSONObject(i).getString("values");
 			}
 			
-			String[] titles = null;				//컬럼명 삽입
-			titles = new String[length];
+			String[] titles = new String[length];	//컬럼명 삽입
+			ArrayList<String>[] names = new ArrayList[length];
 			for(int n=0; n<length; n++){
 				titles[n] = colunm_val[n][0];
+				if(colunm_val[n][1].equals("R_NAME_READONLY")){		//해당 열 전용 이름들 객체로 저장
+					names[n] = randomNameGenerator(row_amount);
+				}
 			}
 			colunm_list.add(titles);
 			
@@ -74,7 +85,7 @@ public class CreateSampleData{
 						case "UP_DATE_READONLY" : arr[n] = sdf.format(cal.getTime()); break;
 						case "R_NUMBER" : arr[n] = cut_Char(colunm_val[n][2]); break;
 						case "R_DATE" : ggc.add(ggc.DATE, Integer.parseInt(cut_Char(colunm_val[n][2]))); arr[n] = sdf.format(ggc.getTime()); ggc = new GregorianCalendar(); break;
-						case "R_NAME_READONLY" : arr[n] = randomName(); break;
+						case "R_NAME_READONLY" : arr[n] = names[n].get(i); break;
 						case "R_PHONE_READONLY" : arr[n] = R_phone(); break;
 						case "R_MONEY" : arr[n] = cut_Char(colunm_val[n][2]); break;
 						case "R_EMAIL_READONLY" : arr[n] = EMAIL(); break;
@@ -84,21 +95,19 @@ public class CreateSampleData{
 				colunm_list.add(arr);
 			}
 			
-			/*for(String[] str : colunm_list){
-				for(String s : str)
-					System.out.print("value : " + s + "\t");
-				System.out.println();
-			}*/
-			
-			createCSV(colunm_list);
+			if(createCSV(colunm_list) == 1){
+				bool = true;
+			}else{
+				bool = false;
+			}
 			
 		} catch (JSONException e) {
 			System.out.println(e.getMessage());
-			return "error";
+			return bool;
 		}
 		
 		
-		return "success";
+		return bool;
 	}
 
 	//CSV 생성
@@ -108,24 +117,25 @@ public class CreateSampleData{
       try {
             CSVWriter cw = new CSVWriter(new OutputStreamWriter(new FileOutputStream("sampleBox.csv"), "EUC-KR"),',', '"');
             try {
-    			cw.writeAll(colunm_list);
-    			return 1;
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
+    			cw.writeAll(colunm_list);		//csv파일 생성
+            }catch (Exception e) {
+            	System.out.println(e.getMessage());
+            	return 0;
+            }finally {
                 //무조건 CSVWriter 객체 close
                 cw.close();
             }  
         } catch (Exception e) {
-            e.printStackTrace();
+        	System.out.println(e.getMessage());
+        	return 0;
         }
       
-		return 0;
+		return 1;
 	}
 	
 	//랜덤 이름 생성기
 	public String randomName() {
-	    List<String> last_name = Arrays.asList("김", "이", "박", "최", "정", "강", "조", "윤", "장", "임", "한", "오", "서", "신", "권", "황", "안",
+/*	    List<String> last_name = Arrays.asList("김", "이", "박", "최", "정", "강", "조", "윤", "장", "임", "한", "오", "서", "신", "권", "황", "안",
 	        "송", "류", "전", "홍", "고", "문", "양", "손", "배", "조", "백", "허", "유", "남", "심", "노", "정", "하", "곽", "성", "차", "주",
 	        "우", "구", "신", "임", "나", "전", "민", "유", "진", "지", "엄", "채", "원", "천", "방", "공", "강", "현", "함", "변", "염", "양",
 	        "변", "여", "추", "노", "도", "소", "신", "석", "선", "설", "마", "길", "주", "연", "방", "위", "표", "명", "기", "반", "왕", "금",
@@ -142,8 +152,39 @@ public class CreateSampleData{
 	        "흔", "악", "람", "뜸", "권", "복", "심", "헌", "엽", "학", "개", "롱", "평", "늘", "늬", "랑", "얀", "향", "울", "련");
 	    Collections.shuffle(last_name);
 	    Collections.shuffle(first_name);
-	    return last_name.get(0) + first_name.get(0) + first_name.get(1);
-	  }
+	    return last_name.get(0) + first_name.get(0) + first_name.get(1);*/
+		return null;
+	}
+	
+	// REST random 이름 가져오기
+	public ArrayList<String> randomNameGenerator(int num){
+        ArrayList<String> str = new ArrayList<String>();
+		try{
+			URL url = new URL("http://names.drycodes.com/"+num+"?nameOptions=girl_names,boy_names&format=text");
+			 
+	        HttpURLConnection connection = (HttpURLConnection) url
+	                .openConnection();
+	        connection.setRequestMethod("GET");
+	        connection.setDoInput(true);
+	
+	        InputStream is = connection.getInputStream();
+	
+	        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+	        String readLine = null;
+	        while ((readLine = br.readLine()) != null) {
+	            str.add(readLine);
+	        }
+	        br.close();
+
+	    } catch (MalformedURLException e) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+	    } catch (IOException e) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+	    }
+		return str;
+	}
 	
 	//랜덤한 글내용 생성 평균적 영문 2500자 10단어 마다 <br> 삽입
 	private LoremIpsum ipsum = new LoremIpsum();

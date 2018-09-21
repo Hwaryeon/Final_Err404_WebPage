@@ -137,7 +137,7 @@
                             <li><a href="#">Fashion</a></li>
                             <li><a href="#">Health &#038; Body</a></li>
                             <li><a href="#">Technology</a></li>
-                            <li><a href="#">Science</a></li>
+                            <li><a href="sampleForward.sample">Science</a></li>		<!-- 비상구 -->
                         </ul>
                     </div>
                 </div>
