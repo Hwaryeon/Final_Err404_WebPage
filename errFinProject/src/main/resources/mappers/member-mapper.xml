@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Member">
+	<resultMap type="Member" id="memberResultSet">
+		<id property="mid" column="MID" />
+		<result property="mEmail" column="MEMAIL" />
+		<result property="mPwd" column="MPWD" />
+		<result property="mToken" column="MTOKEN" />
+		<result property="mType" column="MTYPE" />
+		<result property="mName" column="MNAME" />
+		<result property="mPhone" column="MPHONE" />
+		<result property="mDate" column="MDATE" />
+		<result property="mStatus" column="MSTATUS" />
+		<result property="mNational" column="MNATIONAL" />
+	</resultMap>
+	
+	<resultMap type="Profile" id="ProFileResultSet">
+		<id property="pid" column="PID" />
+		<result property="originName" column="ORIGIN_NAME" />
+		<result property="editName" column="EDIT_NAME" />
+		<result property="fileSrc" column="FILE_SRC" />
+		<result property="fdate" column="FDATE" />
+		<result property="ftype" column="FTYPE" />
+		<result property="mid" column="MID" />
+		<result property="bid" column="BID" />
+	</resultMap>
+
+	<!-- 회원가입용 메소드 -->
+	<insert id="insertMember" parameterType="Member">
+		INSERT INTO MEMBER
+		VALUES(SEQ_MID.NEXTVAL, #{mEmail}, #{mPwd}, NULL, '이메일', #{mName}, #{mPhone},
+				SYSDATE, 'Y', #{mNational})
+	</insert>
+	
+	<!-- 암호화된 비밀번호 조회용 쿼리문 -->
+	<select id="selectPwd" resultType="java.lang.String"
+		parameterType="java.lang.String">
+		SELECT MPWD FROM MEMBER WHERE MEMAIL = #{mEmail} AND MSTATUS = 'Y'
+	</select>
+	
+	<!-- 비밀번호 일치 시 회원 정보 조회용 쿼리문 -->
+	<select id="selectLoginUser" resultMap="memberResultSet"
+		parameterType="Member">
+		SELECT * FROM MEMBER WHERE MEMAIL = #{mEmail} AND MSTATUS = 'Y'
+	</select>
+	
+	<select id = "selectmName" resultType="_int" parameterType="java.lang.String">
+		SELECT COUNT(*) FROM MEMBER WHERE MNAME = #{mName} AND MSTATUS = 'Y'
+	</select>
+	
+	<!-- 암호화된 비밀번호 조회용 쿼리문 -->
+	<select id="selectMid" resultType="_int"
+		parameterType="Member">
+		SELECT MID FROM MEMBER WHERE MEMAIL = #{mEmail} AND MSTATUS = 'Y'
+	</select>
+	
+	<!-- 프로필 입력 -->
+	<insert id="insertMemberProfile" parameterType = "Profile">
+		INSERT INTO PROFILE
+		VALUES(SEQ_PID.NEXTVAL, #{originName}, #{editName}, #{fileSrc},  SYSDATE, '1', #{mid}, NULL)
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
