@@ -134,7 +134,7 @@
                                     </td>
                                     <c:if test = "${ memberProfile.editName eq 'user.png' }">
                                     	<td width="200px" style="vertical-align: middle; ">
-                                    	<img id = "contentImg1" src="resources/upload_images/user.png" alt="" style = "width : 64px; height : 64px;">
+                                    	<img id = "contentImg1" src="resources/images/user.png" alt="" style = "width : 64px; height : 64px;">
                                     	</td>
                                     </c:if>
                                     <c:if test = "${ memberProfile.editName ne 'user.png' }">
@@ -166,36 +166,57 @@
                                 </tr>
                                 <tr>
                                     <td style="vertical-align: middle;">연락처</td>
-                                    <td style="vertical-align: middle; text-align: left;">${ sessionScope.loginUser.mPhone }</td>
-                                    <td style="vertical-align: middle; text-align: right;"><a class="button-blue button-link">연락처 수정하기</a></td>
+                                    <td id = "showPhone" style="vertical-align: middle; text-align: left;">${ sessionScope.loginUser.mPhone }</td>
+                                    <td style="vertical-align: middle; text-align: right;"><a class="button-blue button-link"  data-toggle="modal" data-target="#phoneModal">연락처 수정하기</a></td>
                                 </tr>
 
                             </table>
                             <br>
                             <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">닉네임 바꾸기</h4>
-        </div>
-        <div class="modal-body">
-          	 <p>변경할 닉네임을 입력하세요</p>
-         	 	<input type = "text" class = "form-control" id = "changedName" name = "changedName">
-        </div>
-        <div class="modal-footer">
-       	  <button type="button" class="btn btn-primary" id = "ckNameBtn" onclick = "ChangedName()">확인</button>
-          <button type="button" class="btn btn-default" id = "cancelBtn" data-dismiss="modal">취소</button>
-        </div>
-      </div>
-    </div>
-  </div>
-                        </li>
+								<div class="modal-dialog modal-sm">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">닉네임 바꾸기</h4>
+										</div>
+										<div class="modal-body">
+											<p>변경할 닉네임을 입력하세요</p>
+											<input type="text" class="form-control" id="changedName" name="changedName">
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-primary" id="ckNameBtn"
+												onclick="ChangedName()">확인</button>
+											<button type="button" class="btn btn-default" id="cancelBtn"
+												data-dismiss="modal">취소</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
                     </ul>
                 </div>
             </div>
-
-        </div>
+			<div class="modal fade" id="phoneModal" role="dialog">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">연락처 변경</h4>
+						</div>
+						<div class="modal-body">
+							<p>변경할 연락처을 입력하세요</p>
+							<input type="text" class="form-control" id="changedPhone" name="changedPhone">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" id="ckNameBtn"
+								onclick="ChangedPhone()">확인</button>
+							<button type="button" class="btn btn-default" id="cancelBtn"
+								data-dismiss="modal">취소</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
         <!-- Left Sidebar Content -->
         <div class="left-sidebar col-md-pull-9 col-md-3" role="complementary">
 
@@ -212,13 +233,20 @@
                         </li>
                         <li>
 
-                            <h4 class="list-title"><a href="showMemberInfo_write.me">내가 쓴 글</a></h4>
+                            <h4 class="list-title"><a href = '<c:url value = "showMemberInfo_write.mb">
+					<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
+					<c:param name="requestCurrentPage" value = "1"/>
+					</c:url>'>내가 쓴 글</a></h4>
                             <hr>
                         </li>
                         <li>
 
-                            <h4 class="list-title"><a href="showMemberInfo_bandlist.me">가입 신청 중인 밴드</a></h4>
-                            <hr>
+                            <h4 class="list-title">
+								<a href='<c:url value = "showMemberInfo_bandlist.mb">
+									<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
+									</c:url>'>내 밴드 상태보기</a>
+							</h4>
+							<hr>
                         </li>
 
                     </ul>
@@ -275,7 +303,7 @@
     	$(function(){
     		$("#userImage").hide();
     	})
-    	
+
     	function changeProfile(){
     		$("#userImage").click();
     	}
@@ -340,6 +368,34 @@
 			})
     	
     	}
+    	
+    	function ChangedPhone() {
+			var changedPhone = $("#changedPhone").val();
+
+			$.ajax({
+				url : "ChangedPhone.me",
+				type : "post",
+				data : {
+					mPhone : changedPhone, 
+					mid : ${ loginUserMid }
+				},
+				success:function(data){
+					console.log(data);
+					if(data == 1){
+						$("#changedPhone").val("");
+						$("#cancelBtn").click();
+						alert("변경이 완료되었습니다.");
+						$("#showPhone").html(changedPhone);
+					}else{
+						alert("중복되는 연락처입니다. 다시 입력하세요");
+						
+					}
+				},
+				error:function(){
+					console.log("실패");
+				}
+			})
+		}
     </script>
     <script src="resources/js/jquery.min.js"></script>
     <script src="resources/js/bootstrap.min.js"></script>

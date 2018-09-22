@@ -67,4 +67,19 @@ public class MemberDaoImpl implements MemberDao{
 	public int updateMemberName(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.update("Member.updateMemberName", m);
 	}
+
+	@Override
+	public int selectmPhone(SqlSessionTemplate sqlSession, String mPhone) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("Member.selectmPhone", mPhone);
+	}
+
+	@Override
+	public int updateMemberPhone(SqlSessionTemplate sqlSession, Member m) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("Member.updatemPhone", m);
+	}
+	
+	
+
 }

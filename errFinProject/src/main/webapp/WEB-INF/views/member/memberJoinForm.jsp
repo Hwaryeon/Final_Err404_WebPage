@@ -337,7 +337,7 @@
 				return false;
 			} */
 			
-			$("#joinMember").submit();
+			checkmPhone();
 		}
 
 		function comparePwd() {
@@ -371,6 +371,31 @@
 						alert("사용 가능한 닉네임입니다.");
 					} else {
 						alert("중복되는 닉네임 입니다.");
+					}
+				},
+				error : function() {
+					console.log('실패');
+				}
+			})
+		}
+		
+		function checkmPhone() {
+			var phone = $("#mPhone").val();
+
+			$.ajax({
+				url : "checkmPhone.me",
+				type : "post",
+				data : {
+					mPhone : phone
+				},
+				success : function(data) {
+					result = data;
+
+					if (result == 0) {
+						$("#joinMember").submit();
+					} else {
+						alert("중복되는 연락처입니다. 다시 확인하세요.");
+						return false;
 					}
 				},
 				error : function() {

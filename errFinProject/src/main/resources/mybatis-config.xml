@@ -9,12 +9,15 @@
 		<typeAlias type="com.kh.efp.band.model.vo.Scehdule" alias = "Scehdule"/>
 		<typeAlias type="com.kh.efp.member.model.vo.Profile" alias = "Profile"/>
 		<typeAlias type="com.kh.efp.Search.model.vo.Search" alias = "Search"/>
+		<typeAlias type="com.kh.efp.member_band.model.vo.BandList" alias = "BandList"/>
+		<typeAlias type="com.kh.efp.member_band.model.vo.BoardList" alias = "BoardList"/>
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/scehdule-mapper.xml"/>
 		<mapper resource="mappers/search-mapper.xml"/>
+		<mapper resource="mappers/member_band-mapper.xml"/>
 	</mappers>
 	
 	

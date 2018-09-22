@@ -27,4 +27,8 @@ public interface MemberDao {
 
 	int updateMemberName(SqlSessionTemplate sqlSession, Member m);
 
+	int selectmPhone(SqlSessionTemplate sqlSession, String mPhone);
+
+	int updateMemberPhone(SqlSessionTemplate sqlSession, Member m);
+
 }

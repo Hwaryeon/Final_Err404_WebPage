@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -129,91 +130,52 @@
                                     <td width="600px" style="vertical-align: middle; text-align: center;">작성 글</td>
                                     <td width="150px" style="vertical-align: middle; text-align: center;">작성일자</td>
                                 </tr>
+                                <c:forEach var = "board" items = "${ list }">
+                                <c:set var = "content" value = "${ board.bContent }"/>
                                 <tr>
-                                    <td height="50px" style="vertical-align: middle; text-align: center;">던파를 싫어하는 사람들의 모임</td>
-                                    <td style="vertical-align: middle; text-align: center;">45글자</td>
-                                    <td style="vertical-align: middle; text-align: center;">2018/09/16</td>
+                                    <td height="50px" style="vertical-align: middle; text-align: center;">${ board.bName }</td>
+                                    <td style="vertical-align: middle; text-align: center;">${ fn:substring(content, 0, 40) }...</td>
+                                    <td style="vertical-align: middle; text-align: center;">${ board.bDate }</td>
                                 </tr>
                                 <tr>
                                     <td colspan="3" style="border: 1px solid lightgray"></td>
                                 </tr>
-                                <tr>
-                                    <td height="50px" style="vertical-align: middle; text-align: center;">던파를 싫어하는 사람들의 모임</td>
-                                    <td style="vertical-align: middle; text-align: center;">45글자</td>
-                                    <td style="vertical-align: middle; text-align: center;">2018/09/16</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3" style="border: 1px solid lightgray"></td>
-                                </tr>
-                                <tr>
-                                    <td height="50px" style="vertical-align: middle; text-align: center;">던파를 싫어하는 사람들의 모임</td>
-                                    <td style="vertical-align: middle; text-align: center;">45글자</td>
-                                    <td style="vertical-align: middle; text-align: center;">2018/09/16</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3" style="border: 1px solid lightgray"></td>
-                                </tr>
-                                <tr>
-                                    <td height="50px" style="vertical-align: middle; text-align: center;">던파를 싫어하는 사람들의 모임</td>
-                                    <td style="vertical-align: middle; text-align: center;">45글자</td>
-                                    <td style="vertical-align: middle; text-align: center;">2018/09/16</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3" style="border: 1px solid lightgray"></td>
-                                </tr>
-                                <tr>
-                                    <td height="50px" style="vertical-align: middle; text-align: center;">던파를 싫어하는 사람들의 모임</td>
-                                    <td style="vertical-align: middle; text-align: center;">45글자</td>
-                                    <td style="vertical-align: middle; text-align: center;">2018/09/16</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3" style="border: 1px solid lightgray"></td>
-                                </tr>
-                                <tr>
-                                    <td height="50px" style="vertical-align: middle; text-align: center;">던파를 싫어하는 사람들의 모임</td>
-                                    <td style="vertical-align: middle; text-align: center;">45글자</td>
-                                    <td style="vertical-align: middle; text-align: center;">2018/09/16</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3" style="border: 1px solid lightgray"></td>
-                                </tr>
-                                <tr>
-                                    <td height="50px" style="vertical-align: middle; text-align: center;">던파를 싫어하는 사람들의 모임</td>
-                                    <td style="vertical-align: middle; text-align: center;">45글자</td>
-                                    <td style="vertical-align: middle; text-align: center;">2018/09/16</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3" style="border: 1px solid lightgray"></td>
-                                </tr>
-                                <tr>
-                                    <td height="50px" style="vertical-align: middle; text-align: center;">던파를 싫어하는 사람들의 모임</td>
-                                    <td style="vertical-align: middle; text-align: center;">45글자</td>
-                                    <td style="vertical-align: middle; text-align: center;">2018/09/16</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3" style="border: 1px solid lightgray"></td>
-                                </tr>
-                                <tr>
-                                    <td height="50px" style="vertical-align: middle; text-align: center;">던파를 싫어하는 사람들의 모임</td>
-                                    <td style="vertical-align: middle; text-align: center;">45글자</td>
-                                    <td style="vertical-align: middle; text-align: center;">2018/09/16</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3" style="border: 1px solid lightgray"></td>
-                                </tr>
-                                <tr>
-                                    <td height="50px" style="vertical-align: middle; text-align: center;">던파를 싫어하는 사람들의 모임</td>
-                                    <td style="vertical-align: middle; text-align: center;">45글자</td>
-                                    <td style="vertical-align: middle; text-align: center;">2018/09/16</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3" style="border: 1px solid lightgray"></td>
-                                </tr>
-
+                                </c:forEach>
                             </table>
                             <br>
                             <div align="center">
-                                <button>페이징 처리</button>
+                                <c:if test = "${ pi.currentPage <= 1 }">
+				[이전] &nbsp;
+			</c:if>
+			<c:if test = "${ pi.currentPage > 1 }">
+				<c:url var='bListBack' value = "showMemberInfo_update.me">
+					<c:param name = "requestCurrentPage" value="${ pi.currentPage - 1 }"/>
+					<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
+				</c:url>
+				<a href = "${ bListBack }">[이전]</a> &nbsp;
+			</c:if>
+			<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+				<c:if test = "${ p eq pi.currentPage }">
+					<font color = "red" size = "4"><b>${ p }</b></font>
+				</c:if>
+				<c:if test = "${ p ne pi.currentPage }">
+					<c:url var="bListCheck" value = "showMemberInfo_update.me">
+						<c:param name="requestCurrentPage" value = "${ p }"/>
+						<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
+					</c:url>
+					<a href = "${ bListCheck }">${ p }</a>
+				</c:if>
+			</c:forEach>
+			<c:if test = "${ pi.currentPage >= pi.maxPage }">
+				&nbsp; [다음]
+			</c:if>
+			<c:if test = "${ pi.currentPage < pi.maxPage }">
+				<c:url var= "bListNext" value = "showMemberInfo_update.me">
+					<c:param name = "requestCurrentPage" value = "${ pi.currentPage + 1 }"/>
+					<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
+				</c:url>
+				<a href = "${ bListNext }"> [다음]</a>
+			</c:if>
                             </div>
                             <br>
                         </li>
@@ -240,13 +202,20 @@
                         </li>
                         <li>
 
-                            <h4 class="list-title"><a href="showMemberInfo_write.me">내가 쓴 글</a></h4>
+                            <h4 class="list-title"><a href = '<c:url value = "showMemberInfo_write.mb">
+					<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
+					<c:param name="requestCurrentPage" value = "1"/>
+					</c:url>'>내가 쓴 글</a></h4>
                             <hr>
                         </li>
                         <li>
 
-                            <h4 class="list-title"><a href="showMemberInfo_bandlist.me">가입 신청 중인 밴드</a></h4>
-                            <hr>
+                            <h4 class="list-title">
+								<a href='<c:url value = "showMemberInfo_bandlist.mb">
+									<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
+									</c:url>'>내 밴드 모아보기</a>
+							</h4>
+							<hr>
                         </li>
 
                     </ul>

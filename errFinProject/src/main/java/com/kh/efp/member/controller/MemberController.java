@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -70,10 +71,14 @@ public class MemberController {
 
 		pf.setFileSrc(filePath);
 		pf.setOriginName(originFileName);
-		pf.setEditName(changeName);
+		pf.setEditName(changeName + ext);
 		System.out.println("controller m : " + m + " / pf : " + pf);
 		try {
+			
+			if(!photo.isEmpty()){
+				
 			photo.transferTo(new File(filePath + "\\" + changeName + ext));
+			}
 
 
 			int result = ms.insertMember(m, pf);
@@ -126,20 +131,9 @@ public class MemberController {
 
 		model.addAttribute("memberProfile", ms.selectMemberProfile(mid));
 
-		System.out.println(model);
+		System.out.println("show model : " + model);
 
 		return "member/memberInfo_update";
-	}
-
-	@RequestMapping("showMemberInfo_write.me")
-	public String showMemberInfoWrite(){
-		return "member/memberInfo_write";
-	}
-
-	@RequestMapping("showMemberInfo_bandlist.me")
-	public String showMemberInfoList(int mid, Model model){
-
-		return "member/memberInfo_bandlist";
 	}
 
 	@RequestMapping("insertChangedProfile.me")
@@ -217,4 +211,59 @@ public class MemberController {
 		}
 
 	}
+	
+	@RequestMapping("checkmPhone.me")
+	public void checkmPhone(@RequestParam("mPhone") String mPhone,
+							HttpServletResponse response){
+		ObjectMapper mapper = new ObjectMapper();
+		
+		System.out.println(mPhone);
+		
+		int cnt = ms.selectmPhone(mPhone);
+		
+		System.out.println(cnt);
+		try {
+			response.getWriter().println(mapper.writeValueAsString(cnt));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("ChangedPhone.me")
+	public void ChangedPhone(@RequestParam("mPhone") String mPhone,
+							 @RequestParam("mid") String mid,
+							 Model model, HttpServletResponse response){
+		ObjectMapper mapper = new ObjectMapper();
+
+		int imid = Integer.parseInt(mid);
+		
+		if(mPhone.equals("")){
+			try {
+				response.getWriter().println(mapper.writeValueAsString(false));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return;
+		}
+		
+		Member m = new Member();
+		m.setmName(mPhone);
+		m.setMid(imid);
+		
+		int result = ms.updatemPhone(m);
+
+		try {
+			model.addAttribute("loginUser", ms.selectMember(m));
+
+			response.getWriter().println(mapper.writeValueAsString(result));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 }

@@ -30,7 +30,7 @@
 	<!-- 회원가입용 메소드 -->
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER
-		VALUES(SEQ_MID.NEXTVAL, #{mEmail}, #{mPwd}, NULL, '이메일', #{mName}, #{mPhone},
+		VALUES(SEQ_MID.NEXTVAL, #{mEmail}, #{mPwd}, NULL, 'LOCAL', #{mName}, #{mPhone},
 				SYSDATE, 'Y', #{mNational})
 	</insert>
 	
@@ -90,6 +90,15 @@
 	
 	<update id = "updateMemberName" parameterType = "Member">
 		UPDATE MEMBER SET MNAME = #{mName}
+		WHERE MID = #{mid}
+	</update>
+	
+	<select id = "selectmPhone" parameterType = "java.lang.String" resultType = "_int">
+		SELECT COUNT(*) FROM MEMBER WHERE MPHONE = #{mPhone}
+	</select>
+	
+	<update id = "updatemPhone" parameterType = "Member">
+		UPDATE MEMBER SET MPHONE = #{mPhone}
 		WHERE MID = #{mid}
 	</update>
 </mapper>

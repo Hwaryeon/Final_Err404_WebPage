@@ -19,4 +19,8 @@ public interface MemberService {
 	int updatemName(Member m);
 
 	Member selectMember(Member m);
+
+	int selectmPhone(String mPhone);
+
+	int updatemPhone(Member m);
 }

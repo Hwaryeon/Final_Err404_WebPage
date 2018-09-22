@@ -93,5 +93,25 @@ public class MemberserviceImpl implements MemberService {
 		return md.selectMember(sqlSession, m);
 	}
 
+	@Override
+	public int selectmPhone(String mPhone) {
+		// TODO Auto-generated method stub
+		return md.selectmPhone(sqlSession, mPhone);
+	}
+
+	@Override
+	public int updatemPhone(Member m) {
+		String phone = m.getmPhone();
+		
+		int ck = md.selectmPhone(sqlSession, phone);
+		int result = 0;
+
+		if(ck == 0){
+			result = md.updateMemberPhone(sqlSession, m);
+		}
+		
+		return result;
+	}
+
 
 }
