@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
     <meta name="viewport" content=" width=device-width, initial-scale=1">
+    <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <title>Weekend Magazine</title>
     <!-- CSS -->
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
@@ -112,45 +117,80 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" style = "min-height : 700px;">
         <!-- Main Content -->
         <div class="main col-md-9 col-md-push-3 col-xs-12">
 
             <div class="widget fullwidth post-single">
-                <h2 class="post-title">가입 신청중인 밴드</h2><br>
+                <h2 class="post-title">내 밴드 모아보기</h2><br>
                 <div class="widget-content">
                     <ul>
                         <li>
                             <table style="display: table-cell; vertical-align: middle; text-align: center;">
-                                <tr>
-                                    <td width="150px" style="vertical-align: middle;"><img src="http://placehold.it/85x80" alt=""></td>
+                            <c:if test = "${ !empty list }">
+                            <c:forEach var = "list" items = "${ list }" varStatus = "status">
+                                <tr id = "tr${ status.index }">
+                                    <td width="150px" style="vertical-align: middle;"><img src="resources/upload_images/${ list.editName }" alt=""></td>
                                     <td width="600px" style="vertical-align: middle; text-align: left">
-                                        <p class="bold">밴드이름</p>
+                                        <p class="bold">${ list.bName }</p>
+                                        
                                     </td>
-                                    <td width="200px" style="vertical-align: middle; text-align: right"><a class="button-blue button-link">가입신청 취소하기</a></td>
+                                    <c:if test = "${ list.iStatus eq 'Y' }">
+                                    <td width="200px" style="vertical-align: middle; text-align: right"><a class="button-blue button-link" data-toggle="modal" data-target="#bandOutModal">밴드 탈퇴하기</a></td>
+                                    <div class="modal fade" id="bandOutModal" role="dialog">
+										<div class="modal-dialog modal-sm" >
+											<div class="modal-content" style = "width : 500px; margin-left : -70px;">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+													<h4 class="modal-title">밴드 탈퇴</h4>
+												</div>
+												<div class="modal-body">
+													<p><font size ="12">
+													이 밴드에 내가 등록한 글, 사진, 댓글 등을 수정/삭제할 수 없게 됩니다.<br>
+													필요한 경우 탈퇴 전에 수정하거나 삭제하시기 바랍니다.</font></p>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-primary" id="ckBtn"
+														onclick="bandOut(${ list.mid}, ${ list.bid }, ${ status.index })">확인</button>
+													<button type="button" class="btn btn-default" id="cancelBtn"
+														data-dismiss="modal">취소</button>
+												</div>
+											</div>
+										</div>
+									</div>
+                                    </c:if>
+                                    <c:if test = "${ list.iStatus eq 'S' }">
+                                    <td width="200px" style="vertical-align: middle; text-align: right"><a class="button-blue button-link" data-toggle="modal" data-target="#bandCancelModal">가입신청 취소하기</a></td>
+                                   	<div class="modal fade" id="bandCancelModal" role="dialog">
+										<div class="modal-dialog modal-sm" >
+											<div class="modal-content" style = "width : 500px; margin-left : -70px;">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+													<h4 class="modal-title">밴드 신청 취소</h4>
+												</div>
+												<div class="modal-body">
+													<p>선택하신 밴드의 가입을 취소하시겠습니까?</p>
+												</div>
+												<div class="modal-footer">
+												<button type="button" class="btn btn-primary" id="ckBtn"
+													onclick="bandCancel(${ list.mid}, ${ list.bid }, ${ status.index })">확인</button>
+												<button type="button" class="btn btn-default" id="cancelBtn1"
+													data-dismiss="modal">취소</button>
+												</div>
+											</div>
+										</div>
+									</div>
+                                    </c:if>
                                 </tr>
-                                <tr>
-                                    <td width="150px" style="vertical-align: middle;"><img src="http://placehold.it/85x80" alt=""></td>
-                                    <td width="600px" style="vertical-align: middle; text-align: left">
-                                        <p class="bold">밴드이름</p>
-                                    </td>
-                                    <td width="200px" style="vertical-align: middle; text-align: right"><a class="button-blue button-link">가입신청 취소하기</a></td>
-                                </tr>
-                                <tr>
-                                    <td width="150px" style="vertical-align: middle;"><img src="http://placehold.it/85x80" alt=""></td>
-                                    <td width="600px" style="vertical-align: middle; text-align: left">
-                                        <p class="bold">밴드이름</p>
-                                    </td>
-                                    <td width="200px" style="vertical-align: middle; text-align: right"><a class="button-blue button-link">가입신청 취소하기</a></td>
-                                </tr>
-                                <tr>
-                                    <td width="150px" style="vertical-align: middle;"><img src="http://placehold.it/85x80" alt=""></td>
-                                    <td width="600px" style="vertical-align: middle; text-align: left">
-                                        <p class="bold">밴드이름</p>
-                                    </td>
-                                    <td width="200px" style="vertical-align: middle; text-align: right"><a class="button-blue button-link">가입신청 취소하기</a></td>
-                                </tr>
-
+                            </c:forEach>
+                            </c:if>
+                            <c:if test = "${ empty list }">
+                            <tr>
+                            	<td width = "820px" style="vertical-align: middle; text-align: center;">
+                            		가입한 밴드가 없습니다
+                            	</td>
+                            </tr>
+                            </c:if>
                             </table>
                         </li>
                     </ul>
@@ -164,169 +204,36 @@
             <div class="recent-widget widget padding-0" id="tabbed-widget">
                 <h4 class="widget-title">마이페이지</h4><br>
                 <hr>
-                <div class="widget-content">
-                    <ul>
+               <div class="widget-content">
+                   <ul>
                         <li>
                             <h4 class="list-title"><a href = '<c:url value = "showMemberInfo_update.me">
-					<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
+                            <c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
 					</c:url>'>회원 정보 수정</a></h4>
                             <hr>
                         </li>
                         <li>
 
-                            <h4 class="list-title"><a href="showMemberInfo_write.me">내가 쓴 글</a></h4>
+                            <h4 class="list-title"><a href = '<c:url value = "showMemberInfo_write.mb">
+					<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
+					<c:param name="requestCurrentPage" value = "1"/>
+					</c:url>'>내가 쓴 글</a></h4>
                             <hr>
                         </li>
                         <li>
 
-                            <h4 class="list-title"><a href="showMemberInfo_bandlist.me">가입 신청 중인 밴드</a></h4>
-                            <hr>
+                            <h4 class="list-title">
+								<a href='<c:url value = "showMemberInfo_bandlist.mb">
+									<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
+									</c:url>'>내 밴드 모아보기</a>
+							</h4>
+							<hr>
                         </li>
 
                     </ul>
                 </div>
             </div>
-
-
-
-
         </div>
-
-        <!-- Right Sidebar Content -->
-
-        <!--<div class="right-sidebar col-md-3" role="complementary">
-
-        <div id="search-3" class="widget fullwidth widget_search">
-                <form class="search" role="search" method="get" action="#">
-                    <input type="search" placeholder="Search &hellip;" value="" name="s" title="Search for:">
-                </form>
-            </div>
-
-            <div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title">TV SHOWS </h1>
-                <ul class="tvshows">
-                    <li>
-                        <a href="#">
-                            <span class="comment-count">11</span>
-                            <img src="http://placehold.it/209x128" alt="">
-                        </a>
-                        <h4><a href="#">See no changes all saw is faces mis placed hate makes disgrace</a></h4>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="comment-count">76</span>
-                            <img src="http://placehold.it/209x128" alt="">
-                        </a>
-                        <h4><a href="#">How to find water in the desert?</a></h4>
-                    </li>
-                </ul>
-                <div class="clear"></div>
-            </div>
-
-            <div class="widget featured-side">
-                <div class="widget-content">
-                    <a href="#"><img src="http://placehold.it/239x208"alt=" "></a>
-                    <div class="featured-side-content">
-                        <span class="featured-side-title">Interview</span>
-                        <p class="featured-side-desc">Black eyed beans rolling on the list of Billsoard 100</p>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-
-            <div id="tag_cloud-2" class="widget fullwidth widget_tag_cloud">
-                <h1 class="widget-title">Tags</h1>
-                <div class="tagcloud">
-                    <a href="#">Portfolio</a>
-                    <a href="#">Typography</a>
-                    <a href="#">Type</a>
-                    <a href="#">Compaign</a>
-                    <a href="#">Illustration</a>
-                    <a href="#">Face</a>
-                    <a href="#">UI</a>
-                    <a href="#">Experience</a>
-                    <a href="#">Brand</a>
-                    <a href="#">Portfolio</a>
-                    <a href="#">Typography</a>
-                    <a href="#">Type</a>
-                    <a href="#">Compaign</a>
-                    <a href="#">Illustration</a>
-                    <a href="#">Face</a>
-                    <a href="#">UI</a>
-                    <a href="#">Experience</a>
-                    <a href="#">Brand</a>
-                </div>
-            </div>
-
-            <div id="widget-survey" class="widget fullwidth widget-survey">
-                <h1 class="widget-title">Survey</h1>
-                <div class="widget-content">
-                    <p>What was the last time you slept on bed in your house?</p>
-                    <form action="#" method="post" class="mrgn-bottom-0">
-                        <div class="form-group mrgn-bottom-0">
-                            <div class="checkbox">
-                                <label>
-                                    <input name="remember" value="1" type="checkbox"> Today
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group mrgn-bottom-0">
-                            <div class="checkbox">
-                                <label>
-                                    <input name="remember" value="1" type="checkbox"> Yesterday
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group mrgn-bottom-0">
-                            <div class="checkbox">
-                                <label>
-                                    <input name="remember" value="1" type="checkbox"> The day after tomorrow
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group mrgn-bottom-0">
-                            <div class="checkbox">
-                                <label>
-                                    <input name="remember" value="1" type="checkbox"> Tomorrow
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row survey">
-                            <div class="col-md-6">
-                                <button class="button vote">Vote</button>
-                            </div>
-                            <div class="col-md-6">
-                                <button class="button">Results</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <div id="widget-feedburner-2" class="widget fullwidth widget-feedburner">
-                <h1 class="widget-title">Subscribe</h1>
-                <div class="widget-feedburner-counter subscribe">
-                    <p>Subscribe to our RSS feed, be in touch with our articles, news, videos, freebies.</p>
-                    <form action="#" method="post">
-                        <input class="feedburner-email input-subscribe" type="text" name="email"
-                               value="Enter your e-mail address"
-                               onfocus="if (this.value == 'Enter your e-mail address') {this.value = '';}"
-                               onblur="if (this.value == '') {this.value = 'Enter your e-mail address';}">
-                        <input class="feedburner-subscribe input-button" type="submit" name="submit" value="Add">
-                    </form>
-                </div>
-            </div>
-
-            <div id="ads250_250-widget-2" class="widget fullwidth ads250_250-widget"><h1 class="widget-title">
-                Advertisement</h1>
-                <div class="ads250-250">
-                    <div class="ad-cell">
-                        <a href="#"><img src="img/ad-210x190.png" class="fullwidth" alt=""></a>
-                    </div>
-                </div>
-            </div>
-
-        </div>-->
-
     </div>
 
     <div class="footer">
@@ -367,6 +274,47 @@
             </div>
         </div>
     </div>
+    <script>
+    	function bandOut(mid, bid, index){
+    		console.log(mid);
+    		console.log(bid);
+    		console.log(index);
+    		
+    		$.ajax({
+    			url : "updateiStatus.mb",
+    			data : {mid : mid, bid : bid},
+    			type : "post",
+    			success:function(data){
+					$("#cancelBtn").click();
+					alert("밴드를 탈퇴했습니다.");
+					$("#tr" + index).remove();
+    			},
+    			error:function(){
+    				console.log("실패");
+    			}
+    		})  
+    	}
+    	
+    	function bandCancel(mid, bid, index){
+    		console.log(mid);
+    		console.log(bid);
+    		console.log(index);
+    		
+    		$.ajax({
+    			url : "updateiStatus.mb",
+    			data : {mid : mid, bid : bid},
+    			type : "post",
+    			success:function(data){
+					alert("가입신청이 취소되었습니다.");
+					$("#tr" + index).remove();
+					$("#cancelBtn1").click();
+    			},
+    			error:function(){
+    				console.log("실패");
+    			}
+    		}) 
+    	}
+    </script>
     <script src="resources/js/jquery.min.js"></script>
     <script src="resources/js/bootstrap.min.js"></script>
     <script src="resources/js/jquery.bxslider.min.js"></script>

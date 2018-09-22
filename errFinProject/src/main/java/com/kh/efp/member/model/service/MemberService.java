@@ -11,4 +11,16 @@ public interface MemberService {
 	int checkmName(String mName);
 
 	int insertMember(Member m, Profile pf);
+
+	Profile selectMemberProfile(int mid);
+
+	int insertChangedProfile(Profile pf);
+
+	int updatemName(Member m);
+
+	Member selectMember(Member m);
+
+	int selectmPhone(String mPhone);
+
+	int updatemPhone(Member m);
 }

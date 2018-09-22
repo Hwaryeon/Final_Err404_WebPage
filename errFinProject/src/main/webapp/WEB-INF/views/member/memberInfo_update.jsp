@@ -8,6 +8,9 @@
     <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
     <meta name="viewport" content=" width=device-width, initial-scale=1">
     <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <title>Weekend Magazine</title>
     <!-- CSS -->
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
@@ -131,18 +134,19 @@
                                     </td>
                                     <c:if test = "${ memberProfile.editName eq 'user.png' }">
                                     	<td width="200px" style="vertical-align: middle; ">
-                                    	<img id = "contentImg1" src="resources/upload_images/user.png" alt="" style = "width : 64px; height : 64px;"></td>
-                                    	<input type="file" id="userImage" name="userImage" multiple onchange="loadImg(this)"></td>
+                                    	<img id = "contentImg1" src="resources/images/user.png" alt="" style = "width : 64px; height : 64px;">
+                                    	</td>
                                     </c:if>
                                     <c:if test = "${ memberProfile.editName ne 'user.png' }">
                                     	<td width="200px" style="vertical-align: middle;">
                                     	<img id = "contentImg1" src="resources/upload_images/${ memberProfile.editName }" alt="" style = "width : 64px; height : 64px;">
-                                    	<input type="file" id="userImage" name="userImage" multiple onchange="loadImg(this)"></td>
+                                    	</td>
                                     </c:if>
                                     <td width="500px" style="vertical-align: middle; text-align: right"><a class="button-blue button-link" onclick = "changeProfile()">이미지 수정하기</a></td>
                                 </tr>
 
                             </table>
+                            <input type="file" id="userImage" name="userImage" multiple onchange="loadImg(this)">
                             <br>
                             <hr>
                             <br>
@@ -151,34 +155,68 @@
                                     <td style="vertical-align: middle;" rowspan = "3">
                                         <h5>개인정보</h5>
                                     </td>
-                                    <td width="100px" style="vertical-align: middle;">이메일</td>
+                                    <td width="100px" style="padding-top : 10px; padding-bottom : 10px; vertical-align: middle;">이메일</td>
                                     <td width="120px" style="vertical-align: middle; text-align: left;">${ sessionScope.loginUser.mEmail }</td>
-                                    <td width="510px" style="vertical-align: middle; text-align: right"><a class="button-blue button-link">이메일 수정하기</a></td>
+                                    <td width="510px" style="vertical-align: middle; text-align: right"></td>
                                 </tr>
                                 <tr>
                                     <td style="vertical-align: middle;">닉네임</td>
-                                    <td style="vertical-align: middle; text-align: left;">${ sessionScope.loginUser.mName }</td>
-                                    <td style="vertical-align: middle; text-align: right"><a class="button-blue button-link">닉네임 수정하기</a></td>
+                                    <td id = "showName" style="vertical-align: middle; text-align: left;">${ sessionScope.loginUser.mName }</td>
+                                    <td style="vertical-align: middle; text-align: right;"><a class="button-blue button-link" data-toggle="modal" data-target="#myModal">닉네임 수정하기</a></td>
                                 </tr>
                                 <tr>
                                     <td style="vertical-align: middle;">연락처</td>
-                                    <td style="vertical-align: middle; text-align: left;">${ sessionScope.loginUser.mPhone }</td>
-                                    <td style="vertical-align: middle; text-align: right"><a class="button-blue button-link">연락처 수정하기</a></td>
+                                    <td id = "showPhone" style="vertical-align: middle; text-align: left;">${ sessionScope.loginUser.mPhone }</td>
+                                    <td style="vertical-align: middle; text-align: right;"><a class="button-blue button-link"  data-toggle="modal" data-target="#phoneModal">연락처 수정하기</a></td>
                                 </tr>
 
                             </table>
                             <br>
-                            
-                            
-                            
-                        </li>
-
-
+                            <div class="modal fade" id="myModal" role="dialog">
+								<div class="modal-dialog modal-sm">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h4 class="modal-title">닉네임 바꾸기</h4>
+										</div>
+										<div class="modal-body">
+											<p>변경할 닉네임을 입력하세요</p>
+											<input type="text" class="form-control" id="changedName" name="changedName">
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-primary" id="ckNameBtn"
+												onclick="ChangedName()">확인</button>
+											<button type="button" class="btn btn-default" id="cancelBtn"
+												data-dismiss="modal">취소</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
                     </ul>
                 </div>
             </div>
-
-        </div>
+			<div class="modal fade" id="phoneModal" role="dialog">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">연락처 변경</h4>
+						</div>
+						<div class="modal-body">
+							<p>변경할 연락처을 입력하세요</p>
+							<input type="text" class="form-control" id="changedPhone" name="changedPhone">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" id="ckNameBtn"
+								onclick="ChangedPhone()">확인</button>
+							<button type="button" class="btn btn-default" id="cancelBtn"
+								data-dismiss="modal">취소</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
         <!-- Left Sidebar Content -->
         <div class="left-sidebar col-md-pull-9 col-md-3" role="complementary">
 
@@ -195,158 +233,28 @@
                         </li>
                         <li>
 
-                            <h4 class="list-title"><a href="showMemberInfo_write.me">내가 쓴 글</a></h4>
+                            <h4 class="list-title"><a href = '<c:url value = "showMemberInfo_write.mb">
+					<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
+					<c:param name="requestCurrentPage" value = "1"/>
+					</c:url>'>내가 쓴 글</a></h4>
                             <hr>
                         </li>
                         <li>
 
-                            <h4 class="list-title"><a href="showMemberInfo_bandlist.me">가입 신청 중인 밴드</a></h4>
-                            <hr>
+                            <h4 class="list-title">
+								<a href='<c:url value = "showMemberInfo_bandlist.mb">
+									<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
+									</c:url>'>내 밴드 상태보기</a>
+							</h4>
+							<hr>
                         </li>
 
                     </ul>
                 </div>
             </div>
 
-
-
-
         </div>
 
-        <!-- Right Sidebar Content -->
-
-        <!--<div class="right-sidebar col-md-3" role="complementary">
-
-        <div id="search-3" class="widget fullwidth widget_search">
-                <form class="search" role="search" method="get" action="#">
-                    <input type="search" placeholder="Search &hellip;" value="" name="s" title="Search for:">
-                </form>
-            </div>
-
-            <div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title">TV SHOWS </h1>
-                <ul class="tvshows">
-                    <li>
-                        <a href="#">
-                            <span class="comment-count">11</span>
-                            <img src="http://placehold.it/209x128" alt="">
-                        </a>
-                        <h4><a href="#">See no changes all saw is faces mis placed hate makes disgrace</a></h4>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="comment-count">76</span>
-                            <img src="http://placehold.it/209x128" alt="">
-                        </a>
-                        <h4><a href="#">How to find water in the desert?</a></h4>
-                    </li>
-                </ul>
-                <div class="clear"></div>
-            </div>
-
-            <div class="widget featured-side">
-                <div class="widget-content">
-                    <a href="#"><img src="http://placehold.it/239x208"alt=" "></a>
-                    <div class="featured-side-content">
-                        <span class="featured-side-title">Interview</span>
-                        <p class="featured-side-desc">Black eyed beans rolling on the list of Billsoard 100</p>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-
-            <div id="tag_cloud-2" class="widget fullwidth widget_tag_cloud">
-                <h1 class="widget-title">Tags</h1>
-                <div class="tagcloud">
-                    <a href="#">Portfolio</a>
-                    <a href="#">Typography</a>
-                    <a href="#">Type</a>
-                    <a href="#">Compaign</a>
-                    <a href="#">Illustration</a>
-                    <a href="#">Face</a>
-                    <a href="#">UI</a>
-                    <a href="#">Experience</a>
-                    <a href="#">Brand</a>
-                    <a href="#">Portfolio</a>
-                    <a href="#">Typography</a>
-                    <a href="#">Type</a>
-                    <a href="#">Compaign</a>
-                    <a href="#">Illustration</a>
-                    <a href="#">Face</a>
-                    <a href="#">UI</a>
-                    <a href="#">Experience</a>
-                    <a href="#">Brand</a>
-                </div>
-            </div>
-
-            <div id="widget-survey" class="widget fullwidth widget-survey">
-                <h1 class="widget-title">Survey</h1>
-                <div class="widget-content">
-                    <p>What was the last time you slept on bed in your house?</p>
-                    <form action="#" method="post" class="mrgn-bottom-0">
-                        <div class="form-group mrgn-bottom-0">
-                            <div class="checkbox">
-                                <label>
-                                    <input name="remember" value="1" type="checkbox"> Today
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group mrgn-bottom-0">
-                            <div class="checkbox">
-                                <label>
-                                    <input name="remember" value="1" type="checkbox"> Yesterday
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group mrgn-bottom-0">
-                            <div class="checkbox">
-                                <label>
-                                    <input name="remember" value="1" type="checkbox"> The day after tomorrow
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group mrgn-bottom-0">
-                            <div class="checkbox">
-                                <label>
-                                    <input name="remember" value="1" type="checkbox"> Tomorrow
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row survey">
-                            <div class="col-md-6">
-                                <button class="button vote">Vote</button>
-                            </div>
-                            <div class="col-md-6">
-                                <button class="button">Results</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <div id="widget-feedburner-2" class="widget fullwidth widget-feedburner">
-                <h1 class="widget-title">Subscribe</h1>
-                <div class="widget-feedburner-counter subscribe">
-                    <p>Subscribe to our RSS feed, be in touch with our articles, news, videos, freebies.</p>
-                    <form action="#" method="post">
-                        <input class="feedburner-email input-subscribe" type="text" name="email"
-                               value="Enter your e-mail address"
-                               onfocus="if (this.value == 'Enter your e-mail address') {this.value = '';}"
-                               onblur="if (this.value == '') {this.value = 'Enter your e-mail address';}">
-                        <input class="feedburner-subscribe input-button" type="submit" name="submit" value="Add">
-                    </form>
-                </div>
-            </div>
-
-            <div id="ads250_250-widget-2" class="widget fullwidth ads250_250-widget"><h1 class="widget-title">
-                Advertisement</h1>
-                <div class="ads250-250">
-                    <div class="ad-cell">
-                        <a href="#"><img src="img/ad-210x190.png" class="fullwidth" alt=""></a>
-                    </div>
-                </div>
-            </div>
-
-        </div>-->
 				<c:url value = "insertChangedProfile.me">
 					<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
 				</c:url>
@@ -390,11 +298,12 @@
             </div>
         </div>
     </div>
+    <c:set var = "loginUserMid" value = "${ sessionScope.loginUser.mid }" scope = "page"></c:set>
     <script>
     	$(function(){
     		$("#userImage").hide();
     	})
-    	
+
     	function changeProfile(){
     		$("#userImage").click();
     	}
@@ -404,11 +313,12 @@
     		var formData = new FormData();
     		 formData.append("uploadFile", form);
     		 
+    		 
+    		 
     		 <c:url var = "icp" value = "insertChangedProfile.me">
-				<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
+				<c:param name = "mid" value = "${ loginUserMid }"/>
 			</c:url>
     		 
-    		console.log(formData);
     		$.ajax({
 				url : "${icp}",
 				type : "post",
@@ -417,16 +327,74 @@
 				processData: false,
                 contentType: false,
 				success : function(data) {
-					alert(data.photo);
+					if(value.files && value.files[0]){
+						var reader = new FileReader();
+						reader.onload = function(e){
+							$("#contentImg1").attr("src", e.target.result);
+						}
+						reader.readAsDataURL(value.files[0])
+					}
+					alert("변경이 완료 되었습니다.");
 					
 				},
 				error : function() {
 					console.log('실패');
 				}
 			})
-    		
+		}
+    	
+    	function ChangedName(){
+			var ckName = $("#changedName").val();
 			
-			
+			$.ajax({
+				url : "ChangedName.me",
+				data : {mName : ckName, mid : ${ loginUserMid } },
+				type : "post",
+				success:function(data){
+					console.log(data);
+					if(data == 1){
+						$("#changedName").val("");
+						$("#cancelBtn").click();
+						alert("변경이 완료되었습니다.");
+						$("#showName").html(ckName);
+					}else{
+						alert("중복되는 닉네임입니다. 다시 입력하세요");
+						
+					}
+				},
+				error:function(){
+					console.log("실패");
+				}
+			})
+    	
+    	}
+    	
+    	function ChangedPhone() {
+			var changedPhone = $("#changedPhone").val();
+
+			$.ajax({
+				url : "ChangedPhone.me",
+				type : "post",
+				data : {
+					mPhone : changedPhone, 
+					mid : ${ loginUserMid }
+				},
+				success:function(data){
+					console.log(data);
+					if(data == 1){
+						$("#changedPhone").val("");
+						$("#cancelBtn").click();
+						alert("변경이 완료되었습니다.");
+						$("#showPhone").html(changedPhone);
+					}else{
+						alert("중복되는 연락처입니다. 다시 입력하세요");
+						
+					}
+				},
+				error:function(){
+					console.log("실패");
+				}
+			})
 		}
     </script>
     <script src="resources/js/jquery.min.js"></script>

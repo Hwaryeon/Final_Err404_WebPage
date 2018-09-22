@@ -19,4 +19,16 @@ public interface MemberDao {
 
 	int insertMemberProfile(SqlSessionTemplate sqlSession, Profile pf);
 
+	Profile selectMemberProfile(SqlSessionTemplate sqlSession, int mid);
+
+	int insertChangedProfile(SqlSessionTemplate sqlSession, Profile pf);
+
+	int selectMemberName(SqlSessionTemplate sqlSession, Member m);
+
+	int updateMemberName(SqlSessionTemplate sqlSession, Member m);
+
+	int selectmPhone(SqlSessionTemplate sqlSession, String mPhone);
+
+	int updateMemberPhone(SqlSessionTemplate sqlSession, Member m);
+
 }
