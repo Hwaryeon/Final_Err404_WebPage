@@ -9,6 +9,7 @@
 		<result property="bName" column="BNAME" />
 		<result property="bOpen_Status" column="BOPEN_STATUS" />
 		<result property="bIntro" column="BINTRO" />
+		<result property="mid" column="MID" />
 		<result property="mName" column="MNAME" />
 		<result property="cName" column="CNAME" />
 		<result property="boardId" column="BOARDID" />
@@ -19,15 +20,48 @@
 		<result property="P_file_Src" column="FILE_SRC" />
 		<result property="fType" column="FTYPE" />
 		<result property="fid" column="FID" />
-		<result property="A_edit_Name" column="EDIT_NAME" />
-		<result property="A_file_Src" column="FILE_SRC" />
+		<result property="A_edit_Name" column="A_EDIT_NAME" />
+		<result property="A_file_Src" column="A_File_SRC" />
 		<result property="fLevel" column="FLEVEL" />
 	</resultMap>
-	<!-- 모든 검색 리스트 가져오기 -->
-	<select id="selectSearchAll" resultMap="SearchResultSet" parameterType="java.lang.String">
-		SELECT B.BID, B.BNAME, B.BOPEN_STATUS, B.BINTRO, M.MNAME, 
+	
+	<resultMap type="Ban" id="BanResultSet">
+		<id property="banId" column="BID" />
+		<result property="bid" column="BID" />
+		<result property="mid" column="MID" />
+		<result property="banReason" column="BANREASON" />
+	</resultMap>
+	
+	<!-- 모든 검색 밴드 리스트 가져오기 -->
+	<select id="selectSearchBand" resultMap="SearchResultSet" parameterType="java.util.ArrayList">
+		SELECT BID, BNAME, BOPEN_STATUS, BINTRO, MID, MNAME, 
+				CNAME, PID, EDIT_NAME 
+		FROM
+		(
+		SELECT B.BID, B.BNAME, B.BOPEN_STATUS, B.BINTRO, M.MID, M.MNAME, 
+				C.CNAME, P.PID, P.EDIT_NAME, 
+				P.FTYPE, P.FILE_SRC
+				FROM BAND B
+				JOIN MEMBER_BAND MB ON(B.BID = MB.BID)
+				JOIN MEMBER M ON(MB.MID = M.MID)
+				JOIN CATEGORY C ON(B.CID = C.CID)
+				JOIN PROFILE P ON(B.BID = P.BID)
+				WHERE B.BOPEN_STATUS != 'PRV'
+				AND B.BSTATUS = 'Y'
+		)
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<foreach collection="list" item="item" index="index" separator=" " open="" close="">
+				OR BNAME LIKE '%'|| #{item} ||'%'
+				OR BINTRO LIKE '%'|| #{item} ||'%'
+			</foreach>
+		</trim>
+	</select>
+	
+	<!-- 모든 검색 게시글 리스트 가져오기 -->
+	<select id="selectSearchContents" resultMap="SearchResultSet" parameterType="java.util.ArrayList">
+		SELECT B.BID, B.BNAME, B.BOPEN_STATUS, B.BINTRO, M.MID, M.MNAME, 
 		C.CNAME, BOD.BOARDID, BOD.BCONTENT, BOD.BDATE, P.PID, P.EDIT_NAME, 
-		P.FTYPE, P.FILE_SRC, AT.FID, AT.EDIT_NAME, AT.FILE_SRC, AT.FLEVEL
+		P.FTYPE, P.FILE_SRC, AT.FID, AT.EDIT_NAME as A_EDIT_NAME, AT.FILE_SRC as A_File_SRC, AT.FLEVEL
 		FROM BAND B
 		JOIN MEMBER_BAND MB ON(B.BID = MB.BID)
 		JOIN MEMBER M ON(MB.MID = M.MID)
@@ -37,8 +71,13 @@
 		RIGHT JOIN ATTFILE AT ON(AT.BOARDID = BOD.BOARDID)
 		WHERE B.BOPEN_STATUS != 'PRV'
 		AND B.BSTATUS = 'Y'
-<!-- 		AND B.BNAME LIKE '%'||'%'
-		AND BOD.BCONTENT LIKE '%'||'%' -->
+		<foreach collection="list" item="item" index="index" separator=" " open="" close="">
+			AND BOD.BCONTENT LIKE '%'||	#{item} ||'%'
+		</foreach>
+	</select>
+	
+	<select id='selectSearchBan' resultMap='BanResultSet'>
+		SELECT BANID, BID, MID, BANREASON FROM BAN
 	</select>
 	
 </mapper>

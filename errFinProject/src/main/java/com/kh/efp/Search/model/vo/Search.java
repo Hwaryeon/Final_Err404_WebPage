@@ -12,6 +12,7 @@ public class Search implements java.io.Serializable{
 	private String bName;
 	private String bOpen_Status;
 	private String bIntro;
+	private int mid;
 	private String mName;
 	private String cName;
 	private int boardId;
@@ -28,14 +29,15 @@ public class Search implements java.io.Serializable{
 	
 	public Search() {}
 
-	public Search(int bid, String bName, String bOpen_Status, String bIntro, String mName, String cName, int boardId,
-			String bContent, Date bDate, int pid, String p_edit_Name, String p_file_Src, String fType, int fid,
-			String a_edit_Name, String a_file_Src, String fLevel) {
+	public Search(int bid, String bName, String bOpen_Status, String bIntro, int mid, String mName, String cName,
+			int boardId, String bContent, Date bDate, int pid, String p_edit_Name, String p_file_Src, String fType,
+			int fid, String a_edit_Name, String a_file_Src, String fLevel) {
 		super();
 		this.bid = bid;
 		this.bName = bName;
 		this.bOpen_Status = bOpen_Status;
 		this.bIntro = bIntro;
+		this.mid = mid;
 		this.mName = mName;
 		this.cName = cName;
 		this.boardId = boardId;
@@ -81,6 +83,14 @@ public class Search implements java.io.Serializable{
 
 	public void setbIntro(String bIntro) {
 		this.bIntro = bIntro;
+	}
+
+	public int getMid() {
+		return mid;
+	}
+
+	public void setMid(int mid) {
+		this.mid = mid;
 	}
 
 	public String getmName() {
@@ -190,12 +200,12 @@ public class Search implements java.io.Serializable{
 	@Override
 	public String toString() {
 		return "Search [bid=" + bid + ", bName=" + bName + ", bOpen_Status=" + bOpen_Status + ", bIntro=" + bIntro
-				+ ", mName=" + mName + ", cName=" + cName + ", boardId=" + boardId + ", bContent=" + bContent
-				+ ", bDate=" + bDate + ", pid=" + pid + ", P_edit_Name=" + P_edit_Name + ", P_file_Src=" + P_file_Src
-				+ ", fType=" + fType + ", fid=" + fid + ", A_edit_Name=" + A_edit_Name + ", A_file_Src=" + A_file_Src
-				+ ", fLevel=" + fLevel + "]";
+				+ ", mid=" + mid + ", mName=" + mName + ", cName=" + cName + ", boardId=" + boardId + ", bContent="
+				+ bContent + ", bDate=" + bDate + ", pid=" + pid + ", P_edit_Name=" + P_edit_Name + ", P_file_Src="
+				+ P_file_Src + ", fType=" + fType + ", fid=" + fid + ", A_edit_Name=" + A_edit_Name + ", A_file_Src="
+				+ A_file_Src + ", fLevel=" + fLevel + "]";
 	}
-	 
+
 	
 	
 }
