@@ -10,18 +10,19 @@
 		<result property="sDate" column="SDATE" />
 		<result property="eDate" column="EDATE" />
 		<result property="title" column="TITLE" />
+		<result property="content" column="CONTENT" />
 	</resultMap>
 
 	<!-- 일정 등록용 메소드 -->
 	<insert id="insertScehdule" parameterType="Scehdule">
 		INSERT INTO SCEHDULE
-		VALUES(SEQ_SCEHDULE.NEXTVAL, NULL, NULL, #{sDate}, #{eDate}, #{title})
+		VALUES(SEQ_DID.NEXTVAL, NULL, NULL, #{sDate}, #{eDate}, #{title}, #{content})
 	</insert>
 	
 	<!-- 일정 리스트 조회용 메소드 -->
 	<select id="scehduleList" resultMap="ScehduleResultSet" parameterType="Scehdule">
 		SELECT *
-		FROM SCEHDULE
+		FROM SCEHDULE ORDER BY SDATE
 	</select>
 	
 	<!-- 일정 삭제용 메소드 -->
@@ -29,13 +30,13 @@
 		DELETE FROM SCEHDULE WHERE DID = #{did}
 	</delete>
 	
-	<select id = "selectmName" resultType="_int" parameterType="java.lang.String">
+	<!-- <select id = "selectmName" resultType="_int" parameterType="java.lang.String">
 		SELECT COUNT(*) FROM MEMBER WHERE MNAME = #{mName} AND MSTATUS = 'Y'
-	</select>
+	</select> -->
 	
 	<!-- 일정 시퀀스값 호출 메소드 -->
 	<select id="selectCurrval" resultType="_int">
-		SELECT SEQ_SCEHDULE.currval FROM DUAL
+		SELECT SEQ_DID.currval FROM DUAL
 	</select>
 
 </mapper>

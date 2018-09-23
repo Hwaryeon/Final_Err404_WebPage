@@ -4,14 +4,50 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import= "java.util.*"  %>
 <%@ page import= "java.text.*"  %>
-
 <html>
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+  <meta charset="utf-8">
+  <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+  <meta name="viewport" content=" width=device-width, initial-scale=1">
+  <title>Weekend Magazine</title>
+  <link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/light-pink-blue.css" rel="stylesheet">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <style>
+  .imageUpload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    height: 100%;
+    cursor: pointer;
+    opacity: 0;
+}
 
-<style type="text/css">
-    body {
+.changeCover {
+    overflow: hidden;
+    display: block;
+    position: relative;
+    width: 120px;
+    height: 90px;
+    padding-top: 21px;
+    text-align: center;
+    background-color: #ebebeb;
+    border-radius: 2px;
+    background-image: url(img/addImg.png);
+    background-size: contain;
+    background-repeat:no-repeat;
+}  
+ body {
         margin :40px 10px;
         padding : 0;
         font-family : "Lucida Grande", Helvetica, Arial, Verdana,sans-serif;
@@ -24,12 +60,6 @@
     .fc-sat { color:#0000FF; }     /* 토요일 */
     .fc-day-number.fc-sat.fc-past { color:#0000FF; }     /* 토요일 */
     .fc-sun { color:#FF0000; }    /* 일요일 */
-</style>
-
- <link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal.css">
-  <link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal-default-theme.css">
-
- <style>
     .remodal-bg.with-red-theme.remodal-is-opening,
     .remodal-bg.with-red-theme.remodal-is-opened {
       filter: none;
@@ -42,23 +72,17 @@
     .remodal.with-red-theme {
       background: #fff;
     }
+    
   </style>
-
-<!-- <link href='../fullcalendar.min.css' rel='stylesheet' />
-<link href='../fullcalendar.print.min.css' rel='stylesheet' media='print' />
-<script src='../lib/moment.min.js'></script>
-<script src='../lib/jquery.min.js'></script>
-<script src='../fullcalendar.min.js'></script> -->
-
-<link href="${ contextPath }/resources/fullcalendar-3.9.0/fullcalendar.css" rel="stylesheet"/>
+   <link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal.css">
+  <link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal-default-theme.css">
+  <link href="${ contextPath }/resources/fullcalendar-3.9.0/fullcalendar.css" rel="stylesheet"/>
 <link href="${ contextPath }/resources/fullcalendar-3.9.0/fullcalendar.print.css" rel="stylesheet" media="print"/>
 <script type="text/javascript" src="${ contextPath }/resources/fullcalendar-3.9.0/lib/moment.min.js"></script>
 <script type="text/javascript" src="${ contextPath }/resources/fullcalendar-3.9.0/lib/jquery.min.js"></script>
 <script type="text/javascript" src="${ contextPath }/resources/fullcalendar-3.9.0/fullcalendar.js"></script>
 <script type="text/javascript" src="${ contextPath }/resources/fullcalendar-3.9.0/locale/ko.js"></script>
 <script type="text/javascript" src="${ contextPath }/resources/fullcalendar-3.9.0/gcal.js"></script>
-
-
 <script>
 
   $(document).ready(function() {
@@ -89,11 +113,11 @@
       selectable: true,
       selectHelper: true,
       select: function(start, end) {
-        var title = prompt('Event Title :');
-        /* var content = prompt('Event content : '); */
+        var title = prompt('일정 제목 :');
+        var content = prompt('일정 내용 : ');
         if (title) {
 
-        	 var eventNum;
+        	var eventNum;
         	var sDateFormat = moment(start, 'YYYY-MM-DD');
         	var eDateFormat = moment(end, 'YYYY-MM-DD');
         	
@@ -101,15 +125,15 @@
         	var eDate = eDateFormat.format('YYYY-MM-DD');
         	
         	  $.ajax({
-				url:"addCalendar2.bd",
+				url:"addCalendar.bd",
 				type:"post",
 				async: false,
-				data:{title:title, sDate:sDate, eDate:eDate},
+				data:{title:title, content:content, sDate:sDate, eDate:eDate},
 				success:function(data){
 					console.log(data.next);
 					
 					eventNum = data.next;
-					alert("일정 추가 완료");
+					/* alert("일정 추가 완료"); */
 				},error:function(){
 					console.log("일정 추가 실패");
 				}
@@ -126,6 +150,7 @@
            eventData = {
         		  id: eventNum,							
 		            title: title,
+		            content:content,
 		            start: start,
 		            end: end
 		          };  
@@ -173,7 +198,7 @@
 	              
 	              document.getElementById('modal1Title').innerHTML = event.title;
 	              
-	              document.getElementById('modal1Desc').innerHTML = event.start;
+	              document.getElementById('modal1Desc').innerHTML = event.content;
 	              
 	              $('#dId').val(event.id);
 	              
@@ -208,7 +233,7 @@
 			console.log(result.size);
 			
 			$.each(result, function(i){
-				var event={id: result[i].did, title: result[i].title, start:result[i].sDate, end:result[i].eDate};
+				var event={id: result[i].did, title: result[i].title, content:result[i].content, start:result[i].sDate, end:result[i].eDate};
 			    $('#calendar').fullCalendar( 'renderEvent', event, true);
 			});
 			
@@ -225,52 +250,186 @@
 
   
 </script>
-<style>
-
-  body {
-    margin: 40px 10px;
-    padding: 0;
-    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-    font-size: 14px;
-  }
-
-  #calendar {
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-</style>
 </head>
-<body>
+<body class="home page page-id-4 page-template page-template-template_home-php">
+    <!-- TOP NAV -->
+    <!-- LOGO AREA -->
+    <div class="fullwidth bg-pink">
+      <div class="container">
+        <div class="col-md-6 col-xs-12">
+          <div class="logo">
+            <h1><a href="index.html" title="Weekend Magazine">Weekend Magazine</a></h1>
+          </div>
+        </div>
+        <div class="col-md-6 col-xs-12">
+            <div id="ads120_60-widget-2" class="ads120-60 ads-one">
+                        <div class="ad-cell">
+                      <a href="#" target="_blank" >                 
+                <img src="img/ad-468x60.png " alt="">
+              </a>  
+            </div>
+                    </div>
+          </div>
+      </div>
+    </div>
 
-  <div id='calendar'></div>
+     <div class="container">
 
+        <div class="left-sidebar col-md-3" role="complementary">
 
-		<table id="boardArea" align="center" style="text-align:center">
-			<tr>
-				<th>일정번호</th>
-				<th>밴드번호</th>
-				<th>유저번호</th>
-				<th>시작일</th>
-				<th>종료일(+1)</th>
-				<th>일정내용</th>
-			</tr>
-			<c:forEach var="b" items="${sList}">
-				<tr>
-					<td>${b.did }</td>
-					<td>${b.bid }</td>
-					<td>${b.mid }</td>
-					<td>${b.sDate }</td>
-					<td>${b.eDate }</td>
-					<td>${b.title }</td>
-				</tr>
+			 <div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title"></h1>
+                <ul class="tvshows">
+                    <li>
+                        <a href="#">
+                            <!-- <span class="comment-count">11</span> -->
+                            <img src="http://placehold.it/209x128" alt="">
+                        </a>
+                        <h2 style="color:#222; font-size:21px; margin-bottom:15px;font-weight:600;margin-top:20px;">밴드명</h2>
+                        <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
+                        			멤버 4<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
+                        			초대코드 </a></h4>
+                        <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
+                        <a href="#" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            
+        </div>
+
+        <div class="main col-md-6 col-xs-12" style="background:#ffffff">
+
+            
+            <div id='calendar'></div>
+
+            <div class="widget fullwidth post-single">
+              <h4 class="widget-title">일정  <span>리스트</span> </h4>
+              <div class="widget-content">
+                <ul>
+            <c:forEach var="b" items="${sList}">
+            
+            
+					<li style="margin-top:50px;">
+                  	<div style="float:left;width:12%;text-align:center;">
+                    <p style="display: inline-block;line-height: 1.3;font-size: 25px;
+                    	font-weight: 400;color: #222;">${b.dayNum }</p>
+                    
+                    
+                    <h4 class="list-title" ><a href="" style="display: block;
+                    	word-break: break-all;word-wrap: break-word;font-size: 15px;font-weight: 400;color: #333;">
+    						${b.dayWeek }요일</a></h4>
+                 	</div> 
+                 	<div style="float:left;width:87%; padding-left: 30px;">
+                    <h4 class="list-title"><a href="" style="font-size:20px;">${b.title }</a></h4>
+                    <p>${b.content }</p>
+                    </div>
+                    
+                  </li>
+                  <br>
 			</c:forEach>
-			
-		</table>
-		
-		<br>
+            
+            </ul>
+            </div>
+            </div>
+            
+        </div>
+        
 
-<div class="remodal" data-remodal-id="modal" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
+      <div class="right-sidebar col-md-3" role="complementary">
+
+
+            <div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title">최근 사진 </h1>
+                <ul class="tvshows">
+                    <li>
+                        <a href="#">
+                            <img style="min-height:100px;height:100px;width:100px;" src="http://placehold.it/209x128" alt="">
+                        </a>
+                        <a href="#">
+                            <img style="min-height:100px;height:100px;width:100px;" src="http://placehold.it/209x128" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img style="min-height:100px;height:100px;width:100px;" src="http://placehold.it/209x128" alt="">
+                        </a>
+                        <a href="#">
+                            <img style="min-height:100px;height:100px;width:100px;" src="http://placehold.it/209x128" alt="">
+                        </a>
+                    </li>
+                    
+               
+               
+                </ul>
+               
+               
+               
+                <div class="clear"></div>
+            
+            
+            
+            
+            </div>
+
+            <div id="widget-survey" class="widget fullwidth widget-survey">
+                <h1 class="widget-title">Survey</h1>
+                <div class="widget-content">
+                    <p>What was the last time you slept on bed in your house?</p>
+                    <form action="#" method="post" class="mrgn-bottom-0">
+                        <div class="form-group mrgn-bottom-0">
+                            <div class="checkbox">
+                                <label>
+                                    <input name="remember" value="1" type="checkbox"> Today
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group mrgn-bottom-0">
+                            <div class="checkbox">
+                                <label>
+                                    <input name="remember" value="1" type="checkbox"> Yesterday
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group mrgn-bottom-0">
+                            <div class="checkbox">
+                                <label>
+                                    <input name="remember" value="1" type="checkbox"> The day after tomorrow
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group mrgn-bottom-0">
+                            <div class="checkbox">
+                                <label>
+                                    <input name="remember" value="1" type="checkbox"> Tomorrow
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row survey">
+                            <div class="col-md-6">
+                                <button class="button vote">Vote</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button class="button">Results</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+            <div id="ads250_250-widget-2" class="widget fullwidth ads250_250-widget"><h1 class="widget-title">
+                Advertisement</h1>
+                <div class="ads250-250">
+                    <div class="ad-cell">
+                        <a href="#"><img src="img/ad-210x190.png" class="fullwidth" alt=""></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    
+    <div class="remodal" data-remodal-id="modal" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
   <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
   <div>
     <h2 id="modal1Title">일정 제목</h2>
@@ -376,8 +535,10 @@ $('.remodal-cancel').click(function(){
     modifier: 'with-red-theme'
   });
 </script>
-		
-		
-		
-</body>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.bxslider.min.js"></script>
+    <script src="js/custom.js"></script>
+  </body>
 </html>
