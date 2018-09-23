@@ -139,7 +139,7 @@
                                     </c:if>
                                     <c:if test = "${ memberProfile.editName ne 'user.png' }">
                                     	<td width="200px" style="vertical-align: middle;">
-                                    	<img id = "contentImg1" src="resources/upload_images/${ memberProfile.editName }" alt="" style = "width : 64px; height : 64px;">
+                                    	<img id = "contentImg1" src="${ memberProfile.fileSrc }${ memberProfile.editName }" alt="" style = "width : 64px; height : 64px;">
                                     	</td>
                                     </c:if>
                                     <td width="500px" style="vertical-align: middle; text-align: right"><a class="button-blue button-link" onclick = "changeProfile()">이미지 수정하기</a></td>

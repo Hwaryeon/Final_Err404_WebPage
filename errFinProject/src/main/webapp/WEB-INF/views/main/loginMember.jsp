@@ -98,7 +98,7 @@
                         </div>
                         <br>
                             <div id="naver_id_login" style="text-align:center">
-                            <a onclick = "naverLogin()"><img width="100%" height = "70px" src="resources/images/login/naver.PNG"/>
+                            <a id = "Test2"><img width="100%" height = "70px" src="resources/images/login/naver.PNG"/>
                             </a></div>
                         <hr>
                         <a href = "memberJoinForm.me">회원가입</a><br>
@@ -149,13 +149,28 @@
         </div>
     </div>
     <script>
+    $(function(){
+  	  
+      	$.ajax({
+      		url : "testlogin.lg",
+      		data : {},
+      		type : "post",
+      		success:function(data){
+    			var url = data.replace('"', "");
+    			var url2 = url.replace('"', "");
+    			console.log(url2);
+    			$("#Test2").attr("href", url2);
+      		},
+      		error:function(){
+      			console.log('실패');
+      		}
+      	})
+      })
+    
     	function moveMain(){
     		$("#insertLogin").submit();
     	}
     	
-    	function naverLogin(){
-    		self.location = 'naverLogin';
-    	}
     </script>
     <script src="${ contextPath }/resources/js/jquery.min.js"></script>
     <script src="${ contextPath }/resources/js/bootstrap.min.js"></script>

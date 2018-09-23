@@ -19,6 +19,7 @@
 		<mapper resource="mappers/scehdule-mapper.xml"/>
 		<mapper resource="mappers/search-mapper.xml"/>
 		<mapper resource="mappers/member_band-mapper.xml"/>
+		<mapper resource="mappers/login-mapper.xml"/>
 	</mappers>
 	
 	
