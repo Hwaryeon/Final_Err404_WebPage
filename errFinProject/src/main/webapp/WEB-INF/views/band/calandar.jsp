@@ -318,7 +318,7 @@
                     <h4 class="list-title" ><a href="" style="display: block;
                     	word-break: break-all;word-wrap: break-word;font-size: 15px;font-weight: 400;color: #333;">
     						${b.dayWeek }요일</a></h4>
-                 	</div>
+                 	</div> 
                  	<div style="float:left;width:87%; padding-left: 30px;">
                     <h4 class="list-title"><a href="" style="font-size:20px;">${b.title }</a></h4>
                     <p>${b.content }</p>
