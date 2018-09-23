@@ -114,7 +114,11 @@
       selectHelper: true,
       select: function(start, end) {
         var title = prompt('일정 제목 :');
-        var content = prompt('일정 내용 : ');
+        
+        if(title != null){
+    	    var content = prompt('일정 내용 : ');
+        }
+        
         if (title) {
 
         	var eventNum;
@@ -134,6 +138,124 @@
 					
 					eventNum = data.next;
 					/* alert("일정 추가 완료"); */
+					  $('#scheduleArea').empty();
+					
+					  $.ajax({
+							url:"eventCheck.bd",
+							type:"post",
+							data:{title:title},
+							success:function(data){
+								console.log("이벤트 ajax 호출")
+								
+								console.log(data);
+								
+								var result = data.eList;
+								
+								
+								console.log(result.size);
+								
+								$.each(result, function(i){
+									/* var event={id: result[i].did, title: result[i].title,
+											content:result[i].content, start:result[i].sDate,
+											end:result[i].eDate};
+								    $('#calendar').fullCalendar( 'renderEvent', event, true); */
+								    
+									 var plusUl = document.getElementById('scheduleArea');
+								    
+								     var plusLi = document.createElement('li');
+								     
+								     plusLi.style.cssText= 'margin-top:50px;';
+								     
+								     var pInput1 = document.createElement('input');
+								     var pInput2 = document.createElement('input');
+								     var pInput3 = document.createElement('input');
+								     
+								     pInput1.setAttribute("type", "hidden");
+								     pInput1.setAttribute("value", result[i].did);
+								     
+								     pInput2.setAttribute("type", "hidden");
+								     pInput2.setAttribute("value", result[i].title);
+								     
+								     pInput3.setAttribute("type", "hidden");
+								     pInput3.setAttribute("value", result[i].content);
+								     
+								     var pDiv1 = document.createElement('div');
+								     pDiv1.style.cssText='float:left;width:12%;text-align:center;';
+								     
+								     var pP = document.createElement('p');
+								     pP.style.cssText = 'display: inline-block;line-height: 1.3;font-size: 25px;font-weight: 400;color: #222;';
+								     pP.innerHTML = result[i].dayNum;
+								     
+								     var pH4 = document.createElement('h4');
+								     pH4.setAttribute("class", "list-title");
+								     
+								     var pA = document.createElement('a');
+								     pA.setAttribute("href", '');
+								     pA.style.cssText = 'display: block;word-break: break-all;word-wrap: break-word;font-size: 15px;font-weight: 400;color: #333;';
+								     pA.innerHTML = result[i].dayWeek + "요일";
+								     
+								     var pDiv2 = document.createElement('div');
+								     pDiv2.style.cssText='float:left;width:87%; padding-left: 30px;';
+								     
+								     var pH42 = document.createElement('h4');
+								     pH42.setAttribute("class", "list-title");
+								     
+								     var pA2 = document.createElement('a');
+								     pA2.setAttribute("href", '');
+								     pA2.style.cssText = 'font-size:20px;';
+								     pA2.innerHTML = result[i].title;
+								     
+								     var pP2 = document.createElement('p');
+								     pP2.innerHTML = result[i].content;
+								     
+								     var pBr = document.createElement('br');
+								     
+								    /*  
+											 
+									 plusUl.innerHTML += "<div style='float:left;width:12%;text-align:center;'>";		 
+									 plusUl.innerHTML += "<p style='display: inline-block;line-height: 1.3;font-size: 25px;font-weight: 400;color: #222;'>" + result[i].dayNum + "</p>";	 
+									 
+									 plusUl.innerHTML += "<h4 class='list-title' ><a href='' style='display: block;word-break: break-all;word-wrap: break-word;font-size: 15px;font-weight: 400;color: #333;'>" + result[i].dayWeek + "요일</a></h4>";
+									 
+									 plusUl.innerHTML += "</div>";
+											
+									 plusUl.innerHTML += "<div style='float:left;width:87%; padding-left: 30px;'>";
+									 plusUl.innerHTML += "<h4 class='list-title'><a href='' style='font-size:20px;'>" + result[i].title + "</a></h4>";
+								
+									 plusUl.innerHTML += "<p>" + result[i].content + "</p>";
+									 plusUl.innerHTML += "</div>";
+									 plusUl.innerHTML += "</li><br>"; */
+									 
+									 
+									 plusLi.append(pInput1);
+									 plusLi.append(pInput2);
+									 plusLi.append(pInput3);
+									 
+									 pDiv1.append(pP);
+									 pH4.append(pA);
+									 pDiv1.append(pH4);
+									 
+									 pH42.append(pA2);
+									 pDiv2.append(pH42);
+									 pDiv2.append(pP2);
+									 
+									 plusLi.append(pDiv1);
+									 plusLi.append(pDiv2);
+									 plusLi.append(pBr);
+									 
+									 plusUl.append(plusLi);
+									 
+									 
+								});
+								
+								
+							},error:function(){
+								console.log("이벤트 ajax 호출 실패");
+							}
+						}); 
+					
+					
+					
 				},error:function(){
 					console.log("일정 추가 실패");
 				}
@@ -155,6 +277,10 @@
 		            end: end
 		          };  
           $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+        		  
+        		  
+        		  
+        		  
         }
         $('#calendar').fullCalendar('unselect');
       },
@@ -305,11 +431,13 @@
             <div class="widget fullwidth post-single">
               <h4 class="widget-title">일정  <span>리스트</span> </h4>
               <div class="widget-content">
-                <ul>
+                <ul id="scheduleArea">
             <c:forEach var="b" items="${sList}">
-            
-            
-					<li style="margin-top:50px;">
+            		
+					<li style="margin-top:50px;" >
+            		<input type="hidden" value="${b.did }">
+            		<input type="hidden" value="${b.title }">
+            		<input type="hidden" value="${b.content }">
                   	<div style="float:left;width:12%;text-align:center;">
                     <p style="display: inline-block;line-height: 1.3;font-size: 25px;
                     	font-weight: 400;color: #222;">${b.dayNum }</p>
@@ -333,6 +461,33 @@
             </div>
             
         </div>
+        
+   
+        
+        <script>
+			$(function(){
+				$("#scheduleArea").find("li").mouseenter(function(){
+				}).mouseout(function(){
+				}).click(function(){
+					
+					 document.getElementById('modal1Title').innerHTML = $(this).children("input").eq(1).val();
+		              
+		              document.getElementById('modal1Desc').innerHTML = $(this).children("input").eq(2).val();
+		              
+		              $('#dId').val($(this).children("input").eq(0).val());
+		              
+					  var con = document.getElementById('delBu');
+		              
+		              con.style.display = '-webkit-inline-box';
+		              
+		              location.href="#modal";
+		              
+		              return false;
+					
+					
+				});
+			});		
+		</script>
         
 
       <div class="right-sidebar col-md-3" role="complementary">
@@ -439,17 +594,15 @@
   </div>
   <br>
   <input type="hidden" id="dId" value=""/> 
+  <button id="updateBu" data-remodal-action="cancel" class="remodal-cancel" style="background:lightblue;">수정</button>
   <button id="delBu" data-remodal-action="cancel" class="remodal-cancel">삭제</button>
   <button data-remodal-action="confirm" class="remodal-confirm">확인</button>
 </div>
 
 <script>
-$('.remodal-cancel').click(function(){
-	console.log("삭제 버튼 클릭됨");
+$('#delBu').click(function(){
 	
-	console.log($('#dId').val());
-	
-	var did = $('#dId').val();
+	 var did = $('#dId').val();
 	
 	location.href="deleteCalendar.bd?did="+did;
 	
@@ -467,6 +620,24 @@ $('.remodal-cancel').click(function(){
 		}
 	});   */
 	
+	
+});
+
+$('#updateBu').click(function(){
+	console.log("업데이트 버튼 클릭됨");
+	
+	 var did = $('#dId').val();
+	
+	 var title = prompt('일정 제목 :');
+     
+     if(title != null){
+ 	    var content = prompt('일정 내용 : ');
+ 	    
+ 	   location.href="updateCalendar.bd?did="+did + "&title=" + title + "&content=" + content;
+ 	    
+ 	    
+     }
+	 
 	
 });
 

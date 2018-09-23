@@ -16,6 +16,8 @@ public interface BandService {
 	int deleteScehdule(int did);
 
 	int selectCurrval();
+
+	void updateScehdule(Scehdule s);
 	
 
 }

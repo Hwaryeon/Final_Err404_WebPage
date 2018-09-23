@@ -38,6 +38,12 @@
 	<select id="selectCurrval" resultType="_int">
 		SELECT SEQ_DID.currval FROM DUAL
 	</select>
+	
+	<!-- 일정 수정용 메소드 -->
+	<update id = "updateScehdule" parameterType = "Scehdule">
+		UPDATE SCEHDULE SET TITLE = #{title}, CONTENT = #{content}
+		WHERE DID = #{did}
+	</update>
 
 </mapper>
 

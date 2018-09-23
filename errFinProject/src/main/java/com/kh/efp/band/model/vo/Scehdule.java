@@ -19,6 +19,13 @@ public class Scehdule implements Serializable{
 	
 	public Scehdule(){}
 	
+	public Scehdule(int did, String title, String content) {
+		super();
+		this.did = did;
+		this.title = title;
+		this.content = content;
+	}
+
 	public Scehdule(String sDate, String eDate, String title, String content) {
 		super();
 		this.sDate = sDate;
