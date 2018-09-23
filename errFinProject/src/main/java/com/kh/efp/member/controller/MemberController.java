@@ -12,12 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -257,6 +255,49 @@ public class MemberController {
 		try {
 			model.addAttribute("loginUser", ms.selectMember(m));
 
+			response.getWriter().println(mapper.writeValueAsString(result));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("CkPwd.me")
+	public void CkPwd(String old, String mid, HttpServletResponse response){
+		int imid = Integer.parseInt(mid);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Member m = new Member();
+		
+		m.setmPwd(old);
+		m.setMid(imid);
+		
+		int result = ms.chPwd(m);
+		
+		try {
+			response.getWriter().println(mapper.writeValueAsString(result));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@RequestMapping("ChangedPwd.me")
+	public void ChangedPwd(String newPwd, String mid, HttpServletResponse response){
+		int imid = Integer.parseInt(mid);
+		
+		Member m = new Member();
+		
+		m.setMid(imid);
+		m.setmPwd(passwordEncoder.encode(newPwd));
+		
+		int result = ms.updatemPwd(m);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
 			response.getWriter().println(mapper.writeValueAsString(result));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

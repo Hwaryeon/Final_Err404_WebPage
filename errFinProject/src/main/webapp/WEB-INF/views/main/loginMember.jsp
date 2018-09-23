@@ -8,6 +8,9 @@
     <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
     <meta name="viewport" content=" width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
+
+    
     <title>Weekend Magazine</title>
     <!-- CSS -->
     <link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -94,9 +97,9 @@
                             페이스북 로그인
                         </div>
                         <br>
-                        <div style="border : 1px solid black; height : 50px;">
-                            네이버 로그인
-                        </div>
+                            <div id="naver_id_login" style="text-align:center">
+                            <a id = "Test2"><img width="100%" height = "70px" src="resources/images/login/naver.PNG"/>
+                            </a></div>
                         <hr>
                         <a href = "memberJoinForm.me">회원가입</a><br>
                         <a>아이디 / 비밀번호 찾기 </a>
@@ -146,9 +149,28 @@
         </div>
     </div>
     <script>
+    $(function(){
+  	  
+      	$.ajax({
+      		url : "testlogin.lg",
+      		data : {},
+      		type : "post",
+      		success:function(data){
+    			var url = data.replace('"', "");
+    			var url2 = url.replace('"', "");
+    			console.log(url2);
+    			$("#Test2").attr("href", url2);
+      		},
+      		error:function(){
+      			console.log('실패');
+      		}
+      	})
+      })
+    
     	function moveMain(){
     		$("#insertLogin").submit();
     	}
+    	
     </script>
     <script src="${ contextPath }/resources/js/jquery.min.js"></script>
     <script src="${ contextPath }/resources/js/bootstrap.min.js"></script>

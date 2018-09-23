@@ -19,7 +19,7 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public String selectEncPassword(SqlSessionTemplate sqlSession, Member m) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("Member.selectPwd", m.getmEmail());
+		return sqlSession.selectOne("Member.selectPwd", m);
 	}
 
 	//일치 시 정보 가져오기
@@ -78,6 +78,12 @@ public class MemberDaoImpl implements MemberDao{
 	public int updateMemberPhone(SqlSessionTemplate sqlSession, Member m) {
 		// TODO Auto-generated method stub
 		return sqlSession.update("Member.updatemPhone", m);
+	}
+
+	@Override
+	public int updateMemberPwd(SqlSessionTemplate sqlSession, Member m) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("Member.updatemPwd", m);
 	}
 	
 	

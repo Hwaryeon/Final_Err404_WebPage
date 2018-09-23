@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Login">
+	<resultMap type="Member" id="memberResultSet">
+		<id property="mid" column="MID" />
+		<result property="mEmail" column="MEMAIL" />
+		<result property="mPwd" column="MPWD" />
+		<result property="mToken" column="MTOKEN" />
+		<result property="mType" column="MTYPE" />
+		<result property="mName" column="MNAME" />
+		<result property="mPhone" column="MPHONE" />
+		<result property="mDate" column="MDATE" />
+		<result property="mStatus" column="MSTATUS" />
+		<result property="mNational" column="MNATIONAL" />
+	</resultMap>
+	
+	<resultMap type="Profile" id="ProFileResultSet">
+		<id property="pid" column="PID" />
+		<result property="originName" column="ORIGIN_NAME" />
+		<result property="editName" column="EDIT_NAME" />
+		<result property="fileSrc" column="FILE_SRC" />
+		<result property="fdate" column="FDATE" />
+		<result property="ftype" column="FTYPE" />
+		<result property="mid" column="MID" />
+		<result property="bid" column="BID" />
+	</resultMap>
+
+	<insert id="insertNaverMember" parameterType = "Member">
+		INSERT INTO MEMBER
+		VALUES(SEQ_MID.NEXTVAL, #{mEmail}, NULL, #{mToken}, 'NAVER', #{mName}, NULL, SYSDATE, 'Y', 'KR')
+	</insert>
+	
+	<select id = "selectNaverMember" parameterType = "Member" resultMap = "memberResultSet">
+		SELECT * FROM MEMBER WHERE MTOKEN = #{mToken} AND MSTATUS = 'Y'
+	</select>
+	
+	<insert id= "insertNaverProfile" parameterType = "Profile">
+		INSERT INTO PROFILE
+		VALUES(SEQ_PID.NEXTVAL, #{originName}, #{editName}, #{fileSrc},  SYSDATE, '1', #{mid}, NULL)
+	</insert>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
