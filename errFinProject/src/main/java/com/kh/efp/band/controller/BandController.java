@@ -2,9 +2,11 @@ package com.kh.efp.band.controller;
 
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -24,16 +26,18 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.efp.band.model.service.BandService;
 import com.kh.efp.band.model.vo.Scehdule;
+import com.kh.efp.commons.DayWeek;
 import com.kh.efp.member.model.exception.LoginException;
 import com.kh.efp.member.model.service.MemberService;
 import com.kh.efp.member.model.vo.Member;
+
 
 @Controller
 public class BandController {
 	@Autowired private BandService bs;
 
 	@RequestMapping("bandCalendarList.bd")
-	public String showMemberJoinForm(Model model){
+	public String showMemberJoinForm(Model model) throws Exception{
 		
 		System.out.println("달력 호출");
 		
@@ -47,9 +51,21 @@ public class BandController {
 		
 		model.addAttribute("sList", list); 
 		
+		
+		for(int i=0; i<list.size(); i++){
+			String str = ((Scehdule) list.get(i)).getsDate();
+			/*System.out.println(str.substring(8, 10));*/
+			((Scehdule) list.get(i)).setDayNum(str.substring(5, 10));
+			
+			String day = DayWeek.getDateDay(((Scehdule) list.get(i)).getsDate().substring(0, 11), "yyyy-MM-dd");
+			
+			((Scehdule) list.get(i)).setDayWeek(day);
+			
+		}
 		return "band/calandar";
 	}
 	
+
 	@RequestMapping(value="eventCheck.bd", method=RequestMethod.POST)
 	@ResponseBody 
 	public Object eventCheck(@RequestParam String title, Map<String, Object> map,

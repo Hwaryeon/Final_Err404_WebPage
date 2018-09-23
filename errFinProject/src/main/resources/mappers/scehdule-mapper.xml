@@ -22,7 +22,7 @@
 	<!-- 일정 리스트 조회용 메소드 -->
 	<select id="scehduleList" resultMap="ScehduleResultSet" parameterType="Scehdule">
 		SELECT *
-		FROM SCEHDULE
+		FROM SCEHDULE ORDER BY SDATE
 	</select>
 	
 	<!-- 일정 삭제용 메소드 -->
