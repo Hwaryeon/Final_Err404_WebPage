@@ -14464,9 +14464,9 @@ var DayGridEventRenderer = /** @class */ (function (_super) {
         // Only display a timed events time if it is the starting segment
         if (seg.isStart) {
             timeText = this.getTimeText(seg.footprint);
-            if (timeText) {
+            /*if (timeText) {
                 timeHtml = '<span class="fc-time">' + util_1.htmlEscape(timeText) + '</span>';
-            }
+            }*/
         }
         titleHtml =
             '<span class="fc-title">' +

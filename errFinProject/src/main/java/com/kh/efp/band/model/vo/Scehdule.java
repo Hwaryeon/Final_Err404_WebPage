@@ -13,17 +13,19 @@ public class Scehdule implements Serializable{
 	private String sDate;
 	private String eDate;
 	private String title;
+	private String content;
 	
 	public Scehdule(){}
 	
-	public Scehdule(String sDate, String eDate, String title) {
+	public Scehdule(String sDate, String eDate, String title, String content) {
 		super();
 		this.sDate = sDate;
 		this.eDate = eDate;
 		this.title = title;
+		this.content = content;
 	}
 
-	public Scehdule(int did, int bid, int mid, String sDate, String eDate, String title) {
+	public Scehdule(int did, int bid, int mid, String sDate, String eDate, String title, String content) {
 		super();
 		this.did = did;
 		this.bid = bid;
@@ -31,6 +33,7 @@ public class Scehdule implements Serializable{
 		this.sDate = sDate;
 		this.eDate = eDate;
 		this.title = title;
+		this.content = content;
 	}
 
 	public int getDid() {
@@ -81,10 +84,18 @@ public class Scehdule implements Serializable{
 		this.title = title;
 	}
 
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
 	@Override
 	public String toString() {
 		return "Scehdule [did=" + did + ", bid=" + bid + ", mid=" + mid + ", sDate=" + sDate + ", eDate=" + eDate
-				+ ", title=" + title + "]";
+				+ ", title=" + title + ", content=" + content + "]";
 	}
 
 	

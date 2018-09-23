@@ -83,7 +83,7 @@ public class BandController {
 		}	
 	}*/
 	
-	@RequestMapping(value="addCalendar.bd")
+	/*@RequestMapping(value="addCalendar.bd")
 	public String addCalendar(@RequestParam String title, String sDate, String eDate, Model model,
 										HttpServletResponse response){
 		
@@ -101,18 +101,20 @@ public class BandController {
 		
 		
 		return "redirect:/bandCalendarList.bd";
-	}
+	}*/
 	
-	@RequestMapping("addCalendar2.bd")
-	public @ResponseBody HashMap<String, Object> addCalendar2(@RequestParam String title, String sDate, String eDate){
+	@RequestMapping("addCalendar.bd")
+	public @ResponseBody HashMap<String, Object> addCalendar2(
+			@RequestParam String title, String content, String sDate, String eDate){
 		
 		System.out.println("title : " + title);
+		System.out.println("content : " + content);
 		System.out.println("sDate : " + sDate);
 		System.out.println("eDate : " + eDate);
 		
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
 
-		Scehdule s = new Scehdule(sDate, eDate, title);
+		Scehdule s = new Scehdule(sDate, eDate, title, content);
 		
 		int result = bs.insertScehdule(s);
 		

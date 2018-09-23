@@ -89,8 +89,8 @@
       selectable: true,
       selectHelper: true,
       select: function(start, end) {
-        var title = prompt('Event Title :');
-        /* var content = prompt('Event content : '); */
+        var title = prompt('일정 제목 :');
+        var content = prompt('일정 내용 : ');
         if (title) {
 
         	 var eventNum;
@@ -101,10 +101,10 @@
         	var eDate = eDateFormat.format('YYYY-MM-DD');
         	
         	  $.ajax({
-				url:"addCalendar2.bd",
+				url:"addCalendar.bd",
 				type:"post",
 				async: false,
-				data:{title:title, sDate:sDate, eDate:eDate},
+				data:{title:title, content:content, sDate:sDate, eDate:eDate},
 				success:function(data){
 					console.log(data.next);
 					
@@ -126,6 +126,7 @@
            eventData = {
         		  id: eventNum,							
 		            title: title,
+		            content:content,
 		            start: start,
 		            end: end
 		          };  
@@ -173,7 +174,7 @@
 	              
 	              document.getElementById('modal1Title').innerHTML = event.title;
 	              
-	              document.getElementById('modal1Desc').innerHTML = event.start;
+	              document.getElementById('modal1Desc').innerHTML = event.content;
 	              
 	              $('#dId').val(event.id);
 	              
@@ -208,7 +209,7 @@
 			console.log(result.size);
 			
 			$.each(result, function(i){
-				var event={id: result[i].did, title: result[i].title, start:result[i].sDate, end:result[i].eDate};
+				var event={id: result[i].did, title: result[i].title, content:result[i].content, start:result[i].sDate, end:result[i].eDate};
 			    $('#calendar').fullCalendar( 'renderEvent', event, true);
 			});
 			
