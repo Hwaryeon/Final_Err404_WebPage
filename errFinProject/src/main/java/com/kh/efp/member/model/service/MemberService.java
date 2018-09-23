@@ -23,4 +23,8 @@ public interface MemberService {
 	int selectmPhone(String mPhone);
 
 	int updatemPhone(Member m);
+
+	int chPwd(Member m);
+
+	int updatemPwd(Member m);
 }

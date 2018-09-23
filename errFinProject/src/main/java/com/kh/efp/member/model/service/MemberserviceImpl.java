@@ -113,5 +113,25 @@ public class MemberserviceImpl implements MemberService {
 		return result;
 	}
 
+	@Override
+	public int chPwd(Member m) {
+		int result = -99;
+		
+		String encPassword = md.selectEncPassword(sqlSession, m);
+
+		if(!passwordEncoder.matches(m.getmPwd(), encPassword)){
+			result = 0;
+		}else{
+			result = 1;
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int updatemPwd(Member m) {
+		return md.updateMemberPwd(sqlSession, m);
+	}
+
 
 }
