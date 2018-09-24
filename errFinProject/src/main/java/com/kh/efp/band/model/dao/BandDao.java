@@ -18,6 +18,8 @@ public interface BandDao {
 
 	int selectCurrval(SqlSessionTemplate sqlSession);
 
+	void updateScehdule(SqlSessionTemplate sqlSession, Scehdule s);
+
 
 
 

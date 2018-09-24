@@ -69,7 +69,7 @@ public class BandController {
 	@RequestMapping(value="eventCheck.bd", method=RequestMethod.POST)
 	@ResponseBody 
 	public Object eventCheck(@RequestParam String title, Map<String, Object> map,
-										HttpServletResponse response){
+										HttpServletResponse response) throws Exception{
 			
 			
 		System.out.println("eventCheck 컨트롤러 호출..");
@@ -77,6 +77,17 @@ public class BandController {
 		List<Object> list = new ArrayList<Object>();
 		
 		list = bs.scehduleList();
+		
+		for(int i=0; i<list.size(); i++){
+			String str = ((Scehdule) list.get(i)).getsDate();
+			/*System.out.println(str.substring(8, 10));*/
+			((Scehdule) list.get(i)).setDayNum(str.substring(5, 10));
+			
+			String day = DayWeek.getDateDay(((Scehdule) list.get(i)).getsDate().substring(0, 11), "yyyy-MM-dd");
+			
+			((Scehdule) list.get(i)).setDayWeek(day);
+			
+		}
 		
 		Map<String, Object> ret = new HashMap<String, Object>();
 		
@@ -160,6 +171,24 @@ public class BandController {
 		
 	}
 
+	@RequestMapping(value="updateCalendar.bd")
+	public String updateCalendar(@RequestParam int did, String title, String content, Model model,
+										HttpServletResponse response){
+			
+			
+		
+		System.out.println("일정 수정 컨트롤러 호출");
+		
+		System.out.println("did :" + did);
+		
+		Scehdule s = new Scehdule(did, title, content);
+		
+		bs.updateScehdule(s);
+		
+		return "redirect:/bandCalendarList.bd";
+		
+		
+	}
 	
 
 }
