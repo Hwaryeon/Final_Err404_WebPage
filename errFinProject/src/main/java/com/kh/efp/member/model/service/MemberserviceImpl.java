@@ -102,7 +102,7 @@ public class MemberserviceImpl implements MemberService {
 	@Override
 	public int updatemPhone(Member m) {
 		String phone = m.getmPhone();
-		
+		System.out.println(phone);
 		int ck = md.selectmPhone(sqlSession, phone);
 		int result = 0;
 
@@ -131,6 +131,11 @@ public class MemberserviceImpl implements MemberService {
 	@Override
 	public int updatemPwd(Member m) {
 		return md.updateMemberPwd(sqlSession, m);
+	}
+
+	@Override
+	public int selectCntEmail(String mEmail) {
+		return md.selectCntEmail(sqlSession, mEmail);
 	}
 
 

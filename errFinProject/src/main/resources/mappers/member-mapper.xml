@@ -103,7 +103,7 @@
 	</update>
 	
 	<select id = "selectmPhone" parameterType = "java.lang.String" resultType = "_int">
-		SELECT COUNT(*) FROM MEMBER WHERE MPHONE = #{mPhone}
+		SELECT COUNT(*) FROM MEMBER WHERE MPHONE = #{mPhone} AND MSTATUS = 'Y'
 	</select>
 	
 	<update id = "updatemPhone" parameterType = "Member">
@@ -115,6 +115,10 @@
 		UPDATE MEMBER SET MPWD = #{mPwd}
 		WHERE MID = #{mid}
 	</update>
+	
+	<select id = "selectmEmail" parameterType = "java.lang.String" resultType = "_int">
+		SELECT COUNT(*) FROM MEMBER WHERE MEMAIL = #{mEmail} AND MSTATUS = 'Y'
+	</select>
 </mapper>
 
 
