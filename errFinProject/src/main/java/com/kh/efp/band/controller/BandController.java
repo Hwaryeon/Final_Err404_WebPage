@@ -45,12 +45,7 @@ public class BandController {
 		
 		list = bs.scehduleList();
 		
-		/*for(int i =0; i < list.size(); i++){
-			System.out.println( i+" : " + list.get(i).toString());
-		}*/
-		
 		model.addAttribute("sList", list); 
-		
 		
 		for(int i=0; i<list.size(); i++){
 			String str = ((Scehdule) list.get(i)).getsDate();
@@ -95,49 +90,15 @@ public class BandController {
 		return ret;	
 	}
 	
-	/*@RequestMapping(value="addCalendar.bd")
-	public void addCalendar(@RequestParam String title, String sDate, String eDate,
-										HttpServletResponse response){
-			
-		Scehdule s = new Scehdule(sDate, eDate, title);
-		
-		int result = bs.insertScehdule(s);
-		
-		try {
-			response.getWriter().print(false);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}	
-	}*/
-	
-	/*@RequestMapping(value="addCalendar.bd")
-	public String addCalendar(@RequestParam String title, String sDate, String eDate, Model model,
-										HttpServletResponse response){
-		
-		System.out.println("title : " + title);
-		System.out.println("sDate : " + sDate);
-		System.out.println("eDate : " + eDate);
-		
-		Scehdule s = new Scehdule(sDate, eDate, title);
-		
-		int result = bs.insertScehdule(s);
-		
-		int next = bs.selectCurrval();
-		
-		System.out.println("next : " +next);
-		
-		
-		return "redirect:/bandCalendarList.bd";
-	}*/
-	
 	@RequestMapping("addCalendar.bd")
-	public @ResponseBody HashMap<String, Object> addCalendar2(
+	public @ResponseBody HashMap<String, Object> addCalendar(
 			@RequestParam String title, String content, String sDate, String eDate){
 		
 		System.out.println("title : " + title);
 		System.out.println("content : " + content);
 		System.out.println("sDate : " + sDate);
 		System.out.println("eDate : " + eDate);
+		
 		
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
 
@@ -146,15 +107,13 @@ public class BandController {
 		int result = bs.insertScehdule(s);
 		
 		int next = bs.selectCurrval();
-		
-		System.out.println("next : " +next);
 
 		hmap.put("next", next);
 
 		return hmap;
 	}
 	
-	@RequestMapping(value="deleteCalendar.bd")
+	/*@RequestMapping(value="deleteCalendar.bd")
 	public String deleteCalendar(@RequestParam int did, Model model,
 										HttpServletResponse response){
 			
@@ -169,10 +128,24 @@ public class BandController {
 		return "redirect:/bandCalendarList.bd";
 		
 		
+	}*/
+	
+	@RequestMapping(value="deleteCalendar.bd")
+	public @ResponseBody void deleteCalendar(@RequestParam int did, Model model,
+										HttpServletResponse response){
+		
+		System.out.println("일정 삭제 컨트롤러 호출");
+		
+		System.out.println("did :" + did);
+		
+		bs.deleteScehdule(did);
+		
 	}
+	
 
 	@RequestMapping(value="updateCalendar.bd")
-	public String updateCalendar(@RequestParam int did, String title, String content, Model model,
+	public @ResponseBody void updateCalendar(@RequestParam int did,
+							String title, String content, Model model,
 										HttpServletResponse response){
 			
 			
@@ -185,7 +158,6 @@ public class BandController {
 		
 		bs.updateScehdule(s);
 		
-		return "redirect:/bandCalendarList.bd";
 		
 		
 	}
