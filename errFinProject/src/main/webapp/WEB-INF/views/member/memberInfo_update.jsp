@@ -161,7 +161,7 @@
                                 </tr>
                                 <tr>
                                     <td style="vertical-align: middle;">비밀번호</td>
-                                    <td id = "showName" style="vertical-align: middle; text-align: left;"></td>
+                                    <td id = "nop" style="vertical-align: middle; text-align: left;"></td>
                                     <td style="vertical-align: middle; text-align: right;"><a class="button-blue button-link" data-toggle="modal" data-target="#pwdModal">비밀번호 수정하기</a></td>
                                 </tr>
                                 <tr>

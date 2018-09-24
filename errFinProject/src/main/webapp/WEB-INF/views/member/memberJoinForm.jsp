@@ -130,13 +130,13 @@
 								<td width="300px"><input class="form-control" name="mEmail" id = "mEmail"
 									type="text" placeholder="이메일" /></td>
 								<td width="20px"></td>
-								<td><a class="button-navy button-link">인증하기</a></td>
+								<td><a class="button-navy button-link" onclick = "cntEmail()">인증하기</a></td>
 							</tr>
 							<tr>
-								<td width="300px"><input class="form-control" type="text" name = "checkNum"
-									placeholder="인증번호" /></td>
+								<td width="300px"><input class="form-control" type="text" name = "checkAuth"
+									id = "checkAuth" placeholder="인증번호" /></td>
 								<td width="20px"></td>
-								<td><a class="button-navy button-link">확인하기</a></td>
+								<td><a class="button-navy button-link" onclick = "authEmail()">확인하기</a></td>
 							</tr>
 							<tr>
 								<td width="300px" height="38px"><input class="form-control"
@@ -216,7 +216,7 @@
 					</div>
 					<br>
 					<div id="naver_id_login" style="text-align:center">
-                            <a href = ${ url }><img width="280px" height = "50px" src="resources/images/login/naver.PNG"/>
+                            <a href = ${ url }><img width="280px" height = "60px" src="resources/images/login/naver.PNG"/>
                             </a></div>
 				</div>
 			</div>
@@ -269,6 +269,8 @@
 		$(function() {
 			$("#userImage").hide(); 
 			nameResult = -99;
+			emailResult = -99;
+			ck = -99;
 			
 		});
 
@@ -335,7 +337,13 @@
 			if(!$("#KR").is(":checked") && !$("#EN").is(":checked")){
 				alert("언어(language)를 확인하세요.");
 				return false;
-			} */
+			} 
+			
+			if(emailResult != 1){
+				alert("Email을 확인하세요.");
+				return false;
+			}
+			*/
 			
 			checkmPhone();
 		}
@@ -402,6 +410,73 @@
 					console.log('실패');
 				}
 			})
+		}
+		
+		function ckEmail(){
+			var mEmail = $("#mEmail").val();
+
+			$.ajax({
+				url : "checkEmail.me",
+				type : "post",
+				data : {
+					mEmail : mEmail
+				},
+				success : function(data) {
+					emailResult = 2;
+					var au = data.replace('"', "");
+	    			var auth = au.replace('"', "");
+					authNum = auth;
+					console.log(authNum);
+					alert(mEmail + "에서 인증번호를 확인하세요");
+				},
+				error : function() {
+					alert("올바르지 않은 이메일 입니다.")
+				}
+			})
+			
+			
+		}
+		
+		function cntEmail(){
+			var mEmail = $("#mEmail").val();
+			$.ajax({
+				url : "cntEmail.me",
+				type : "post",
+				data : {
+					mEmail : mEmail
+				},
+				success : function(data) {
+					if(data == 0){
+						ckEmail();
+					}else{
+						alert("중복되는 Email 입니다.")
+					}
+					
+				 
+				},
+				error : function() {
+					console.log("실패");
+				}
+			})
+			
+			
+		}
+		
+		function authEmail(){
+			var checkAuth = $("#checkAuth").val();
+			
+			
+			if(emailResult == -99){
+				alert("Email 인증을 받으세요");
+			}else if(emailResult == 2){
+				if(authNum.match(checkAuth)){
+					console.log("만세!");
+					emailResult = 1;
+				}else{
+					console.log("다름..");
+					emailResult = 0;
+				}
+			}
 		}
 	</script>
 	<script src="resources/js/jquery.min.js"></script>

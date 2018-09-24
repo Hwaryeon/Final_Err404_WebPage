@@ -85,6 +85,12 @@ public class MemberDaoImpl implements MemberDao{
 		// TODO Auto-generated method stub
 		return sqlSession.update("Member.updatemPwd", m);
 	}
+
+	@Override
+	public int selectCntEmail(SqlSessionTemplate sqlSession, String mEmail) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("Member.selectmEmail", mEmail);
+	}
 	
 	
 

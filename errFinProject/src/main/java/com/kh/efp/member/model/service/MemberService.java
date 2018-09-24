@@ -27,4 +27,6 @@ public interface MemberService {
 	int chPwd(Member m);
 
 	int updatemPwd(Member m);
+
+	int selectCntEmail(String mEmail);
 }
