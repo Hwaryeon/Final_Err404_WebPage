@@ -17,14 +17,24 @@ public class loginServiceImpl implements loginService{
 	
 	@Override
 	@Transactional
-	public Member insertNaverMember(Member m, Profile pf) {
-		int result = ld.insertNaverMember(sqlSession, m);
+	public Member selectNaverMember(Member m, Profile pf) {
 		
 		Member member = ld.selectNaverMember(sqlSession, m);
 		
-		pf.setMid(member.getMid());
 		
-		int result2 = ld.insertNaverProfile(sqlSession, pf);
+		System.out.println("m : " + m);
+		System.out.println("member : " + member);
+		System.out.println("pf : " + pf);
+		
+		if(member == null){
+			
+			int result1 = ld.insertNaverMember(sqlSession, m);
+			member = ld.selectNaverMember(sqlSession, m);
+			
+			pf.setMid(member.getMid());
+			int result2 = ld.insertNaverProfile(sqlSession, pf);
+		
+		}
 		
 		return member;
 	}

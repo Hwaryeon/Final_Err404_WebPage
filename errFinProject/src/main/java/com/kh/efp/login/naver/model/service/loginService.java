@@ -5,6 +5,6 @@ import com.kh.efp.member.model.vo.Profile;
 
 public interface loginService {
 
-	Member insertNaverMember(Member m, Profile pf);
+	Member selectNaverMember(Member m, Profile pf);
 
 }

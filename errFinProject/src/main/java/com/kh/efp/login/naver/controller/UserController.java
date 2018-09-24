@@ -38,7 +38,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value="testlogin.lg", method = RequestMethod.POST)
-	public void login(HttpSession session, HttpServletResponse response, HttpServletRequest request) {
+	public void login(HttpSession session, HttpServletResponse response) {
 		/* 네아로 인증 URL을 생성하기 위하여 getAuthorizationUrl을 호출 */
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 		System.out.println("controller 호출");
@@ -88,7 +88,7 @@ public class UserController {
 		pf.setOriginName(fileName);
 		pf.setFileSrc(fileSrc);
 		
-		Member loginUser = ls.insertNaverMember(m, pf);
+		Member loginUser = ls.selectNaverMember(m, pf);
 
 		return new ModelAndView("main/main", "loginUser", loginUser);
 	}

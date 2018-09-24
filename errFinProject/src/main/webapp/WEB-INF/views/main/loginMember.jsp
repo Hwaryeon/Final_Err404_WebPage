@@ -89,16 +89,16 @@
                         <br>
                     	</form>
                         <hr>
-                        <div style="border : 1px solid black; height : 50px;">
-                            구글 로그인
+                        <div style="text-align:center; margin-left : auto; margin-right : auto;">
+                          		<a id = "Test4"><img width="290px" height = "60px" src="resources/images/login/GGlogin1.png"/></a>
                         </div>
                         <br>
-                        <div style="border : 1px solid black; height : 50px;">
-                            페이스북 로그인
+                        <div style="text-align:center; margin-left : auto; margin-right : auto;">
+                          		<a id = "Test3"><img width="280px" height = "40px" src="resources/images/login/FBLogin1.PNG"/></a>
                         </div>
                         <br>
                             <div id="naver_id_login" style="text-align:center">
-                            <a id = "Test2"><img width="100%" height = "70px" src="resources/images/login/naver.PNG"/>
+                            <a id = "Test2"><img width="280px" height = "50px" src="resources/images/login/naver.PNG"/>
                             </a></div>
                         <hr>
                         <a href = "memberJoinForm.me">회원가입</a><br>
@@ -164,7 +164,37 @@
       		error:function(){
       			console.log('실패');
       		}
-      	})
+      	});
+      	
+      	$.ajax({
+      		url : "FBurl.lg",
+      		data : {},
+      		type : "post",
+      		success:function(data){
+    			var url = data.replace('"', "");
+    			var url2 = url.replace('"', "");
+    			console.log(url2);
+    			$("#Test3").attr("href", url2);
+      		},
+      		error:function(){
+      			console.log('실패');
+      		}
+      	});
+      	
+      	$.ajax({
+      		url : "gg.lg",
+      		data : {},
+      		type : "post",
+      		success:function(data){
+    			var url = data.replace('"', "");
+    			var url2 = url.replace('"', "");
+    			console.log(url2);
+    			$("#Test4").attr("href", url2);
+      		},
+      		error:function(){
+      			console.log('실패');
+      		}
+      	});
       })
     
     	function moveMain(){
