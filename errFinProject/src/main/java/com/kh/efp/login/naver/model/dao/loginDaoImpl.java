@@ -16,13 +16,13 @@ public class loginDaoImpl implements loginDao{
 
 	@Override
 	public Member selectNaverMember(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.selectOne("Login.selectNaverMember", m);
+		return sqlSession.selectOne("Login.selectMember", m);
 	}
 
 	@Override
 	public int insertNaverProfile(SqlSessionTemplate sqlSession, Profile pf) {
 		// TODO Auto-generated method stub
-		return sqlSession.insert("Login.insertNaverProfile", pf);
+		return sqlSession.insert("Login.insertProfile", pf);
 	}
 
 }

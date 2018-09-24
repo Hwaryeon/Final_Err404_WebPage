@@ -207,17 +207,17 @@
 				</div>
 				<div class="widget-content"
 					style="width: 49%; height: 500px; float: left; padding-top: 100px;">
-					<div
-						style="border: 1px solid black; height: 80px; width: 320px; margin-left: auto; margin-right: auto;">
-						구글 회원가입</div>
+					<div style="text-align:center">
+						<a href = ${ ggurl }><img width="290px" height = "60px" src="resources/images/login/GGlogin1.png"/></a>
+					</div>
 					<br>
-					<div
-						style="border: 1px solid black; height: 80px; width: 320px; margin-left: auto; margin-right: auto;">
-						페이스북 회원가입</div>
+					<div style="text-align:center">
+						<a href = ${ FB_url }><img width="280px" height = "40px" src="resources/images/login/FBLogin1.PNG"/></a>
+					</div>
 					<br>
-					<div
-						style="border: 1px solid black; height: 80px; width: 320px; margin-left: auto; margin-right: auto;">
-						네이버 회원가입</div>
+					<div id="naver_id_login" style="text-align:center">
+                            <a href = ${ url }><img width="280px" height = "50px" src="resources/images/login/naver.PNG"/>
+                            </a></div>
 				</div>
 			</div>
 		</div>

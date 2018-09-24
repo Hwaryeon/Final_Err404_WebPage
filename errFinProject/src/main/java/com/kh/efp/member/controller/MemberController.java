@@ -7,9 +7,15 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.social.facebook.connect.FacebookConnectionFactory;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Operations;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.efp.commons.CommonUtils;
+import com.kh.efp.login.naver.model.vo.NaverLoginBO;
 import com.kh.efp.member.model.exception.LoginException;
 import com.kh.efp.member.model.service.MemberService;
 import com.kh.efp.member.model.vo.Member;
@@ -29,10 +36,28 @@ import com.kh.efp.member.model.vo.Profile;
 @SessionAttributes("loginUser")
 public class MemberController {
 	@Autowired private MemberService ms;
-	@Autowired BCryptPasswordEncoder passwordEncoder;
+	@Autowired private BCryptPasswordEncoder passwordEncoder;
+	@Autowired private NaverLoginBO naverLoginBO;
+	@Autowired private FacebookConnectionFactory connectionFactory;
+    @Autowired private OAuth2Parameters oAuth2Parameters;
+    @Autowired private GoogleConnectionFactory googleConnectionFactory;
 
 	@RequestMapping("memberJoinForm.me")
-	public String showMemberJoinForm(){
+	public String showMemberJoinForm(HttpSession session, Model model){
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		
+		model.addAttribute("url", naverAuthUrl);
+		
+		OAuth2Operations oauthOperations = connectionFactory.getOAuthOperations();
+        String facebook_url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, oAuth2Parameters);
+    
+        model.addAttribute("FB_url", facebook_url);
+        
+        OAuth2Operations oauthOperations2 = googleConnectionFactory.getOAuthOperations();
+        String url = oauthOperations2.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, oAuth2Parameters);
+        
+        model.addAttribute("ggurl",url);
+		
 		return "member/memberJoinForm";
 	}
 
