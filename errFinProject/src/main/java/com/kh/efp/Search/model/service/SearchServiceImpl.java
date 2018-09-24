@@ -20,6 +20,7 @@ public class SearchServiceImpl implements SearchService{
 	//모든 검색결과
 	@Override
 	public HashMap<String, ArrayList<Search>> selectSearchAll(ArrayList<String> lists) {
+		
 		ArrayList<Search> searchContentsResult = searchDao.selectSearchContents(sqlSession, lists);
 		ArrayList<Search> searchBandResult = searchDao.selectSearchBand(sqlSession, lists);
 		ArrayList<Ban> banList = searchDao.selectSearchBand(sqlSession);

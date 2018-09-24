@@ -61,7 +61,8 @@
         	if (window.event.keyCode == 13) {	//엔터를 눌렀을때
         		
 	         if($('#searchBox').val() != ''){	//비어있지 않으면
-	        	 location.href='searchResult.search?value='+$('#searchBox').val();
+	        	 var value = encodeURIComponent($('#searchBox').val());
+	        	 location.href='searchResult.search?value='+value;
 	         }else{								//검색란이 비어있으면 무반응
 	         }
            }

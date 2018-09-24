@@ -16,7 +16,7 @@ public class SearchDaoImpl implements SearchDao {
 	//모든 검색 게시물 리스트가져오기
 	@Override
 	public ArrayList<Search> selectSearchContents(SqlSessionTemplate sqlSession, ArrayList list) {
-		ArrayList<Search> lists = (ArrayList)sqlSession.selectList("Search.selectSearchContents", list); 
+		ArrayList<Search> lists = (ArrayList)sqlSession.selectList("Search.selectSearchContents", list);
 		return lists;
 	}
 

@@ -51,29 +51,39 @@
 		)
 		<trim prefix="WHERE" prefixOverrides="AND |OR ">
 			<foreach collection="list" item="item" index="index" separator=" " open="" close="">
-				OR BNAME LIKE '%'|| #{item} ||'%'
-				OR BINTRO LIKE '%'|| #{item} ||'%'
+				OR UPPER(BNAME) LIKE '%'|| UPPER(#{item}) ||'%'
+				OR UPPER(BINTRO) LIKE '%'|| UPPER(#{item}) ||'%'
 			</foreach>
 		</trim>
 	</select>
 	
 	<!-- 모든 검색 게시글 리스트 가져오기 -->
 	<select id="selectSearchContents" resultMap="SearchResultSet" parameterType="java.util.ArrayList">
-		SELECT B.BID, B.BNAME, B.BOPEN_STATUS, B.BINTRO, M.MID, M.MNAME, 
-		C.CNAME, BOD.BOARDID, BOD.BCONTENT, BOD.BDATE, P.PID, P.EDIT_NAME, 
-		P.FTYPE, P.FILE_SRC, AT.FID, AT.EDIT_NAME as A_EDIT_NAME, AT.FILE_SRC as A_File_SRC, AT.FLEVEL
-		FROM BAND B
-		JOIN MEMBER_BAND MB ON(B.BID = MB.BID)
-		JOIN MEMBER M ON(MB.MID = M.MID)
-		JOIN CATEGORY C ON(B.CID = C.CID)
-		JOIN BOARDS BOD ON(BOD.BID = B.BID)
-		JOIN PROFILE P ON(B.BID = P.BID)
-		RIGHT JOIN ATTFILE AT ON(AT.BOARDID = BOD.BOARDID)
-		WHERE B.BOPEN_STATUS != 'PRV'
-		AND B.BSTATUS = 'Y'
-		<foreach collection="list" item="item" index="index" separator=" " open="" close="">
-			AND BOD.BCONTENT LIKE '%'||	#{item} ||'%'
-		</foreach>
+		SELECT ROWNUM, BID, BNAME, BOPEN_STATUS, BINTRO, MID, MNAME, 
+				CNAME, BOARDID, BCONTENT, BDATE, PID, EDIT_NAME, 
+				FTYPE, FILE_SRC, FID, A_EDIT_NAME, A_File_SRC, FLEVEL
+		FROM(SELECT *  FROM
+		    (SELECT B.BID, B.BNAME, B.BOPEN_STATUS, B.BINTRO, M.MID, M.MNAME, 
+		            C.CNAME, BOD.BOARDID, BOD.BCONTENT, BOD.BDATE, P.PID, P.EDIT_NAME, 
+		            P.FTYPE, P.FILE_SRC, AT.FID, AT.EDIT_NAME as A_EDIT_NAME, AT.FILE_SRC as A_File_SRC, AT.FLEVEL, ROWNUM
+		            FROM BAND B
+		            JOIN MEMBER_BAND MB ON(B.BID = MB.BID)
+		            JOIN MEMBER M ON(MB.MID = M.MID)
+		            JOIN CATEGORY C ON(B.CID = C.CID)
+		            JOIN BOARDS BOD ON(BOD.BID = B.BID)
+		            JOIN PROFILE P ON(B.BID = P.BID)
+		            RIGHT JOIN ATTFILE AT ON(AT.BOARDID = BOD.BOARDID)
+		            WHERE B.BOPEN_STATUS != 'PRV'
+		            AND B.BSTATUS = 'Y'
+		            ORDER BY BDATE DESC
+		    )
+		    WHERE ROWNUM <![CDATA[ <= ]]> 4
+		)      
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+			<foreach collection="list" item="item" index="index" separator=" " open="" close="">
+				OR UPPER(BCONTENT) LIKE '%'||	UPPER(#{item}) ||'%'
+			</foreach>
+		</trim>
 	</select>
 	
 	<select id='selectSearchBan' resultMap='BanResultSet'>

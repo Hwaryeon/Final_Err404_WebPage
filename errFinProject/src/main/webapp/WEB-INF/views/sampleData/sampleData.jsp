@@ -1,11 +1,11 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8"    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var='contextPath' value='${pageContext.request.contextPath}' scope='application'/>
 <html>
 <head profile="http://www.w3.org/2005/10/profile">
-<link rel="icon" type="image/png" href="http://example.com/myicon.png"> 
   <meta name="viewport" content=" width=device-width, initial-scale=1">
   <!-- CSS -->
+  <link rel="icon" type="image/png" href="http://example.com/myicon.png"> 
   <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
   <link href="${contextPath}/resources/css/font-awesome.min.css" rel="stylesheet">
   <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
@@ -16,8 +16,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css'/>
-  <!-- Skin -->
-  <link href="${contextPath}/resources/skins/light-pink-blue.css" rel="stylesheet">
   <!-- Script -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
