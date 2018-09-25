@@ -117,7 +117,7 @@
     
       <div class="main col-md-12 col-xs-12" style='display:table; margin-bottom:30px'>
       	<div class='band-title'>
-       		<label style='font-size:40px; float:left;'>게시글</label>
+       		<label style='font-size:40px; float:left;'>게시글 - ${fn:length(contents)}건</label>
        		<c:if test='${fn:length(contents) >= 4}'>
        			<a href='${contextPath}/searchMorePost.search' style='font-size: 20px; float:right;'>더 많은 게시글 보기  <i class='glyphicon glyphicon-chevron-right'></i></a>
        		</c:if>
@@ -172,7 +172,7 @@
         
         <div class="main col-md-12 col-xs-12" style='display:table; margin-bottom:30px'>
         	<div class='band-title'>
-	        	<label style='font-size:40px; '>밴드</label>
+	        	<label style='font-size:40px; '>밴드 - ${fn:length(band)}건</label>
         	</div>
         </div>
         
@@ -184,21 +184,21 @@
         	</div>
         </c:if>
         <c:if test='${fn:length(band) != 0}'>
-		 <c:forEach var='item' items='${band}'>
+		 <c:forEach var='b' begin='0' end='${fn:length(band)>5 ? 5 : fn:length(band)-1}' step='1' >
           <div class="col-md-10 col-xs-10">
             <div class="widget band-list" style='background: linear-gradient(to left, #e6e6e6, #ffffff);'>
               <div class="media">
                 <div class="media-left media-middle">
-                    <img class="media-object" src="${contextPath}/resources/upload_images/${item.p_edit_Name}" style='width:50px;' alt="...">
+                    <img class="media-object" src="${contextPath}/resources/upload_images/${band[b].p_edit_Name}" style='width:50px;' alt="...">
                 </div>
                 <div class="media-body">
-                  <h4 class="media-heading" style='color:#25afe5;'>${item.bName}</h4>
+                  <h4 class="media-heading" style='color:#25afe5;'>${band[b].bName}</h4>
                   	<c:choose>
-			           <c:when test="${fn:length(item.bIntro) > 70}">
-			           		${fn:substring(item.bIntro,0,70)}....
+			           <c:when test="${fn:length(band[b].bIntro) > 70}">
+			           		${fn:substring(band[b].bIntro,0,70)}....
 			           </c:when>
 			           <c:otherwise>
-		        	    	${item.bIntro}
+		        	    	${band[b].bIntro}
 			           </c:otherwise> 
 			        </c:choose>
                 </div>
