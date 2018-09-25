@@ -138,5 +138,28 @@ public class MemberserviceImpl implements MemberService {
 		return md.selectCntEmail(sqlSession, mEmail);
 	}
 
+	@Override
+	public String selectmEmail(Member m) {
+		return md.selectmEmail(sqlSession, m);
+	}
+
+	@Override
+	public int updateMidmPwd(Member m) {
+		// TODO Auto-generated method stub
+		return md.updateMidmPwd(sqlSession, m);
+	}
+
+	@Override
+	public int selectAuthmEmail(Member m) {
+		// TODO Auto-generated method stub
+		return md.selectAuthmEmail(sqlSession, m);
+	}
+
+	@Override
+	public int updatemStatus(int imid) {
+		// TODO Auto-generated method stub
+		return md.updatemStatus(sqlSession, imid);
+	}
+
 
 }

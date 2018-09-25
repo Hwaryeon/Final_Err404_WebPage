@@ -9,7 +9,6 @@
     <meta name="viewport" content=" width=device-width, initial-scale=1">
     <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <title>Weekend Magazine</title>
     <!-- CSS -->
@@ -120,7 +119,7 @@
     <div class="container">
         <!-- Main Content -->
         <div class="main col-md-9 col-md-push-3 col-xs-12">
-
+			<button href = "logout.me" id = "lobtn">나가기</button>
             <div class="widget fullwidth post-single">
                 <h2>회원 정보 수정</h2><br>
                 <div class="widget-content">
@@ -283,6 +282,7 @@
                         </li>
 
                     </ul>
+                    <a id = "dm" onclick = "deleteMember()">회원 탈퇴하기</a>
                 </div>
             </div>
 
@@ -335,6 +335,7 @@
     <script>
     	$(function(){
     		$("#userImage").hide();
+    		$("#lobtn").hide();
     	})
 
     	function changeProfile(){
@@ -486,6 +487,27 @@
 					console.log("실패");
 				}
     		})
+    	}
+    	
+    	function deleteMember(){
+    		var ck = window.confirm("진짜 탈퇴?");
+    		
+    		if(ck){
+    			$.ajax({
+    				url : "deleteMember.me",
+    				data : {
+    					mid : ${ sessionScope.loginUser.mid }
+    				},
+    				type : "post",
+    				success:function(data){
+    					alert("정상적으로 탈퇴가 되었습니다.");
+    					window.location.href = "logout.me";
+    				},
+    				error:function(){
+    					console.log("실패");
+    				}
+    			})
+    		}
     	}
     </script>
     <script src="resources/js/jquery.min.js"></script>

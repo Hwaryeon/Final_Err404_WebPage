@@ -91,6 +91,30 @@ public class MemberDaoImpl implements MemberDao{
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("Member.selectmEmail", mEmail);
 	}
+
+	@Override
+	public String selectmEmail(SqlSessionTemplate sqlSession, Member m) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("Member.findEmail", m);
+	}
+
+	@Override
+	public int updateMidmPwd(SqlSessionTemplate sqlSession, Member m) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("Member.updateMidmPwd", m);
+	}
+
+	@Override
+	public int selectAuthmEmail(SqlSessionTemplate sqlSession, Member m) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("Member.selectAuthmEmail", m);
+	}
+
+	@Override
+	public int updatemStatus(SqlSessionTemplate sqlSession, int imid) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("Member.updatemStatus", imid);
+	}
 	
 	
 

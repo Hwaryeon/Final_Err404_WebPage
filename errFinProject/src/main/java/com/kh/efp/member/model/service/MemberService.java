@@ -29,4 +29,12 @@ public interface MemberService {
 	int updatemPwd(Member m);
 
 	int selectCntEmail(String mEmail);
+
+	String selectmEmail(Member m);
+
+	int updateMidmPwd(Member m);
+
+	int selectAuthmEmail(Member m);
+
+	int updatemStatus(int imid);
 }
