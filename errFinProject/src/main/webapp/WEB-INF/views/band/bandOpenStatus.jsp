@@ -3,23 +3,16 @@
 <!DOCTYPE html >
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <meta charset="utf-8">
 <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content=" width=device-width, initial-scale=1">
 <title>Weekend Magazine</title>
-<!-- CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/font-awesome.min.css" rel="stylesheet">
-<link href="style.css" rel="stylesheet">
-<link href="css/responsive.css" rel="stylesheet">
-<!-- Skin -->
-  <link href="skins/light-pink-blue.css" rel="stylesheet">
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
+<link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/light-pink-blue.css" rel="stylesheet">
 </head>
 <body
 	class="home page page-id-4 page-template page-template-template_home-php">
@@ -150,14 +143,14 @@
 
 			<div class="widget fullwidth post-single">
 				<h4 class="widget-title">밴드 공개 설정</h4>
-				<form action="#" method="post" class="mrgn-bottom-0">
+				<!-- <form action="#" method="post" class="mrgn-bottom-0"> -->
 					<div class="widget-content">
 						<ul>
 							<li>
 								<h4 class="list-title"
 									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
 									비공개 밴드
-									<label style="float:right"> <input name="remember" value="1" type="checkbox">
+									<label style="float:right"> <input name="remember" value="1" type="radio">
 								</label>
 									<!-- <a style="float: right; background: #fafafa; border: 1px solid #c9c8c8; padding: 3px 8px 3px 8px;">변경</a> -->
 								</h4>
@@ -167,34 +160,47 @@
 								<h4 class="list-title"
 									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
 									밴드명 공개 밴드
-									<label style="float:right"> <input name="remember" value="1" type="checkbox"></label>
+									<label style="float:right"> <input name="remember" value="2" type="radio"></label>
 								</h4>
 							</li>
 							<li>
 								<h4 class="list-title"
 									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
 									공개 밴드
-									<label style="float:right"> <input name="remember" value="1" type="checkbox"></label>
+									<label style="float:right"> <input name="remember" value="3" type="radio"></label>
 								</h4>
 							</li>
 						</ul>
 
 
 
-
 						<div class="row survey" style="margin-top: 50px;">
 							<div class="col-md-6">
-								<button class="button vote">저장</button>
+								<button id="save" class="button vote">저장</button>
 							</div>
 							<div class="col-md-6">
 								<button class="button">취소</button>
 							</div>
 						</div>
 					</div>
-				</form>
+				<!-- </form> -->
 			</div>
 
 		</div>
+		
+		<script>
+		
+		$('#save').click(function(){
+			
+			var radioVal = $('input[name="remember"]:checked').val();
+	        
+			location.href='changeStatus.bd?status='+radioVal;
+			
+
+			
+		});
+		
+		</script>
 
 		<div class="right-sidebar col-md-3" role="complementary">
 

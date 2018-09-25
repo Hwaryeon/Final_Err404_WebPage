@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.band.model.vo.Scehdule;
 
 @Repository
@@ -49,6 +50,13 @@ public class BandDaoImpl implements BandDao{
 	public void updateScehdule(SqlSessionTemplate sqlSession, Scehdule s) {
 		
 		sqlSession.update("Scehdule.updateScehdule", s);
+		
+	}
+
+	@Override
+	public void updateBandOpenStatus(SqlSessionTemplate sqlSession, Band b) {
+		
+		sqlSession.update("Band.updateBandOpenStatus", b);
 		
 	}
 
