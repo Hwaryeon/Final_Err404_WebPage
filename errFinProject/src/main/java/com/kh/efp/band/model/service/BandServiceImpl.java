@@ -55,6 +55,13 @@ public class BandServiceImpl implements BandService {
 		return bd.selectCurrval(sqlSession);
 	}
 
+	@Override
+	public void updateScehdule(Scehdule s) {
+		
+		bd.updateScehdule(sqlSession, s);
+		
+	}
+
 
 
 }

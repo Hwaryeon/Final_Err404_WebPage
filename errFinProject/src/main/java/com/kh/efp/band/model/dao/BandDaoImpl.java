@@ -45,6 +45,13 @@ public class BandDaoImpl implements BandDao{
 		return sqlSession.selectOne("Scehdule.selectCurrval");
 	}
 
+	@Override
+	public void updateScehdule(SqlSessionTemplate sqlSession, Scehdule s) {
+		
+		sqlSession.update("Scehdule.updateScehdule", s);
+		
+	}
+
 
 	
 	

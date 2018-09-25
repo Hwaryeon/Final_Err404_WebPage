@@ -102,7 +102,7 @@ public class MemberserviceImpl implements MemberService {
 	@Override
 	public int updatemPhone(Member m) {
 		String phone = m.getmPhone();
-		
+		System.out.println(phone);
 		int ck = md.selectmPhone(sqlSession, phone);
 		int result = 0;
 
@@ -111,6 +111,31 @@ public class MemberserviceImpl implements MemberService {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public int chPwd(Member m) {
+		int result = -99;
+		
+		String encPassword = md.selectEncPassword(sqlSession, m);
+
+		if(!passwordEncoder.matches(m.getmPwd(), encPassword)){
+			result = 0;
+		}else{
+			result = 1;
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int updatemPwd(Member m) {
+		return md.updateMemberPwd(sqlSession, m);
+	}
+
+	@Override
+	public int selectCntEmail(String mEmail) {
+		return md.selectCntEmail(sqlSession, mEmail);
 	}
 
 

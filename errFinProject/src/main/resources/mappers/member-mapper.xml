@@ -37,7 +37,16 @@
 	<!-- 암호화된 비밀번호 조회용 쿼리문 -->
 	<select id="selectPwd" resultType="java.lang.String"
 		parameterType="java.lang.String">
-		SELECT MPWD FROM MEMBER WHERE MEMAIL = #{mEmail} AND MSTATUS = 'Y'
+		SELECT MPWD FROM MEMBER 
+		WHERE 1 = 1
+		<choose>
+			<when test = "mEmail != null">
+				AND MEMAIL = #{mEmail} AND MSTATUS = 'Y'
+			</when>
+			<otherwise>
+				AND MID = #{mid} AND MSTATUS = 'Y'
+			</otherwise>
+		</choose>
 	</select>
 	
 	<!-- 비밀번호 일치 시 회원 정보 조회용 쿼리문 -->
@@ -94,13 +103,22 @@
 	</update>
 	
 	<select id = "selectmPhone" parameterType = "java.lang.String" resultType = "_int">
-		SELECT COUNT(*) FROM MEMBER WHERE MPHONE = #{mPhone}
+		SELECT COUNT(*) FROM MEMBER WHERE MPHONE = #{mPhone} AND MSTATUS = 'Y'
 	</select>
 	
 	<update id = "updatemPhone" parameterType = "Member">
 		UPDATE MEMBER SET MPHONE = #{mPhone}
 		WHERE MID = #{mid}
 	</update>
+	
+	<update id = "updatemPwd" parameterType = "Member">
+		UPDATE MEMBER SET MPWD = #{mPwd}
+		WHERE MID = #{mid}
+	</update>
+	
+	<select id = "selectmEmail" parameterType = "java.lang.String" resultType = "_int">
+		SELECT COUNT(*) FROM MEMBER WHERE MEMAIL = #{mEmail} AND MSTATUS = 'Y'
+	</select>
 </mapper>
 
 

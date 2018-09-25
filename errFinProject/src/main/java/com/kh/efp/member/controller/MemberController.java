@@ -3,25 +3,38 @@ package com.kh.efp.member.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
+import javax.inject.Inject;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.social.facebook.connect.FacebookConnectionFactory;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Operations;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.efp.commons.CommonUtils;
+import com.kh.efp.commons.MailHandler;
+import com.kh.efp.commons.TempKey;
+import com.kh.efp.login.naver.model.vo.NaverLoginBO;
 import com.kh.efp.member.model.exception.LoginException;
 import com.kh.efp.member.model.service.MemberService;
 import com.kh.efp.member.model.vo.Member;
@@ -31,10 +44,31 @@ import com.kh.efp.member.model.vo.Profile;
 @SessionAttributes("loginUser")
 public class MemberController {
 	@Autowired private MemberService ms;
-	@Autowired BCryptPasswordEncoder passwordEncoder;
+	@Autowired private BCryptPasswordEncoder passwordEncoder;
+	@Autowired private NaverLoginBO naverLoginBO;
+	@Autowired private FacebookConnectionFactory connectionFactory;
+    @Autowired private OAuth2Parameters oAuth2Parameters;
+    @Autowired private GoogleConnectionFactory googleConnectionFactory;
+    
+    @Inject
+    private JavaMailSender mailSender;
 
 	@RequestMapping("memberJoinForm.me")
-	public String showMemberJoinForm(){
+	public String showMemberJoinForm(HttpSession session, Model model){
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		
+		model.addAttribute("url", naverAuthUrl);
+		
+		OAuth2Operations oauthOperations = connectionFactory.getOAuthOperations();
+        String facebook_url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, oAuth2Parameters);
+    
+        model.addAttribute("FB_url", facebook_url);
+        
+        OAuth2Operations oauthOperations2 = googleConnectionFactory.getOAuthOperations();
+        String url = oauthOperations2.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, oAuth2Parameters);
+        
+        model.addAttribute("ggurl",url);
+		
 		return "member/memberJoinForm";
 	}
 
@@ -235,7 +269,7 @@ public class MemberController {
 							 @RequestParam("mid") String mid,
 							 Model model, HttpServletResponse response){
 		ObjectMapper mapper = new ObjectMapper();
-
+		System.out.println("controll : " + mPhone);
 		int imid = Integer.parseInt(mid);
 		
 		if(mPhone.equals("")){
@@ -249,7 +283,7 @@ public class MemberController {
 		}
 		
 		Member m = new Member();
-		m.setmName(mPhone);
+		m.setmPhone(mPhone);
 		m.setMid(imid);
 		
 		int result = ms.updatemPhone(m);
@@ -257,6 +291,97 @@ public class MemberController {
 		try {
 			model.addAttribute("loginUser", ms.selectMember(m));
 
+			response.getWriter().println(mapper.writeValueAsString(result));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("CkPwd.me")
+	public void CkPwd(String old, String mid, HttpServletResponse response){
+		int imid = Integer.parseInt(mid);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Member m = new Member();
+		
+		m.setmPwd(old);
+		m.setMid(imid);
+		
+		int result = ms.chPwd(m);
+		
+		try {
+			response.getWriter().println(mapper.writeValueAsString(result));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@RequestMapping("ChangedPwd.me")
+	public void ChangedPwd(String newPwd, String mid, HttpServletResponse response){
+		int imid = Integer.parseInt(mid);
+		
+		Member m = new Member();
+		
+		m.setMid(imid);
+		m.setmPwd(passwordEncoder.encode(newPwd));
+		
+		int result = ms.updatemPwd(m);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			response.getWriter().println(mapper.writeValueAsString(result));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("checkEmail.me")
+	public void CheckEmail(String mEmail, Model model, HttpServletRequest request, HttpServletResponse response){
+		
+		String key = new TempKey().getKey(6, false); // 인증키 생성
+		
+		MailHandler sendMail;
+		try {
+			sendMail = new MailHandler(mailSender);
+		sendMail.setSubject("[Err404 이메일 인증]");
+		sendMail.setText(
+				new StringBuffer().append("<h1>메일 인증</h1><br><br>").append("<h4>안녕하세요. Err404 입니다.</h4>").append("<h4>해당 인증 번호를 인증 번호 칸에 입력 해 주세요 : " + key + "</h4>").toString());
+		sendMail.setFrom("gogildong09@gmail.com", "Err404");
+		sendMail.setTo(mEmail);
+		sendMail.send();
+		
+		System.out.println(key);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		response.getWriter().println(mapper.writeValueAsString(key));
+		} catch (MessagingException | UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@RequestMapping("cntEmail.me")
+	public void cntEmail(String mEmail, HttpServletResponse response){
+		System.out.println("쳌");
+		int result = ms.selectCntEmail(mEmail);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
 			response.getWriter().println(mapper.writeValueAsString(result));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

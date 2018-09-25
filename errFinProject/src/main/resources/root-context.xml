@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:tx="http://www.springframework.org/schema/tx" 
-	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans.xsd 
 	http://www.springframework.org/schema/tx
@@ -11,6 +10,8 @@
 	http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
+
+
 
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSession" />
@@ -29,29 +30,78 @@
 		<property name="password" value="fperr" />
 		<property name="defaultAutoCommit" value="false" />
 	</bean>
-	
+
 	<!-- 트랜젝션 매니저 bean 등록 -->
-	<bean id = "transactionManager" class = "org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name = "dataSource" ref = "dataSource"/>
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
+
 	<!-- 어노테이션으로 트랜젝션 매니저를 설정하기위 추가해야하는 설정 -->
 	<!-- 상단에 tx 추가 됌 -->
-	<tx:annotation-driven transaction-manager = "transactionManager"/>
-	
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
 	<!-- 트랜잭션 매니저를 이용해 tx advice를 정의한다. -->
-	<tx:advice id = "txAdvice" transaction-manager="transactionManager">
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
-			<tx:method name="select*" read-only = "true" rollback-for="Exception"/>
-			<tx:method name="insert*" rollback-for="Exception" propagation="REQUIRED" isolation = "SERIALIZABLE"/>
-			<tx:method name="update*" rollback-for="Exception" propagation="REQUIRED" isolation = "SERIALIZABLE"/>
-			<tx:method name="delete*" rollback-for="Exception" propagation="REQUIRED" isolation = "SERIALIZABLE"/>
+			<tx:method name="select*" read-only="true" rollback-for="Exception" />
+			<tx:method name="insert*" rollback-for="Exception"
+				propagation="REQUIRED" isolation="SERIALIZABLE" />
+			<tx:method name="update*" rollback-for="Exception"
+				propagation="REQUIRED" isolation="SERIALIZABLE" />
+			<tx:method name="delete*" rollback-for="Exception"
+				propagation="REQUIRED" isolation="SERIALIZABLE" />
 		</tx:attributes>
 	</tx:advice>
-	
+
 	<!-- AOP를 이용하여 위의 txAdvice를 적용 시키기 위해 advice객체가 weaving 될 시점을 등록하는 것이다 -->
 	<aop:config proxy-target-class="true">
-		<aop:pointcut id = "serviceMethod" expression = "execution(* com.kh.efp..*ServiceImpl.*(..))"/>
-		<aop:advisor id = "transactionAdvice" pointcut-ref="serviceMethod" advice-ref="txAdvice"/>
+		<aop:pointcut id="serviceMethod"
+			expression="execution(* com.kh.efp..*ServiceImpl.*(..))" />
+		<aop:advisor id="transactionAdvice" pointcut-ref="serviceMethod"
+			advice-ref="txAdvice" />
 	</aop:config>
+
+
+	<!-- 페북 -->
+<bean id="connectionFactory"
+        class="org.springframework.social.facebook.connect.FacebookConnectionFactory">
+        <constructor-arg value="531578483933456" />
+        <constructor-arg value="5b4d08d8ce31364ace2fe15832ff76e5" />
+    </bean>
+ 
+    <bean id="oAuth2Parameters"
+        class="org.springframework.social.oauth2.OAuth2Parameters">
+        <property name="redirectUri" value="http://localhost:8001/efp/facebookSignInCallback.lg" />
+    </bean>
+    
+    <!-- 구글 로그인 -->
+    <bean id="googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory">
+  		<constructor-arg  value="946591793133-66u67qn3gqkmu69vrkig8ks5f6e97u5e.apps.googleusercontent.com" />
+  		<constructor-arg value="DhdbpbZ6FXPxRLR65LGubOEt" />
+	</bean>
+	<!-- 승인된 자바스크립트 원본과 승인된 리디렉션 URI -->
+	<bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
+  <property name="scope" value="https://www.googleapis.com/auth/plus.profile.emails.read" />
+  <property name="redirectUri" value="http://localhost:8001/efp/googleSignInCallback.lg" />
+</bean>
+
+	<!-- 메일 보내기 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="gogildong09@gmail.com" />
+		<property name="password" value="tne40424" />
+
+
+	<!-- email 요청시는 SMTP -->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
 </beans>

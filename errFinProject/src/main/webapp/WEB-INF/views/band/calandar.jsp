@@ -85,169 +85,352 @@
 <script type="text/javascript" src="${ contextPath }/resources/fullcalendar-3.9.0/gcal.js"></script>
 <script>
 
-  $(document).ready(function() {
+ function paintScehdule(){
+	 
+	  $('#calendar').fullCalendar( 'removeEvents' );
+	  
+	 /*  $('#calendar').fullCalendar('removeEventSource', 'koHolidays'); 
 
-    $('#calendar').fullCalendar({
-    
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'month,agendaWeek,agendaDay'
-      }
-   /*  , lang : "ko" */
-        , editable : true
-        , eventLimit : true
-        , googleCalendarApiKey : "AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE"      // Google API KEY
-        	, eventSources : [
-                // 대한민국의 공휴일
-                {
-                      googleCalendarId : "ko.south_korea#holiday@group.v.calendar.google.com"
-                    , className : "koHolidays"
-                    , color : "lightgray"
-                    , textColor : "#3b4d33"
-                }
-            ],
-      
-      /* defaultDate: '2018-03-12', */
-      navLinks: true, // can click day/week names to navigate views
-      selectable: true,
-      selectHelper: true,
-      select: function(start, end) {
-        var title = prompt('일정 제목 :');
-        var content = prompt('일정 내용 : ');
-        if (title) {
+	  $('#calendar').fullCalendar('addEventSource', 'koHolidays'); */
+	  
+	 
+	 $('#calendar').fullCalendar({
+		    
+	      header: {
+	        left: 'prev,next today',
+	        center: 'title',
+	        right: 'month,agendaWeek,agendaDay'
+	      }
+	   /*  , lang : "ko" */
+	        , editable : true
+	        , eventLimit : true
+	        ,   googleCalendarApiKey : "AIzaSyDcnW6WejpTOCffshGDDb4neIrXVUA1EAE"      // Google API KEY
+	        	, eventSources : [
+	                // 대한민국의 공휴일
+	                {
+	                      googleCalendarId : "ko.south_korea#holiday@group.v.calendar.google.com"
+	                    , className : "koHolidays"
+	                    , color : "lightgray"
+	                    , textColor : "#3b4d33"
+	                }
+	            ],
+	      
+	      navLinks: true, // can click day/week names to navigate views
+	      selectable: true,
+	      selectHelper: true,
+	      select: function(start, end) {
+	    	  
+	    	  
+	    	  
+	    	  
+	        /* var title = prompt('일정 제목 :'); */
+	        
+	        var sDateFormat = moment(start, 'YYYY-MM-DD');
+	     	var eDateFormat = moment(end, 'YYYY-MM-DD');
+	     	
+	     	var sDate = sDateFormat.format('YYYY-MM-DD');
+	     	var eDate = eDateFormat.format('YYYY-MM-DD');
+	        
+	        
+	        document.getElementById('modalStart').value = sDate; 
+	        document.getElementById('modalEnd').value = eDate; 
+	        
+	        document.getElementById('addScehduleBu').style.display = 'inherit';
+	    	document.getElementById('updateScehduleBu').style.display = 'none';
+	    	
+	    	document.getElementById('reply-title').innerHTML = '일정을 등록해주세요';
+	    	document.getElementById('sTitle').value = '';
+	    	document.getElementById('sContent').value = '';
+	        
+	        location.href="#modal2";
+	        
+	        
+	        /* if(title != null){
+	    	    var content = prompt('일정 내용 : ');
+	        } */
+	        
+	        /* if (title) {
+	        	var eventNum;
+	        	var sDateFormat = moment(start, 'YYYY-MM-DD');
+	        	var eDateFormat = moment(end, 'YYYY-MM-DD');
+	        	
+	        	var sDate = sDateFormat.format('YYYY-MM-DD');
+	        	var eDate = eDateFormat.format('YYYY-MM-DD');
+	        	
+	        	  $.ajax({
+					url:"addCalendar.bd",
+					type:"post",
+					async: false,
+					data:{title:title, content:content, sDate:sDate, eDate:eDate},
+					success:function(data){
+						console.log(data.next);
+						
+						eventNum = data.next;
+						
+							AllListScehdule();
+						
+					},error:function(){
+						console.log("일정 추가 실패");
+					}
+				});  
+	        	
+	           eventData = {
+	        		  id: eventNum,							
+			            title: title,
+			            content:content,
+			            start: start,
+			            end: end
+			          };  
+	          $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+	        		  
+	        } */
+	        $('#calendar').fullCalendar('unselect');
+	      },
+	      editable: true,
+	      eventLimit: true, // allow "more" link when too many events
+	      events:
+	      
+	      [
+	        {
+	          title: 'All Day Event',
+	          start: '2018-03-01'
+	        },
+	        {
+	          title: 'Long Event',
+	          start: '2018-03-07',
+	          end: '2018-03-10'
+	        }
+	        
+	      ]
+	      , eventClick:function(event) {
+	          if(event.title) {
+	        	  if(event.url){
+		              
+		              document.getElementById('modal1Title').innerHTML = event.title;
+		              
+		              document.getElementById('modal1Desc').innerHTML = event.start;
+		              
+		              var con = document.getElementById('delBu');
+		              
+		              con.style.display = 'none';
+		              
+		              location.href="#modal";
+		              
+		              return false;
+	        		  
+	        		  
+	        	  }else{
+		              
+		              document.getElementById('modal1Title').innerHTML = event.title;
+		              
+		              document.getElementById('modal1Desc').innerHTML = event.content;
+		              
+		              $('#dId').val(event.id);
+		              
+					  var con = document.getElementById('delBu');
+		              
+		              con.style.display = '-webkit-inline-box';
+		              
+		              location.href="#modal";
+		              
+		              return false;
+	        		  
+	        	  }
+	          }
+	      }
+	      
+	      
 
-        	var eventNum;
-        	var sDateFormat = moment(start, 'YYYY-MM-DD');
-        	var eDateFormat = moment(end, 'YYYY-MM-DD');
-        	
-        	var sDate = sDateFormat.format('YYYY-MM-DD');
-        	var eDate = eDateFormat.format('YYYY-MM-DD');
-        	
-        	  $.ajax({
+	    });
+	 
+	 var title = 'test';
+	    
+	    $.ajax({
+			url:"eventCheck.bd",
+			type:"post",
+			data:{title:title},
+			success:function(data){
+				
+				var result = data.eList;
+				
+				$.each(result, function(i){
+					var event={id: result[i].did, title: result[i].title, content:result[i].content, start:result[i].sDate, end:result[i].eDate};
+				    $('#calendar').fullCalendar( 'renderEvent', event, true);
+				});
+				
+				
+			},error:function(){
+				
+			}
+		}); 
+	    
+	  
+	    
+ }
+ 
+ 
+ function AllListScehdule(){
+	 
+	 var title = 'test';
+	 
+	 $.ajax({
+			url:"eventCheck.bd",
+			type:"post",
+			data:{title:title},
+			success:function(data){
+				
+				$('#scheduleArea').empty();
+				
+				var result = data.eList;
+				
+				$.each(result, function(i){
+				    
+					 var plusUl = document.getElementById('scheduleArea');
+				    
+				     var plusLi = document.createElement('li');
+				     
+				     plusLi.style.cssText= 'margin-top:50px;';
+				     
+				     var pInput1 = document.createElement('input');
+				     var pInput2 = document.createElement('input');
+				     var pInput3 = document.createElement('input');
+				     
+				     pInput1.setAttribute("type", "hidden");
+				     pInput1.setAttribute("value", result[i].did);
+				     
+				     pInput2.setAttribute("type", "hidden");
+				     pInput2.setAttribute("value", result[i].title);
+				     
+				     pInput3.setAttribute("type", "hidden");
+				     pInput3.setAttribute("value", result[i].content);
+				     
+				     var pDiv1 = document.createElement('div');
+				     pDiv1.style.cssText='float:left;width:12%;text-align:center;';
+				     
+				     var pP = document.createElement('p');
+				     pP.style.cssText = 'display: inline-block;line-height: 1.3;font-size: 25px;font-weight: 400;color: #222;';
+				     pP.innerHTML = result[i].dayNum;
+				     
+				     var pH4 = document.createElement('h4');
+				     pH4.setAttribute("class", "list-title");
+				     
+				     var pA = document.createElement('a');
+				     pA.setAttribute("href", '');
+				     pA.style.cssText = 'display: block;word-break: break-all;word-wrap: break-word;font-size: 15px;font-weight: 400;color: #333;';
+				     pA.innerHTML = result[i].dayWeek + "요일";
+				     
+				     var pDiv2 = document.createElement('div');
+				     pDiv2.style.cssText='float:left;width:87%; padding-left: 30px;';
+				     
+				     var pH42 = document.createElement('h4');
+				     pH42.setAttribute("class", "list-title");
+				     
+				     var pA2 = document.createElement('a');
+				     pA2.setAttribute("href", '');
+				     pA2.style.cssText = 'font-size:20px;';
+				     pA2.innerHTML = result[i].title;
+				     
+				     var pP2 = document.createElement('p');
+				     pP2.innerHTML = result[i].content;
+				     
+				     var pBr = document.createElement('br');
+					 
+					 plusLi.append(pInput1);
+					 plusLi.append(pInput2);
+					 plusLi.append(pInput3);
+					 
+					 pDiv1.append(pP);
+					 pH4.append(pA);
+					 pDiv1.append(pH4);
+					 
+					 pH42.append(pA2);
+					 pDiv2.append(pH42);
+					 pDiv2.append(pP2);
+					 
+					 plusLi.append(pDiv1);
+					 plusLi.append(pDiv2);
+					 plusLi.append(pBr);
+					 
+					 plusUl.append(plusLi);
+					 
+					 
+				});
+				
+				
+			},error:function(){
+				console.log("이벤트 ajax 호출 실패");
+			}
+		}); 
+ }
+ 
+ function addScehdule(title, content, start, end){
+	 
+	 	console.log('addScehdule 호출됨');
+	 
+     	var eventNum;
+/*      	var sDateFormat = moment(start, 'YYYY-MM-DD');
+     	var eDateFormat = moment(end, 'YYYY-MM-DD');
+     	
+     	var sDate = sDateFormat.format('YYYY-MM-DD');
+     	var eDate = eDateFormat.format('YYYY-MM-DD');
+ */     	
+     	  $.ajax({
 				url:"addCalendar.bd",
 				type:"post",
 				async: false,
-				data:{title:title, content:content, sDate:sDate, eDate:eDate},
+				data:{title:title, content:content, sDate:start, eDate:end},
 				success:function(data){
 					console.log(data.next);
 					
 					eventNum = data.next;
-					/* alert("일정 추가 완료"); */
+					
+						AllListScehdule();
+					
 				},error:function(){
 					console.log("일정 추가 실패");
 				}
 			});  
-        	
-        	 /* location.href="addCalendar.bd?title="+title+"&sDate="+sDate+"&eDate="+eDate; */
-        	 
-        	
-           /* eventData = {
-            title: title,
-            start: start,
-            end: end
-          };  */
-           eventData = {
-        		  id: eventNum,							
+     	
+        /* eventData = {
+         title: title,
+         start: start,
+         end: end
+       };  */
+        eventData = {
+     		  id: eventNum,							
 		            title: title,
 		            content:content,
 		            start: start,
 		            end: end
 		          };  
-          $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-        }
-        $('#calendar').fullCalendar('unselect');
-      },
-      editable: true,
-      eventLimit: true, // allow "more" link when too many events
-      events:
-      
-      [
-        {
-          title: 'All Day Event',
-          start: '2018-03-01'
-        },
-        {
-          title: 'Long Event',
-          start: '2018-03-07',
-          end: '2018-03-10'
-        }
-        
-      ]
-      , eventClick:function(event) {
-          if(event.title) {
-        	  if(event.url){
-	              
-	              document.getElementById('modal1Title').innerHTML = event.title;
-	              
-	              document.getElementById('modal1Desc').innerHTML = event.start;
-	              
-	              var con = document.getElementById('delBu');
-	              
-	              con.style.display = 'none';
-	              
-	              location.href="#modal";
-	              
-	              return false;
-        		  
-        		  
-        	  }else{
-        		  
-	              /* alert(event.title + "\n" + event.start + "\n" + event.end, "width=700,height=600"); */
-	              /* alert(event.id + "\n" + event.title, "width=700,height=600"); */
-	              
-	              document.getElementById('modal1Title').innerHTML = event.title;
-	              
-	              document.getElementById('modal1Desc').innerHTML = event.content;
-	              
-	              $('#dId').val(event.id);
-	              
-				  var con = document.getElementById('delBu');
-	              
-	              con.style.display = '-webkit-inline-box';
-	              
-	              location.href="#modal";
-	              
-	              return false;
-        		  
-        	  }
-          }
-      }
+       $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+     		  
+	 
+	 
+ }
+ 
+ function updateScehdule(did, title, content){
+	 
+	 	 $.ajax({
+	 			url:"updateCalendar.bd",
+	 			type:"post",
+	 			data:{did:did, title:title, content:content},
+	 			success:function(data){
+	 				
+	 				paintScehdule();
 
-    });
-    
-    var title = 'test';
-    
-    $.ajax({
-		url:"eventCheck.bd",
-		type:"post",
-		data:{title:title},
-		success:function(data){
-			console.log("이벤트 ajax 호출")
-			
-			console.log(data);
-			
-			var result = data.eList;
-			
-			
-			console.log(result.size);
-			
-			$.each(result, function(i){
-				var event={id: result[i].did, title: result[i].title, content:result[i].content, start:result[i].sDate, end:result[i].eDate};
-			    $('#calendar').fullCalendar( 'renderEvent', event, true);
-			});
-			
-			
-		},error:function(){
-			console.log("이벤트 ajax 호출 실패");
-		}
-	}); 
-    
-    
+	 				AllListScehdule();
+	 				
+	 			},error:function(){
+	 			}
+	 		});
+	 
+}
+
+  $(document).ready(function() {
+	paintScehdule();
 
   });
-  
-
   
 </script>
 </head>
@@ -305,11 +488,13 @@
             <div class="widget fullwidth post-single">
               <h4 class="widget-title">일정  <span>리스트</span> </h4>
               <div class="widget-content">
-                <ul>
+                <ul id="scheduleArea">
             <c:forEach var="b" items="${sList}">
-            
-            
-					<li style="margin-top:50px;">
+            		
+					<li style="margin-top:50px;" >
+            		<input type="hidden" value="${b.did }">
+            		<input type="hidden" value="${b.title }">
+            		<input type="hidden" value="${b.content }">
                   	<div style="float:left;width:12%;text-align:center;">
                     <p style="display: inline-block;line-height: 1.3;font-size: 25px;
                     	font-weight: 400;color: #222;">${b.dayNum }</p>
@@ -333,6 +518,33 @@
             </div>
             
         </div>
+        
+   
+        
+        <script>
+			$(function(){
+				$("#scheduleArea").find("li").mouseenter(function(){
+				}).mouseout(function(){
+				}).click(function(){
+					
+					 document.getElementById('modal1Title').innerHTML = $(this).children("input").eq(1).val();
+		              
+		              document.getElementById('modal1Desc').innerHTML = $(this).children("input").eq(2).val();
+		              
+		              $('#dId').val($(this).children("input").eq(0).val());
+		              
+					  var con = document.getElementById('delBu');
+		              
+		              con.style.display = '-webkit-inline-box';
+		              
+		              location.href="#modal";
+		              
+		              return false;
+					
+					
+				});
+			});		
+		</script>
         
 
       <div class="right-sidebar col-md-3" role="complementary">
@@ -439,55 +651,120 @@
   </div>
   <br>
   <input type="hidden" id="dId" value=""/> 
+  <button id="updateBu" data-remodal-action="cancel" class="remodal-cancel" style="background:lightblue;">수정</button>
   <button id="delBu" data-remodal-action="cancel" class="remodal-cancel">삭제</button>
   <button data-remodal-action="confirm" class="remodal-confirm">확인</button>
 </div>
 
+<div class="remodal" data-remodal-id="modal2"
+  data-remodal-options="hashTracking: false,
+    closeOnConfirm:false,closeOnCancel:  false, closeOnEscape: false , closeOnOutsideClick: false,
+    modifier : without-animation with-test-class">
+
+  <a data-remodal-action="close" class="remodal-close"></a>
+  <div class="widget clearfix">
+              <div id="respond" class="comment-respond">
+                <h3 id="reply-title" class="comment-reply-title">일정을 등록해주세요 <small>
+                <a rel="nofollow" id="cancel-comment-reply-link" href="" style="display:none;">
+                Cancel reply</a></small></h3>
+                <form action="#" method="post" id="commentform" class="comment-form">
+                  <p class="comment-notes">Your email address will not be published. Required fields are marked 
+                  <span class="required">*</span></p>            
+                   <p class="comment-form-author" style="width:100%;">
+                  <label for="author">일정 제목 <span class="required">*</span></label> <input id="sTitle" name="sTitle" type="text" value="" size="15" aria-required="true"></p>
+                  <p class="comment-form-comment"><label for="comment">일정 내용</label> 
+                  <textarea id="sContent" name="sContent" cols="45" rows="8" aria-required="true"></textarea></p>   
+                  <p class="form-submit">
+                  <input type="hidden" name="modalStart" id="modalStart" value="">
+                  <input type="hidden" name="modalEnd" id="modalEnd" value="">
+                  </p>
+                </form>
+              </div><!-- #respond -->
+            </div>
+  <a data-remodal-action="cancel" class="remodal-cancel" href="#">Cancel</a>
+  <a data-remodal-action="confirm" class="remodal-confirm" id="addScehduleBu" href="#">OK</a>
+  <a data-remodal-action="confirm" class="remodal-confirm" id="updateScehduleBu" href="#" style="display:none;">수정</a>
+</div>
+
 <script>
-$('.remodal-cancel').click(function(){
-	console.log("삭제 버튼 클릭됨");
+
+	 $('#addScehduleBu').click(function(){
+			console.log('addScehduleBu 동작');
+			
+			
+			title = document.getElementById('sTitle').value;
+			
+			content = document.getElementById('sContent').value;
+			
+			start = document.getElementById('modalStart').value;
+			end = document.getElementById('modalEnd').value;
+			
+			console.log("start : " + start);
+			console.log("end : " + end);
+			
+			addScehdule(title, content, start, end);
+			
+			document.getElementById('modalStart').value = ''; 
+			document.getElementById('modalEnd').value = ''; 
+			document.getElementById('sTitle').value = ''; 
+			document.getElementById('sContent').value = '';
+		});
+	 
+
+
+$('#delBu').click(function(){
 	
-	console.log($('#dId').val());
+	 var did = $('#dId').val();
 	
-	var did = $('#dId').val();
-	
-	location.href="deleteCalendar.bd?did="+did;
-	
-	/*  $.ajax({
+	  $.ajax({
 		url:"deleteCalendar.bd",
 		type:"post",
 		data:{did:did},
 		success:function(data){
 			console.log("삭제 성공");
 			
-			restartCalendar();
+			paintScehdule();
+
+			AllListScehdule();
 			
 		},error:function(){
 			console.log("삭제 실패");
 		}
-	});   */
+	});
 	
 	
+});
+
+$('#updateBu').click(function(){
+	console.log("업데이트 버튼 클릭됨");
+	
+	document.getElementById('addScehduleBu').style.display = 'none';
+	document.getElementById('updateScehduleBu').style.display = 'inherit';
+	
+	document.getElementById('reply-title').innerHTML = '일정을 수정해주세요.';
+	document.getElementById('sTitle').value = document.getElementById('modal1Title').innerHTML;
+	document.getElementById('sContent').value = document.getElementById('modal1Desc').innerHTML;
+	
+	location.href="#modal2";
+	
+});
+
+$('#updateScehduleBu').click(function(){
+	console.log('updateScehduleBu 동작');
+	
+	var did = $('#dId').val();
+	 
+	 var title = document.getElementById('sTitle').value;
+	 var content = document.getElementById('sContent').value;
+	 
+	 console.log("content : " + content);
+	 
+	 updateScehdule(did, title, content);
 });
 
 
 </script>
 
-
-<!-- You can define the global options -->
-<script>
-  // window.REMODAL_GLOBALS = {
-  //   NAMESPACE: 'remodal',
-  //   DEFAULTS: {
-  //     hashTracking: true,
-  //     closeOnConfirm: true,
-  //     closeOnCancel: true,
-  //     closeOnEscape: true,
-  //     closeOnOutsideClick: true,
-  //     modifier: ''
-  //   }
-  // };
-</script>
 
 <script>window.jQuery || document.write('<script src="../../../libs/jquery/dist/jquery.min.js"><\/script>')</script>
 <script src="${ contextPath }/resources/Remodal-1.1.1/dist/remodal.js"></script>
@@ -518,21 +795,8 @@ $('.remodal-cancel').click(function(){
     /* console.log('cancellation'); */
   });
   
-//  Usage:
-//  $(function() {
-//
-//    // In this case the initialization function returns the already created instance
-//    var inst = $('[data-remodal-id=modal]').remodal();
-//
-//    inst.open();
-//    inst.close();
-//    inst.getState();
-//    inst.destroy();
-//  });
-
-  //  The second way to initialize:
   $('[data-remodal-id=modal2]').remodal({
-    modifier: 'with-red-theme'
+    /* modifier: 'with-red-theme' */
   });
 </script>
 

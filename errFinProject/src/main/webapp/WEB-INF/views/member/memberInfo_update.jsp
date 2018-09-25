@@ -139,7 +139,7 @@
                                     </c:if>
                                     <c:if test = "${ memberProfile.editName ne 'user.png' }">
                                     	<td width="200px" style="vertical-align: middle;">
-                                    	<img id = "contentImg1" src="resources/upload_images/${ memberProfile.editName }" alt="" style = "width : 64px; height : 64px;">
+                                    	<img id = "contentImg1" src="${ memberProfile.fileSrc }${ memberProfile.editName }" alt="" style = "width : 64px; height : 64px;">
                                     	</td>
                                     </c:if>
                                     <td width="500px" style="vertical-align: middle; text-align: right"><a class="button-blue button-link" onclick = "changeProfile()">이미지 수정하기</a></td>
@@ -152,12 +152,20 @@
                             <br>
                             <table style="display: table-cell; vertical-align: middle; text-align: center;">
                                 <tr>
-                                    <td style="vertical-align: middle;" rowspan = "3">
+                                    <td style="vertical-align: middle;" rowspan = "5">
                                         <h5>개인정보</h5>
                                     </td>
                                     <td width="100px" style="padding-top : 10px; padding-bottom : 10px; vertical-align: middle;">이메일</td>
                                     <td width="120px" style="vertical-align: middle; text-align: left;">${ sessionScope.loginUser.mEmail }</td>
                                     <td width="510px" style="vertical-align: middle; text-align: right"></td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align: middle;">비밀번호</td>
+                                    <td id = "nop" style="vertical-align: middle; text-align: left;"></td>
+                                    <td style="vertical-align: middle; text-align: right;"><a class="button-blue button-link" data-toggle="modal" data-target="#pwdModal">비밀번호 수정하기</a></td>
+                                </tr>
+                                <tr>
+                                	<td colspan = "4"><hr></td>
                                 </tr>
                                 <tr>
                                     <td style="vertical-align: middle;">닉네임</td>
@@ -210,13 +218,38 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-primary" id="ckNameBtn"
 								onclick="ChangedPhone()">확인</button>
-							<button type="button" class="btn btn-default" id="cancelBtn"
+							<button type="button" class="btn btn-default" id="cancelBtn1"
+								data-dismiss="modal">취소</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal fade" id="pwdModal" role="dialog">
+				<div class="modal-dialog modal-sm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">비밀번호 변경</h4>
+						</div>
+						<div class="modal-body">
+							기존 비밀번호를 입력하세요
+							<input type="text" class="form-control" id="oldPwd" name="oldPwd"><br>
+							새로운 비밀번호를 입력하세요
+							<input type="text" class="form-control" id="newPwd1" name="newPwd1"><br>
+							새로운 비밀번호를 입력하세요
+							<input type="text" class="form-control" id="newPwd2" name="newPwd2"><br>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" id="ckNameBtn"
+								onclick="ChangedPwd()">확인</button>
+							<button type="button" class="btn btn-default" id="cancelBtn2"
 								data-dismiss="modal">취소</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
         <!-- Left Sidebar Content -->
         <div class="left-sidebar col-md-pull-9 col-md-3" role="complementary">
 
@@ -383,7 +416,7 @@
 					console.log(data);
 					if(data == 1){
 						$("#changedPhone").val("");
-						$("#cancelBtn").click();
+						$("#cancelBtn1").click();
 						alert("변경이 완료되었습니다.");
 						$("#showPhone").html(changedPhone);
 					}else{
@@ -396,6 +429,64 @@
 				}
 			})
 		}
+    	
+    	function ChangedPwd(){
+    		var old = $("#oldPwd").val();
+    		var new1 = $("#newPwd1").val();
+    		var new2 = $("#newPwd2").val();
+    		
+    		if(old == "" || new1 == "" || new2 == ""){
+    			alert("비밀번호를 입력해주세요.");
+    			return false;
+    		}
+    		
+    		$.ajax({
+    			url : "CkPwd.me",
+				type : "post",
+				data : {
+					old : old,
+					mid : ${ loginUserMid }
+				},
+				success:function(data){
+					if(data == 1){
+						if(new1 != new2){
+							alert("새로운 비밀번호가 일치하지 않습니다.");
+							return false;
+						}else{
+							ChangedPwdAjax(new1);
+						}
+					}else{
+						alert("기존 비밀번호가 일치하지 않습니다.");
+					}
+				},
+				error:function(){
+					console.log("실패");
+				}
+    		})
+    		
+    	}
+    	
+    	function ChangedPwdAjax(new1){
+    		$.ajax({
+    			url : "ChangedPwd.me",
+				type : "post",
+				data : {
+					newPwd : new1,
+					mid : ${ loginUserMid }
+				},
+				success:function(data){
+					$("#oldPwd").val("");
+		    		$("#newPwd1").val("");
+		    		$("#newPwd2").val("");
+		    		$("#cancelBtn2").click();
+		    		$("#cancelBtn2").click();
+					alert("비밀번호 변경이 성공했습니다.");
+				},
+				error:function(){
+					console.log("실패");
+				}
+    		})
+    	}
     </script>
     <script src="resources/js/jquery.min.js"></script>
     <script src="resources/js/bootstrap.min.js"></script>
