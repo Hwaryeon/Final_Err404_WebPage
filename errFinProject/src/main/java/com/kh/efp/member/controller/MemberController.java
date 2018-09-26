@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -53,30 +54,33 @@ public class MemberController {
     @Inject
     private JavaMailSender mailSender;
 
+    //회원가입 페이지 이동
 	@RequestMapping("memberJoinForm.me")
 	public String showMemberJoinForm(HttpSession session, Model model){
+		//네이버  로그인 경로
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-		
 		model.addAttribute("url", naverAuthUrl);
 		
+		//페북 로그인 경로
 		OAuth2Operations oauthOperations = connectionFactory.getOAuthOperations();
         String facebook_url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, oAuth2Parameters);
-    
         model.addAttribute("FB_url", facebook_url);
-        
+
+        //구글 로그인 경로
         OAuth2Operations oauthOperations2 = googleConnectionFactory.getOAuthOperations();
         String url = oauthOperations2.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, oAuth2Parameters);
-        
         model.addAttribute("ggurl",url);
 		
 		return "member/memberJoinForm";
 	}
 
+	//회원가입
 	@RequestMapping("joinMember.me")
 	public String insertMember(Model model, Member m, HttpServletRequest request,
 			@RequestParam(name="userImage", required=false)MultipartFile photo){
 		Profile pf = new Profile();
-		m.setmPwd(passwordEncoder.encode(m.getmPwd()));
+		
+		m.setmPwd(passwordEncoder.encode(m.getmPwd())); //비밀번호 암호화
 		System.out.println(passwordEncoder.encode(m.getmPwd()));
 		String root = "";
 		String filePath = "";
@@ -86,6 +90,7 @@ public class MemberController {
 
 		System.out.println("photo : " + photo);
 
+		//프사 여부확인
 		if(!photo.isEmpty()){
 			root = request.getSession().getServletContext().getRealPath("resources");
 
@@ -96,7 +101,7 @@ public class MemberController {
 
 			changeName = CommonUtils.getRandomString();
 		}else{
-			originFileName = "user.png";
+			originFileName = "user.png"; //없으면 강제로 기본 프사 입력
 			changeName = "user";
 			ext = ".png";
 			filePath = "C:\\Users\\user\\git\\FinalProject_Err\\errFinProject\\src\\main\\webapp\\resources\\upload_images";
@@ -109,13 +114,14 @@ public class MemberController {
 		System.out.println("controller m : " + m + " / pf : " + pf);
 		try {
 			
+			//사진 유무 확인 후 파일 저장
 			if(!photo.isEmpty()){
 				
 			photo.transferTo(new File(filePath + "\\" + changeName + ext));
 			}
 
 
-			int result = ms.insertMember(m, pf);
+			int result = ms.insertMember(m, pf); //프사와 멤버객체 저장
 
 			if(result == 0){
 				return "common/errorPage";
@@ -130,10 +136,12 @@ public class MemberController {
 
 	}
 
+	//로그인 하기
 	@RequestMapping(value = "login.me")
 	public String loginUser(Member m, Model model){
 		System.out.println("login m : " + m);
 		try {
+			//세션에 올라감
 			model.addAttribute("loginUser", ms.loginMember(m));
 
 			return "main/main";
@@ -147,6 +155,7 @@ public class MemberController {
 
 	}
 
+	//닉네임 중복확인(ajax)
 	@RequestMapping("checkmName.me")
 	public @ResponseBody HashMap<String, Object> checkmName(@RequestParam String mName){
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
@@ -159,17 +168,20 @@ public class MemberController {
 	}
 
 
+	//개인정보 페이지 이동
 	@RequestMapping("showMemberInfo_update.me")
 	public String showMemberInfoUpdate(@RequestParam int mid, Model model){
 		System.out.println("info mid : " + mid);
 
+		//프로필 정보 가져옴
 		model.addAttribute("memberProfile", ms.selectMemberProfile(mid));
 
 		System.out.println("show model : " + model);
 
 		return "member/memberInfo_update";
 	}
-
+	
+	//프사 변경 ajax(objectmapper)
 	@RequestMapping("insertChangedProfile.me")
 	public void insertChangedProfile(HttpServletRequest request,
 			@RequestParam(name="uploadFile", required=false)MultipartFile photo, HttpServletResponse response){
@@ -210,7 +222,8 @@ public class MemberController {
 			new File(filePath + "\\" + changeName + ext).delete();
 		}
 	}
-
+	
+	//이름 변경
 	@RequestMapping("ChangedName.me")
 	public void ChangedName(@RequestParam("mName") String mName,
 							@RequestParam("mid") String mid,
@@ -219,6 +232,7 @@ public class MemberController {
 		System.out.println("아니 " + mid + " / " + mName);
 		int imid = Integer.parseInt(mid);
 		
+		//이름이 없다면 실패
 		if(mName.equals("")){
 			try {
 				response.getWriter().println(mapper.writeValueAsString(false));
@@ -236,6 +250,7 @@ public class MemberController {
 		int result = ms.updatemName(m);
 		System.out.println("업데이트");
 		try {
+			//로그인 유저 갱신
 			model.addAttribute("loginUser", ms.selectMember(m));
 
 			response.getWriter().println(mapper.writeValueAsString(result));
@@ -246,6 +261,7 @@ public class MemberController {
 
 	}
 	
+	//연락처 중복확인
 	@RequestMapping("checkmPhone.me")
 	public void checkmPhone(@RequestParam("mPhone") String mPhone,
 							HttpServletResponse response){
@@ -264,6 +280,7 @@ public class MemberController {
 		}
 	}
 	
+	//연락처 변경
 	@RequestMapping("ChangedPhone.me")
 	public void ChangedPhone(@RequestParam("mPhone") String mPhone,
 							 @RequestParam("mid") String mid,
@@ -298,6 +315,7 @@ public class MemberController {
 		}
 	}
 	
+	//패스워드 기존값과 비교
 	@RequestMapping("CkPwd.me")
 	public void CkPwd(String old, String mid, HttpServletResponse response){
 		int imid = Integer.parseInt(mid);
@@ -320,6 +338,7 @@ public class MemberController {
 		
 	}
 	
+	//패스워드 변경
 	@RequestMapping("ChangedPwd.me")
 	public void ChangedPwd(String newPwd, String mid, HttpServletResponse response){
 		int imid = Integer.parseInt(mid);
@@ -341,6 +360,7 @@ public class MemberController {
 		}
 	}
 	
+	//이메일 인증
 	@RequestMapping("checkEmail.me")
 	public void CheckEmail(String mEmail, Model model, HttpServletRequest request, HttpServletResponse response){
 		
@@ -374,6 +394,7 @@ public class MemberController {
 		
 	}
 	
+	//이메일 중복확인
 	@RequestMapping("cntEmail.me")
 	public void cntEmail(String mEmail, HttpServletResponse response){
 		System.out.println("쳌");
@@ -389,6 +410,128 @@ public class MemberController {
 		}
 	}
 	
+	//아이디 비밀번호 창으로 이동
+	@RequestMapping("searchIdnPwd.me")
+	public String searchIdnPwd(){
+		return "member/searchIdnPwd";
+	}
 	
+	//이메일 찾기
+	@RequestMapping("findEmail.me")
+	public void findEmail(String mName, String mPhone, HttpServletResponse response) throws Exception{
+		Member m = new Member();
+		
+		m.setmName(mName);
+		m.setmPhone(mPhone);
+		
+		String mEmail = ms.selectmEmail(m);
+		System.out.println(mEmail);
+		ObjectMapper mapper = new ObjectMapper();
+		
+			
+			if(mEmail == null || "".equals(mEmail)){
+				response.getWriter().println(mapper.writeValueAsString("nope"));
+			}else{
+				try {
+					response.getWriter().println(mapper.writeValueAsString(mEmail));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+	}
+
+	@RequestMapping("findPwd.me")
+	public void mEamil(String mEmail, Model model, HttpServletRequest request, HttpServletResponse response){
+		Member m = new Member();
+		m.setmEmail(mEmail);
+		
+		int result = ms.selectAuthmEmail(m);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		if(result == 1){
+			
+		
+		String key = new TempKey().getKey(12, false); // 인증키 생성
+		
+		MailHandler sendMail;
+		try {
+			sendMail = new MailHandler(mailSender);
+		sendMail.setSubject("[Err404 비밀번호 찾기]");
+		sendMail.setText(
+				new StringBuffer().append("<h1>비밀번호 찾기</h1><br><br>").append("<h4>안녕하세요. Err404 입니다.</h4>").append("<h4>해당 인증 번호를 인증 번호 칸에 입력 해 주세요 : " + key + "</h4>").toString());
+		sendMail.setFrom("gogildong09@gmail.com", "Err404");
+		sendMail.setTo(mEmail);
+		sendMail.send();
+		
+		System.out.println(key);
+		
+		response.getWriter().println(mapper.writeValueAsString(key));
+		} catch (MessagingException | UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}else{
+			try {
+				response.getWriter().println(mapper.writeValueAsString("nope"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	@RequestMapping("chPwdMid.me")
+	public void chPwdMid(String mEmail, String newPwd1, HttpServletResponse response){
+		Member m = new Member();
+		m.setmEmail(mEmail);
+		m.setmPwd(passwordEncoder.encode(newPwd1));
+		
+		int result = ms.updateMidmPwd(m);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			response.getWriter().println(mapper.writeValueAsString(result));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("goMain.me")
+	public String goMain(){
+		return "main/loginMember";		
+	}
+	
+	@RequestMapping("logout.me")
+	public String logout(HttpSession session){
+		/*SessionStatus status;*/
+		session.invalidate();
+		return "main/loginMember";		
+	}
+	
+	@RequestMapping("deleteMember.me")
+	public void deleteMember(String mid, HttpServletResponse response){
+		int imid = Integer.parseInt(mid);
+		
+		int result = ms.updatemStatus(imid);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			response.getWriter().println(mapper.writeValueAsString(result));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 }
