@@ -32,6 +32,12 @@ public class SearchDaoImpl implements SearchDao {
 	public ArrayList<Ban> selectSearchBand(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("Search.selectSearchBan");
 	}
+
+	//스크롤시 밴드리스트 5개 가져오기
+	@Override
+	public ArrayList<Search> selectFiveBand(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return (ArrayList)sqlSession.selectList("Search.selectFiveBand", map);
+	}
 	
 
 }

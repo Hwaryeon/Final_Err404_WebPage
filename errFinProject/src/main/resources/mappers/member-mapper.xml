@@ -119,6 +119,7 @@
 	<select id = "selectmEmail" parameterType = "java.lang.String" resultType = "_int">
 		SELECT COUNT(*) FROM MEMBER WHERE MEMAIL = #{mEmail} AND MSTATUS = 'Y'
 	</select>
+
 	
 	<select id= "findEmail" parameterType = "Member" resultType = "string">
 		SELECT MEMAIL FROM MEMBER WHERE MNAME = #{mName} AND MPHONE = #{mPhone} AND MSTATUS = 'Y' AND MTYPE = 'LOCAL'
@@ -138,6 +139,7 @@
 		UPDATE MEMBER SET MSTATUS = 'N'
 		WHERE MID = #{imid} 
 	</update>
+
 </mapper>
 
 

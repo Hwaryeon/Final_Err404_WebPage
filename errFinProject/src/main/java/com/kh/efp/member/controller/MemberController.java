@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -54,6 +53,7 @@ public class MemberController {
     @Inject
     private JavaMailSender mailSender;
 
+
     //회원가입 페이지 이동
 	@RequestMapping("memberJoinForm.me")
 	public String showMemberJoinForm(HttpSession session, Model model){
@@ -69,6 +69,7 @@ public class MemberController {
         //구글 로그인 경로
         OAuth2Operations oauthOperations2 = googleConnectionFactory.getOAuthOperations();
         String url = oauthOperations2.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, oAuth2Parameters);
+
         model.addAttribute("ggurl",url);
 		
 		return "member/memberJoinForm";
@@ -315,7 +316,9 @@ public class MemberController {
 		}
 	}
 	
+
 	//패스워드 기존값과 비교
+
 	@RequestMapping("CkPwd.me")
 	public void CkPwd(String old, String mid, HttpServletResponse response){
 		int imid = Integer.parseInt(mid);
@@ -338,7 +341,9 @@ public class MemberController {
 		
 	}
 	
+
 	//패스워드 변경
+
 	@RequestMapping("ChangedPwd.me")
 	public void ChangedPwd(String newPwd, String mid, HttpServletResponse response){
 		int imid = Integer.parseInt(mid);
@@ -360,7 +365,9 @@ public class MemberController {
 		}
 	}
 	
+
 	//이메일 인증
+
 	@RequestMapping("checkEmail.me")
 	public void CheckEmail(String mEmail, Model model, HttpServletRequest request, HttpServletResponse response){
 		
@@ -394,7 +401,9 @@ public class MemberController {
 		
 	}
 	
+
 	//이메일 중복확인
+
 	@RequestMapping("cntEmail.me")
 	public void cntEmail(String mEmail, HttpServletResponse response){
 		System.out.println("쳌");
@@ -410,6 +419,7 @@ public class MemberController {
 		}
 	}
 	
+
 	//아이디 비밀번호 창으로 이동
 	@RequestMapping("searchIdnPwd.me")
 	public String searchIdnPwd(){
@@ -517,6 +527,7 @@ public class MemberController {
 		session.invalidate();
 		return "main/loginMember";		
 	}
+
 	
 	@RequestMapping("deleteMember.me")
 	public void deleteMember(String mid, HttpServletResponse response){

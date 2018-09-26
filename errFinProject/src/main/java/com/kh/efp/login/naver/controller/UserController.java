@@ -70,10 +70,12 @@ public class UserController {
 		String profile = jsonparse.JsonToString(jsonobj, "profile_image");
 		
 		System.out.println("토큰 : " + oauthToken.getAccessToken());
+
 		System.out.println("리얼? " + oauthToken.getRefreshToken());
 
 		Member m = new Member();
 		m.setmToken(oauthToken.getRefreshToken());
+
 		m.setmEmail(email);
 		m.setmName(name);
 		

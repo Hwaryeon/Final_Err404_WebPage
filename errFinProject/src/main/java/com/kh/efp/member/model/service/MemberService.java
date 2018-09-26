@@ -30,6 +30,7 @@ public interface MemberService {
 
 	int selectCntEmail(String mEmail);
 
+
 	String selectmEmail(Member m);
 
 	int updateMidmPwd(Member m);
@@ -37,4 +38,5 @@ public interface MemberService {
 	int selectAuthmEmail(Member m);
 
 	int updatemStatus(int imid);
+
 }

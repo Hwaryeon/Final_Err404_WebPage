@@ -90,6 +90,17 @@
 		display: table-cell; 
 	  	vertical-align: middle;
 	}
+	
+	.empty_contents{
+		height:200px;
+		text-align:center;
+	}
+	
+	.empty_band{
+		height:200px;
+		text-align:center;
+		margin-bottom:10px;
+	}
 </style>
 
 <body class="home page page-id-4 page-template page-template-template_home-php">
@@ -107,7 +118,9 @@
       <div class="main col-md-12 col-xs-12" style='display:table; margin-bottom:30px'>
       	<div class='band-title'>
        		<label style='font-size:40px; float:left;'>게시글</label>
-       		<a href='${contextPath}/searchMorePost.search' style='font-size: 20px; float:right;'>더 많은 게시글 보기 <i class='glyphicon glyphicon-chevron-right'></i></a>
+       		<c:if test='${fn:length(contents) >= 4}'>
+       			<a href='${contextPath}/searchMorePost.search' style='font-size: 20px; float:right;'>더 많은 게시글 보기  <i class='glyphicon glyphicon-chevron-right'></i></a>
+       		</c:if>
 	        <div class='clear'></div>
       	</div>
       </div>
@@ -116,31 +129,40 @@
         <div class="widget" style='background:#e6e6e6'>
           <div class="widget-content">
           	<!-- 게시물 내용  -->
-          	<div class="row team-row" style='width:90%; margin-right:auto; margin-left:auto;'>
-	          	<c:forEach var='i' items='${contents}'>
-		          <div class="col-md-3">
-		            <div class="widget team-member contents-list" style='height: 450px;'>
-		              
-		              <h6 style='font-weight: bolder; font-size:15px;'>${i.mName}</h6>
-		              <img class='contentImg' src="${contextPath}/resources/upload_images/${i.a_edit_Name}">
-		              <p>
-		              	<c:choose>
-				           <c:when test="${fn:length(i.bContent) > 80}">
-				           		${fn:substring(i.bContent,0,80)}....
-				           </c:when>
-				           <c:otherwise>
-			        	    	${i.bContent}
-				           </c:otherwise> 
-				        </c:choose>
-		              </p>
-		            <hr style='margin:6px'>
-	                <div class='band-box' style='display:table'>
-	                	<img class='band-img' src='${contextPath}/resources/upload_images/${i.p_edit_Name}' style='width:30px'/>
-	                	<label class='band-name'>${i.bName}</label>
-	                </div>
-		            </div>
-		          </div>
+          	<div class="row team-row" style='margin-right:auto; margin-left:auto;'>
+	          	<c:forEach var='i' begin='0' end='3' step='1' >
+	          		<c:if test='${empty contents[i]}'>
+	          			<div class="col-md-3 col-xs-3">
+	          			</div>
+	          		</c:if>
+	          		<c:if test='${!empty contents[i]}'>
+			          <div class="col-md-3 col-xs-3">
+			            <div class="widget team-member contents-list" style='height: 360px;'>
+			              <img class='contentImg' src="${contextPath}/resources/upload_images/${contents[i].a_edit_Name}">
+			              <p style='height:60px'>
+			              	<c:choose>
+					           <c:when test="${fn:length(contents[i].bContent) > 60}">
+					           		${fn:substring(contents[i].bContent,0,60)}....
+					           </c:when>
+					           <c:otherwise>
+				        	    	${contents[i].bContent}
+					           </c:otherwise> 
+					        </c:choose>
+			              </p>
+			            <hr style='margin:6px'>
+		                <div class='band-box' style='display:table'>
+		                	<img class='band-img' src='${contextPath}/resources/upload_images/${contents[i].p_edit_Name}' style='width:30px'/>
+		                	<label class='band-name'>${contents[i].bName}</label>
+		                </div>
+			            </div>
+			          </div>
+	          		</c:if>
 	          </c:forEach>
+	          <c:if test='${empty contents}'>
+	          	<div class='col-md-12 empty_contents'>
+	          		<h1 style=''>게시글 검색결과가 없습니다.</h1>
+	          	</div>
+	          </c:if>
      	   </div>
      	   
      	   <!-- 게시글 내용 여기까지 -->
@@ -155,7 +177,13 @@
         </div>
         
         <!-- 밴드 리스트 -->
-        <div id='band_List' class="row team-row">
+        <div id='band_List' class="row team-row" style='margin-right:auto; margin-left:auto;'>
+        <c:if test='${fn:length(band) == 0}'>
+        	<div class='col-md-12 col-xs-12 empty_band'>
+        		<h1>더 이상 밴드 검색 결과가 없습니다.</h1>
+        	</div>
+        </c:if>
+        <c:if test='${fn:length(band) != 0}'>
 		 <c:forEach var='item' items='${band}'>
           <div class="col-md-10 col-xs-10">
             <div class="widget band-list" style='background: linear-gradient(to left, #e6e6e6, #ffffff);'>
@@ -178,32 +206,77 @@
             </div>
           </div>
           </c:forEach>
+        </c:if>
         </div>   
         <!-- 밴드리스트 여기까지 -->
       </div>
     </div>
 
-	<script>
-	   // 무한스크롤 인식
-	   var page = 1;
-
-		$(window).scroll(function() {
-		    if ($(window).scrollTop() >= ($(document).height() - $(window).height())-1) {
-		      console.log(++page);
-		      $("#band_List").append("<c:forEach var='item' items='${band}'>"+
-   		  "<div class='col-md-10 col-xs-10'>"+
-            "<div class='widget band-list' style='background: linear-gradient(to left, #e6e6e6, #ffffff);'>"+
-              "<div class='media'>"+
-                "<div class='media-left media-middle'>"+
-                    "<img class='media-object' src='${contextPath}/resources/upload_images/${item.p_edit_Name}' style='width:50px;' alt='...'>"+
-                "</div>"+
-                "<div class='media-body'>"+
-                  "<h4 class='media-heading' style='color:#25afe5;'></h4>"+
-				"</div></div></div></div></c:forEach>");
-		      
-		    }
-		});
-	</script>
+   <script>
+      // 무한스크롤 인식
+      var page = 6;
+	  var value = '${search}';
+	  var lastScroll = true;
+	  
+	  (function() {
+		  if(${fn:length(band)==0}){
+			  lastScroll = false;
+		  }
+		})();
+	  
+      $(window).scroll(function() {
+    	  var scrollHeight = $(window).scrollTop() + $(window).height();
+          var documentHeight = $(document).height()-1;
+          if(scrollHeight >= documentHeight){
+        	  if(lastScroll)
+        	  	newBandScroll();
+          }
+      });
+      
+      function newBandScroll(){
+    	  $.ajax({
+              Type:'get',
+              url: "newBandList.search",
+              async: false,
+              contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+              data: {
+                 'page':page,
+                 'value':value
+              },
+              success: function(data){		//가져온 데이터 json으로 파싱
+              	var dataValue = JSON.parse(data);
+              	if(dataValue.length == 0){
+              		$("#band_List").append("<div class='col-md-12 col-xs-12 empty_band'>"+
+	                         "<h1>더 이상 밴드 검색 결과가 없습니다.</h1></div>");
+              		
+              		lastScroll = false;
+              		return false;
+              	}
+               	page+=5;
+               	$.each(dataValue, function(key, value){
+               	var bIntroCut = value.bIntro;
+               	
+               	if(bIntroCut.length > 70){		//문자열 길이 70이상이면 자르기
+               		bIntroCut = bIntroCut.substr(0,70);
+               	}
+	               	$("#band_List").append("<div class='col-md-10 col-xs-10'>"+
+	                         "<div class='widget band-list' style='background: linear-gradient(to left, #e6e6e6, #ffffff);'>"+
+	                        "<div class='media'>"+
+	                       "<div class='media-left media-middle'>"+
+	                           "<img class='media-object' src='${contextPath}/resources/upload_images/"+value.P_edit_Name+"' style='width:50px;' alt='...'>"+
+	                       "</div>"+
+	                       "<div class='media-body'>"+
+	                         "<h4 class='media-heading' style='color:#25afe5;'>"+value.bName+"</h4>"+
+	                         bIntroCut+"...."+
+	                   "</div></div></div></div>");
+               	});
+               },
+               error: function(){
+                  console.log('에러');
+               }
+           });
+      }
+   </script>
 	
 </body>
 </html>

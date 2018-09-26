@@ -92,6 +92,7 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.selectOne("Member.selectmEmail", mEmail);
 	}
 
+
 	@Override
 	public String selectmEmail(SqlSessionTemplate sqlSession, Member m) {
 		// TODO Auto-generated method stub
@@ -115,6 +116,7 @@ public class MemberDaoImpl implements MemberDao{
 		// TODO Auto-generated method stub
 		return sqlSession.update("Member.updatemStatus", imid);
 	}
+
 	
 	
 

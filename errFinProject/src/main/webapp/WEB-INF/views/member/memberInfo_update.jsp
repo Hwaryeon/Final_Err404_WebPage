@@ -488,6 +488,7 @@
 				}
     		})
     	}
+
     	
     	function deleteMember(){
     		var ck = window.confirm("진짜 탈퇴?");
@@ -508,7 +509,7 @@
     				}
     			})
     		}
-    	}
+
     </script>
     <script src="resources/js/jquery.min.js"></script>
     <script src="resources/js/bootstrap.min.js"></script>

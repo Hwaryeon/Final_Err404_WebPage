@@ -35,6 +35,7 @@ public interface MemberDao {
 
 	int selectCntEmail(SqlSessionTemplate sqlSession, String mEmail);
 
+
 	String selectmEmail(SqlSessionTemplate sqlSession, Member m);
 
 	int updateMidmPwd(SqlSessionTemplate sqlSession, Member m);
