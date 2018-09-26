@@ -3,12 +3,15 @@ package com.kh.efp.band.model.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.efp.band.model.vo.Band;
+import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
+import com.kh.efp.member_band.model.vo.BoardList;
 
 @Repository
 public class BandDaoImpl implements BandDao{
@@ -57,6 +60,17 @@ public class BandDaoImpl implements BandDao{
 	public void updateBandOpenStatus(SqlSessionTemplate sqlSession, Band b) {
 		
 		sqlSession.update("Band.updateBandOpenStatus", b);
+		
+	}
+
+	@Override
+	public ArrayList<Member_Band> selectMember_BandList(SqlSessionTemplate sqlSession, Member_Band mb) {
+
+		ArrayList<Member_Band> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("Band.selectMember_BandList", mb);
+		
+		return list;
 		
 	}
 
