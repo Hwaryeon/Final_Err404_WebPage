@@ -118,7 +118,6 @@
 				class="widget fullwidth categort-posts">
 				<h1 class="widget-title"></h1>
 				<ul class="tvshows">
-					
 					<li><a href="#"> <!-- <span class="comment-count">11</span> -->
 							<img src="http://placehold.it/209x128" alt="">
 					</a>
@@ -136,8 +135,6 @@
 								style="font-size: 12px; font-weight: 400; color: #666; text-decoration: none;">*
 								밴드 설정</a>
 						</h4></li>
-				
-				
 				</ul>
 				<div class="clear"></div>
 			</div>
@@ -147,39 +144,44 @@
 		<div class="main col-md-6 col-xs-12">
 
 			<div class="widget fullwidth post-single" style="margin-bottom:1px;">
-				<h4 class="widget-title" style="font-size:20px;">공동리더
-				 <span style="float:right; border:1px solid #fdb00d!important; padding:7px; cursor:pointer;">
-				<a style="font-size:12px; color:#fdb00d!important;" href="bandChangeMultiLeader.bd">공동리더 추가</a></span></h4>
+				<h4 class="widget-title" style="font-size:20px;">공동리더 추가 </h4>
 			</div>
 			
+			<div id="search-3" class="widget fullwidth widget_search" style="margin-bottom:1px;">
+                <form class="search" role="search" method="get" action="#">
+                    <input type="search" placeholder="Search &hellip;" value="" name="s" title="Search for:">
+                </form>
+            </div>
+			
+			<!--  <div class="author-bar widget" style="margin-bottom:1px;">
+              <div class="author-content">
+                <img alt="" src="http://placehold.it/89x89" class="avatar avatar-75 photo avatar-default" height="75" width="75">        
+                <h4> <span><a href="#">Visit website</a></span> </h4>
+                <h4><a href="" title="Posts by admin" rel="author">Robert Johnson</a>
+                <span style="float:right;"><a style="border:1px solid lightgray; padding:7px;">공동리더 추가</a></span>
+                </h4>
+                <div class="clear"></div>
+              </div>
+            </div> -->
             
             <c:forEach var="b" items="${list}">
             
-            	<c:if test="${b.mlevel == 3}" >
 					<div class="author-bar widget" style="margin-bottom:1px;">
 		              <div class="author-content">
 		                <img alt="" src="http://placehold.it/89x89" class="avatar avatar-75 photo avatar-default" height="75" width="75">        
-		                <h4> <span><a href="#">공동 리더</a></span> </h4>
+		                <h4> <span><a href="#">여긴 아마도 회원등급표시</a></span> </h4>
 		                <h4><a href="" title="Posts by admin" rel="author">${b.mname}</a></h4>
 		                <div class="clear"></div>
 		              </div>
 		            </div>
 					
-				</c:if>
 			</c:forEach>
             
             
-            <div class="widget">
-          <div class="col-md-3 text-center">
-            <!-- <a href="#" class="about-btn-job">Job Oppertunities</a> -->
-          </div>
-          <div class="col-md-6" style="text-align:center">공동리더는 무엇을 할 수 있나요?<br>
-설정 메뉴에서 공동리더의 권한을 설정할 수 있습니다.
-<a href="#" class="about-btn-download">멤버들의 권한 설정 바로가기</a>
-</div>
-        </div> 
 
 		</div>
+		
+		
 
 		<div class="right-sidebar col-md-3" role="complementary">
 

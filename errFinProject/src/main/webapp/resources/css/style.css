@@ -492,7 +492,7 @@ span.center {
   margin: 0px;
 }
 .search input {
-  background: url("img/glass.png") no-repeat right center #FFFFFF;
+  background: url("../images/glass.png") no-repeat right center #FFFFFF;
   border: medium none;
   font-size: 12px;
   width: 100%;
