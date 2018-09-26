@@ -201,6 +201,7 @@
 					<a href = '<c:url value = "showMemberInfo_update.me">
 					<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
 					</c:url>'>이동</a>
+					<a href = "logout.me">로그아웃</a>
 				</div>
 			</div>
 			<div class="col-md-6 col-xs-12">
