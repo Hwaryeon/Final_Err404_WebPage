@@ -34,17 +34,13 @@
 	
 	<!-- 모든 검색 밴드 리스트 가져오기 -->
 	<select id="selectSearchBand" resultMap="SearchResultSet" parameterType="java.util.ArrayList">
-	  SELECT BID, BNAME, BOPEN_STATUS, BINTRO, MID, MNAME, 
-                  CNAME, PID, EDIT_NAME 
+	  SELECT BID, BNAME, BOPEN_STATUS, BINTRO, CNAME, PID, EDIT_NAME 
       FROM(                
         SELECT * FROM
       (
-      SELECT B.BID, B.BNAME, B.BOPEN_STATUS, B.BINTRO, M.MID, M.MNAME, 
-            C.CNAME, P.PID, P.EDIT_NAME, 
+      SELECT B.BID, B.BNAME, B.BOPEN_STATUS, B.BINTRO, C.CNAME, P.PID, P.EDIT_NAME, 
             P.FTYPE, P.FILE_SRC, ROWNUM
             FROM BAND B
-            JOIN MEMBER_BAND MB ON(B.BID = MB.BID)
-            JOIN MEMBER M ON(MB.MID = M.MID)
             JOIN CATEGORY C ON(B.CID = C.CID)
             JOIN PROFILE P ON(B.BID = P.BID)
             WHERE B.BOPEN_STATUS != 'PRV'
@@ -58,24 +54,19 @@
             </foreach>
          </trim>
         )
-            WHERE ROWNUM <![CDATA[ <= ]]> 5
+            <!-- WHERE ROWNUM <![CDATA[ <= ]]> 5 -->
 	</select>
 	
 	<!--검색 밴드 리스트 5개만 가져오기 -->
 	<select id="selectFiveBand" resultMap="SearchResultSet" parameterType="Map">
-	  	  SELECT ROWNUM, BID, BNAME, BOPEN_STATUS, BINTRO, MID, MNAME, 
-                  CNAME, PID, EDIT_NAME
+  	  SELECT ROWNUM, BID, BNAME, BOPEN_STATUS, BINTRO, CNAME, PID, EDIT_NAME
       FROM(                
-        SELECT ROWNUM AS RNUM, BID, BNAME, BOPEN_STATUS, BINTRO, MID, MNAME, 
-                  CNAME, PID, EDIT_NAME 
+        SELECT ROWNUM AS RNUM, BID, BNAME, BOPEN_STATUS, BINTRO, CNAME, PID, EDIT_NAME 
         FROM
       (
-      SELECT B.BID, B.BNAME, B.BOPEN_STATUS, B.BINTRO, M.MID, M.MNAME, 
-            C.CNAME, P.PID, P.EDIT_NAME, 
+      SELECT B.BID, B.BNAME, B.BOPEN_STATUS, B.BINTRO, C.CNAME, P.PID, P.EDIT_NAME, 
             P.FTYPE, P.FILE_SRC, ROWNUM
             FROM BAND B
-            JOIN MEMBER_BAND MB ON(B.BID = MB.BID)
-            JOIN MEMBER M ON(MB.MID = M.MID)
             JOIN CATEGORY C ON(B.CID = C.CID)
             JOIN PROFILE P ON(B.BID = P.BID)
             WHERE B.BOPEN_STATUS != 'PRV'
@@ -114,7 +105,6 @@
 		            AND B.BSTATUS = 'Y'
 		            ORDER BY BDATE DESC
 		    )
-		    WHERE ROWNUM <![CDATA[ <= ]]> 4
 		)      
 		<trim prefix="WHERE" prefixOverrides="AND |OR ">
 			<foreach collection="list" item="item" index="index" separator=" " open="" close="">
