@@ -3,12 +3,15 @@ package com.kh.efp.band.model.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.efp.band.model.vo.Band;
+import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
+import com.kh.efp.member_band.model.vo.BoardList;
 
 @Repository
 public class BandDaoImpl implements BandDao{
@@ -75,7 +78,60 @@ public class BandDaoImpl implements BandDao{
 		return bandList;
 	}
 
-	
+	public ArrayList<Member_Band> selectMember_BandList(SqlSessionTemplate sqlSession, Member_Band mb) {
+
+		ArrayList<Member_Band> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("Band.selectMember_BandList", mb);
+		
+		return list;
+		
+	}
+
+	@Override
+	public void insertBandMultiLeader(SqlSessionTemplate sqlSession, int mbid) {
+		
+		sqlSession.update("Band.insertBandMultiLeader", mbid);
+		
+	}
+
+	@Override
+	public void deleteBandMultiLeader(SqlSessionTemplate sqlSession, int mbid) {
+		sqlSession.update("Band.deleteBandMultiLeader", mbid);
+		
+	}
+
+	@Override
+	public ArrayList<Member_Band> searchMember_BandList(SqlSessionTemplate sqlSession, Member_Band mb) {
+		ArrayList<Member_Band> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("Band.searchMember_BandList", mb);
+		
+		return list;
+	}
+
+	@Override
+	public void changeBandLeader(SqlSessionTemplate sqlSession, Member_Band mb) {
+
+		sqlSession.update("Band.changeBandLeader_2", mb);
+		
+		sqlSession.update("Band.changeBandLeader", mb);
+		
+	}
+
+	@Override
+	public void secessionBand(SqlSessionTemplate sqlSession, Member_Band mb) {
+		
+		sqlSession.update("Band.secessionBand", mb);
+		
+	}
+
+	@Override
+	public void deleteBand(SqlSessionTemplate sqlSession, int bid) {
+		sqlSession.update("Band.deleteBand", bid);
+		
+	}
+
 	
 	
 }

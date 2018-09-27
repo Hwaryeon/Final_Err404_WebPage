@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.efp.band.model.dao.BandDao;
 import com.kh.efp.band.model.vo.Band;
+import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
 import com.kh.efp.member.model.dao.MemberDao;
 import com.kh.efp.member.model.exception.LoginException;
@@ -75,6 +76,51 @@ public class BandServiceImpl implements BandService {
 	public List<Object> bandList() {
 		
 		return bd.bandList(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Member_Band> selectMember_BandList(Member_Band mb) {
+
+		return bd.selectMember_BandList(sqlSession, mb);
+		
+	}
+
+	@Override
+	public void insertBandMultiLeader(int mbid) {
+		
+		bd.insertBandMultiLeader(sqlSession, mbid);
+		
+		
+	}
+
+	@Override
+	public void deleteBandMultiLeader(int mbid) {
+		bd.deleteBandMultiLeader(sqlSession, mbid);
+		
+	}
+
+
+	@Override
+	public ArrayList<Member_Band> searchMember_BandList(Member_Band mb) {
+		return bd.searchMember_BandList(sqlSession, mb);
+	}
+
+	@Override
+	public void changeBandLeader(Member_Band mb) {
+		bd.changeBandLeader(sqlSession, mb);		
+	}
+
+	@Override
+	public void secessionBand(Member_Band mb) {
+		
+		bd.secessionBand(sqlSession, mb);
+		
+	}
+
+	@Override
+	public void deleteBand(int bid) {
+
+		bd.deleteBand(sqlSession, bid);
 	}
 
 

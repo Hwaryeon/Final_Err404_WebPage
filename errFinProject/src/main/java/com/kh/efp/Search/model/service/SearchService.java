@@ -11,4 +11,8 @@ public interface SearchService {
 
 	ArrayList<Search> selectFiveBand(HashMap<String, Object> map);
 
+	ArrayList<Search> selectSearchMorePost(ArrayList<String> list);
+
+	ArrayList<Search> selectFiveContents(HashMap<String, Object> map);
+
 }

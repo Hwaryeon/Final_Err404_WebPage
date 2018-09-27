@@ -18,4 +18,6 @@ public interface SearchDao {
 
 	ArrayList<Search> selectFiveBand(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
 
+	ArrayList<Search> selectFiveContents(SqlSessionTemplate sqlSession, HashMap<String, Object> map);
+
 }

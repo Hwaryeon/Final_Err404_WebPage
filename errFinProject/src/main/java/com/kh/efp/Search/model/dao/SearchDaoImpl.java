@@ -38,6 +38,10 @@ public class SearchDaoImpl implements SearchDao {
 	public ArrayList<Search> selectFiveBand(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
 		return (ArrayList)sqlSession.selectList("Search.selectFiveBand", map);
 	}
-	
+
+	@Override
+	public ArrayList<Search> selectFiveContents(SqlSessionTemplate sqlSession, HashMap<String, Object> map) {
+		return (ArrayList)sqlSession.selectList("Search.selectFiveContents", map);
+	}
 
 }

@@ -7,6 +7,7 @@
 	<typeAliases>
 		<typeAlias type="com.kh.efp.member.model.vo.Member" alias = "Member"/>
 		<typeAlias type="com.kh.efp.band.model.vo.Scehdule" alias = "Scehdule"/>
+		<typeAlias type="com.kh.efp.band.model.vo.Member_Band" alias = "Member_Band"/>
 		<typeAlias type="com.kh.efp.band.model.vo.Band" alias = "Band"/>
 		<typeAlias type="com.kh.efp.member.model.vo.Profile" alias = "Profile"/>
 		<typeAlias type="com.kh.efp.Search.model.vo.Search" alias = "Search"/>
