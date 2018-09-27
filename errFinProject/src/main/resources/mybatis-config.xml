@@ -7,6 +7,8 @@
 	<typeAliases>
 		<typeAlias type="com.kh.efp.member.model.vo.Member" alias = "Member"/>
 		<typeAlias type="com.kh.efp.band.model.vo.Scehdule" alias = "Scehdule"/>
+		<typeAlias type="com.kh.efp.band.model.vo.Member_Band" alias = "Member_Band"/>
+		<typeAlias type="com.kh.efp.band.model.vo.Band" alias = "Band"/>
 		<typeAlias type="com.kh.efp.member.model.vo.Profile" alias = "Profile"/>
 		<typeAlias type="com.kh.efp.Search.model.vo.Search" alias = "Search"/>
 		<typeAlias type="com.kh.efp.member_band.model.vo.BandList" alias = "BandList"/>
@@ -20,6 +22,7 @@
 		<mapper resource="mappers/search-mapper.xml"/>
 		<mapper resource="mappers/member_band-mapper.xml"/>
 		<mapper resource="mappers/login-mapper.xml"/>
+		<mapper resource="mappers/bandLeader-mapper.xml"/>
 	</mappers>
 	
 	

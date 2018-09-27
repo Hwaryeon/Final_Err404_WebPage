@@ -91,4 +91,59 @@ public class SearchServiceImpl implements SearchService{
 		return fiveBandResult;
 	}
 
+	//더 많은 게시글 보기시
+	@Override
+	public ArrayList<Search> selectSearchMorePost(ArrayList<String> lists) {
+		ArrayList<Ban> banList = searchDao.selectSearchBand(sqlSession);
+		boolean banCheck = true;
+		ArrayList<Search> searchContentsResult = new ArrayList<Search>(); 
+		ArrayList<Search> contents = searchDao.selectSearchContents(sqlSession, lists);
+		
+		//차단 되어있는 게시글 검색출력리스트에서 제거		
+		for(int n=0; n<contents.size();n++){
+			for(int i=0; i<banList.size(); i++){
+				if(banList.get(i).getMid() == contents.get(n).getMid()){
+					banCheck = false;
+					break;
+				}
+			}
+			if(banCheck)
+				searchContentsResult.add(contents.get(n));
+			banCheck=true;
+		}
+		
+		return searchContentsResult;
+	}
+
+	@Override
+	public ArrayList<Search> selectFiveContents(HashMap<String, Object> map) {
+		ArrayList<Ban> banList = searchDao.selectSearchBand(sqlSession);
+		ArrayList<Search> searchContentsResult = new ArrayList<Search>(); 
+		ArrayList<Search> fiveContents = searchDao.selectFiveContents(sqlSession ,map); 
+		
+		boolean banCheck = true;
+		//차단 되어있는 게시글 검색출력리스트에서 제거		
+		for(int n=0; n<fiveContents.size();n++){
+			for(int i=0; i<banList.size(); i++){
+				if(banList.get(i).getMid() == fiveContents.get(n).getMid()){
+					banCheck = false;
+					break;
+				}
+			}
+			if(banCheck)
+				searchContentsResult.add(fiveContents.get(n));
+			banCheck=true;
+		}
+		fiveContents = new ArrayList<Search>();
+		for(int i=(int)map.get("startPage"); i<(int)map.get("endPage");i++){
+			if(searchContentsResult.size() > i){
+				fiveContents.add(searchContentsResult.get(i));
+			}else{
+				break;
+			}
+		}
+		
+		return fiveContents;
+	}
+
 }

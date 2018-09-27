@@ -10,6 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.kh.efp.band.model.dao.BandDao;
+import com.kh.efp.band.model.vo.Band;
+import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
 import com.kh.efp.member.model.dao.MemberDao;
 import com.kh.efp.member.model.exception.LoginException;
@@ -59,6 +61,21 @@ public class BandServiceImpl implements BandService {
 	public void updateScehdule(Scehdule s) {
 		
 		bd.updateScehdule(sqlSession, s);
+		
+	}
+
+
+	@Override
+	public void updateBandOpenStatus(Band b) {
+
+		bd.updateBandOpenStatus(sqlSession, b);
+		
+	}
+
+	@Override
+	public ArrayList<Member_Band> selectMember_BandList(Member_Band mb) {
+
+		return bd.selectMember_BandList(sqlSession, mb);
 		
 	}
 

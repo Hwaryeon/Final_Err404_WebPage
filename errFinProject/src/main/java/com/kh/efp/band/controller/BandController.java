@@ -37,7 +37,7 @@ public class BandController {
 	@Autowired private BandService bs;
 
 	@RequestMapping("bandCalendarList.bd")
-	public String showMemberJoinForm(Model model) throws Exception{
+	public String showBandCalendar(Model model) throws Exception{
 		
 		System.out.println("달력 호출");
 		
