@@ -1,25 +1,23 @@
+<!DOCTYPE>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html >
+    pageEncoding="UTF-8" import="com.kh.efp.band.model.vo.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import= "java.util.*"  %>
+<%@ page import= "java.text.*"  %>
 <html>
 <head>
 <meta charset="utf-8">
 <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content=" width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>Weekend Magazine</title>
-<!-- CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/font-awesome.min.css" rel="stylesheet">
-<link href="style.css" rel="stylesheet">
-<link href="css/responsive.css" rel="stylesheet">
-<!-- Skin -->
-  <link href="skins/light-pink-blue.css" rel="stylesheet">
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
+<link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal.css">
+  <link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal-default-theme.css">
+<link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/light-pink-blue.css" rel="stylesheet">
 </head>
 <body
 	class="home page page-id-4 page-template page-template-template_home-php">
@@ -159,20 +157,30 @@
 				삭제하시기 바랍니다.</p>
 				<div class="row survey" style="margin-top:20px;">
 							<div class="col-md-6">
-								<button class="button vote">탈퇴하기</button>
+								<button class="button vote" id="bandSecession">탈퇴하기</button>
 							</div>
 							<div class="col-md-6">
-								<button class="button">취소</button>
+								<button class="button" id="cancle">취소</button>
 							</div>
 						</div>
             </div>
-            
-			
-			
-            
-            
-
 		</div>
+		
+		<script>
+			$('#bandSecession').click(function(){
+				
+				var bid = 1;
+				var mid = 1;
+				
+				location.href="secessionBand.bd?bid=" + bid + "&mid=" + mid;
+			});
+			
+			$('#cancle').click(function(){
+				location.href="bandLeader.bd";
+			});
+		
+		
+		</script>
 		
 		
 

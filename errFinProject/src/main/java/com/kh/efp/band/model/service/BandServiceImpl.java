@@ -79,6 +79,44 @@ public class BandServiceImpl implements BandService {
 		
 	}
 
+	@Override
+	public void insertBandMultiLeader(int mbid) {
+		
+		bd.insertBandMultiLeader(sqlSession, mbid);
+		
+		
+	}
+
+	@Override
+	public void deleteBandMultiLeader(int mbid) {
+		bd.deleteBandMultiLeader(sqlSession, mbid);
+		
+	}
+
+
+	@Override
+	public ArrayList<Member_Band> searchMember_BandList(Member_Band mb) {
+		return bd.searchMember_BandList(sqlSession, mb);
+	}
+
+	@Override
+	public void changeBandLeader(Member_Band mb) {
+		bd.changeBandLeader(sqlSession, mb);		
+	}
+
+	@Override
+	public void secessionBand(Member_Band mb) {
+		
+		bd.secessionBand(sqlSession, mb);
+		
+	}
+
+	@Override
+	public void deleteBand(int bid) {
+
+		bd.deleteBand(sqlSession, bid);
+	}
+
 
 
 }

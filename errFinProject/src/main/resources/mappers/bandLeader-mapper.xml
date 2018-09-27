@@ -38,6 +38,47 @@
 		
 	</select>
 	
+	<!-- 공동리더 위임 메소드 -->
+	<update id="insertBandMultiLeader" parameterType="int">
+		UPDATE MEMBER_BAND SET MLEVEL = '2' WHERE MBID = #{mbid}
+	</update>
+	
+	<!-- 공동리더 삭제 메소드 -->
+	<update id="deleteBandMultiLeader" parameterType="int">
+		UPDATE MEMBER_BAND SET MLEVEL = '3' WHERE MBID = #{mbid}
+	</update>
+	
+	<!-- 밴드가입한 회원 검색 목록 메소드 -->
+	<select id = "searchMember_BandList" parameterType = "Member_Band" resultMap = "Member_BandResultSet">
+		SELECT MB.MBID, MB.BID, MB.IDATE, MB.ISTATUS, MB.MLEVEL, M.MNAME 
+		FROM MEMBER_BAND MB
+		JOIN MEMBER M ON (M.MID = MB.MID)
+		WHERE BID = #{bid} AND ISTATUS = 'Y'
+		<if test="mname != null">
+			AND M.MNAME LIKE '%'|| #{mname} ||'%'
+		</if>
+	</select>
+	
+	<!-- 리더 위임 메소드 -->
+	<update id="changeBandLeader" parameterType="int">
+		UPDATE MEMBER_BAND SET MLEVEL = '1' WHERE MBID = #{mbid}
+	</update>
+	
+	<!-- 리더 위임 메소드 -->
+	<update id="changeBandLeader_2" parameterType="int">
+		UPDATE MEMBER_BAND SET MLEVEL = '3' WHERE MLEVEL = '1' AND BID = #{bid}
+	</update>
+	
+	<!-- 밴드 탈퇴 메소드 -->
+	<update id="secessionBand" parameterType="int">
+		UPDATE MEMBER_BAND SET ISTATUS = 'N' WHERE BID = #{bid} AND MID = #{mid}
+	</update>
+	
+	<!-- 밴드 삭제 메소드 -->
+	<update id="deleteBand" parameterType="int">
+		UPDATE BAND SET BSTATUS = 'N' WHERE BID = #{bid}
+	</update>
+	
 
 </mapper>
 

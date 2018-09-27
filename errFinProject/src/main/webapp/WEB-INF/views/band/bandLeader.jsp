@@ -219,7 +219,7 @@
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  리더 위임
-                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandChangeLeader.jsp">변경</a></h4>
+                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandChangeLeader.bd">변경</a></h4>
                   </li>
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
@@ -237,18 +237,18 @@
                 <ul>
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
-                  		 대표 태그 설정
-                  		 <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandCategory.jsp">변경</a></h4>
+                  		 밴드 소개 변경
+                  		 <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandIntro.bd">변경</a></h4>
                   </li>
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  밴드 탈퇴
-                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandSecession.jsp">변경</a></h4>
+                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandSecession.bd">변경</a></h4>
                   </li>
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  밴드 삭제
-                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandDelete.jsp">변경</a></h4>
+                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandDelete.bd">변경</a></h4>
                   </li>
                 </ul>
               </div>

@@ -24,6 +24,18 @@ public interface BandService {
 	void updateBandOpenStatus(Band b);
 
 	ArrayList<Member_Band> selectMember_BandList(Member_Band mb);
+
+	void insertBandMultiLeader(int mbid);
+
+	void deleteBandMultiLeader(int mbid);
+
+	ArrayList<Member_Band> searchMember_BandList(Member_Band mb);
+
+	void changeBandLeader(Member_Band mb);
+
+	void secessionBand(Member_Band mb);
+
+	void deleteBand(int bid);
 	
 
 }

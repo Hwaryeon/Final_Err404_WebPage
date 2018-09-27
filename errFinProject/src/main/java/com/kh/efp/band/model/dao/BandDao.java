@@ -26,6 +26,18 @@ public interface BandDao {
 
 	ArrayList<Member_Band> selectMember_BandList(SqlSessionTemplate sqlSession, Member_Band mb);
 
+	void insertBandMultiLeader(SqlSessionTemplate sqlSession, int mbid);
+
+	void deleteBandMultiLeader(SqlSessionTemplate sqlSession, int mbid);
+
+	ArrayList<Member_Band> searchMember_BandList(SqlSessionTemplate sqlSession, Member_Band mb);
+
+	void changeBandLeader(SqlSessionTemplate sqlSession, Member_Band mb);
+
+	void secessionBand(SqlSessionTemplate sqlSession, Member_Band mb);
+
+	void deleteBand(SqlSessionTemplate sqlSession, int bid);
+
 
 
 

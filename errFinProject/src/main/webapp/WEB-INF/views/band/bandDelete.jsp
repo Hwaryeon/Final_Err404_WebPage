@@ -1,24 +1,20 @@
+<!DOCTYPE>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html >
+    pageEncoding="UTF-8" import="com.kh.efp.band.model.vo.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import= "java.util.*"  %>
+<%@ page import= "java.text.*"  %>
 <html>
 <head>
 <meta charset="utf-8">
-<!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content=" width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>Weekend Magazine</title>
-<!-- CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/font-awesome.min.css" rel="stylesheet">
-<link href="style.css" rel="stylesheet">
-<link href="css/responsive.css" rel="stylesheet">
-<!-- Skin -->
-  <link href="skins/light-pink-blue.css" rel="stylesheet">
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/light-pink-blue.css" rel="stylesheet">
   <![endif]-->
 </head>
 <body
@@ -155,21 +151,29 @@
               <p>밴드를 삭제하시겠습니까? <br>삭제 후에는 복구가 불가능합니다.</p>
 				<div class="row survey" style="margin-top:20px;">
 							<div class="col-md-6">
-								<button class="button vote">삭제</button>
+								<button class="button vote" id="delete">삭제</button>
 							</div>
 							<div class="col-md-6">
-								<button class="button">취소</button>
+								<button class="button" id="cancle">취소</button>
 							</div>
 						</div>
             </div>
-            
-			
-			
-            
-            
-
 		</div>
 		
+		<script>
+			$('#delete').click(function(){
+				
+				var bid = 1;
+				
+				location.href="deleteBand.bd?bid=" + bid;
+			});
+			
+			$('#cancle').click(function(){
+				location.href="bandLeader.bd";
+			});
+		
+		
+		</script>
 		
 
 		<div class="right-sidebar col-md-3" role="complementary">
