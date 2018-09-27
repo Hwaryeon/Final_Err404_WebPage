@@ -3,8 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
+<c:set var='search' value='${result}' scope='request'/>
+<c:set var='contents' value='${contents}' scope='request'/>
 <!-- 테스트용 변수들 -->
-<c:set var='search' value='자바' scope='request'/>
+
 <c:set var='content' value='"Hello, World!" 프로그램은 "Hello, world!"를 화면에 출력하는 컴퓨터 프로그램이다. 이 프로그램은 프로그래밍 언어를 연습하는 데에 많이 쓰이고, 많은 프로그래밍 언어 서적에서 가장 처음 만들어보는 기본 예제로 나온다.
 "Hello, World!" 프로그램은 프로그래밍 언어로 할 수 있는 간단한 것 중 하나이다. 그러나, GUI를 사용할 때를 비롯하여, 어떤 경우에는 코드가 대단히 복잡해질 수 있다. 또 다른 경우에는 프로그램 자체는 간단하지만 CLI 셸에서 입력해야 하는 파라미터가 많아 복잡한 경우도 있다. 또 임베디드 시스템에서는 글자들이 한정된 한두 줄의 LCD에 표시될 것이다. 더욱 심한 경우에는 글자를 표시할 수 없어 "Hello world!" 대신에 간단하게 LED 점 등을 할 수도 있다.
 또한, "Hello, World!" 프로그램은 언어의 컴파일러, 통합 개발 환경, 런타임 환경이 정상적으로 작동하는지를 확인하는 새너티 테스트로써 쓸모가 있다. 개발환경 구축에 필요한 툴체인을 바닥부터 구축하여 가장 간단한 프로그램을 컴파일하고 실행하기까지에는 상당한 작업이 필요하다. 따라서 새로운 툴체인을 테스트할 때에는 될 수 있는 한 간단한 프로그램을 쓴다.
@@ -77,7 +79,7 @@
 	}
 	
 	.media-body{
-		font-size: 12px;
+		font-size: 14px;
 	}
 	
 	.media-title{
@@ -100,6 +102,12 @@
 		display: table-cell; 
 	  	vertical-align: middle;
 	}
+	
+	.empty_contents{
+		height:200px;
+		text-align:center;
+		margin-bottom:10px;
+	}
 </style>
 
 <body class="home page page-id-4 page-template page-template-template_home-php">
@@ -110,46 +118,110 @@
       <div class="main col-md-12 col-xs-12" style='display:table; margin-bottom:30px'>
       <div class="widget" style='padding:20px; margin-top:30px;'>
 	      	<div class='band-title'>
-	       		<label style='font-size:30px; float:left;'>"<font color='black'>${search}</font>" 게시글 검색 결과 </label>
+	       		<label style='font-size:30px; float:left;'>"<font color='black'>${search}</font>" 게시글 검색 결과 - ${fn:length(contents)}건</label>
 	      	</div>
       	</div>
       </div>
     
       <div class="main col-md-12 col-xs-12">
           <div class="widget-content">
-          	<div class="row team-row" style='margin-right: auto; margin-left: auto; width:80%'>
-	          	<c:forEach var='i' begin='0' end='3' step='1'>
+          	<div id='contents_list' class="row team-row" style='margin-right: auto; margin-left: auto; width:80%'>
+	          	<c:forEach var='i' begin='0' end='4' step='1'>
+	          	<a href='${contents[i].boardId}'>
 		      	  <div class="col-md-12 col-xs-12">
 		            <div class="widget band-list">
 		              <div class="media">
 		                <div class="media-left media-middle">
-		                    <img class="media-object" src="https://i2.wp.com/techneedle.com/wp-content/uploads/2017/05/292162d79bb6c63412030bd891d8f05a.jpg?resize=600%2C337" alt="...">
+		                    <img class="media-object" src="${contextPath}/resources/upload_images/${contents[i].a_edit_Name}" alt="...">
 		                </div>
 		                <div class="media-body">
-		                  <h4 class="media-title" style='font-size:20px; color:#00b3f9;'>System.out.println("hello World"); 에 관해서</h4>
+		                  <h4 class="media-title" style='font-size:20px; color:#00b3f9;'>${fn:substring(contents[i].bContent,0,40)}</h4>
 		                  	<c:choose>
-					           <c:when test="${fn:length(contentArray[i]) > 300}">
-					           		${fn:substring(contentArray[i],0,300)}....
+					           <c:when test="${fn:length(contents[i].bContent) > 300}">
+					           		${fn:substring(contents[i].bContent,0,300)}....
 					           </c:when>
 					           <c:otherwise>
-				        	    	${contentArray[i]}
+				        	    	${contents[i].bContent}
 					           </c:otherwise> 
 				        	</c:choose>
 		                </div>
 	                	<hr style='margin:6px'>
 		                <div class='band-box' style='display:table'>
-		                	<img class='band-img' src='https://www.inflearn.com/wp-content/uploads/functional-programming.png'/>
-		                	<label class='band-name'>자바를 사랑하는 사람들의 모임</label>
+		                	<img class='band-img' src='${contextPath}/resources/upload_images/${contents[i].p_edit_Name}'/>
+		                	<label class='band-name'>${contents[i].bName}</label>
 		                </div>
 		              </div>
 		            </div>
 		          </div>
+		         </a>
 	          </c:forEach>
      	   </div>
-     	   
           </div>
       </div>
     </div>
+
+	<script>
+      // 무한스크롤 인식
+      var page = 5;
+	  var value = '${search}';
+	  var lastScroll = true;
+	  
+      $(window).scroll(function() {
+    	  var scrollHeight = $(window).scrollTop() + $(window).height();
+          var documentHeight = $(document).height()-1;
+          if(scrollHeight >= documentHeight){
+        	  if(lastScroll)
+        	  	newContentsScroll();
+          }
+      });
+      
+      function newContentsScroll(){
+    	  $.ajax({
+              Type:'get',
+              url: "newContentsList.search",
+              async: false,
+              contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+              data: {
+                 'page':page,
+                 'value':value
+              },
+              success: function(data){		//가져온 데이터 json으로 파싱
+              	var dataValue = JSON.parse(data);
+              	if(dataValue.length == 0){
+              		$("#contents_list").append("<div class='col-md-12 col-xs-12 empty_contents'>"+
+	                         "<h1>더 이상  검색 결과가 없습니다.</h1></div>");
+              		lastScroll = false;
+              		return false;
+              	}
+               	page+=5;
+               	$.each(dataValue, function(key, value){
+	               	var bcontent = value.bContent;
+	               	var titleContent ;
+	               	if(bcontent.length > 70){		//문자열 길이 70이상이면 자르기
+	               		bcontent = bcontent.substr(0,300);
+	               		titleContent = bcontent.substr(0,40);
+	               	}
+	               	$("#contents_list").append("<a href="+value.boardId+"><div class='col-md-12 col-xs-12'>"+
+	    		            "<div class='widget band-list'>"+
+		              "<div class='media'>"+
+		                "<div class='media-left media-middle'>"+
+		                    "<img class='media-object' src='${contextPath}/resources/upload_images/"+value.A_edit_Name+"' alt='...'></div>"+
+		                "<div class='media-body'>"+
+		                  "<h4 class='media-title' style='font-size:20px; color:#00b3f9;'>"+titleContent+"</h4>"+
+		                  		bcontent+"...."+
+		                "</div><hr style='margin:6px'>"+
+		                "<div class='band-box' style='display:table'>"+
+		                	"<img class='band-img' src='${contextPath}/resources/upload_images/"+value.P_edit_Name+"'/>"+
+		                	"<label class='band-name'>"+value.bName+"</label>"+
+		                "</div></div></div></div></a>");
+               	});
+               },
+               error: function(){
+                  console.log('에러');
+               }
+           });
+      }
+   </script>
 
 </body>
 </html>

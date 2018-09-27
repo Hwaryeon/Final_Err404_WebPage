@@ -268,9 +268,9 @@
 			var row_num = ($('.row').length);
 			for(var i=1; i<row_num; i++){
 				var param = { 
-						"title" : $('.table').children().eq(i).children().eq(1).children().val(),
+						"title" : $.trim($('.table').children().eq(i).children().eq(1).children().val()),
 						"dataType" : $('.table').children().eq(i).children().eq(2).find('select').val(),
-						"values" : $('.table').children().eq(i).children().eq(3).children().val()
+						"values" : $.trim($('.table').children().eq(i).children().eq(3).children().val())
 				}
 				JsonArrays.push(param);
 			}

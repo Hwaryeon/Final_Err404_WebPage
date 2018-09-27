@@ -129,9 +129,46 @@ public class SearchController {
 		return list;
 	}
 	
+	//더 많은 게시글보기시 forward
 	@RequestMapping(value="/searchMorePost.search")
-	public String searchMorePostFoward(){
+	public String searchMorePostFoward(String value, Model model){
+		//필터한 결과를 list로 전달
+		ArrayList<String> list = filterBox(value);
+		
+		// band = 밴드 결과 , contents = 게시글 검색결과
+		ArrayList<Search> searchResult = null;
+		
+		//만약 검색한 값들이 없다면 값 비움
+		if(list.size() != 0){
+			searchResult = seachservice.selectSearchMorePost(list);
+		}
+		
+		model.addAttribute("result", value);							//검색한 값
+		model.addAttribute("contents", searchResult);	//게시글 검색결과
+		
 		return "searchPage/searchMorePost";
+	}
+
+	//스크롤시 게시글 리스트 5개씩 생성
+	@RequestMapping(value="/newContentsList.search", method=RequestMethod.GET)
+	public void newContentsList(@RequestParam("page") String page, @RequestParam("value") String value, HttpServletResponse res){
+		//검색 결과 정리후 반환
+		ArrayList<String> list = filterBox(value);
+		int pageNum = Integer.parseInt(page);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("contentsList", list);
+		map.put("startPage", pageNum);
+		map.put("endPage", pageNum+4);
+		ArrayList<Search> fiveContentsResult = seachservice.selectFiveContents(map);
+		
+		String jsons = new Gson().toJson(fiveContentsResult);
+		res.setCharacterEncoding("UTF-8");
+		try {
+			res.getWriter().print(jsons);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	

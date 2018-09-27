@@ -95,17 +95,16 @@
 		            C.CNAME, BOD.BOARDID, BOD.BCONTENT, BOD.BDATE, P.PID, P.EDIT_NAME, 
 		            P.FTYPE, P.FILE_SRC, AT.FID, AT.EDIT_NAME as A_EDIT_NAME, AT.FILE_SRC as A_File_SRC, AT.FLEVEL, ROWNUM
 		            FROM BAND B
-		            JOIN MEMBER_BAND MB ON(B.BID = MB.BID)
-		            JOIN MEMBER M ON(MB.MID = M.MID)
-		            JOIN CATEGORY C ON(B.CID = C.CID)
-		            JOIN BOARDS BOD ON(BOD.BID = B.BID)
+                    JOIN BOARDS BOD ON(BOD.BID = B.BID)
+		            JOIN MEMBER M ON(BOD.MID = M.MID)
+		            JOIN CATEGORY C ON(B.CID = C.CID)		            
 		            JOIN PROFILE P ON(B.BID = P.BID)
 		            RIGHT JOIN ATTFILE AT ON(AT.BOARDID = BOD.BOARDID)
 		            WHERE B.BOPEN_STATUS != 'PRV'
 		            AND B.BSTATUS = 'Y'
 		            ORDER BY BDATE DESC
 		    )
-		)      
+		)
 		<trim prefix="WHERE" prefixOverrides="AND |OR ">
 			<foreach collection="list" item="item" index="index" separator=" " open="" close="">
 				OR UPPER(BCONTENT) LIKE '%'||	UPPER(#{item}) ||'%'
@@ -113,8 +112,39 @@
 		</trim>
 	</select>
 	
+	<!-- 모든 차단당한 밴 리스트 가져오기 -->
 	<select id='selectSearchBan' resultMap='BanResultSet'>
 		SELECT BANID, BID, MID, BANREASON FROM BAN
+	</select>
+	
+	<!-- 게시글 5개 가져오기 -->
+	<select id='selectFiveContents' resultMap="SearchResultSet" parameterType="Map">
+		SELECT BID, BNAME, BOPEN_STATUS, BINTRO, MID, MNAME, 
+				CNAME, BOARDID, BCONTENT, BDATE, PID, EDIT_NAME, 
+				FTYPE, FILE_SRC, FID, A_EDIT_NAME, A_File_SRC, FLEVEL
+		FROM(SELECT ROWNUM AS RNUM, BID, BNAME, BOPEN_STATUS, BINTRO, MID, MNAME, 
+				CNAME, BOARDID, BCONTENT, BDATE, PID, EDIT_NAME, 
+				FTYPE, FILE_SRC, FID, A_EDIT_NAME, A_File_SRC, FLEVEL  FROM
+		    (SELECT B.BID, B.BNAME, B.BOPEN_STATUS, B.BINTRO, M.MID, M.MNAME, 
+		            C.CNAME, BOD.BOARDID, BOD.BCONTENT, BOD.BDATE, P.PID, P.EDIT_NAME, 
+		            P.FTYPE, P.FILE_SRC, AT.FID, AT.EDIT_NAME as A_EDIT_NAME, AT.FILE_SRC as A_File_SRC, AT.FLEVEL, ROWNUM
+		            FROM BAND B
+                    JOIN BOARDS BOD ON(BOD.BID = B.BID)
+		            JOIN MEMBER M ON(BOD.MID = M.MID)
+		            JOIN CATEGORY C ON(B.CID = C.CID)		            
+		            JOIN PROFILE P ON(B.BID = P.BID)
+		            RIGHT JOIN ATTFILE AT ON(AT.BOARDID = BOD.BOARDID)
+		            WHERE B.BOPEN_STATUS != 'PRV'
+		            AND B.BSTATUS = 'Y'
+		            ORDER BY BDATE DESC
+		    )
+     	<trim prefix="WHERE" prefixOverrides="AND |OR ">
+           <foreach item="item" collection="contentsList" separator=" " open="" close="">
+              OR UPPER(BCONTENT) LIKE '%'|| UPPER(#{item}) ||'%'
+           </foreach>
+      	 </trim>
+      )
+      	
 	</select>
 	
 </mapper>
