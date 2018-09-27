@@ -117,6 +117,12 @@ public class BandServiceImpl implements BandService {
 		bd.deleteBand(sqlSession, bid);
 	}
 
+	@Override
+	public void updateBandIntro(Band b) {
+		bd.updateBandIntro(sqlSession, b);
+	}
+
+
 
 
 }

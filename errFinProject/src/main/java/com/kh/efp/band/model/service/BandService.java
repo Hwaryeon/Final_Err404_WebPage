@@ -36,6 +36,8 @@ public interface BandService {
 	void secessionBand(Member_Band mb);
 
 	void deleteBand(int bid);
-	
+
+	void updateBandIntro(Band b);
+
 
 }

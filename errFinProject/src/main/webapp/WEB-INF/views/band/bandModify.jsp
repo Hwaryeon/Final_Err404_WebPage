@@ -1,25 +1,22 @@
+<!DOCTYPE>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    pageEncoding="UTF-8" import="com.kh.efp.band.model.vo.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import= "java.util.*"  %>
+<%@ page import= "java.text.*"  %>
 <html>
 <head>
   <meta charset="utf-8">
-  <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
   <meta name="viewport" content=" width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <title>Weekend Magazine</title>
-  <!-- CSS -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/font-awesome.min.css" rel="stylesheet">
-  <link href="style.css" rel="stylesheet">
-  <link href="css/responsive.css" rel="stylesheet">
-  <!-- Skin -->
-  <link href="skins/light-pink-blue.css" rel="stylesheet">
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal.css">
+  <link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal-default-theme.css">
+<link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/light-pink-blue.css" rel="stylesheet">
   <style>
   .imageUpload {
     position: absolute;
@@ -41,7 +38,7 @@
     text-align: center;
     background-color: #ebebeb;
     border-radius: 2px;
-    background-image: url(img/addImg.png);
+    background-image: url(../../../resources/images/addImg.png);
     background-size: contain;
     background-repeat:no-repeat;
 }  
@@ -76,7 +73,7 @@
       
       <div class="main col-md-6 col-xs-12" style="width:93%;">
         <div id="respond" class="widget clearfix">
-          <form id="contactForm">
+          <form id="bandModify" action="updateBandModify.bd" method="post" id="bandModify" encType = "multipart/form-data">
             <p class="textarea clearfix">
               <label for="commentsText"><small style="font-size: 14px;font-weight: 600;margin-bottom: 11px;color: #444;">
            		   밴드 이름
@@ -90,15 +87,28 @@
                     <ul class="category-posts">
                         <li>
                             <a href="#">
-                                <img src="http://placehold.it/225x128" width="270" alt="" style="width:300px;height:225px;">
+                                <img id = "contentImg1" src="http://placehold.it/225x128" width="270" alt="" style="width:300px;height:225px;">
                             </a>
                         </li>
                         <li>
                         
+						<!-- <table
+							style="display: table-cell; vertical-align: middle; text-align: center;">
+							<tr>
+								<td width="270px" style="vertical-align: middle; text-align: left;">
+									<img id = "contentImg1" src="resources/images/user.png" alt="" style = "width : 64px; height : 64px;">
+									<input type="file" id="userImage" name="userImage" multiple onchange="loadImg(this)">
+								</td>
+								<td style="vertical-align: middle;"><a class="button-navy button-link" onclick = "changeImage()">이미지 변경</a></td>
+							</tr>
+						</table> -->
                         </li>
                         <li>
                             <span class="changeCover _coverImageUploader js-fileapi-wrapper" style="float:left;margin-right:3px;"><span></span> 
-                            <input type="file" class="imageUpload" title="추가" accept="image/*" name="attachment" style="width:120px;height:90px;"></span>
+                            <!-- <input type="file" class="imageUpload" title="추가" accept="image/*"  id="userImage" name="userImage" style="width:120px;height:90px;"> -->
+                            <input type="file" id="userImage" name="userImage" multiple onchange="loadImg(this)">
+                            <td style="vertical-align: middle;"><a class="button-navy button-link" onclick = "changeImage()">이미지 변경</a></td>
+                            </span>
                             <a href="#">
                                 <img src="http://placehold.it/225x128" width="270" alt="" style="width:120px;height:90px;">
                             </a>
@@ -142,5 +152,31 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.bxslider.min.js"></script>
     <script src="js/custom.js"></script>
+    <script>
+    
+    $(function() {
+		$("#userImage").hide(); 
+		nameResult = -99;
+		emailResult = -99;
+		ck = -99;
+		
+	});
+
+	function changeImage(){
+		$("#userImage").click();
+	}
+	
+	function loadImg(value){
+		if(value.files && value.files[0]){
+			var reader = new FileReader();
+			reader.onload = function(e){
+				$("#contentImg1").attr("src", e.target.result);
+			}
+			reader.readAsDataURL(value.files[0])
+		}
+		
+	}
+    
+    </script>
   </body>
 </html>

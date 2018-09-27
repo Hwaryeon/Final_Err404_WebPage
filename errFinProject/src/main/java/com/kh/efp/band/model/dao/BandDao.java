@@ -38,6 +38,8 @@ public interface BandDao {
 
 	void deleteBand(SqlSessionTemplate sqlSession, int bid);
 
+	void updateBandIntro(SqlSessionTemplate sqlSession, Band b);
+
 
 
 

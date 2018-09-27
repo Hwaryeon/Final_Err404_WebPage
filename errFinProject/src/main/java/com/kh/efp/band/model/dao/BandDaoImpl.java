@@ -118,6 +118,12 @@ public class BandDaoImpl implements BandDao{
 		
 	}
 
+	@Override
+	public void updateBandIntro(SqlSessionTemplate sqlSession, Band b) {
+		sqlSession.update("Band.updateBandIntro", b);
+		
+	}
+
 
 	
 	

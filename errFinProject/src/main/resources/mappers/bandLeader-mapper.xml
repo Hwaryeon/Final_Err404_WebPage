@@ -79,6 +79,12 @@
 		UPDATE BAND SET BSTATUS = 'N' WHERE BID = #{bid}
 	</update>
 	
+	<!-- 밴드 소개 변경 메소드 -->
+	<update id="updateBandIntro" parameterType="Band">
+		UPDATE BAND SET BINTRO = #{bintro} WHERE BID = #{bid}
+	</update>
+	
+	
 
 </mapper>
 

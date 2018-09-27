@@ -150,30 +150,24 @@
 				<h4 class="widget-title" style="font-size:20px;">밴드 소개 설정 </h4>
 			</div>
 			
-			<div id="widget-feedburner-2" class="widget fullwidth widget-feedburner" style="margin-bottom:1px;">
+			<div id="widget-feedburner-2" class="widget fullwidth widget-feedburner" style="margin-bottom:0px;">
                 <h1 class="widget-title">소개입력</h1>
                 <div class="widget-feedburner-counter subscribe">
-                    <p>밴드에 카테고리 분류에 사용될 태그를 입력해주세요</p>
                      <p>밴드 소개에 사용될 글을 입력해주세요</p>
-                    <form action="#" method="post">
-                        <input class="feedburner-email input-subscribe" type="text" name="email"
-                               value="대표태그 추가"
-                               onfocus="if (this.value == '대표태그 추가') {this.value = '';}"
-                               onblur="if (this.value == '') {this.value = '대표태그 추가';}">
-                        <input class="feedburner-subscribe input-button" type="submit" name="submit" value="추가">
-                 
-                 
-                 		<p class="textarea clearfix">
-              <label for="commentsText"><small>Your Message<span class="star">*</span></small></label>
-              <textarea name="comments" id="commentsText" class="required requiredField"></textarea>
-            </p>
-                 
-                 
-                    </form>
                 </div>
             </div>
 			
-            
+            <div id="respond" class="widget clearfix">
+          <form id="contactForm" action="updateBandIntro.bd" method="post">
+            <p class="textarea clearfix">
+              <textarea name="bandIntro" id="bandIntro" class="required requiredField"></textarea>
+            </p>
+            <div id="contact_response"></div>
+            <p class="buttons clearfix">
+              <button type="submit" id="conSub">확인</button>
+            </p>
+          </form>
+        </div>
 
 		</div>
 		
