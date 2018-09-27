@@ -32,6 +32,12 @@
 		<result property="banReason" column="BANREASON" />
 	</resultMap>
 	
+	<resultMap type="MyBandList" id="MyBand">
+		<id property="memberCount" column="MEMBERCOUNT"/>
+		<result property="bname" column="BNAME"/>
+		<result property="mid" column="MID"/>
+	</resultMap>
+	
 	<!-- 모든 검색 밴드 리스트 가져오기 -->
 	<select id="selectSearchBand" resultMap="SearchResultSet" parameterType="java.util.ArrayList">
 	  SELECT BID, BNAME, BOPEN_STATUS, BINTRO, CNAME, PID, EDIT_NAME 
@@ -117,6 +123,20 @@
 		SELECT BANID, BID, MID, BANREASON FROM BAN
 	</select>
 	
+
+	<select id='selectMyBand' resultMap='MyBand' parameterType='MyBandList'>
+		select memberCount, bname, mid
+		from band b
+		join (select count(mb.mid) as memberCount, mb.bid
+		      from member_band mb
+		      group by mb.bid
+		      order by mb.BID asc) c on(c.bid = b.bid)
+		join (select m.mid, mb.bid
+		    from member m
+		    join member_band mb on (m.mid = mb.mid)
+		    where m.mid = 81) my on (my.bid = b.bid)
+	</select>
+
 	<!-- 게시글 5개 가져오기 -->
 	<select id='selectFiveContents' resultMap="SearchResultSet" parameterType="Map">
 		SELECT BID, BNAME, BOPEN_STATUS, BINTRO, MID, MNAME, 
@@ -147,6 +167,7 @@
       	
 	</select>
 	
+
 </mapper>
 
 

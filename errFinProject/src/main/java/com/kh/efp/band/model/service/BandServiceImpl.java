@@ -71,6 +71,12 @@ public class BandServiceImpl implements BandService {
 		bd.updateBandOpenStatus(sqlSession, b);
 		
 	}
+	
+	@Override
+	public List<Object> bandList() {
+		
+		return bd.bandList(sqlSession);
+	}
 
 	@Override
 	public ArrayList<Member_Band> selectMember_BandList(Member_Band mb) {

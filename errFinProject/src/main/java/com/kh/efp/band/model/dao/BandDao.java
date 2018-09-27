@@ -24,6 +24,8 @@ public interface BandDao {
 
 	void updateBandOpenStatus(SqlSessionTemplate sqlSession, Band b);
 
+	List<Object> bandList(SqlSessionTemplate sqlSession);
+
 	ArrayList<Member_Band> selectMember_BandList(SqlSessionTemplate sqlSession, Member_Band mb);
 
 	void insertBandMultiLeader(SqlSessionTemplate sqlSession, int mbid);

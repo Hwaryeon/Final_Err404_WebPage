@@ -31,6 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kh.efp.band.model.service.BandService;
 import com.kh.efp.commons.CommonUtils;
 import com.kh.efp.commons.MailHandler;
 import com.kh.efp.commons.TempKey;
@@ -49,6 +50,7 @@ public class MemberController {
 	@Autowired private FacebookConnectionFactory connectionFactory;
     @Autowired private OAuth2Parameters oAuth2Parameters;
     @Autowired private GoogleConnectionFactory googleConnectionFactory;
+    @Autowired private BandService bs;
     
     @Inject
     private JavaMailSender mailSender;
@@ -144,6 +146,8 @@ public class MemberController {
 		try {
 			//세션에 올라감
 			model.addAttribute("loginUser", ms.loginMember(m));
+			model.addAttribute("myBandList", bs.bandList());
+			
 
 			return "main/main";
 

@@ -23,6 +23,8 @@ public interface BandService {
 
 	void updateBandOpenStatus(Band b);
 
+	List<Object> bandList();
+
 	ArrayList<Member_Band> selectMember_BandList(Member_Band mb);
 
 	void insertBandMultiLeader(int mbid);
@@ -36,6 +38,7 @@ public interface BandService {
 	void secessionBand(Member_Band mb);
 
 	void deleteBand(int bid);
+
 	
 
 }
