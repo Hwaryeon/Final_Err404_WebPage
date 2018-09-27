@@ -74,6 +74,50 @@ public class BandDaoImpl implements BandDao{
 		
 	}
 
+	@Override
+	public void insertBandMultiLeader(SqlSessionTemplate sqlSession, int mbid) {
+		
+		sqlSession.update("Band.insertBandMultiLeader", mbid);
+		
+	}
+
+	@Override
+	public void deleteBandMultiLeader(SqlSessionTemplate sqlSession, int mbid) {
+		sqlSession.update("Band.deleteBandMultiLeader", mbid);
+		
+	}
+
+	@Override
+	public ArrayList<Member_Band> searchMember_BandList(SqlSessionTemplate sqlSession, Member_Band mb) {
+		ArrayList<Member_Band> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("Band.searchMember_BandList", mb);
+		
+		return list;
+	}
+
+	@Override
+	public void changeBandLeader(SqlSessionTemplate sqlSession, Member_Band mb) {
+
+		sqlSession.update("Band.changeBandLeader_2", mb);
+		
+		sqlSession.update("Band.changeBandLeader", mb);
+		
+	}
+
+	@Override
+	public void secessionBand(SqlSessionTemplate sqlSession, Member_Band mb) {
+		
+		sqlSession.update("Band.secessionBand", mb);
+		
+	}
+
+	@Override
+	public void deleteBand(SqlSessionTemplate sqlSession, int bid) {
+		sqlSession.update("Band.deleteBand", bid);
+		
+	}
+
 
 	
 	
