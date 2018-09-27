@@ -21,6 +21,8 @@ public interface BandService {
 	void updateScehdule(Scehdule s);
 
 	void updateBandOpenStatus(Band b);
+
+	List<Object> bandList();
 	
 
 }

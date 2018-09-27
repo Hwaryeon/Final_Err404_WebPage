@@ -13,6 +13,7 @@
 		<typeAlias type="com.kh.efp.member_band.model.vo.BandList" alias = "BandList"/>
 		<typeAlias type="com.kh.efp.member_band.model.vo.BoardList" alias = "BoardList"/>
 		<typeAlias type="com.kh.efp.Search.model.vo.Ban" alias = "Ban"/>
+		<typeAlias type="com.kh.efp.member_band.model.vo.MyBandList" alias = "MyBandList"/>
 	</typeAliases>
 
 	<mappers>

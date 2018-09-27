@@ -23,7 +23,7 @@ public interface BandDao {
 
 	void updateBandOpenStatus(SqlSessionTemplate sqlSession, Band b);
 
-
+	List<Object> bandList(SqlSessionTemplate sqlSession);
 
 
 }

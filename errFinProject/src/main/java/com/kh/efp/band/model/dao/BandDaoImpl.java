@@ -60,6 +60,20 @@ public class BandDaoImpl implements BandDao{
 		
 	}
 
+	@Override
+	public List<Object> bandList(SqlSessionTemplate sqlSession) {
+		List<Object> bandList = new ArrayList<Object>();
+		
+		/*bandList = sqlSession.selectList("Search.selectMyBand");*/
+		System.out.println(sqlSession.selectList("Search.selectMyBand"));
+		System.out.println("밴드리스트" + bandList);
+		
+		for(Object b : bandList)
+		{
+			System.out.println("결과물 : " + b.toString());
+		}
+		return bandList;
+	}
 
 	
 	
