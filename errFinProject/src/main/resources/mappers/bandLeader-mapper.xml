@@ -23,6 +23,18 @@
 		<result property="mname" column="MNAME" />
 	</resultMap>
 	
+	<resultMap type="Profile" id="ProfileResultSet">
+		<id property="pid" column="PID" />
+		<result property="originName" column="ORIGIN_NAME" />
+		<result property="editName" column="EDIT_NAME" />
+		<result property="fileSrc" column="FILE_SRC" />
+		<result property="fdate" column="FDATE" />
+		<result property="ftype" column="FTYPE" />
+		<result property="mid" column="MID" />
+		<result property="bid" column="BID" />
+	</resultMap>
+	
+	
 	<!-- 밴드 오픈설정 변경 메소드 -->
 	<update id = "updateBandOpenStatus" parameterType = "Band">
 		UPDATE BAND SET BOPEN_STATUS = #{bopen_status}
@@ -84,8 +96,42 @@
 		UPDATE BAND SET BINTRO = #{bintro} WHERE BID = #{bid}
 	</update>
 	
-	
+	<!-- 밴드 프로필 변경 메소드 -->
+	<insert id="insertBandModify" parameterType="Profile">
+		INSERT INTO PROFILE
+		VALUES(SEQ_PID.NEXTVAL, #{originName}, #{editName}, #{fileSrc},  SYSDATE, '2', NULL, #{bid})
 
+	</insert>
+	
+	<!-- 밴드명 변경 메소드 -->
+	<update id="updateBandName" parameterType="Band">
+		UPDATE BAND SET BNAME = #{bname} WHERE BID = #{bid}
+	</update>
+	
+	<!-- 밴드명을 가져오는 메소드 -->
+	<select id = "selectBandName" parameterType = "int" resultType = "java.lang.String">
+		SELECT BNAME
+		FROM BAND
+		WHERE BID = #{bid}
+	</select>
+	
+	<!-- 밴드 프로필 정보를 가져오는 메소드 -->
+	<select id = "selectProfile" parameterType = "int" resultMap = "ProfileResultSet">
+		SELECT * FROM(SELECT *
+		FROM PROFILE
+		WHERE BID = #{bid}
+        ORDER BY FDATE DESC
+        ) WHERE ROWNUM = 1
+	</select>
+	
+	<!-- 밴드 멤버 탈퇴 시키는  메소드 -->
+	<update id="deleteBandMember" parameterType="int">
+		UPDATE MEMBER_BAND SET ISTATUS = 'N' WHERE MBID = #{mbid}
+	</update>
+	
+	
+	
+	
 </mapper>
 
 

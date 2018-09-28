@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
+import com.kh.efp.member.model.vo.Profile;
 import com.kh.efp.member_band.model.vo.BoardList;
 
 @Repository
@@ -122,6 +123,33 @@ public class BandDaoImpl implements BandDao{
 	public void updateBandIntro(SqlSessionTemplate sqlSession, Band b) {
 		sqlSession.update("Band.updateBandIntro", b);
 		
+	}
+
+	@Override
+	public int insertBandModify(SqlSessionTemplate sqlSession, Profile pf) {
+		return sqlSession.insert("Band.insertBandModify", pf);
+	}
+
+	@Override
+	public void updateBandName(SqlSessionTemplate sqlSession, Band b) {
+		
+		sqlSession.update("Band.updateBandName", b);
+		
+	}
+
+	@Override
+	public String selectBandName(SqlSessionTemplate sqlSession, int bid) {
+		return sqlSession.selectOne("Band.selectBandName", bid);
+	}
+
+	@Override
+	public Profile selectProfile(SqlSessionTemplate sqlSession, int bid) {
+		return sqlSession.selectOne("Band.selectProfile", bid);
+	}
+
+	@Override
+	public void deleteBandMember(SqlSessionTemplate sqlSession, int mbid) {
+		sqlSession.update("Band.deleteBandMember", mbid);
 	}
 
 

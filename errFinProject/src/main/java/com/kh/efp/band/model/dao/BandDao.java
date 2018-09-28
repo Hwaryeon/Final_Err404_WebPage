@@ -9,6 +9,7 @@ import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
 import com.kh.efp.member.model.vo.Member;
+import com.kh.efp.member.model.vo.Profile;
 
 public interface BandDao {
 
@@ -39,6 +40,16 @@ public interface BandDao {
 	void deleteBand(SqlSessionTemplate sqlSession, int bid);
 
 	void updateBandIntro(SqlSessionTemplate sqlSession, Band b);
+
+	int insertBandModify(SqlSessionTemplate sqlSession, Profile pf);
+
+	void updateBandName(SqlSessionTemplate sqlSession, Band b);
+
+	String selectBandName(SqlSessionTemplate sqlSession, int bid);
+
+	Profile selectProfile(SqlSessionTemplate sqlSession, int bid);
+
+	void deleteBandMember(SqlSessionTemplate sqlSession, int mbid);
 
 
 

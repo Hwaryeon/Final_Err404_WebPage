@@ -8,6 +8,7 @@ import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
 import com.kh.efp.member.model.exception.LoginException;
 import com.kh.efp.member.model.vo.Member;
+import com.kh.efp.member.model.vo.Profile;
 
 public interface BandService {
 
@@ -38,6 +39,16 @@ public interface BandService {
 	void deleteBand(int bid);
 
 	void updateBandIntro(Band b);
+
+	int insertBandModify(Profile pf);
+
+	void updateBandName(Band b);
+
+	String selectBandName(int bid);
+
+	Profile selectProfile(int bid);
+
+	void deleteBandMember(int mbid);
 
 
 }
