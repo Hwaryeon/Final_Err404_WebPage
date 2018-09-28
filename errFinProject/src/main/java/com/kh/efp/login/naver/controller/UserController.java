@@ -71,8 +71,11 @@ public class UserController {
 		
 		System.out.println("토큰 : " + oauthToken.getAccessToken());
 
+		System.out.println("리얼? " + oauthToken.getRefreshToken());
+
 		Member m = new Member();
-		m.setmToken(oauthToken.getAccessToken());
+		m.setmToken(oauthToken.getRefreshToken());
+
 		m.setmEmail(email);
 		m.setmName(name);
 		

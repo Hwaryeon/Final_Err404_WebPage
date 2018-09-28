@@ -37,7 +37,7 @@
         <div class="col-md-6 col-xs-12" style="width:525px;">
                      <div class="post widget" style="float:unset; padding-left:138px;">
               <div class="post-social" style="border-top:0px; padding-top:0px;">
-                <div class="share-container" style="width:75px;">
+                  <div class="share-container" style="width:75px;">
                       <span class="share-title" style="color:#25afe5;">새글 피드   |</span>
                   </div>
                   <div class="share-container"style="width:75px;">

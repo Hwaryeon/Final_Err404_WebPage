@@ -32,29 +32,63 @@
 		<result property="banReason" column="BANREASON" />
 	</resultMap>
 	
+	<resultMap type="MyBandList" id="MyBand">
+		<id property="memberCount" column="MEMBERCOUNT"/>
+		<result property="bname" column="BNAME"/>
+		<result property="mid" column="MID"/>
+	</resultMap>
+	
 	<!-- 모든 검색 밴드 리스트 가져오기 -->
 	<select id="selectSearchBand" resultMap="SearchResultSet" parameterType="java.util.ArrayList">
-		SELECT BID, BNAME, BOPEN_STATUS, BINTRO, MID, MNAME, 
-				CNAME, PID, EDIT_NAME 
-		FROM
-		(
-		SELECT B.BID, B.BNAME, B.BOPEN_STATUS, B.BINTRO, M.MID, M.MNAME, 
-				C.CNAME, P.PID, P.EDIT_NAME, 
-				P.FTYPE, P.FILE_SRC
-				FROM BAND B
-				JOIN MEMBER_BAND MB ON(B.BID = MB.BID)
-				JOIN MEMBER M ON(MB.MID = M.MID)
-				JOIN CATEGORY C ON(B.CID = C.CID)
-				JOIN PROFILE P ON(B.BID = P.BID)
-				WHERE B.BOPEN_STATUS != 'PRV'
-				AND B.BSTATUS = 'Y'
-		)
-		<trim prefix="WHERE" prefixOverrides="AND |OR ">
-			<foreach collection="list" item="item" index="index" separator=" " open="" close="">
-				OR UPPER(BNAME) LIKE '%'|| UPPER(#{item}) ||'%'
-				OR UPPER(BINTRO) LIKE '%'|| UPPER(#{item}) ||'%'
-			</foreach>
-		</trim>
+	  SELECT BID, BNAME, BOPEN_STATUS, BINTRO, CNAME, PID, EDIT_NAME 
+      FROM(                
+        SELECT * FROM
+      (
+      SELECT B.BID, B.BNAME, B.BOPEN_STATUS, B.BINTRO, C.CNAME, P.PID, P.EDIT_NAME, 
+            P.FTYPE, P.FILE_SRC, ROWNUM
+            FROM BAND B
+            JOIN CATEGORY C ON(B.CID = C.CID)
+            JOIN PROFILE P ON(B.BID = P.BID)
+            WHERE B.BOPEN_STATUS != 'PRV'
+            AND B.BSTATUS = 'Y'
+            ORDER BY B.BID DESC
+      )
+         <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <foreach collection="list" item="item" index="index" separator=" " open="" close="">
+               OR UPPER(BNAME) LIKE '%'|| UPPER(#{item}) ||'%'
+               OR UPPER(BINTRO) LIKE '%'|| UPPER(#{item}) ||'%'
+            </foreach>
+         </trim>
+        )
+            <!-- WHERE ROWNUM <![CDATA[ <= ]]> 5 -->
+	</select>
+	
+	<!--검색 밴드 리스트 5개만 가져오기 -->
+	<select id="selectFiveBand" resultMap="SearchResultSet" parameterType="Map">
+  	  SELECT ROWNUM, BID, BNAME, BOPEN_STATUS, BINTRO, CNAME, PID, EDIT_NAME
+      FROM(                
+        SELECT ROWNUM AS RNUM, BID, BNAME, BOPEN_STATUS, BINTRO, CNAME, PID, EDIT_NAME 
+        FROM
+      (
+      SELECT B.BID, B.BNAME, B.BOPEN_STATUS, B.BINTRO, C.CNAME, P.PID, P.EDIT_NAME, 
+            P.FTYPE, P.FILE_SRC, ROWNUM
+            FROM BAND B
+            JOIN CATEGORY C ON(B.CID = C.CID)
+            JOIN PROFILE P ON(B.BID = P.BID)
+            WHERE B.BOPEN_STATUS != 'PRV'
+            AND B.BSTATUS = 'Y'
+            ORDER BY B.BID DESC
+      )
+     	<trim prefix="WHERE" prefixOverrides="AND |OR ">
+           <foreach item="item" collection="bandList" separator=" " open="" close="">
+              OR UPPER(BNAME) LIKE '%'|| UPPER(#{item}) ||'%'
+              OR UPPER(BINTRO) LIKE '%'|| UPPER(#{item}) ||'%'
+           </foreach>
+      	 </trim>
+      )
+      	WHERE RNUM <![CDATA[ <= ]]> #{endPage}
+      	AND RNUM <![CDATA[ >= ]]> #{startPage}
+      	
 	</select>
 	
 	<!-- 모든 검색 게시글 리스트 가져오기 -->
@@ -67,18 +101,16 @@
 		            C.CNAME, BOD.BOARDID, BOD.BCONTENT, BOD.BDATE, P.PID, P.EDIT_NAME, 
 		            P.FTYPE, P.FILE_SRC, AT.FID, AT.EDIT_NAME as A_EDIT_NAME, AT.FILE_SRC as A_File_SRC, AT.FLEVEL, ROWNUM
 		            FROM BAND B
-		            JOIN MEMBER_BAND MB ON(B.BID = MB.BID)
-		            JOIN MEMBER M ON(MB.MID = M.MID)
-		            JOIN CATEGORY C ON(B.CID = C.CID)
-		            JOIN BOARDS BOD ON(BOD.BID = B.BID)
+                    JOIN BOARDS BOD ON(BOD.BID = B.BID)
+		            JOIN MEMBER M ON(BOD.MID = M.MID)
+		            JOIN CATEGORY C ON(B.CID = C.CID)		            
 		            JOIN PROFILE P ON(B.BID = P.BID)
 		            RIGHT JOIN ATTFILE AT ON(AT.BOARDID = BOD.BOARDID)
 		            WHERE B.BOPEN_STATUS != 'PRV'
 		            AND B.BSTATUS = 'Y'
 		            ORDER BY BDATE DESC
 		    )
-		    WHERE ROWNUM <![CDATA[ <= ]]> 4
-		)      
+		)
 		<trim prefix="WHERE" prefixOverrides="AND |OR ">
 			<foreach collection="list" item="item" index="index" separator=" " open="" close="">
 				OR UPPER(BCONTENT) LIKE '%'||	UPPER(#{item}) ||'%'
@@ -86,10 +118,56 @@
 		</trim>
 	</select>
 	
+	<!-- 모든 차단당한 밴 리스트 가져오기 -->
 	<select id='selectSearchBan' resultMap='BanResultSet'>
 		SELECT BANID, BID, MID, BANREASON FROM BAN
 	</select>
 	
+
+	<select id='selectMyBand' resultMap='MyBand' parameterType='MyBandList'>
+		select memberCount, bname, mid
+		from band b
+		join (select count(mb.mid) as memberCount, mb.bid
+		      from member_band mb
+		      group by mb.bid
+		      order by mb.BID asc) c on(c.bid = b.bid)
+		join (select m.mid, mb.bid
+		    from member m
+		    join member_band mb on (m.mid = mb.mid)
+		    where m.mid = 81) my on (my.bid = b.bid)
+	</select>
+
+	<!-- 게시글 5개 가져오기 -->
+	<select id='selectFiveContents' resultMap="SearchResultSet" parameterType="Map">
+		SELECT BID, BNAME, BOPEN_STATUS, BINTRO, MID, MNAME, 
+				CNAME, BOARDID, BCONTENT, BDATE, PID, EDIT_NAME, 
+				FTYPE, FILE_SRC, FID, A_EDIT_NAME, A_File_SRC, FLEVEL
+		FROM(SELECT ROWNUM AS RNUM, BID, BNAME, BOPEN_STATUS, BINTRO, MID, MNAME, 
+				CNAME, BOARDID, BCONTENT, BDATE, PID, EDIT_NAME, 
+				FTYPE, FILE_SRC, FID, A_EDIT_NAME, A_File_SRC, FLEVEL  FROM
+		    (SELECT B.BID, B.BNAME, B.BOPEN_STATUS, B.BINTRO, M.MID, M.MNAME, 
+		            C.CNAME, BOD.BOARDID, BOD.BCONTENT, BOD.BDATE, P.PID, P.EDIT_NAME, 
+		            P.FTYPE, P.FILE_SRC, AT.FID, AT.EDIT_NAME as A_EDIT_NAME, AT.FILE_SRC as A_File_SRC, AT.FLEVEL, ROWNUM
+		            FROM BAND B
+                    JOIN BOARDS BOD ON(BOD.BID = B.BID)
+		            JOIN MEMBER M ON(BOD.MID = M.MID)
+		            JOIN CATEGORY C ON(B.CID = C.CID)		            
+		            JOIN PROFILE P ON(B.BID = P.BID)
+		            RIGHT JOIN ATTFILE AT ON(AT.BOARDID = BOD.BOARDID)
+		            WHERE B.BOPEN_STATUS != 'PRV'
+		            AND B.BSTATUS = 'Y'
+		            ORDER BY BDATE DESC
+		    )
+     	<trim prefix="WHERE" prefixOverrides="AND |OR ">
+           <foreach item="item" collection="contentsList" separator=" " open="" close="">
+              OR UPPER(BCONTENT) LIKE '%'|| UPPER(#{item}) ||'%'
+           </foreach>
+      	 </trim>
+      )
+      	
+	</select>
+	
+
 </mapper>
 
 
