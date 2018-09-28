@@ -1,3 +1,4 @@
+
 package com.kh.efp.band.model.dao;
 
 import java.util.ArrayList;
@@ -24,8 +25,6 @@ public interface BandDao {
 
 	void updateBandOpenStatus(SqlSessionTemplate sqlSession, Band b);
 
-	List<Object> bandList(SqlSessionTemplate sqlSession);
-
 	ArrayList<Member_Band> selectMember_BandList(SqlSessionTemplate sqlSession, Member_Band mb);
 
 	void insertBandMultiLeader(SqlSessionTemplate sqlSession, int mbid);
@@ -39,6 +38,8 @@ public interface BandDao {
 	void secessionBand(SqlSessionTemplate sqlSession, Member_Band mb);
 
 	void deleteBand(SqlSessionTemplate sqlSession, int bid);
+
+	void updateBandIntro(SqlSessionTemplate sqlSession, Band b);
 
 
 

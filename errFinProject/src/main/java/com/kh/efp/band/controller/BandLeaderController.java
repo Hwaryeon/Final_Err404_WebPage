@@ -300,4 +300,45 @@ public class BandLeaderController {
 		
 		return "band/bandIntro";
 	}
+	
+	@RequestMapping("updateBandIntro.bd")
+	public String updateBandIntro(@RequestParam String bandIntro,
+									Model model){
+		
+		System.out.println("updateBandIntro.bd 호출");
+
+		//임시로 설정
+		int bid = 1;
+		
+		Band b = new Band();
+		
+		b.setBid(bid);
+		b.setBintro(bandIntro);
+		
+		bs.updateBandIntro(b);
+		
+		return "band/bandLeader";
+	}
+	
+	@RequestMapping("bandModify.bd")
+	public String bandModify(Model model){
+		
+		System.out.println("bandModify.bd 호출");
+		
+		
+		return "band/bandModify";
+	}
+	
+	
+	@RequestMapping("updateBandModify.bd")
+	public String updateBandModify(Model model){
+		
+		System.out.println("updateBandModify.bd 호출");
+		
+		
+		return "band/bandModify";
+	}
+	
+	
+	
 }

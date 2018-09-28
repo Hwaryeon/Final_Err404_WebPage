@@ -196,7 +196,7 @@
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  밴드 이름 및 커버 설정
-                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandModify.jsp">변경</a></h4>
+                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandModify.bd">변경</a></h4>
                   </li>
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">

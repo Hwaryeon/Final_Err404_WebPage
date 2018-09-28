@@ -1,3 +1,4 @@
+
 package com.kh.efp.band.model.service;
 
 import java.util.ArrayList;
@@ -23,8 +24,6 @@ public interface BandService {
 
 	void updateBandOpenStatus(Band b);
 
-	List<Object> bandList();
-
 	ArrayList<Member_Band> selectMember_BandList(Member_Band mb);
 
 	void insertBandMultiLeader(int mbid);
@@ -39,6 +38,7 @@ public interface BandService {
 
 	void deleteBand(int bid);
 
-	
+	void updateBandIntro(Band b);
+
 
 }
