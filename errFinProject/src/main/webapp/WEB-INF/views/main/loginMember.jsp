@@ -13,11 +13,11 @@
     
     <title>Weekend Magazine</title>
     <!-- CSS -->
-    <link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
-    <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">
-    <link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
-    <link href="${ contextPath }/resources/css/light-pink-blue.css" rel="stylesheet">
+    <link href="resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="resources/css/font-awesome.min.css" rel="stylesheet">
+    <link href="resources/css/style.css" rel="stylesheet">
+    <link href="resources/css/responsive.css" rel="stylesheet">
+    <link href="resources/css/light-pink-blue.css" rel="stylesheet">
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>-->
@@ -56,6 +56,7 @@
                         <li><a href="contact.html">Contact</a></li>
                         <li><a href="bandCalendarList.bd">달력 호출</a></li>
                         <li><a href="bandLeader.bd">밴드 리더</a></li>
+                        <li><a href=""></a></li>
                     </ul>
                 </div>
             </div>
@@ -103,7 +104,7 @@
                             </a></div>
                         <hr>
                         <a href = "memberJoinForm.me">회원가입</a><br>
-                        <a>아이디 / 비밀번호 찾기 </a>
+                        <a href = "searchIdnPwd.me">아이디 / 비밀번호 찾기 </a>
                     </div>
 
                 </div>
@@ -203,9 +204,9 @@
     	}
     	
     </script>
-    <script src="${ contextPath }/resources/js/jquery.min.js"></script>
-    <script src="${ contextPath }/resources/js/bootstrap.min.js"></script>
-    <script src="${ contextPath }/resources/js/jquery.bxslider.min.js"></script>
-    <script src="${ contextPath }/resources/js/custom.js"></script>
+    <script src="resources/js/jquery.min.js"></script>
+    <script src="resources/js/bootstrap.min.js"></script>
+    <script src="resources/js/jquery.bxslider.min.js"></script>
+    <script src="resources/js/custom.js"></script>
 </body>
 </html>
