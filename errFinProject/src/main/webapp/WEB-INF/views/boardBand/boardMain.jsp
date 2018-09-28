@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -17,6 +17,15 @@
  	<link href="${ contextPath }/resources/css/sss.css" rel="stylesheet">
 <!-- Skin -->
 <link href="${ contextPath }/resources/skins/light-pink-blue.css" rel="stylesheet">
+
+<script>
+	$(document).ready(function(){
+		$("btnWrite").click(function(){
+		//페이지 주소 변경(이동)
+		location.href="${path}/board/write.do"
+		})
+	})
+</script>
 
 </head>
 <style>

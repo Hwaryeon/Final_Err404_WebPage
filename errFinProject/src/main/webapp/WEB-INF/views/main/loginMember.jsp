@@ -57,7 +57,7 @@
                         <li><a href="bandCalendarList.bd">달력 호출</a></li>
                         <li><a href="bandLeader.bd?bid=1">밴드 리더</a></li>
                         <li><a href="bandLeader.bd">밴드 리더</a></li>
-                        <li><a href=""></a></li>
+                        <li><a href="list.do">으쟈쟈쟈</a></li>
                     </ul>
                 </div>
             </div>
