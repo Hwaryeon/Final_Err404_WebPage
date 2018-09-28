@@ -15,7 +15,6 @@
     <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/light-pink-blue.css" rel="stylesheet">
-  <![endif]-->
 </head>
 <body
 	class="home page page-id-4 page-template page-template-template_home-php">

@@ -16,6 +16,7 @@ import com.kh.efp.band.model.vo.Scehdule;
 import com.kh.efp.member.model.dao.MemberDao;
 import com.kh.efp.member.model.exception.LoginException;
 import com.kh.efp.member.model.vo.Member;
+import com.kh.efp.member.model.vo.Profile;
 
 @Service
 public class BandServiceImpl implements BandService {
@@ -71,12 +72,6 @@ public class BandServiceImpl implements BandService {
 		bd.updateBandOpenStatus(sqlSession, b);
 		
 	}
-	
-	@Override
-	public List<Object> bandList() {
-		
-		return bd.bandList(sqlSession);
-	}
 
 	@Override
 	public ArrayList<Member_Band> selectMember_BandList(Member_Band mb) {
@@ -126,6 +121,37 @@ public class BandServiceImpl implements BandService {
 	@Override
 	public void updateBandIntro(Band b) {
 		bd.updateBandIntro(sqlSession, b);
+	}
+
+	@Override
+	public int insertBandModify(Profile pf) {
+
+		int result = bd.insertBandModify(sqlSession, pf);
+		
+		return result;
+	}
+
+	@Override
+	public void updateBandName(Band b) {
+		
+		bd.updateBandName(sqlSession, b);
+		
+	}
+
+	@Override
+	public String selectBandName(int bid) {
+		return bd.selectBandName(sqlSession, bid);
+	}
+
+	@Override
+	public Profile selectProfile(int bid) {
+		return bd.selectProfile(sqlSession, bid);
+	}
+
+	@Override
+	public void deleteBandMember(int mbid) {
+		bd.deleteBandMember(sqlSession, mbid);
+		
 	}
 
 
