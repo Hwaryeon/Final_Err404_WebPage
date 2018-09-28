@@ -33,7 +33,7 @@ public class BandLeaderController {
 		//임시로 설정
 		/*int bid = 1;*/
 		
-		String bname = bs.selectBandName(bid); 
+		String bname = bs.selectBandName(bid);  
 		
 		Member_Band mb = new Member_Band();
 		
