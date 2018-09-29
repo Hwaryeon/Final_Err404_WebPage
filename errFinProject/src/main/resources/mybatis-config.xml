@@ -9,6 +9,8 @@
 		<typeAlias type="com.kh.efp.band.model.vo.Scehdule" alias = "Scehdule"/>
 		<typeAlias type="com.kh.efp.band.model.vo.Member_Band" alias = "Member_Band"/>
 		<typeAlias type="com.kh.efp.band.model.vo.Band" alias = "Band"/>
+		<typeAlias type="com.kh.efp.band.model.vo.Ban" alias = "Ban2"/>
+		<typeAlias type="com.kh.efp.band.model.vo.BanMemberList" alias = "BanMemberList"/>
 		<typeAlias type="com.kh.efp.member.model.vo.Profile" alias = "Profile"/>
 		<typeAlias type="com.kh.efp.Search.model.vo.Search" alias = "Search"/>
 		<typeAlias type="com.kh.efp.member_band.model.vo.BandList" alias = "BandList"/>

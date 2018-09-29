@@ -10,6 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.kh.efp.band.model.dao.BandDao;
+import com.kh.efp.band.model.vo.Ban;
+import com.kh.efp.band.model.vo.BanMemberList;
 import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
@@ -162,6 +164,21 @@ public class BandServiceImpl implements BandService {
 	@Override
 	public String selectBandIntro(int bid) {
 		return bd.selectBandIntro(sqlSession, bid);
+	}
+
+	@Override
+	public ArrayList<BanMemberList> selectBanMemberList(int bid) {
+		return bd.selectBanMemberList(sqlSession, bid);
+	}
+
+	@Override
+	public void deleteBanMember(int banid) {
+		bd.deleteBanMember(sqlSession, banid);
+	}
+
+	@Override
+	public void insertBanMember(Ban b) {
+		bd.insertBanMember(sqlSession, b);
 	}
 
 

@@ -86,8 +86,17 @@
                     <ul class="category-posts">
                         <li>
                             <a href="#">
-                                <img id="ProfileImg" src="http://placehold.it/225x128" width="270" alt="" style="width:300px;height:225px;">
+                               <c:if test="${empty pf.editName  }" >
+                               		<img id="ProfileImg" src="http://placehold.it/225x128" width="270" alt="" style="width:300px;height:225px;">
+                            	</c:if>
+                            	
+                            	<c:if test="${!empty pf.editName  }" >
+                            		<img id="ProfileImg" src="${ contextPath }/resources/upload_images/${pf.editName }" width="270" alt="" style="width:300px;height:225px;">
+                            	</c:if>
                             </a>
+                            
+                            	
+                            
                         </li>
                         <li>
                         

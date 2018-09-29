@@ -8,6 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.efp.band.model.vo.Ban;
+import com.kh.efp.band.model.vo.BanMemberList;
 import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
@@ -161,6 +163,28 @@ public class BandDaoImpl implements BandDao{
 	@Override
 	public String selectBandIntro(SqlSessionTemplate sqlSession, int bid) {
 		return sqlSession.selectOne("Band.selectBandIntro", bid);
+	}
+
+	@Override
+	public ArrayList<BanMemberList> selectBanMemberList(SqlSessionTemplate sqlSession, int bid) {
+		
+		ArrayList<BanMemberList> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("Band.selectBanMemberList", bid);
+		
+		return list;
+		
+	}
+
+	@Override
+	public void deleteBanMember(SqlSessionTemplate sqlSession, int banid) {
+		sqlSession.delete("Band.deleteBanMember", banid);
+	}
+
+	@Override
+	public void insertBanMember(SqlSessionTemplate sqlSession, Ban b) {
+		sqlSession.insert("Band.insertBanMember", b);
+	
 	}
 
 

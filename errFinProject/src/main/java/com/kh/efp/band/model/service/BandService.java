@@ -3,6 +3,8 @@ package com.kh.efp.band.model.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kh.efp.band.model.vo.Ban;
+import com.kh.efp.band.model.vo.BanMemberList;
 import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
@@ -53,6 +55,12 @@ public interface BandService {
 	String checkBandOpenStatus(int bid);
 
 	String selectBandIntro(int bid);
+
+	ArrayList<BanMemberList> selectBanMemberList(int bid);
+
+	void deleteBanMember(int banid);
+
+	void insertBanMember(Ban b);
 
 
 }

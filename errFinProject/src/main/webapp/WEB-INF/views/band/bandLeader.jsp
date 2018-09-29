@@ -174,7 +174,7 @@
                             <!-- <img src="http://placehold.it/209x128" alt=""> -->
                              <img src="${ contextPath }/resources/upload_images/${pf.editName }" alt="">
                         </a>
-                        <h2 style="color:#222; font-size:21px; margin-bottom:15px;font-weight:600;margin-top:20px;">밴드명</h2>
+                        <h2 style="color:#222; font-size:21px; margin-bottom:15px;font-weight:600;margin-top:20px;">${bname }</h2>
                         <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
                         			멤버 ${memberCount}<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
                         			초대코드 </a></h4>

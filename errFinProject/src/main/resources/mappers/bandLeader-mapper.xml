@@ -34,6 +34,20 @@
 		<result property="bid" column="BID" />
 	</resultMap>
 	
+	<resultMap type="BanMemberList" id="BanMemberListResultSet">
+		<id property="banid" column="BANID" />
+		<result property="mid" column="MID" />
+		<result property="mname" column="MNAME" />
+	</resultMap>
+	
+	<resultMap type="Ban2" id="BanResultSet">
+		<id property="banid" column="BANID" />
+		<result property="bid" column="BID" />
+		<result property="mid" column="MID" />
+		<result property="bantype" column="BANTYPE" />
+		<result property="banreason" column="BANREASON" />
+	</resultMap>
+	
 	
 	<!-- 밴드 오픈설정 변경 메소드 -->
 	<update id = "updateBandOpenStatus" parameterType = "Band">
@@ -43,12 +57,22 @@
 	
 	<!-- 밴드가입한 회원 목록 메소드 -->
 	<select id = "selectMember_BandList" parameterType = "Member_Band" resultMap = "Member_BandResultSet">
-		SELECT MB.MBID, MB.BID, MB.IDATE, MB.ISTATUS, MB.MLEVEL, M.MNAME 
+		SELECT MB.MBID, MB.BID, M.MID, MB.IDATE, MB.ISTATUS, MB.MLEVEL, M.MNAME 
 		FROM MEMBER_BAND MB
 		JOIN MEMBER M ON (M.MID = MB.MID)
 		WHERE BID = #{bid} AND ISTATUS = 'Y'
 		
 	</select>
+	
+	<!-- 밴드에 차단 당한 회원 목록 메소드 -->
+	<select id = "selectBanMemberList" parameterType = "int" resultMap = "BanMemberListResultSet">
+		SELECT b.BANID, M.MID, M.MNAME 
+		FROM MEMBER m
+		JOIN BAN b ON (b.MID = m.MID)
+		WHERE BID = #{bid}
+		
+	</select>
+	
 	
 	<!-- 공동리더 위임 메소드 -->
 	<update id="insertBandMultiLeader" parameterType="int">
@@ -103,6 +127,13 @@
 
 	</insert>
 	
+	<!-- 멤버 차단 등록 메소드 -->
+	<insert id="insertBanMember" parameterType="Ban">
+		INSERT INTO BAN
+		VALUES(SEQ_BANID.NEXTVAL, #{bid}, #{mid}, #{bantype}, #{banreason})
+
+	</insert>
+	
 	<!-- 밴드명 변경 메소드 -->
 	<update id="updateBandName" parameterType="Band">
 		UPDATE BAND SET BNAME = #{bname} WHERE BID = #{bid}
@@ -138,6 +169,12 @@
 	<select id = "selectBandIntro" parameterType = "int" resultType = "java.lang.String">
 		SELECT BINTRO FROM BAND WHERE BID = #{bid}
 	</select>
+	
+	<!-- 차단 회원의 차단 상태 해제 메소드 -->
+	<delete id="deleteBanMember" parameterType = "int">
+		DELETE FROM BAN WHERE BANID = #{banid}
+	
+	</delete>
 	
 </mapper>
 
