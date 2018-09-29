@@ -154,6 +154,16 @@ public class BandServiceImpl implements BandService {
 		
 	}
 
+	@Override
+	public String checkBandOpenStatus(int bid) {
+		return bd.checkBandOpenStatus(sqlSession, bid);
+	}
+
+	@Override
+	public String selectBandIntro(int bid) {
+		return bd.selectBandIntro(sqlSession, bid);
+	}
+
 
 
 

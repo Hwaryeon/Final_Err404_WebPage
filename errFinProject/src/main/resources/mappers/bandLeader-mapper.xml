@@ -129,8 +129,15 @@
 		UPDATE MEMBER_BAND SET ISTATUS = 'N' WHERE MBID = #{mbid}
 	</update>
 	
+	<!-- 밴드 오픈상태 정보를 가져오는 메소드 -->
+	<select id = "checkBandOpenStatus" parameterType = "int" resultType = "java.lang.String">
+		SELECT BOPEN_STATUS FROM BAND WHERE BID = #{bid}
+	</select>
 	
-	
+	<!-- 밴드 소개 정보를 가져오는 메소드 -->
+	<select id = "selectBandIntro" parameterType = "int" resultType = "java.lang.String">
+		SELECT BINTRO FROM BAND WHERE BID = #{bid}
+	</select>
 	
 </mapper>
 

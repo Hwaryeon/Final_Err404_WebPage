@@ -152,6 +152,17 @@ public class BandDaoImpl implements BandDao{
 		sqlSession.update("Band.deleteBandMember", mbid);
 	}
 
+	@Override
+	public String checkBandOpenStatus(SqlSessionTemplate sqlSession, int bid) {
+
+		return sqlSession.selectOne("Band.checkBandOpenStatus", bid);	
+	}
+
+	@Override
+	public String selectBandIntro(SqlSessionTemplate sqlSession, int bid) {
+		return sqlSession.selectOne("Band.selectBandIntro", bid);
+	}
+
 
 	
 	

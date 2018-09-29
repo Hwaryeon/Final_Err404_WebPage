@@ -25,13 +25,7 @@ public class BandLeaderController {
 
 	@Autowired private BandService bs;
 	
-	@RequestMapping("bandLeader.bd")
-	public String showBandLeader(@RequestParam int bid, Model model){
-		
-		System.out.println("밴드 리더 컨트롤러 호출");
-		
-		//임시로 설정
-		/*int bid = 1;*/
+	public void bandLeftSideBar(int bid, Model model){
 		
 		String bname = bs.selectBandName(bid);  
 		
@@ -49,15 +43,31 @@ public class BandLeaderController {
 		model.addAttribute("memberCount", mbList.size());
 		model.addAttribute("pf", pf);
 		
+	}
+	
+	@RequestMapping("bandLeader.bd")
+	public String showBandLeader(@RequestParam int bid, Model model){
+		
+		// 밴드 상세보기 왼쪽 프로필 채우기
+		bandLeftSideBar(bid, model);
 		
 		return "band/bandLeader";
 	}
+	
 	
 	@RequestMapping("bandOpenStatus.bd")
 	public String bandOpenStatus(Model model){
 		
 		System.out.println("bandOpenStatus.bd 호출");
 		
+		//임시로 설정
+		int bid = 1;
+		
+		String status = bs.checkBandOpenStatus(bid);
+		
+		model.addAttribute("status", status);
+		
+		bandLeftSideBar(bid, model);
 		
 		return "band/bandOpenStatus";
 	}
@@ -87,7 +97,7 @@ public class BandLeaderController {
 		
 		bs.updateBandOpenStatus(b);
 		
-		return "band/bandOpenStatus";
+		return "redirect:/bandLeader.bd";
 	}
 	
 	@RequestMapping("bandMultiLeader.bd")
@@ -97,6 +107,8 @@ public class BandLeaderController {
 		
 		//임시로 설정함
 		int bid = 1;
+		
+		bandLeftSideBar(bid, model);
 		
 		Member_Band mb = new Member_Band();
 		
@@ -126,6 +138,8 @@ public class BandLeaderController {
 		
 		//임시로 설정함
 		int bid = 1;
+		
+		bandLeftSideBar(bid, model);
 		
 		Member_Band mb = new Member_Band();
 		
@@ -178,6 +192,8 @@ public class BandLeaderController {
 		
 		//임시로 설정함
 		int bid = 1;
+		
+		bandLeftSideBar(bid, model);
 				
 		Member_Band mb = new Member_Band();
 				
@@ -200,6 +216,8 @@ public class BandLeaderController {
 		
 		//임시로 설정함
 		int bid = 1;
+		
+		bandLeftSideBar(bid, model);
 				
 		Member_Band mb = new Member_Band();
 				
@@ -245,6 +263,8 @@ public class BandLeaderController {
 		
 		//임시로 설정함
 		int bid = 1;
+		
+		bandLeftSideBar(bid, model);
 				
 		Member_Band mb = new Member_Band();
 				
@@ -263,6 +283,10 @@ public class BandLeaderController {
 	public String bandSecession(Model model){
 		
 		System.out.println("bandSecession.bd 호출");
+		
+		int bid = 1;
+		
+		bandLeftSideBar(bid, model);
 		
 		
 		return "band/bandSecession";
@@ -293,6 +317,10 @@ public class BandLeaderController {
 		
 		System.out.println("bandDelete.bd 호출");
 		
+		int bid = 1;
+		
+		bandLeftSideBar(bid, model);
+		
 		
 		return "band/bandDelete";
 	}
@@ -321,6 +349,13 @@ public class BandLeaderController {
 		
 		System.out.println("bandIntro.bd 호출");
 		
+		int bid = 1;
+		
+		bandLeftSideBar(bid, model);
+		
+		String intro = bs.selectBandIntro(bid);
+		
+		model.addAttribute("intro", intro);
 		
 		return "band/bandIntro";
 	}
@@ -349,6 +384,9 @@ public class BandLeaderController {
 		
 		System.out.println("bandModify.bd 호출");
 		
+		int bid = 1;
+		
+		bandLeftSideBar(bid, model);
 		
 		return "band/bandModify";
 	}
@@ -426,6 +464,8 @@ public class BandLeaderController {
 		//임시로 지정
 		int bid = 1;
 		
+		bandLeftSideBar(bid, model);
+		
 		Member_Band mb = new Member_Band();
 		
 		mb.setBid(bid);
@@ -459,6 +499,8 @@ public class BandLeaderController {
 		
 		//임시로 설정함
 		int bid = 1;
+		
+		bandLeftSideBar(bid, model);
 				
 		Member_Band mb = new Member_Band();
 				

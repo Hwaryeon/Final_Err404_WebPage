@@ -51,6 +51,10 @@ public interface BandDao {
 
 	void deleteBandMember(SqlSessionTemplate sqlSession, int mbid);
 
+	String checkBandOpenStatus(SqlSessionTemplate sqlSession, int bid);
+
+	String selectBandIntro(SqlSessionTemplate sqlSession, int bid);
+
 
 
 

@@ -34,7 +34,7 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
-	<servlet>
+	<!-- <servlet>
 		<servlet-name>board</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
@@ -42,7 +42,7 @@
 			<param-value>/WEB-INF/config/board-servlet.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
-	</servlet>
+	</servlet> -->
 		
 
 	<servlet-mapping>

@@ -50,5 +50,9 @@ public interface BandService {
 
 	void deleteBandMember(int mbid);
 
+	String checkBandOpenStatus(int bid);
+
+	String selectBandIntro(int bid);
+
 
 }

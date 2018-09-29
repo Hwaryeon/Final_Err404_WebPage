@@ -117,32 +117,25 @@
 
 		<div class="left-sidebar col-md-3" role="complementary">
 
-			<div id="categort-posts-widget-2"
-				class="widget fullwidth categort-posts">
-				<h1 class="widget-title"></h1>
-				<ul class="tvshows">
-					<li><a href="#"> <!-- <span class="comment-count">11</span> -->
-							<img src="http://placehold.it/209x128" alt="">
-					</a>
-						<h2
-							style="color: #222; font-size: 21px; margin-bottom: 15px; font-weight: 600; margin-top: 20px;">밴드명</h2>
-						<h4
-							style="display: inline-block; font-size: 13px; font-weight: 400; color: #333;">
-							멤버 4<a href="#"
-								style="position: relative; padding-left: 12px; color: #fdb00d !important; font-size: 13px;">
-								초대코드 </a>
-						</h4>
-						<h4
-							style="margin-top: 14px; padding-top: 13px; border-top: 1px solid #e1e1e1;">
-							<a href="#"
-								style="font-size: 12px; font-weight: 400; color: #666; text-decoration: none;">*
-								밴드 설정</a>
-						</h4></li>
-				</ul>
-				<div class="clear"></div>
-			</div>
-
-		</div>
+			 <div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title"></h1>
+                <ul class="tvshows">
+                    <li>
+                        <a href="#">
+                            <!-- <img src="http://placehold.it/209x128" alt=""> -->
+                             <img src="${ contextPath }/resources/upload_images/${pf.editName }" alt="">
+                        </a>
+                        <h2 style="color:#222; font-size:21px; margin-bottom:15px;font-weight:600;margin-top:20px;">밴드명</h2>
+                        <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
+                        			멤버 ${memberCount}<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
+                        			초대코드 </a></h4>
+                        <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
+                        <a href="bandLeader.bd?bid=1" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            
+        </div>
 
 		<div class="main col-md-6 col-xs-12">
 
@@ -160,7 +153,12 @@
             <div id="respond" class="widget clearfix">
           <form id="contactForm" action="updateBandIntro.bd" method="post">
             <p class="textarea clearfix">
-              <textarea name="bandIntro" id="bandIntro" class="required requiredField"></textarea>
+            	<c:if test="${empty intro }">
+              <textarea name="bandIntro" id="bandIntro" class="required requiredField" placeholder="소개를 입력해주세요"></textarea>
+              </c:if>
+              <c:if test="${!empty intro }">
+              <textarea name="bandIntro" id="bandIntro" class="required requiredField" >${intro }</textarea>
+              </c:if>
             </p>
             <div id="contact_response"></div>
             <p class="buttons clearfix">

@@ -146,7 +146,7 @@ public class MemberController {
 		try {
 			//세션에 올라감
 			model.addAttribute("loginUser", ms.loginMember(m));
-			model.addAttribute("myBandList", bs.bandList());
+			/*model.addAttribute("myBandList", bs.bandList());*/
 			
 
 			return "main/main";

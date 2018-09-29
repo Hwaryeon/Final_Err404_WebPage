@@ -1,6 +1,9 @@
+<!DOCTYPE>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html >
+    pageEncoding="UTF-8" import="com.kh.efp.band.model.vo.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import= "java.util.*"  %>
+<%@ page import= "java.text.*"  %>
 <html>
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -112,32 +115,25 @@
 
 		<div class="left-sidebar col-md-3" role="complementary">
 
-			<div id="categort-posts-widget-2"
-				class="widget fullwidth categort-posts">
-				<h1 class="widget-title"></h1>
-				<ul class="tvshows">
-					<li><a href="#"> <!-- <span class="comment-count">11</span> -->
-							<img src="http://placehold.it/209x128" alt="">
-					</a>
-						<h2
-							style="color: #222; font-size: 21px; margin-bottom: 15px; font-weight: 600; margin-top: 20px;">밴드명</h2>
-						<h4
-							style="display: inline-block; font-size: 13px; font-weight: 400; color: #333;">
-							멤버 4<a href="#"
-								style="position: relative; padding-left: 12px; color: #fdb00d !important; font-size: 13px;">
-								초대코드 </a>
-						</h4>
-						<h4
-							style="margin-top: 14px; padding-top: 13px; border-top: 1px solid #e1e1e1;">
-							<a href="#"
-								style="font-size: 12px; font-weight: 400; color: #666; text-decoration: none;">*
-								밴드 설정</a>
-						</h4></li>
-				</ul>
-				<div class="clear"></div>
-			</div>
-
-		</div>
+			 <div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title"></h1>
+                <ul class="tvshows">
+                    <li>
+                        <a href="#">
+                            <!-- <img src="http://placehold.it/209x128" alt=""> -->
+                             <img src="${ contextPath }/resources/upload_images/${pf.editName }" alt="">
+                        </a>
+                        <h2 style="color:#222; font-size:21px; margin-bottom:15px;font-weight:600;margin-top:20px;">밴드명</h2>
+                        <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
+                        			멤버 ${memberCount}<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
+                        			초대코드 </a></h4>
+                        <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
+                        <a href="bandLeader.bd?bid=1" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            
+        </div>
 
 		<div class="main col-md-6 col-xs-12">
 
@@ -150,7 +146,13 @@
 								<h4 class="list-title"
 									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
 									비공개 밴드
-									<label style="float:right"> <input name="remember" value="1" type="radio">
+									<label style="float:right"> 
+									<c:if test="${ status eq 'PRV' }">
+										<input name="remember" value="1" type="radio" checked>
+									</c:if>
+									<c:if test="${ status ne 'PRV' }">
+										<input name="remember" value="1" type="radio">
+									</c:if>
 								</label>
 									<!-- <a style="float: right; background: #fafafa; border: 1px solid #c9c8c8; padding: 3px 8px 3px 8px;">변경</a> -->
 								</h4>
@@ -160,18 +162,32 @@
 								<h4 class="list-title"
 									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
 									밴드명 공개 밴드
-									<label style="float:right"> <input name="remember" value="2" type="radio"></label>
+									<label style="float:right">
+									<c:if test="${ status eq 'PTD' }">
+										<input name="remember" value="2" type="radio" checked>
+									</c:if>
+									<c:if test="${ status ne 'PTD' }">
+										<input name="remember" value="2" type="radio" >
+									</c:if>
+									</label>
 								</h4>
 							</li>
 							<li>
 								<h4 class="list-title"
 									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
 									공개 밴드
-									<label style="float:right"> <input name="remember" value="3" type="radio"></label>
+									<label style="float:right"> 
+									<c:if test="${ status eq 'PUB' }">
+										<input name="remember" value="3" type="radio"  checked="checked">
+									</c:if>
+									<c:if test="${ status ne 'PUB' }">
+										<input name="remember" value="3" type="radio">
+									</c:if> 
+									
+									</label>
 								</h4>
 							</li>
 						</ul>
-
 
 
 						<div class="row survey" style="margin-top: 50px;">
