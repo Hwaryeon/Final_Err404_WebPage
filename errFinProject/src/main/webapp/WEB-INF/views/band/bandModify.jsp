@@ -77,7 +77,7 @@
               <label for="commentsText"><small style="font-size: 14px;font-weight: 600;margin-bottom: 11px;color: #444;">
            		   밴드 이름
               <span class="star"></span></small></label>
-              <input type="text" name="bandName" id="bandName" value="이곳에 밴드 이름을 입력해주세요" class="required requiredField"
+              <input type="text" name="bandName" id="bandName" value="${bname}" class="required requiredField"
               style="line-height: 54px;border-bottom: 1px solid #ccc;font-size: 30px;font-weight: 400;color: #c5c0c0;background: white;">
             </p>
                <div class="box-content widget fullwidth">
@@ -86,8 +86,17 @@
                     <ul class="category-posts">
                         <li>
                             <a href="#">
-                                <img id="ProfileImg" src="http://placehold.it/225x128" width="270" alt="" style="width:300px;height:225px;">
+                               <c:if test="${empty pf.editName  }" >
+                               		<img id="ProfileImg" src="http://placehold.it/225x128" width="270" alt="" style="width:300px;height:225px;">
+                            	</c:if>
+                            	
+                            	<c:if test="${!empty pf.editName  }" >
+                            		<img id="ProfileImg" src="${ contextPath }/resources/upload_images/${pf.editName }" width="270" alt="" style="width:300px;height:225px;">
+                            	</c:if>
                             </a>
+                            
+                            	
+                            
                         </li>
                         <li>
                         

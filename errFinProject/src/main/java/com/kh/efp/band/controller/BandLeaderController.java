@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.efp.band.model.service.BandService;
+import com.kh.efp.band.model.vo.Ban;
+import com.kh.efp.band.model.vo.BanMemberList;
 import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.commons.CommonUtils;
@@ -25,13 +27,7 @@ public class BandLeaderController {
 
 	@Autowired private BandService bs;
 	
-	@RequestMapping("bandLeader.bd")
-	public String showBandLeader(@RequestParam int bid, Model model){
-		
-		System.out.println("밴드 리더 컨트롤러 호출");
-		
-		//임시로 설정
-		/*int bid = 1;*/
+	public void bandLeftSideBar(int bid, Model model){
 		
 		String bname = bs.selectBandName(bid);  
 		
@@ -49,15 +45,31 @@ public class BandLeaderController {
 		model.addAttribute("memberCount", mbList.size());
 		model.addAttribute("pf", pf);
 		
+	}
+	
+	@RequestMapping("bandLeader.bd")
+	public String showBandLeader(@RequestParam int bid, Model model){
+		
+		// 밴드 상세보기 왼쪽 프로필 채우기
+		bandLeftSideBar(bid, model);
 		
 		return "band/bandLeader";
 	}
+	
 	
 	@RequestMapping("bandOpenStatus.bd")
 	public String bandOpenStatus(Model model){
 		
 		System.out.println("bandOpenStatus.bd 호출");
 		
+		//임시로 설정
+		int bid = 1;
+		
+		String status = bs.checkBandOpenStatus(bid);
+		
+		model.addAttribute("status", status);
+		
+		bandLeftSideBar(bid, model);
 		
 		return "band/bandOpenStatus";
 	}
@@ -87,7 +99,7 @@ public class BandLeaderController {
 		
 		bs.updateBandOpenStatus(b);
 		
-		return "band/bandOpenStatus";
+		return "redirect:/bandLeader.bd?bid=" + bid;
 	}
 	
 	@RequestMapping("bandMultiLeader.bd")
@@ -97,6 +109,8 @@ public class BandLeaderController {
 		
 		//임시로 설정함
 		int bid = 1;
+		
+		bandLeftSideBar(bid, model);
 		
 		Member_Band mb = new Member_Band();
 		
@@ -126,6 +140,8 @@ public class BandLeaderController {
 		
 		//임시로 설정함
 		int bid = 1;
+		
+		bandLeftSideBar(bid, model);
 		
 		Member_Band mb = new Member_Band();
 		
@@ -178,6 +194,8 @@ public class BandLeaderController {
 		
 		//임시로 설정함
 		int bid = 1;
+		
+		bandLeftSideBar(bid, model);
 				
 		Member_Band mb = new Member_Band();
 				
@@ -200,6 +218,8 @@ public class BandLeaderController {
 		
 		//임시로 설정함
 		int bid = 1;
+		
+		bandLeftSideBar(bid, model);
 				
 		Member_Band mb = new Member_Band();
 				
@@ -245,6 +265,8 @@ public class BandLeaderController {
 		
 		//임시로 설정함
 		int bid = 1;
+		
+		bandLeftSideBar(bid, model);
 				
 		Member_Band mb = new Member_Band();
 				
@@ -263,6 +285,10 @@ public class BandLeaderController {
 	public String bandSecession(Model model){
 		
 		System.out.println("bandSecession.bd 호출");
+		
+		int bid = 1;
+		
+		bandLeftSideBar(bid, model);
 		
 		
 		return "band/bandSecession";
@@ -293,6 +319,10 @@ public class BandLeaderController {
 		
 		System.out.println("bandDelete.bd 호출");
 		
+		int bid = 1;
+		
+		bandLeftSideBar(bid, model);
+		
 		
 		return "band/bandDelete";
 	}
@@ -321,6 +351,13 @@ public class BandLeaderController {
 		
 		System.out.println("bandIntro.bd 호출");
 		
+		int bid = 1;
+		
+		bandLeftSideBar(bid, model);
+		
+		String intro = bs.selectBandIntro(bid);
+		
+		model.addAttribute("intro", intro);
 		
 		return "band/bandIntro";
 	}
@@ -349,6 +386,9 @@ public class BandLeaderController {
 		
 		System.out.println("bandModify.bd 호출");
 		
+		int bid = 1;
+		
+		bandLeftSideBar(bid, model);
 		
 		return "band/bandModify";
 	}
@@ -357,19 +397,6 @@ public class BandLeaderController {
 	@RequestMapping("updateBandModify.bd")
 	public String updateBandModify(HttpServletRequest request,
 			@RequestParam(name="bandProfile", required=false)MultipartFile photo, String bandName, HttpServletResponse response){
-		
-		System.out.println("updateBandModify.bd 호출");
-		/*
-		System.out.println("bandName : " + bandName);
-		System.out.println("photo : " + photo.getOriginalFilename());*/
-		
-		Profile pf = new Profile();
-		
-		String root = "";
-		String filePath = "";
-		String originFileName = "";
-		String ext = "";
-		String changeName = "";
 		
 		//임시로 넘음
 		int bid = 1;
@@ -381,38 +408,50 @@ public class BandLeaderController {
 		
 		bs.updateBandName(b);
 		
-		root = request.getSession().getServletContext().getRealPath("resources");
-
-		filePath = root + "\\upload_images";
-
-		originFileName = photo.getOriginalFilename();
-		ext = originFileName.substring(originFileName.lastIndexOf("."));
-
-		changeName = CommonUtils.getRandomString();
+		if(photo.getSize() != 0){
 		
-		pf.setFileSrc(filePath);
-		pf.setOriginName(originFileName);
-		pf.setEditName(changeName + ext);
-		pf.setBid(bid);
-		
-		System.out.println("pf : " + pf);
-		
-		
-		try {
-			if(!photo.isEmpty()){
-				photo.transferTo(new File(filePath + "\\" + changeName + ext));
-			}
-			int result = bs.insertBandModify(pf);
-
-			if(result == 0){
-				return "common/errorPage";
-			}else{
-				return "redirect:/bandLeader.bd?bid=" + bid;
-			}
+			Profile pf = new Profile();
 			
-		} catch (IllegalStateException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			String root = "";
+			String filePath = "";
+			String originFileName = "";
+			String ext = "";
+			String changeName = "";
+			
+			
+			root = request.getSession().getServletContext().getRealPath("resources");
+	
+			filePath = root + "\\upload_images";
+	
+			originFileName = photo.getOriginalFilename();
+			ext = originFileName.substring(originFileName.lastIndexOf("."));
+	
+			changeName = CommonUtils.getRandomString();
+			
+			pf.setFileSrc(filePath);
+			pf.setOriginName(originFileName);
+			pf.setEditName(changeName + ext);
+			pf.setBid(bid);
+			
+			System.out.println("pf : " + pf);
+			
+			
+			try {
+				if(!photo.isEmpty()){
+					photo.transferTo(new File(filePath + "\\" + changeName + ext));
+				}
+				int result = bs.insertBandModify(pf);
+	
+				if(result == 0){
+					return "common/errorPage";
+				}else{
+					return "redirect:/bandLeader.bd?bid=" + bid;
+				}
+				
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+		
 		}
 		
 		return "redirect:/bandLeader.bd?bid=" + bid;
@@ -426,25 +465,45 @@ public class BandLeaderController {
 		//임시로 지정
 		int bid = 1;
 		
+		bandLeftSideBar(bid, model);
+		
 		Member_Band mb = new Member_Band();
 		
 		mb.setBid(bid);
 		
 		ArrayList<Member_Band> mbList = bs.selectMember_BandList(mb);
 		
+		ArrayList<BanMemberList> banList = bs.selectBanMemberList(bid);
+		
 		model.addAttribute("list", mbList);
+		model.addAttribute("banList", banList);
 		
 		return "band/bandMemberManagement";
 	}
 	
 	@RequestMapping("deleteBandMember.bd")
-	public String deleteBandMember(@RequestParam int mbid, Model model){
+	public String deleteBandMember(@RequestParam int mbid, int mid, int radioVal, Model model){
 		
 		System.out.println("deleteBandMember.bd 호출");
 		
 		System.out.println("mbid : " + mbid);
 		
 		bs.deleteBandMember(mbid);
+		
+		int bid = 1;
+		
+		if(radioVal == 2){
+			
+			Ban b = new Ban();
+			
+			b.setBid(bid);
+			b.setMid(mid);
+			b.setBantype("MB");
+			b.setBanreason("밴드 관리자에 의한 차단");
+			
+			bs.insertBanMember(b);
+			
+		}
 		
 		return "redirect:/bandMemberManagement.bd";
 	}
@@ -459,6 +518,8 @@ public class BandLeaderController {
 		
 		//임시로 설정함
 		int bid = 1;
+		
+		bandLeftSideBar(bid, model);
 				
 		Member_Band mb = new Member_Band();
 				
@@ -473,5 +534,16 @@ public class BandLeaderController {
 		
 	}
 	
+	@RequestMapping("deleteBanMember.bd")
+	public String deleteBanMember(@RequestParam int banid, Model model){
+		
+		System.out.println("deleteBanMember.bd 호출");
+		
+		System.out.println("mbid : " + banid);
+		
+		bs.deleteBanMember(banid);
+		
+		return "redirect:/bandMemberManagement.bd";
+	}
 	
 }

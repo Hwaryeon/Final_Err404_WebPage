@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.efp.band.model.vo.Ban;
+import com.kh.efp.band.model.vo.BanMemberList;
 import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
@@ -50,6 +52,17 @@ public interface BandDao {
 	Profile selectProfile(SqlSessionTemplate sqlSession, int bid);
 
 	void deleteBandMember(SqlSessionTemplate sqlSession, int mbid);
+
+	String checkBandOpenStatus(SqlSessionTemplate sqlSession, int bid);
+
+	String selectBandIntro(SqlSessionTemplate sqlSession, int bid);
+
+	ArrayList<BanMemberList> selectBanMemberList(SqlSessionTemplate sqlSession, int bid);
+
+	void deleteBanMember(SqlSessionTemplate sqlSession, int banid);
+
+	void insertBanMember(SqlSessionTemplate sqlSession, Ban b);
+
 
 
 
