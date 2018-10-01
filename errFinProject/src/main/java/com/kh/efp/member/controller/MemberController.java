@@ -145,9 +145,16 @@ public class MemberController {
 		System.out.println("login m : " + m);
 		try {
 			//세션에 올라감
-			model.addAttribute("loginUser", ms.loginMember(m));
-			/*model.addAttribute("myBandList", bs.bandList());*/
+      loginUser loginUser = ms.loginMember2(m);
+
+			int mid = loginUser.getMid();
 			
+      model.addAttribute("loginUser", loginUser);
+      
+			model.addAttribute("myBandList", bs.bandList(mid));
+
+			System.out.println(loginUser);
+
 
 			return "main/main";
 
