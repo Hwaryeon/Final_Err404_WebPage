@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
   <meta charset="utf-8">
   <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
   <meta name="viewport" content=" width=device-width, initial-scale=1">
-  <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <title>Weekend Magazine</title>
   <!-- CSS -->
   <link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -46,11 +45,8 @@
                   </div>
                   <ul class="share-social">
                      <li><a target="_blank" href="" style="border:0px;"><img src="${ contextPath }/resources/images/al.png " alt="" width=25px; height=25px;></a></li>
-                     <li><a onclick="chatting();" style="border:0px;"><img src="${ contextPath }/resources/images/message.png " alt="" width=25px; height=25px;></a></li>
-                     <li><a href="<c:url value = "showMemberInfo_update.me">
-									<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
-								  </c:url>"  
-							style="border:0px;"><img src="${ contextPath }/resources/images/profile.png " alt="" width=25px; height=25px;></a></li>
+                     <li><a target="_blank" href="" style="border:0px;"><img src="${ contextPath }/resources/images/message.png " alt="" width=25px; height=25px;></a></li>
+                     <li><a target="_blank" href="showMemberInfo.me"  style="border:0px;"><img src="${ contextPath }/resources/images/profile.png " alt="" width=25px; height=25px;></a></li>
                   </ul>
               </div>
             </div>
@@ -58,7 +54,6 @@
       </div>
     </div>
     <h1 style="font-size:0.001px;">.</h1>
-    
     <script>
     $(document).ready(function(){
     	
@@ -74,36 +69,7 @@
 
 	    });
         
-        $.ajax({
-        	url : 'http://127.0.0.1:3000/',
-        	data : {
-        		mid : `${sessionScope.loginUser.mid}`,
-        		name : `${sessionScope.loginUser.mName}`,
-        		profile : `${sessionScope.loginUser.fileSrc}${sessionScope.loginUser.editName}`,
-        		language : `${sessionScope.loginUser.mNational}`
-        		},
-        	type : 'post',
-        	success:function(data){
-        		console.log(data);
-        	},
-        	error:function(){
-        		console.log("실패");
-        	}
-        
-        })
 	});
-    
-    
-    
-    function chatting(){
-    	var url = "http://127.0.0.1:3000/chat/" + ${sessionScope.loginUser.mid};
-    	/* var url = "http://192.168.20.248:3000/" + ${sessionScope.loginUser.mid}; */
-		var settings = "width=400, height=622, toolbar=no, menubar=no, scrollbars=no, resizable=no";
-		
-		window.open(url, 'test window', settings);
-    }
-    
-    
     </script>
 </body>
 </html>

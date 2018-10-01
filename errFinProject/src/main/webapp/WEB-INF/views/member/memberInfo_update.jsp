@@ -119,7 +119,7 @@
     <div class="container">
         <!-- Main Content -->
         <div class="main col-md-9 col-md-push-3 col-xs-12">
-			<!-- <button href = "logout.me" id = "lobtn">나가기</button> -->
+			<button href = "logout.me" id = "lobtn">나가기</button>
             <div class="widget fullwidth post-single">
                 <h2>회원 정보 수정</h2><br>
                 <div class="widget-content">
@@ -490,7 +490,7 @@
     	}
 
     	
-     function deleteMember(){
+    	function deleteMember(){
     		var ck = window.confirm("진짜 탈퇴?");
     		
     		if(ck){
@@ -502,14 +502,14 @@
     				type : "post",
     				success:function(data){
     					alert("정상적으로 탈퇴가 되었습니다.");
-    					location.href = "logout.me";
+    					window.location.href = "logout.me";
     				},
     				error:function(){
     					console.log("실패");
     				}
     			})
-    		} 
-    	}
+    		}
+
     </script>
     <script src="resources/js/jquery.min.js"></script>
     <script src="resources/js/bootstrap.min.js"></script>

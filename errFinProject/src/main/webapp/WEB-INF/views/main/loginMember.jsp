@@ -142,7 +142,7 @@
                             <li><a href="#">Gossips</a></li>
                             <li><a href="#">Fashion</a></li>
                             <li><a href="#">Health &#038; Body</a></li>
-                            <li><a href="#">Technology</a></li>
+                            <li><a href="codeFactoryMain.codeFac">Technology</a></li>
                             <li><a href="sampleForward.sample">Science</a></li>
                         </ul>
                     </div>

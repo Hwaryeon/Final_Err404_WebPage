@@ -127,16 +127,16 @@
 							<option data-icon='fa fa-y-combinator-square' value='UP_VARCHAR'>선택 문자 랜덤</option>
 							<option data-icon='glyphicon glyphicon-random' value='R_NUMBER'>랜덤한 숫자</option>
 							<option data-icon='fa fa-calendar-times-o' value='R_DATE'>랜덤한 날짜</option>
-							<option data-icon='fa fa-address-card' value='R_NAME_READONLY'>랜덤한 3자 이름</option>
+							<option data-icon='fa fa-address-card' value='R_NAME_READONLY'>랜덤한 영문 이름</option>
 							<option data-icon='fa fa-address-book' value='R_PHONE_READONLY'>랜덤 전화번호</option>
-							<option data-icon='fa fa-money' value='R_MONEY'>랜덤한 금액</option>
+							<option data-icon='fa fa-language' value='R_WORD_READONLY'>랜덤한 단어</option>
 							<option data-icon='glyphicon glyphicon-send' value='R_EMAIL_READONLY'>랜덤한 이메일</option>
 							<option data-icon='fa fa-book' value='R_CONTENT_READONLY'>랜덤한 글내용</option>
 						</optgroup>
 					</select>
 			      </div>
 			      <div class="cell">
-			        <input id='v0' class='in_text form-control value_name' type='text' value=''>
+			        <input id='v0' class='in_text form-control value_name' type='text' value='' placeholder='VALUE'>
 			      </div>
 			      <div class="cell">
 			        <button id='k0' class='btn btn-danger btn-form' type='button' onclick='selectDelete(this)'>제거</button>
@@ -196,9 +196,9 @@
         			<tr><td>오늘날짜부터 +1</td><td>행 갯수까지 +1 Day</td><td><font style='background-color:red;color: white;'>READONLY</font></td><td>X</td></tr>
         			<tr><td>랜덤한 숫자</td><td>A, B 사이로 랜덤한 값</td><td>100, 250 <font color='red'>(콤마 필수)</font></td><td>O</td></tr>
         			<tr><td>랜덤한 날짜</td><td>TODAY+A, TODAY+B 랜덤</td><td>365, 365 <font color='red'>(콤마 필수)</font></td><td>O</td></tr>
-        			<tr><td>랜덤한 이름</td><td>랜덤한 3자 이름</td><td><font style='background-color:red;color: white;'>READONLY</font></td><td>X</td></tr>
+        			<tr><td>랜덤한 이름</td><td>랜덤한 영문 이름</td><td><font style='background-color:red;color: white;'>READONLY</font></td><td>X</td></tr>
         			<tr><td>랜덤한 전화번호</td><td>랜덤한 전화번호</td><td><font style='background-color:red;color: white;'>READONLY</font></td><td>X</td></tr>
-        			<tr><td>랜덤한 금액</td><td>A, B 사이로 랜덤한 금액</td><td>10000, 95000 <font color='red'>(콤마 필수)</font></td><td>O</td></tr>
+        			<tr><td>랜덤한 단어</td><td>랜덤한 영어단어</td><td><font style='background-color:red;color: white;'>READONLY</font></td><td>X</td></tr>
         			<tr><td>지정한 문자 랜덤</td><td>지정한 문자 랜덤(다수 가능)</td><td>M1, M2, M3, M4 <font color='red'>(콤마 필수)</font></td><td>O</td></tr>
         		</table>
         	</div>
@@ -240,6 +240,13 @@
 				}else{					//랜덤 타입이 아니라면 작성가능
 					$(inputIndex).removeAttr('readonly');
 					$(inputIndex).val('');
+				}
+				
+				switch(select_val){
+					case 'FIXING_VALUE' : $(inputIndex).attr('placeholder','VALUE'); break;
+					case 'UP_VARCHAR' : $(inputIndex).attr('placeholder','item1, item2, item3 , ...'); break;
+					case 'R_DATE' : $(inputIndex).attr('placeholder','-365, 365'); break;
+					case 'R_NUMBER' : $(inputIndex).attr('placeholder','1, 100'); break;
 				}
 				
 			}));
@@ -333,9 +340,9 @@
 					"<option data-icon='fa fa-y-combinator-square' value='UP_VARCHAR'>선택 문자 랜덤</option>"+
 					"<option data-icon='glyphicon glyphicon-random' value='R_NUMBER'>랜덤한 숫자</option>"+
 					"<option data-icon='fa fa-calendar-times-o' value='R_DATE'>랜덤한 날짜</option>"+
-					"<option data-icon='fa fa-address-card' value='R_NAME_READONLY'>랜덤한 3자 이름</option>"+
+					"<option data-icon='fa fa-address-card' value='R_NAME_READONLY'>랜덤한 영문 이름</option>"+
 					"<option data-icon='fa fa-address-book' value='R_PHONE_READONLY'>랜덤 전화번호</option>"+
-					"<option data-icon='fa fa-money' value='R_MONEY'>랜덤한 금액</option>"+
+					"<option data-icon='fa fa-language' value='R_WORD_READONLY'>랜덤한 단어</option>"+
 					"<option data-icon='glyphicon glyphicon-send' value='R_EMAIL_READONLY'>랜덤한 이메일</option>"+
 					"<option data-icon='fa fa-book' value='R_CONTENT_READONLY'>랜덤한 글내용</option>"+
 				"</optgroup>"+

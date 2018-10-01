@@ -120,7 +120,7 @@
 	
 	<!-- 모든 차단당한 밴 리스트 가져오기 -->
 	<select id='selectSearchBan' resultMap='BanResultSet'>
-		SELECT BANID, BID, MID, BANREASON FROM BAN
+		SELECT BANID, BID, MID, BANREASON FROM BAN WHERE BANTYPE != 'MB'
 	</select>
 	
 
@@ -167,7 +167,6 @@
       	
 	</select>
 	
-
 </mapper>
 
 
