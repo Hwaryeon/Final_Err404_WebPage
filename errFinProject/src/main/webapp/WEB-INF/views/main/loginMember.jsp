@@ -54,6 +54,7 @@
                         <li><a href="shortcodes.html">Shortcodes</a></li>
                         <li><a href="404.html">404</a></li>
                         <li><a href="contact.html">Contact</a></li>
+                        <li><a href="newPost.np">새글 피드</a></li>
                         <li><a href="bandCalendarList.bd">달력 호출</a></li>
                         <li><a href="bandLeader.bd?bid=1">밴드 리더</a></li>
                         <li><a href="bandLeader.bd">밴드 리더</a></li>
