@@ -240,18 +240,19 @@
 								<span class="band-membertxt"></span>
 							</div>
 						</li>
-						<c:forEach var='i' begin='0' end='${ fn:length(myBandList) }' step='1'>
-							<c:if test='${!empty myBandList[i]}'>
+						<c:forEach var="MyBandList" items ="${ myBandList }">
+							<%-- <c:if test='${!empty myBandList[i]}'> --%>
 								<li class="myband-list">
 									<div class="band-profile">
 										<img src="resources/images/profile.png">
 									</div>
 									<div class="band-name">
-										<p class="band-nametxt">${ myBandList[i].bname }</p>
-										<span class="band-membertxt">멤버 : </span>
+										<%-- <p class="band-nametxt">${ myBandList[i].bname }</p>
+										<span class="band-membertxt">멤버 : </span> --%>
+										<p>${ MyBandList.bname }</p>
 									</div>
 								</li>
-							</c:if>
+							<%-- </c:if> --%>
 						</c:forEach>
 						<li class="myband-list">
 							<div class="band-profile">

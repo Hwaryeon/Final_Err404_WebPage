@@ -12,6 +12,7 @@ import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
 import com.kh.efp.member.model.vo.Member;
 import com.kh.efp.member.model.vo.Profile;
+import com.kh.efp.member_band.model.vo.MyBandList;
 
 public interface BandDao {
 
@@ -62,6 +63,8 @@ public interface BandDao {
 	void deleteBanMember(SqlSessionTemplate sqlSession, int banid);
 
 	void insertBanMember(SqlSessionTemplate sqlSession, Ban b);
+
+	List<Object> bandList(SqlSessionTemplate sqlSession, int mid);
 
 
 

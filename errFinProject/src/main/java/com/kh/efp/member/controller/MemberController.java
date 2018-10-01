@@ -146,8 +146,9 @@ public class MemberController {
 		try {
 			//세션에 올라감
 			model.addAttribute("loginUser", ms.loginMember(m));
-			/*model.addAttribute("myBandList", bs.bandList());*/
-			
+			int mid = ms.loginMember(m).getMid();
+			System.out.println("loginUser.mid = " + mid);
+			model.addAttribute("myBandList", bs.bandList(mid));
 
 			return "main/main";
 

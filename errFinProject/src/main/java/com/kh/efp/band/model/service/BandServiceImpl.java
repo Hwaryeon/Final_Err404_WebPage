@@ -19,6 +19,7 @@ import com.kh.efp.member.model.dao.MemberDao;
 import com.kh.efp.member.model.exception.LoginException;
 import com.kh.efp.member.model.vo.Member;
 import com.kh.efp.member.model.vo.Profile;
+import com.kh.efp.member_band.model.vo.MyBandList;
 
 @Service
 public class BandServiceImpl implements BandService {
@@ -181,7 +182,11 @@ public class BandServiceImpl implements BandService {
 		bd.insertBanMember(sqlSession, b);
 	}
 
-
+	@Override
+	public List<Object> bandList(int mid) {
+		
+		return bd.bandList(sqlSession, mid);
+	}
 
 
 }
