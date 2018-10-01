@@ -153,8 +153,19 @@
 		<url-pattern>*.lg</url-pattern>
 	</servlet-mapping>
 	
-	
-
-
+	<!-- 코드공유소 매핑 -->
+	<servlet>
+		<servlet-name>codeFactoryServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/codeFactory-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>codeFactoryServlet</servlet-name>
+		<url-pattern>*.codeFac</url-pattern>
+	</servlet-mapping>
 
 </web-app>

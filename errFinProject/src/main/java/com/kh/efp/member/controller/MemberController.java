@@ -40,7 +40,6 @@ import com.kh.efp.member.model.exception.LoginException;
 import com.kh.efp.member.model.service.MemberService;
 import com.kh.efp.member.model.vo.Member;
 import com.kh.efp.member.model.vo.Profile;
-import com.kh.efp.member.model.vo.loginUser;
 
 @Controller
 @SessionAttributes("loginUser")
@@ -98,7 +97,7 @@ public class MemberController {
 		if(!photo.isEmpty()){
 			root = request.getSession().getServletContext().getRealPath("resources");
 
-			filePath = root + "\\upload_images\\";
+			filePath = root + "\\upload_images";
 
 			originFileName = photo.getOriginalFilename();
 			ext = originFileName.substring(originFileName.lastIndexOf("."));
@@ -121,7 +120,7 @@ public class MemberController {
 			//사진 유무 확인 후 파일 저장
 			if(!photo.isEmpty()){
 				
-			photo.transferTo(new File(filePath + changeName + ext));
+			photo.transferTo(new File(filePath + "\\" + changeName + ext));
 			}
 
 
@@ -134,7 +133,7 @@ public class MemberController {
 			}
 
 		} catch (Exception e) {
-			new File(filePath + changeName + ext).delete();
+			new File(filePath + "\\" + changeName + ext).delete();
 			return "common/errorPage";
 		}
 
@@ -144,15 +143,11 @@ public class MemberController {
 	@RequestMapping(value = "login.me")
 	public String loginUser(Member m, Model model){
 		System.out.println("login m : " + m);
-		
 		try {
-			loginUser loginUser = ms.loginMember2(m);
 			//세션에 올라감
-			model.addAttribute("loginUser", loginUser);
-			
+			model.addAttribute("loginUser", ms.loginMember(m));
 			/*model.addAttribute("myBandList", bs.bandList());*/
 			
-			System.out.println(loginUser);
 
 			return "main/main";
 
@@ -199,7 +194,7 @@ public class MemberController {
 		int mid = Integer.parseInt(request.getParameter("mid"));
 
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		String filePath = root + "\\upload_images\\";
+		String filePath = root + "\\upload_images";
 		String originFileName = photo.getOriginalFilename();
 		String ext = originFileName.substring(originFileName.lastIndexOf("."));
 		String changeName = CommonUtils.getRandomString();
@@ -213,7 +208,7 @@ public class MemberController {
 		pf.setMid(mid);
 
 		try {
-			photo.transferTo(new File(filePath + changeName + ext));
+			photo.transferTo(new File(filePath + "\\" + changeName + ext));
 			System.out.println("digh");
 
 			int result = ms.insertChangedProfile(pf);
@@ -229,7 +224,7 @@ public class MemberController {
 				response.getWriter().println(mapper.writeValueAsString(result));
 			}
 		} catch (Exception e) {
-			new File(filePath + changeName + ext).delete();
+			new File(filePath + "\\" + changeName + ext).delete();
 		}
 	}
 	

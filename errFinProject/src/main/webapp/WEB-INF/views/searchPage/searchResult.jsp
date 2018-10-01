@@ -273,6 +273,8 @@
 	                       "</div>"+
 	                       "<div class='media-body'>"+
 	                         "<h4 class='media-heading' style='color:#25afe5;'>"+value.bName+"</h4>"+
+	                         "<p class='band_category'>"+
+	 				        value.cName+"</p>"+
 	                         bIntroCut+"...."+
 	                   "</div></div></div></div></a>");
                	});

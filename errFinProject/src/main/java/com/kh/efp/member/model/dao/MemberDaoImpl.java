@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.efp.member.model.vo.Member;
 import com.kh.efp.member.model.vo.Profile;
-import com.kh.efp.member.model.vo.loginUser;
 
 @Repository
 public class MemberDaoImpl implements MemberDao{
@@ -116,12 +115,6 @@ public class MemberDaoImpl implements MemberDao{
 	public int updatemStatus(SqlSessionTemplate sqlSession, int imid) {
 		// TODO Auto-generated method stub
 		return sqlSession.update("Member.updatemStatus", imid);
-	}
-
-	@Override
-	public loginUser selectLoginUser(SqlSessionTemplate sqlSession, Member m) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("Member.selectLoginUser2", m);
 	}
 
 	

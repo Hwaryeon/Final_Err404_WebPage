@@ -35,6 +35,7 @@ public class CreateSampleData{
 
 	HttpServletRequest req = null;
 	HttpServletResponse res = null;
+	private LoremIpsum ipsum = new LoremIpsum();
 	
 	public CreateSampleData(HttpServletRequest req, HttpServletResponse res) {
 		req = this.req;
@@ -64,6 +65,8 @@ public class CreateSampleData{
 				titles[n] = colunm_val[n][0];
 				if(colunm_val[n][1].equals("R_NAME_READONLY")){		//해당 열 전용 이름들 객체로 저장
 					names[n] = randomNameGenerator(row_amount);
+				}else if(colunm_val[n][1].equals("R_WORD_READONLY")){		//해당 열 전용 단어들들 객체로 저장
+					names[n] = randomWordGenerator(row_amount);
 				}
 			}
 			colunm_list.add(titles);
@@ -87,7 +90,7 @@ public class CreateSampleData{
 						case "R_DATE" : ggc.add(ggc.DATE, Integer.parseInt(cut_Char(colunm_val[n][2]))); arr[n] = sdf.format(ggc.getTime()); ggc = new GregorianCalendar(); break;
 						case "R_NAME_READONLY" : arr[n] = names[n].get(i); break;
 						case "R_PHONE_READONLY" : arr[n] = R_phone(); break;
-						case "R_MONEY" : arr[n] = cut_Char(colunm_val[n][2]); break;
+						case "R_WORD_READONLY" : arr[n] = names[n].get(i); break;
 						case "R_EMAIL_READONLY" : arr[n] = EMAIL(); break;
 						case "R_CONTENT_READONLY" : arr[n] = R_Content(); break;
 					}
@@ -112,8 +115,6 @@ public class CreateSampleData{
 
 	//CSV 생성
 	public int createCSV(ArrayList<String[]> colunm_list){
-		
-		
       try {
             CSVWriter cw = new CSVWriter(new OutputStreamWriter(new FileOutputStream("sampleBox.csv"), "EUC-KR"),',', '"');
             try {
@@ -133,9 +134,9 @@ public class CreateSampleData{
 		return 1;
 	}
 	
-	//랜덤 이름 생성기
-	public String randomName() {
-/*	    List<String> last_name = Arrays.asList("김", "이", "박", "최", "정", "강", "조", "윤", "장", "임", "한", "오", "서", "신", "권", "황", "안",
+	//랜덤 한글 이름 생성기
+	/*public String randomName() {
+	    List<String> last_name = Arrays.asList("김", "이", "박", "최", "정", "강", "조", "윤", "장", "임", "한", "오", "서", "신", "권", "황", "안",
 	        "송", "류", "전", "홍", "고", "문", "양", "손", "배", "조", "백", "허", "유", "남", "심", "노", "정", "하", "곽", "성", "차", "주",
 	        "우", "구", "신", "임", "나", "전", "민", "유", "진", "지", "엄", "채", "원", "천", "방", "공", "강", "현", "함", "변", "염", "양",
 	        "변", "여", "추", "노", "도", "소", "신", "석", "선", "설", "마", "길", "주", "연", "방", "위", "표", "명", "기", "반", "왕", "금",
@@ -152,9 +153,8 @@ public class CreateSampleData{
 	        "흔", "악", "람", "뜸", "권", "복", "심", "헌", "엽", "학", "개", "롱", "평", "늘", "늬", "랑", "얀", "향", "울", "련");
 	    Collections.shuffle(last_name);
 	    Collections.shuffle(first_name);
-	    return last_name.get(0) + first_name.get(0) + first_name.get(1);*/
-		return null;
-	}
+	    return last_name.get(0) + first_name.get(0) + first_name.get(1);
+	}*/
 	
 	// REST random 이름 가져오기
 	public ArrayList<String> randomNameGenerator(int num){
@@ -186,8 +186,37 @@ public class CreateSampleData{
 		return str;
 	}
 	
-	//랜덤한 글내용 생성 평균적 영문 2500자 10단어 마다 <br> 삽입
-	private LoremIpsum ipsum = new LoremIpsum();
+	// REST random 단어 가져오기
+	public ArrayList<String> randomWordGenerator(int num){
+        ArrayList<String> str = new ArrayList<String>();
+		try{
+			URL url = new URL("http://names.drycodes.com/"+num+"?format=text&nameOptions=all&separator=space");
+			
+	        HttpURLConnection connection = (HttpURLConnection) url
+	                .openConnection();
+	        connection.setRequestMethod("GET");
+	        connection.setDoInput(true);
+	
+	        InputStream is = connection.getInputStream();
+	
+	        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+	        String readLine = null;
+	        while ((readLine = br.readLine()) != null) {
+	            str.add(readLine);
+	        }
+	        br.close();
+
+	    } catch (MalformedURLException e) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+	    } catch (IOException e) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+	    }
+		return str;
+	}	
+	
+	//랜덤한 글내용 생성 평균적 영문 10단어 마다 <br> 삽입
 	private String R_Content(){
 		StringBuffer contents = new StringBuffer("");
 		for(int i=0;i<30;i++){
@@ -200,8 +229,6 @@ public class CreateSampleData{
 	
 	//랜덤한 이메일 생성
 	private String EMAIL(){
-		//System.out.println("CustomString[" + RandomStringUtils.random(100, "naver.com daum.com google.com") + "]"); 
-		//System.out.println("Alphanumeric[" + RandomStringUtils.randomAlphanumeric(100).toLowerCase() + "]");
 		List<String> snsEmail = Arrays.asList("@naver.com", "@daum.net","@gmail.com","@live.com","@hotmail.com","@yahoo.com","@yahoo.co.kr","@hanmail.net"
 				,"@naver.com","@aol.com","@paran.com","@hanmir.com","@hitel.net","@dreamwiz.com","@nate.com","@empal.com");
 		Collections.shuffle(snsEmail);
@@ -236,7 +263,7 @@ public class CreateSampleData{
 		return arr[0];
 	}
 	//랜덤한 100단위의 금액 생성
-	private String R_Money(String str){
+	/*private String R_Money(String str){
 		String[] arr = str.split(",");
 		if(arr.length != 2) return null;
 		
@@ -250,5 +277,5 @@ public class CreateSampleData{
 		System.out.println("rand : "+ rand);
 		rand = rand.substring(0,rand.length()-2);
 		return rand+"00";
-	}
+	}*/
 }
