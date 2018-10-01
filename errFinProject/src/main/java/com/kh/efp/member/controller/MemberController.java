@@ -148,10 +148,13 @@ public class MemberController {
 		try {
 			loginUser loginUser = ms.loginMember2(m);
 			//세션에 올라감
-			model.addAttribute("loginUser", loginUser);
+
+			int mid = loginUser.getMid();
 			
-			/*model.addAttribute("myBandList", bs.bandList());*/
-			
+      model.addAttribute("loginUser", loginUser);
+      
+			model.addAttribute("myBandList", bs.bandList(mid));
+
 			System.out.println(loginUser);
 
 			return "main/main";
