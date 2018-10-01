@@ -17,6 +17,7 @@
 		<typeAlias type="com.kh.efp.member_band.model.vo.BoardList" alias = "BoardList"/>
 		<typeAlias type="com.kh.efp.Search.model.vo.Ban" alias = "Ban"/>
 		<typeAlias type="com.kh.efp.member_band.model.vo.MyBandList" alias = "MyBandList"/>
+		<typeAlias type="com.kh.efp.member.model.vo.loginUser" alias = "loginUser"/>
 		<!-- <typeAlias type="com.kh.efp.band.model.vo.Board" alias = "Board"/> -->
 		
 	</typeAliases>
