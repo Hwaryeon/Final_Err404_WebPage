@@ -3,6 +3,7 @@ package com.kh.efp.member.model.service;
 import com.kh.efp.member.model.exception.LoginException;
 import com.kh.efp.member.model.vo.Member;
 import com.kh.efp.member.model.vo.Profile;
+import com.kh.efp.member.model.vo.loginUser;
 
 public interface MemberService {
 	
@@ -38,5 +39,7 @@ public interface MemberService {
 	int selectAuthmEmail(Member m);
 
 	int updatemStatus(int imid);
+
+	loginUser loginMember2(Member m) throws LoginException;
 
 }
