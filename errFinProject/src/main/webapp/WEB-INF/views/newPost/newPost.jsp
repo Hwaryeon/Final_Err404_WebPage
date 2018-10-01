@@ -1,25 +1,22 @@
+<!DOCTYPE>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html >
+    pageEncoding="UTF-8" import="com.kh.efp.band.model.vo.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import= "java.util.*"  %>
+<%@ page import= "java.text.*"  %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <html>
 <head>
   <meta charset="utf-8">
   <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
   <meta name="viewport" content=" width=device-width, initial-scale=1">
   <title>Weekend Magazine</title>
-  <!-- CSS -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/font-awesome.min.css" rel="stylesheet">
-  <link href="style.css" rel="stylesheet">
-  <link href="css/responsive.css" rel="stylesheet">
-  <!-- Skin -->
-  <link href="skins/light-pink-blue.css" rel="stylesheet">
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
+<link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/light-pink-blue.css" rel="stylesheet">
 </head>
 <body class="home page page-id-4 page-template page-template-template_home-php">
     <!-- TOP NAV -->
@@ -134,48 +131,38 @@
            <div class="recent-widget widget padding-0" id="tabbed-widget">
                 <ul class="nav nav-justified nav-tabs">
                     <li class="active"><a href="#popular" data-toggle="tab">내 밴드
-                    <em style="color:#2ecc71; margin-left:5px;">2</em> </a></li>
+                    <em style="color:#2ecc71; margin-left:5px;">${fn:length(bList)}</em> </a></li>
                     <!-- <li><a href="#recent" data-toggle="tab">recent</a></li> -->
                 </ul>
                 <div class="tab-content padding-10">
                     <div class="tab-pane fade in active" id="popular">
                         <ul class="post-list">
-                            <li>
+                            
+                            <c:set var="num" value="1"/>
+                            <c:forEach var="b" items="${bList}">
+                            
+                            	<li>
                                 <div class="thumb">
+                                	<input type="hidden" value="${b.bid }">
                                     <a href="#">
-                                        <span class="recent-count">6</span>
-                                        <img width="60" height="60" src="http://placehold.it/56x56" alt="">
+                                        <span class="recent-count">${num }</span>
+                                        
+                                        <c:forEach var="p" items="${bpList }">
+                                        	<c:if test="${ b.bid == p.bid  }">
+                                        		<img width="60" height="60" src="${ contextPath }/resources/upload_images/${p.editName }" alt="">
+                                        	</c:if>
+                                        </c:forEach>
                                     </a>
                                 </div>
-                                <h4><a href="#">A wonderful serenity has taken possession</a></h4>
-                            </li>
-                            <li>
-                                <div class="thumb">
-                                    <a href="#">
-                                        <span class="recent-count">19</span>
-                                        <img width="60" height="60" src="http://placehold.it/56x56" alt="">
-                                    </a>
-                                </div>
-                                <h4><a href="#">The Secret is based on the earlier film of the same name</a></h4>
-                            </li>
-                            <li>
-                                <div class="thumb">
-                                    <a href="#">
-                                        <span class="recent-count">2</span>
-                                        <img width="60" height="60" src="http://placehold.it/56x56" alt="">
-                                    </a>
-                                </div>
-                                <h4><a href="#">The tenet of the film and book is that the universe</a></h4>
-                            </li>
-                            <li>
-                                <div class="thumb">
-                                    <a href="#">
-                                        <span class="recent-count">34</span>
-                                        <img width="60" height="60" src="http://placehold.it/56x56" alt="">
-                                    </a>
-                                </div>
-                                <h4><a href="#">The book is very much influenced by Wallace</a></h4>
-                            </li>
+                             	   <h4 style="margin-top:14px;"><a href="#">${b.bname }</a></h4>
+	                            </li>
+	                   
+	                            <c:set var="num" value="${num + 1}"/>
+
+								                            
+                            </c:forEach>
+                            
+                            
                         </ul>
                     </div>
                     <div class="tab-pane fade" id="recent">
@@ -235,11 +222,18 @@
             </div> -->
 
 
-		<div class="post widget" style="margin-bottom:0px;">
+		<c:forEach var="np" items="${npList }">
+
+		<div class="post widget" style="margin-bottom:34px;">
               <div class="post-social" style="border-top: 0px solid #EAEAEA; padding-top: 10px;">
                 <div class="share-container" style="width:100%;">
-                      <span class="share-title">배경화면&좋은글 자료방(폰배경화면 좋은글 감동글 힐링글 명언 배경화면공유 배경화면만들기)</span>
-                      <!-- <span class="share-desc">Share it with others.</span> -->
+                
+                <c:forEach var="b2" items="${bList }">
+                	<c:if test="${b2.bid == np.bid }">
+                	
+                     	 <span class="share-title">${b2.bname }</span>
+                      </c:if>
+                   </c:forEach>
                   </div>
               </div>
               
@@ -264,10 +258,10 @@
                         
                         <div class="comment-header">
                             
-                            <span class="author">john</span> 
+                            <span class="author">작성자 이름</span> 
                             
                             <span class="date">
-                                <a href="#">2:14 AM 22 feb 2013</a>
+                                <a href="#">${np.bdate }</a>
                             </span>
                             
                             <span class="reply">
@@ -286,14 +280,15 @@
             </div>
               <div class="post-content" style="margin-top:60px;border-top:2px solid #EAEAEA; padding-top:15px;">
               
-                <h1 class="post-title"><a href="#">Pistorius numb with grief and shock over death of girlfriend, family says the truth</a></h1>
-                <p class="bold">Our entire family is devastated, we are in a state of total shock - first about the tragic death of Reeva, who we had all got to know well and care for deeply over the last few months," the statement, from Arnold Pistorius, uncle of the accused. All of us saw at first hand how close she had become to Oscar.</p>
-                <p>Facebook said that it took immediate action to repair all infected computers once the malware was discovered and added that it had informed law enforcement authorities. It is the latest in a number of sophisticated hacking attacks on high-profile websites and companies. Twitter reported earlier this month that 250,000 user details, including usernames, passwords and email addresses, were stolen by hackers. It said it was "not the work of amateurs".</p>
-                <p>The New York Times, Washington Post and Wall Street Journal have all accused China of attacking their computer systems.Earlier this week a report by US intelligence community concluded that the country was being targeted by a massive cyber-espionage campaign.The National Intelligence Estimate, a classified report compiled by the US. </p>
-                <blockquote>Intelligence services, identified energy, finance, information technology, aerospace and automotive companies as the most frequent targets of hacking campaigns that appear state sponsored, according to The Washington Post earlier this week.</blockquote>
-                <img class="post-image img-beresponsive" src="http://placehold.it/469x291" alt="">
+                <!-- <h1 class="post-title"><a href="#">Pistorius numb with grief and shock over death of girlfriend, family says the truth</a></h1>
+                <p class="bold">Our entire family is devastated, we are in a state of total shock - first about the tragic death of Reeva, who we had all got to know well and care for deeply over the last few months," the statement, from Arnold Pistorius, uncle of the accused. All of us saw at first hand how close she had become to Oscar.</p> -->
+                <p>${np.bcontent }</p>
+                <!-- <blockquote>Intelligence services, identified energy, finance, information technology, aerospace and automotive companies as the most frequent targets of hacking campaigns that appear state sponsored, according to The Washington Post earlier this week.</blockquote>
+                <img class="post-image img-beresponsive" src="http://placehold.it/469x291" alt=""> -->
               </div>
             </div>
+
+		</c:forEach>
 
 		<div class="box-content widget fullwidth" id="comments" style="margin-bottom:0px;">
               <h4 class="comment-title">댓글 3</h4>
@@ -329,40 +324,6 @@
                     </div><!--.comment_detail-->
                     
                     </div><!--.comment-body-->
-                    
-                    <!-- <ul class="children">
-                        <li class="comment">
-                            <div class="comment-body">
-                                
-                                <div class="line"></div>
-                                <div class="comment-vcard">
-                                    <img width="60" height="60" alt="" src="http://placehold.it/70x70" class="avatar">            
-                                    <span class="author-tag"></span>
-                                </div>
-                                
-                                <div class="comment_detail">
-                                    
-                                    <div class="comment-header">
-                                        
-                                        <span class="author">Jasdeep Singh</span> 
-                                        
-                                        <span class="date">
-                                            <a href="#">2:14 AM 22 feb 2013</a>
-                                        </span>
-                                        
-                                        <span class="reply">
-                                            <a class="comment-reply-link" href="#">Reply</a>
-                                        </span>
-            
-                                    </div>comment-header
-                                    
-                                    <p>The goal of user interface design is to make the user's interaction as simple and efficient as possible, in terms of accomplishing user goals.</p>
-            
-                                </div>.comment_detail
-                                
-                            </div>.comment-body
-                        </li>
-                    </ul> -->
                 </li><!--Parent li-->
                 
                 <li class="comment parent">
@@ -479,20 +440,32 @@
             <div id="categort-posts-widget-2" class="widget fullwidth categort-posts">
             <h1 class="widget-title">이런 밴드 어떠세요? </h1>
                 <ul class="tvshows">
-                    <li>
+                   <c:set var="num2" value="1"/>
+                    <c:forEach var="ran" items="${ranList}">
+                    	 <li>
                         <a href="#">
-                            <span class="comment-count">11</span>
-                            <img src="http://placehold.it/209x128" alt="">
+                            <span class="comment-count">${num2 }</span>
+                            
+                            <c:forEach var="rp" items="${rpList }">
+                                        	<c:if test="${ ran.bid == rp.bid  }">
+                                        		<img src="${ contextPath }/resources/upload_images/${rp.editName }" />
+                                        	</c:if>
+                            </c:forEach>
+                                        	
                         </a>
-                        <h4><a href="#">See no changes all saw is faces mis placed hate makes disgrace</a></h4>
+                        <h4><a href="#">${ran.bname }</a></h4>
+                        
+                        <c:forEach var="bmc" items="${bmcList }">
+                        	<c:if test="${ ran.bid == bmc.bid  }">
+                        		<h5><a href="#">멤버 ${bmc.mcount }</a></h5>
+                        	</c:if>
+                        </c:forEach>
+                        
                     </li>
-                    <li>
-                        <a href="#">
-                            <span class="comment-count">76</span>
-                            <img src="http://placehold.it/209x128" alt="">
-                        </a>
-                        <h4><a href="#">How to find water in the desert?</a></h4>
-                    </li>
+                    
+                    <c:set var="num2" value="${num2 + 1 }"/>
+                    </c:forEach>
+                    
                 </ul>
                 <div class="clear"></div>
             </div>
@@ -500,35 +473,17 @@
             <div id="tag_cloud-2" class="widget fullwidth widget_tag_cloud">
                 <h1 class="widget-title">주제별 밴드 찾기</h1>
                 <div class="tagcloud">
-                    <a href="#">Portfolio</a>
-                    <a href="#">Typography</a>
-                    <a href="#">Type</a>
-                    <a href="#">Compaign</a>
-                    <a href="#">Illustration</a>
-                    <a href="#">Face</a>
-                    <a href="#">UI</a>
-                    <a href="#">Experience</a>
-                    <a href="#">Brand</a>
-                    <a href="#">Portfolio</a>
-                    <a href="#">Typography</a>
-                    <a href="#">Type</a>
-                    <a href="#">Compaign</a>
-                    <a href="#">Illustration</a>
-                    <a href="#">Face</a>
-                    <a href="#">UI</a>
-                    <a href="#">Experience</a>
-                    <a href="#">Brand</a>
+                
+                	<c:forEach var="b" items="${cList}">
+                	
+                		<a href="#">${b.cname }</a>
+                	
+                	</c:forEach>
+                
+                
                 </div>
             </div>
 
-            <div id="ads250_250-widget-2" class="widget fullwidth ads250_250-widget"><h1 class="widget-title">
-                Advertisement</h1>
-                <div class="ads250-250">
-                    <div class="ad-cell">
-                        <a href="#"><img src="img/ad-210x190.png" class="fullwidth" alt=""></a>
-                    </div>
-                </div>
-            </div>
 
         </div>
 
