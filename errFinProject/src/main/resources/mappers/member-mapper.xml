@@ -26,6 +26,21 @@
 		<result property="mid" column="MID" />
 		<result property="bid" column="BID" />
 	</resultMap>
+	
+		<resultMap type="loginUser" id="loginUserResultSet">
+		<id property="mid" column="MID" />
+		<result property="mEmail" column="MEMAIL" />
+		<result property="mPwd" column="MPWD" />
+		<result property="mToken" column="MTOKEN" />
+		<result property="mType" column="MTYPE" />
+		<result property="mName" column="MNAME" />
+		<result property="mPhone" column="MPHONE" />
+		<result property="mDate" column="MDATE" />
+		<result property="mStatus" column="MSTATUS" />
+		<result property="mNational" column="MNATIONAL" />
+		<result property="editName" column="EDIT_NAME" />
+		<result property="fileSrc" column="FILE_SRC" />
+	</resultMap>
 
 	<!-- 회원가입용 메소드 -->
 	<insert id="insertMember" parameterType="Member">
@@ -139,6 +154,14 @@
 		UPDATE MEMBER SET MSTATUS = 'N'
 		WHERE MID = #{imid} 
 	</update>
+	
+	<select id="selectLoginUser2" resultMap="loginUserResultSet"
+		parameterType="Member">
+		SELECT M.MID, MEMAIL, MPWD, MTOKEN, MTYPE, MNAME, MPHONE, MDATE, MSTATUS, MNATIONAL, EDIT_NAME, FILE_SRC
+		FROM MEMBER M
+		JOIN PROFILE P ON(M.MID = P.MID)
+		WHERE M.MSTATUS = 'Y' AND MEMAIL = #{mEmail}
+	</select>
 
 </mapper>
 

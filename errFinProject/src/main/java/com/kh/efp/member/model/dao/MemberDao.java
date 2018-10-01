@@ -4,6 +4,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.efp.member.model.vo.Member;
 import com.kh.efp.member.model.vo.Profile;
+import com.kh.efp.member.model.vo.loginUser;
 
 public interface MemberDao {
 
@@ -43,5 +44,7 @@ public interface MemberDao {
 	int selectAuthmEmail(SqlSessionTemplate sqlSession, Member m);
 
 	int updatemStatus(SqlSessionTemplate sqlSession, int imid);
+
+	loginUser selectLoginUser(SqlSessionTemplate sqlSession, Member m);
 
 }

@@ -10,6 +10,7 @@ import com.kh.efp.member.model.dao.MemberDao;
 import com.kh.efp.member.model.exception.LoginException;
 import com.kh.efp.member.model.vo.Member;
 import com.kh.efp.member.model.vo.Profile;
+import com.kh.efp.member.model.vo.loginUser;
 
 @Service
 public class MemberserviceImpl implements MemberService {
@@ -159,6 +160,19 @@ public class MemberserviceImpl implements MemberService {
 	public int updatemStatus(int imid) {
 		// TODO Auto-generated method stub
 		return md.updatemStatus(sqlSession, imid);
+	}
+
+	@Override
+	public loginUser loginMember2(Member m) throws LoginException {
+		loginUser loginUser = null;
+ 		String encPassword = md.selectEncPassword(sqlSession, m);
+ 		if(!passwordEncoder.matches(m.getmPwd(), encPassword)){
+			throw new LoginException("로그인 정보가 존재하지 않습니다");
+		}else{
+			loginUser = md.selectLoginUser(sqlSession, m);
+		}
+		
+		return loginUser;
 	}
 
 

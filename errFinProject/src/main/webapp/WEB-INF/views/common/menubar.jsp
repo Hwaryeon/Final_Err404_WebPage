@@ -45,9 +45,12 @@
                   </div>
                   <ul class="share-social">
                      <li><a target="_blank" href="" style="border:0px;"><img src="${ contextPath }/resources/images/al.png " alt="" width=25px; height=25px;></a></li>
-                     <li><a target="_blank" href="" style="border:0px;"><img src="${ contextPath }/resources/images/message.png " alt="" width=25px; height=25px;></a></li>
-                     <li><a target="_blank" href="showMemberInfo.me"  style="border:0px;"><img src="${ contextPath }/resources/images/profile.png " alt="" width=25px; height=25px;></a></li>
-                  </ul>
+                     <li><a onclick="chatting();" style="border:0px;"><img src="${ contextPath }/resources/images/message.png " alt="" width=25px; height=25px;></a></li>
+                     <li><a href="<c:url value = "showMemberInfo_update.me">
+									<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
+								  </c:url>"  
+							style="border:0px;"><img src="${ contextPath }/resources/images/profile.png " alt="" width=25px; height=25px;></a></li>
+				</ul>
               </div>
             </div>
           </div>
@@ -69,7 +72,33 @@
 
 	    });
         
+        $.ajax({
+        	url : 'http://127.0.0.1:3000/',
+        	data : {
+        		mid : `${sessionScope.loginUser.mid}`,
+        		name : `${sessionScope.loginUser.mName}`,
+        		profile : `${sessionScope.loginUser.fileSrc}${sessionScope.loginUser.editName}`,
+        		language : `${sessionScope.loginUser.mNational}`
+        		},
+        	type : 'post',
+        	success:function(data){
+        		console.log(data);
+        	},
+        	error:function(){
+        		console.log("실패");
+        	}
+        
+        })
+        
 	});
+    
+    function chatting(){
+    	var url = "http://127.0.0.1:3000/chat/" + ${sessionScope.loginUser.mid};
+    	/* var url = "http://192.168.20.248:3000/" + ${sessionScope.loginUser.mid}; */
+		var settings = "width=400, height=622, toolbar=no, menubar=no, scrollbars=no, resizable=no";
+		
+		window.open(url, 'test window', settings);
+    }
     </script>
 </body>
 </html>

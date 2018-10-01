@@ -473,7 +473,7 @@
 				type : "post",
 				data : {
 					newPwd : new1,
-					mid : ${ loginUserMid }
+					mid : `${ loginUserMid }`
 				},
 				success:function(data){
 					$("#oldPwd").val("");
@@ -502,7 +502,7 @@
     				type : "post",
     				success:function(data){
     					alert("정상적으로 탈퇴가 되었습니다.");
-    					window.location.href = "logout.me";
+    					location.href = "logout.me";
     				},
     				error:function(){
     					console.log("실패");
