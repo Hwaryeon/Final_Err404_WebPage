@@ -136,6 +136,8 @@
                     <li class="active"><a href="#popular" data-toggle="tab">내 밴드
                     <em style="color:#2ecc71; margin-left:5px;">${fn:length(bList)}</em> </a></li>
                     <!-- <li><a href="#recent" data-toggle="tab">recent</a></li> -->
+                   
+                   
                 </ul>
                 <div class="tab-content padding-10">
                     <div class="tab-pane fade in active" id="popular">
@@ -157,7 +159,7 @@
                                         </c:forEach>
                                     </a>
                                 </div>
-                             	   <h4 style="margin-top:14px;"><a href="#">${b.bname }</a></h4>
+                             	   <h4 style="margin-top:14px;"><a href="list.do">${b.bname }</a></h4>
 	                            </li>
 	                   
 	                            <c:set var="num" value="${num + 1}"/>
