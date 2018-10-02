@@ -146,4 +146,30 @@ public class SearchServiceImpl implements SearchService{
 		return fiveContents;
 	}
 
+	//자동완성 리스트
+	@Override
+	public ArrayList<String> selectAutoList(ArrayList<String> list) {
+		ArrayList<Ban> banList = searchDao.selectSearchBand(sqlSession);
+		ArrayList<Search> band = searchDao.selectSearchBand(sqlSession, list);
+		ArrayList<String> searchBandList = new ArrayList<String>();
+		boolean banCheck = true;
+		
+		//차단 되어있는 밴드 검색출력리스트에서 제거
+		for(int n=0; n<band.size();n++){
+			for(int i=0; i<banList.size(); i++){
+				if(banList.get(i).getBid() == band.get(n).getBid()){
+					banCheck = false;
+					break;
+				}
+			}
+			if(banCheck){
+				searchBandList.add(band.get(n).getbName());
+			}
+			banCheck=true;
+		}
+		
+		
+		return searchBandList;
+	}
+
 }
