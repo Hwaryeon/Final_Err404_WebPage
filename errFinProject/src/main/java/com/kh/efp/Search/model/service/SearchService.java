@@ -15,4 +15,6 @@ public interface SearchService {
 
 	ArrayList<Search> selectFiveContents(HashMap<String, Object> map);
 
+	ArrayList<String> selectAutoList(ArrayList<String> list);
+
 }

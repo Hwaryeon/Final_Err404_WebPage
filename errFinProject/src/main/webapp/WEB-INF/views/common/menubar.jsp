@@ -9,8 +9,10 @@
   <meta name="viewport" content=" width=device-width, initial-scale=1">
   <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <title>Weekend Magazine</title>
+  
   <!-- CSS -->
   <link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
   <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">
   <link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
@@ -18,8 +20,15 @@
   <link href="${ contextPath }/resources/css/light-pink-blue.css" rel="stylesheet">
   
   <!-- JavaScript -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	
   
 </head>
+<style>
+	.ui-autocomplete-loading {
+    background: white url("images/ui-anim_basic_16x16.gif") right center no-repeat;
+  }
+</style>
 <body>
 <div class="fullwidth bg-pink" style="min-height:84px; height:84px;">
       <div class="container">
@@ -60,7 +69,30 @@
     </div>
     <h1 style="font-size:0.001px;">.</h1>
     <script>
+    
     $(document).ready(function(){
+    	
+    	$( "#searchBox" ).autocomplete({
+   	      source: function( request, response ) {
+   	    	  if(request.term.trim().length != 0){
+	   	    	  $.ajax({
+	   	    		  url:'autoComplete.search',
+	   	    		  dataType: "json",
+	   	    		  data:{term:request.term.trim()},
+	   	    		  success:function(data){
+			   	    	response(data);
+	   	    		  },
+	   	    		  error:function(error){
+	   	    			  alert(error);
+	   	    		  }
+	   	    	  })
+   	    	  }
+   	      },
+   	      minLength: 2,
+   	      select: function( event, ui ) {
+   	      }
+   	    });
+    	
     	
         $("#searchBox").keypress(function (e) {
         	if (window.event.keyCode == 13) {	//엔터를 눌렀을때
@@ -73,10 +105,10 @@
            }
 
 	    });
-        
-      
-        
-        $.ajax({
+
+    	
+        /* $.ajax({
+
         	url : 'http://127.0.0.1:3000/',
         	data : {
         		mid : `${sessionScope.loginUser.mid}`,
@@ -92,12 +124,12 @@
         		console.log("실패");
         	}
         
-        })
+        }) */
         
 	});
     
     function chatting(){
-    	var url = "http://127.0.0.1:3000/chat/" + ${sessionScope.loginUser.mid};
+    	//var url = "http://127.0.0.1:3000/chat/" + ${sessionScope.loginUser.mid};
     	/* var url = "http://192.168.20.248:3000/" + ${sessionScope.loginUser.mid}; */
 		var settings = "width=400, height=622, toolbar=no, menubar=no, scrollbars=no, resizable=no";
 		

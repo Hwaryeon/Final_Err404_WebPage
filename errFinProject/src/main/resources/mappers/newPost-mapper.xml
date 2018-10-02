@@ -42,6 +42,12 @@
 		<result property="mStatus" column="MSTATUS" />
 		<result property="mNational" column="MNATIONAL" />
 	</resultMap>
+	
+	<resultMap type="MemberProfile" id="MemberProfileResultSet">
+		<id property="mid" column="MID" />
+		<result property="mname" column="MNAME" />
+		<result property="edit_name" column="EDIT_NAME" />
+	</resultMap>
 
 	<!-- 카테고리 목록 메소드 -->
 	<select id = "selectCategoryList" resultMap = "CategoryResultSet">
@@ -84,16 +90,6 @@
 		AND ISTATUS = 'Y'
 	</select>
 	
-	<!-- 새글 피드 리스트를 가져오는 메소드 -->
-	<select id = "selectNewPostList" parameterType = "int" resultMap = "BoardsResultSet">
-		SELECT *
-		FROM BOARDS
-		WHERE MID= #{mid}
-		AND BSTATUS = 'Y'
-		AND REF_STATUS = 'CONTENT'
-		ORDER BY BDATE DESC
-	</select>
-	
 	<!-- 멤버 정보를 가져오는 메소드 -->
 	<select id = "selectMember" parameterType = "int" resultMap = "memberResultSet">
 		SELECT *
@@ -101,12 +97,27 @@
 		WHERE MID = #{mid}
 	</select>
 	
-	<!-- 해당 밴드에 새글 갯수를 가져오는 메소드 -->
-	<!-- <select id = "selectBandMemberCount" parameterType = "int" resultType = "int">
+	<!-- 해당 밴드에 글 갯수를 가져오는 메소드 -->
+	 <select id = "selectBandNewPostCount" parameterType = "Boards" resultType = "int">
 		SELECT count(*)
 		FROM BOARDS
-		WHERE BID = #{bid};
-	</select> -->
+		WHERE BID = #{bid} AND MID != #{mid} AND BSTATUS = 'Y'
+	</select>
+	
+	<!-- 해당 밴드에서 글 목록을 가져오는 메소드 -->
+	 <select id = "selectNewPostList2" parameterType = "Boards" resultMap = "BoardsResultSet">
+		SELECT *
+		FROM BOARDS
+		WHERE BID = #{bid} AND MID != #{mid} AND BSTATUS = 'Y'
+	</select>
+	
+	<!-- 글에 해당하는 유저 정보를 가져오는 메소드 -->
+	 <select id = "selectMemberProfile" parameterType = "int" resultMap = "MemberProfileResultSet">
+		SELECT M.MID, M.MNAME, P.EDIT_NAME
+		FROM MEMBER M
+		JOIN PROFILE P ON(P.MID = M.MID)
+		WHERE M.MID = #{mid}
+	</select>
 	
 	
 </mapper>
