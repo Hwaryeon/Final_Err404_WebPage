@@ -244,25 +244,15 @@
 							<%-- <c:if test='${!empty myBandList[i]}'> --%>
 								<li class="myband-list">
 									<div class="band-profile">
-										<img src="resources/images/profile.png">
+										<img src="resources/images/${ MyBandList.edit_name }">
 									</div>
 									<div class="band-name">
-										<%-- <p class="band-nametxt">${ myBandList[i].bname }</p>
-										<span class="band-membertxt">멤버 : </span> --%>
-										<p>${ MyBandList.bname }</p>
+										<p class="band-nametxt">${ MyBandList.bname }</p>
+										<span class="band-membertxt">멤버 : ${ MyBandList.memberCount }</span>
 									</div>
 								</li>
 							<%-- </c:if> --%>
 						</c:forEach>
-						<li class="myband-list">
-							<div class="band-profile">
-								<img src="resources/images/profile.png">
-							</div>
-							<div class="band-name">
-								<p class="band-nametxt">밴드명2</p>
-								<span class="band-membertxt">멤버 n</span>
-							</div>
-						</li>
 					</ul>
 				</div>
 			</div>
