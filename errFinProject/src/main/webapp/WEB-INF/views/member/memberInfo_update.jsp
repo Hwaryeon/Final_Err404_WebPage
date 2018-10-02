@@ -446,7 +446,7 @@
 				type : "post",
 				data : {
 					old : old,
-					mid : ${ loginUserMid }
+					mid : `${ loginUserMid }`
 				},
 				success:function(data){
 					if(data == 1){
@@ -497,7 +497,7 @@
     			$.ajax({
     				url : "deleteMember.me",
     				data : {
-    					mid : ${ sessionScope.loginUser.mid }
+    					mid : `${ sessionScope.loginUser.mid }`
     				},
     				type : "post",
     				success:function(data){
@@ -509,7 +509,7 @@
     				}
     			})
     		}
-
+    	}
     </script>
     <script src="resources/js/jquery.min.js"></script>
     <script src="resources/js/bootstrap.min.js"></script>
