@@ -98,7 +98,7 @@ public class MemberController {
 		if(!photo.isEmpty()){
 			root = request.getSession().getServletContext().getRealPath("resources");
 
-			filePath = root + "\\upload_images";
+			filePath = root + "/upload_images/";
 
 			originFileName = photo.getOriginalFilename();
 			ext = originFileName.substring(originFileName.lastIndexOf("."));
@@ -108,7 +108,7 @@ public class MemberController {
 			originFileName = "user.png"; //없으면 강제로 기본 프사 입력
 			changeName = "user";
 			ext = ".png";
-			filePath = "C:\\Users\\user\\git\\FinalProject_Err\\errFinProject\\src\\main\\webapp\\resources\\upload_images";
+			filePath = "C:/Users/user/git/FinalProject_Err/errFinProject/src/main/webapp/resources/upload_images/";
 
 		}
 
@@ -121,7 +121,7 @@ public class MemberController {
 			//사진 유무 확인 후 파일 저장
 			if(!photo.isEmpty()){
 				
-			photo.transferTo(new File(filePath + "\\" + changeName + ext));
+			photo.transferTo(new File(filePath + changeName + ext));
 			}
 
 
@@ -134,7 +134,7 @@ public class MemberController {
 			}
 
 		} catch (Exception e) {
-			new File(filePath + "\\" + changeName + ext).delete();
+			new File(filePath + changeName + ext).delete();
 			return "common/errorPage";
 		}
 
@@ -202,7 +202,7 @@ public class MemberController {
 		int mid = Integer.parseInt(request.getParameter("mid"));
 
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		String filePath = root + "\\upload_images";
+		String filePath = root + "/upload_images/";
 		String originFileName = photo.getOriginalFilename();
 		String ext = originFileName.substring(originFileName.lastIndexOf("."));
 		String changeName = CommonUtils.getRandomString();
@@ -216,7 +216,7 @@ public class MemberController {
 		pf.setMid(mid);
 
 		try {
-			photo.transferTo(new File(filePath + "\\" + changeName + ext));
+			photo.transferTo(new File(filePath + changeName + ext));
 			System.out.println("digh");
 
 			int result = ms.insertChangedProfile(pf);
@@ -232,7 +232,7 @@ public class MemberController {
 				response.getWriter().println(mapper.writeValueAsString(result));
 			}
 		} catch (Exception e) {
-			new File(filePath + "\\" + changeName + ext).delete();
+			new File(filePath + changeName + ext).delete();
 		}
 	}
 	

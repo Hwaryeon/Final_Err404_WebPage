@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
   <meta name="viewport" content=" width=device-width, initial-scale=1">
+  <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <title>Weekend Magazine</title>
   <!-- CSS -->
   <link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -25,6 +26,7 @@
         <div class="col-md-6 col-xs-12" style="min-width:600px;">
           <div class="logo" style="width:120px; min-width:120px; float:left;">
             <h1><a href="index.html" title="Weekend Magazine">ERR404</a></h1>
+            
           </div>
           <div id="search-3" class="widget fullwidth widget_search" style="width:300px; min-width:300px; float:left; border:1px solid lightgray; border-radius:11px; height:20px;margin-top:10px;">
           		<!-- 검색 -->
@@ -72,13 +74,15 @@
 
 	    });
         
+      
+        
         $.ajax({
         	url : 'http://127.0.0.1:3000/',
         	data : {
         		mid : `${sessionScope.loginUser.mid}`,
         		name : `${sessionScope.loginUser.mName}`,
-        		profile : `${sessionScope.loginUser.fileSrc}${sessionScope.loginUser.editName}`,
-        		language : `${sessionScope.loginUser.mNational}`
+        		profile : ``,
+        		language : `${sessionScope.loginUser.mNational}`,
         		},
         	type : 'post',
         	success:function(data){
