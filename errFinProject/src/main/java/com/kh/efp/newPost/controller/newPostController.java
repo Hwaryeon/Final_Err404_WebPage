@@ -16,6 +16,7 @@ import com.kh.efp.newPost.model.vo.BandMemberCount;
 import com.kh.efp.newPost.model.vo.BandProfile;
 import com.kh.efp.newPost.model.vo.Boards;
 import com.kh.efp.newPost.model.vo.Category;
+import com.kh.efp.newPost.model.vo.MemberProfile;
 
 
 @Controller
@@ -26,8 +27,6 @@ public class newPostController {
 	
 	@RequestMapping("newPost.np")
 	public String showMemberInfoList(Model model){
-		
-		System.out.println("newPost.np 컨트롤러 호출");
 		
 		//회원 아이디 임시로
 		String memail = "loulqi152@yahoo.co.kr";
@@ -76,38 +75,70 @@ public class newPostController {
 		
 		int newPostCount = 0 ;
 		
+		Boards bs = new Boards();
+		
 		for(int i=0; i < bList.size(); i++){
-			newPostCount += ns.selectBandNewPostCount(bList.get(i).getBid());
+			
+			bs.setBid(bList.get(i).getBid());
+			bs.setMid(mid);
+			
+			newPostCount += ns.selectBandNewPostCount(bs);
 		}
 		
-		System.out.println("newPostCount : " + newPostCount);
 		
 		
-		ArrayList<Boards> npList = ns.selectNewPostList(mid);
+			ArrayList<Boards> newPostList = new ArrayList<Boards>(newPostCount);
+			for(int i=0; i < bList.size(); i++){
+				
+				bs.setBid(bList.get(i).getBid());
+				bs.setMid(mid);
+				
+				ArrayList<Boards> temp = ns.selectNewPostList2(bs);
+				
+					for(int j=0; j < temp.size(); j++){
+						
+						newPostList.add(temp.get(j)); 
+					}
+					
+					
+			}
+		
+		Boards[] test =  new Boards[newPostList.size()];
+		
+		for(int i=0; i < test.length; i++){
+			test[i] = newPostList.get(i);
+		}
+		
+		Boards b = new Boards();
 		
 		
-		
-		
-		
-		/*ArrayList<Member> memberList = new ArrayList<Member>(npList.size());
-		
-		
-		int check = 0;
-		for(int i=0; i < npList.size(); i++){
+		for(int i=test.length; i >0; i--){
 			
-			check = 0;
-			
-			for(int j=0; j < memberList.size(); j++){
-				if(memberList.get(j).getMid() == npList.get(i).getMid()){
-					check = 1;
+			for(int j=0; j<i-1; j++){
+				
+				if((test[j].getBdate()).compareTo(test[j+1].getBdate()) == -1){
+					
+					b = test[j];
+					test[j] = test[j+1];
+					test[j+1] = b;
 				}
 			}
-			
-			if(check != 1){
-				memberList.add(ns.selectMember(npList.get(i).getMid()));
-			}
-			
+		}
+		
+		ArrayList<MemberProfile> mList = new ArrayList<MemberProfile>(test.length);
+		
+		for(int i=0; i < test.length; i++){
+			mList.add(ns.selectMemberProfile(test[i].getMid()));
+		}
+		
+		/*for(int i=0; i < mList.size(); i++){
+			System.out.println(i + " : " + mList.get(i).toString());
 		}*/
+		
+		
+		
+		model.addAttribute("newPostList", test);
+		model.addAttribute("mList", mList);
 		
 		
 		model.addAttribute("cList", cList);
@@ -116,7 +147,6 @@ public class newPostController {
 		model.addAttribute("ranList", ranList);
 		model.addAttribute("rpList", rpList);
 		model.addAttribute("bmcList", bmcList);
-		model.addAttribute("npList", npList);
 		
 		return "newPost/newPost";
 	}

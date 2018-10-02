@@ -7,6 +7,7 @@ import com.kh.efp.member.model.vo.Member;
 import com.kh.efp.newPost.model.vo.BandProfile;
 import com.kh.efp.newPost.model.vo.Boards;
 import com.kh.efp.newPost.model.vo.Category;
+import com.kh.efp.newPost.model.vo.MemberProfile;
 
 public interface newPostService {
 
@@ -18,11 +19,13 @@ public interface newPostService {
 
 	int selectBandMemberCount(int bid);
 
-	ArrayList<Boards> selectNewPostList(int mid);
-
 	Member selectMember(int mid);
 
-	int selectBandNewPostCount(int bid);
+	int selectBandNewPostCount(Boards bs);
+
+	ArrayList<Boards> selectNewPostList2(Boards bs);
+
+	MemberProfile selectMemberProfile(int mid);
 
 
 }
