@@ -54,7 +54,7 @@ public class MemberserviceImpl implements MemberService {
 		System.out.println(mid);
 		System.out.println("pf : " + pf);
 		
-		int result2 = md.insertMemberProfile(sqlSession, pf);
+		int result2 = md.insertMemberProfile(sqlSession, pf);	//여기서 에러
 		System.out.println(result2);
 		
 		if(result1 > 0 && result2 > 0){
@@ -165,10 +165,13 @@ public class MemberserviceImpl implements MemberService {
 	@Override
 	public loginUser loginMember2(Member m) throws LoginException {
 		loginUser loginUser = null;
+		Member member = null;
  		String encPassword = md.selectEncPassword(sqlSession, m);
  		if(!passwordEncoder.matches(m.getmPwd(), encPassword)){
 			throw new LoginException("로그인 정보가 존재하지 않습니다");
 		}else{
+			member = md.selectMember(sqlSession, m);
+			m.setMid(member.getMid());
 			loginUser = md.selectLoginUser(sqlSession, m);
 		}
 		

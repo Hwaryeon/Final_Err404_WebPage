@@ -25,6 +25,20 @@
 		location.href="${path}/board/write.do"
 		})
 	})
+	
+	$(document).ready(function(){
+		$("btnSave").click(function(){
+			var content = $("#content").val();
+			if(content==""){
+				alert("내용을 입력하세요");
+				document.form1.content.focus();
+				return;
+			}
+			
+			document.form1.submit();
+		});
+	});
+	
 </script>
 
 </head>
@@ -205,8 +219,82 @@
 				</div>
 				<!-- #respond -->
 			</div>
+			
+			
+			
+			<c:forEach items="${boardMain }" var="row">
 
-			<div class="post widget">
+
+		<div class="post widget" style="margin-bottom:34px;">
+              <div class="post-social" style="border-top: 0px solid #EAEAEA; padding-top: 10px;">
+                <div class="share-container" style="width:100%;">
+                
+               <%--  <c:forEach var="b2" items="${bList }">
+                	<c:if test="${b2.bid == do.bid }"> --%>
+                	
+                     <%-- 	 <span class="share-title">${b2.bname }</span> --%>
+                      
+                 
+                  </div>
+              </div>
+              
+              <div class="post-meta" style="padding-bottom:10px;">
+                  <!-- June 22, 2014 7:33 pm    -->     
+                  <a href="" class="print" title="Print"><i class="fa fa-print"></i></a>
+              </div>
+              <div class="box-content widget fullwidth" id="comments" style="margin-bottom:0px;">
+              <h4 class="comment-title"></h4>
+              <ol class="commentlist">
+                <li class="comment parent">
+                
+                    <div class="comment-body">
+            
+                    <div class="line"></div>
+                    <div class="comment-vcard">
+                        <img width="60" height="60" alt="" src="http://placehold.it/70x70" class="avatar">            
+                        <!-- <span class="author-tag">Author</span> -->
+                    </div>
+                    
+                    <div class="comment_detail" style="width: 423px;">
+                        
+                        <div class="comment-header">
+                            
+                            <span class="author">작성자 이름</span> 
+                            
+                            <span class="date">
+                                <a href="#">${row.bDate }</a>
+                            </span>
+                            
+                            <span class="reply">
+                                <a class="comment-reply-link" href="#">신고</a>
+                            </span>
+            
+                        </div><!--comment-header-->
+                        
+                    </div><!--.comment_detail-->
+                    
+                    </div><!--.comment-body-->
+                </li><!--Parent li-->
+                
+                
+              </ol>
+            </div>
+              <div class="post-content" style="margin-top:60px;border-top:2px solid #EAEAEA; padding-top:15px;">
+              
+                <!-- <h1 class="post-title"><a href="#">Pistorius numb with grief and shock over death of girlfriend, family says the truth</a></h1>
+                <p class="bold">Our entire family is devastated, we are in a state of total shock - first about the tragic death of Reeva, who we had all got to know well and care for deeply over the last few months," the statement, from Arnold Pistorius, uncle of the accused. All of us saw at first hand how close she had become to Oscar.</p> -->
+                <p>${row.bContent }</p>
+                <!-- <blockquote>Intelligence services, identified energy, finance, information technology, aerospace and automotive companies as the most frequent targets of hacking campaigns that appear state sponsored, according to The Washington Post earlier this week.</blockquote>
+                <img class="post-image img-beresponsive" src="http://placehold.it/469x291" alt=""> -->
+              </div>
+            </div>
+			
+			
+			
+			</c:forEach>
+			
+			<%-- 
+			<div class="post widget">s
 				<div class="post-meta">
 
 					<!-- 게시글 드롭다운 -->
@@ -246,7 +334,7 @@
 				<div class="post-content">
 					<img class="post-image img-beresponsive"
 						src="http://placehold.it/469x291" alt="">
-					<p class="bold">내용입니다~~~</p>
+					<p class="content">${np.bcontent }</p>
 
 				</div>
 
@@ -312,7 +400,7 @@
 				</div>
 
 			</div>
-
+</c:forEach> --%>
 
 
 

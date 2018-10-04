@@ -36,6 +36,8 @@
 		<id property="mid" column="MID"/>
 		<result property="bname" column="BNAME"/>
 		<result property="memberCount" column="MEMBERCOUNT"/>
+		<result property="edit_name" column="EDIT_NAME"/>
+		<result property="bid" column="BID"/>
 	</resultMap>
 	
 	<!-- 모든 검색 밴드 리스트 가져오기 -->
@@ -124,16 +126,17 @@
 	</select>
 	
 
-	<select id='selectMyBand' resultMap='MyBand' parameterType="java.util.ArrayList" resultType="java.util.ArrayList">
-		SELECT MEMBERCOUNT, BNAME, MID
+	<select id="selectMyBand" resultMap="MyBand" parameterType="java.util.ArrayList" resultType="java.util.ArrayList">
+		SELECT MID, BNAME, MEMBERCOUNT, EDIT_NAME, MY.BID
 		FROM BAND B
 		JOIN (SELECT COUNT(MB.MID) AS MEMBERCOUNT, MB.BID
 			  FROM MEMBER_BAND MB
 			  GROUP BY MB.BID
 			  ORDER BY MB.BID ASC) C ON (C.BID = B.BID)
-		JOIN (SELECT M.MID, MB.BID
+		JOIN (SELECT M.MID, MB.BID, P.EDIT_NAME
 			  FROM MEMBER M
 			  JOIN MEMBER_BAND MB ON (M.MID = MB.MID)
+              JOIN PROFILE P ON (MB.BID = P.BID)
 			  WHERE M.MID = #{mid}) MY ON (MY.BID = B.BID)
 	</select>
 

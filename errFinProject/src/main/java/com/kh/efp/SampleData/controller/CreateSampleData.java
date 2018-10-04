@@ -245,8 +245,9 @@ public class CreateSampleData{
 	private String cut_Char(String str){
 		String[] arr = str.split(",");
 		if(arr.length != 2) return "0";
-		int one = Integer.parseInt(arr[0]);
-		int two = Integer.parseInt(arr[1]);
+		
+		int one = Integer.parseInt(arr[0].trim());
+		int two = Integer.parseInt(arr[1].trim());
 		int num = 0;
 		if(one > two){	// 10, 5 일때  앞에 수가 뒤에 수보다 많을때
 			num = (new Random().nextInt(one-two+1))+two;

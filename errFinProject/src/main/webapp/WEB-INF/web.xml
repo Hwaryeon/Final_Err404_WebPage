@@ -34,7 +34,7 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
-	<!-- <servlet>
+	<servlet>
 		<servlet-name>board</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
@@ -42,7 +42,7 @@
 			<param-value>/WEB-INF/config/board-servlet.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
-	</servlet> -->
+	</servlet>
 		
 
 	<servlet-mapping>
@@ -63,6 +63,11 @@
 	<servlet-mapping>
 		<servlet-name>newPost</servlet-name>
 		<url-pattern>*.np</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>board</servlet-name>
+		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -176,6 +181,21 @@
 	<servlet-mapping>
 		<servlet-name>codeFactoryServlet</servlet-name>
 		<url-pattern>*.codeFac</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 카테고리 매핑 -->
+	<servlet>
+		<servlet-name>categoryServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/category-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>categoryServlet</servlet-name>
+		<url-pattern>*.category</url-pattern>
 	</servlet-mapping>
 
 </web-app>
