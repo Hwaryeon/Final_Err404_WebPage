@@ -4,31 +4,27 @@
 <html>
 <head profile="http://www.w3.org/2005/10/profile">
   <meta name="viewport" content=" width=device-width, initial-scale=1">
-  <!-- CSS -->
-  <link rel="icon" type="image/png" href="http://example.com/myicon.png"> 
-  <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
-  <link href="${contextPath}/resources/css/font-awesome.min.css" rel="stylesheet">
-  <link href="${contextPath}/resources/css/style.css" rel="stylesheet">
-  <link href="${contextPath}/resources/css/responsive.css" rel="stylesheet">
-  <link href="${contextPath}/resources/css/sss.css" rel="stylesheet">
-  <link href="${contextPath}/resources/css/sampleData/tableStyle.css" rel="stylesheet">
-  <link href="${contextPath}/resources/css/sampleData/bootstrap-select.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css'/>
-  <!-- Script -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
-  <script src="${contextPath}/resources/js/jquery.bxslider.min.js"></script>
-  <script src="${contextPath}/resources/js/sss.min.js"></script>
-  <script src="${contextPath}/resources/js/custom.js"></script>
-  <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-  <script src='//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js'></script>
+  	<!-- CSS -->
+	  <link rel="icon" type="image/png" href="http://example.com/myicon.png"> 
+	  <link href="${contextPath}/resources/css/sampleData/tableStyle.css" rel="stylesheet">
+	  <link href="${contextPath}/resources/css/sampleData/bootstrap-select.css" rel="stylesheet">
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	  <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css'/>
+	  
+	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
+	
+	  <!-- Script -->
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	  <script src="${contextPath}/resources/js/jquery.bxslider.min.js"></script>
+	  <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
+	  <script src="${contextPath}/resources/js/sss.min.js"></script>
+	  <script src='//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js'></script>
+	  <script src="${contextPath}/resources/js/custom.js"></script>
+ 	  <script src="${contextPath}/resources/js/sampleData/bootstrap-select.js"></script>
 </head>
 <style>
-	.table_box{
-		width:1300px;
-	}
 
 	.data_table{
 		border:solid;
@@ -85,9 +81,6 @@
 </style>
 <!-- body -->
 <body class="home page page-id-4 page-template page-template-template_home-php">
-
-    <jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
-    <script src="${contextPath}/resources/js/sampleData/bootstrap-select.js"></script>
     <!--  내용  -->
 
     <div class="container">
@@ -310,7 +303,7 @@
 		        	
 		        },
 		        error : function(data){
-		        	errorAlert('서버 에러');
+		        	errorAlert('구문 에러');
 		        	$('.btn-box').show();
 		        	$('#lodingImg').hide();
 		        }
@@ -408,43 +401,6 @@
 		}
 	</script>
 
-	<div class="footer">
-	      <div class="footer-top">
-	        <div class="container">
-	          <div class="pull-left">
-	            <div id="text-6">     
-	              <div class="textwidget"><a href="#">Weekend Magazine</a> &copy; 2015 All rights reserved</div>
-	            </div>          
-	          </div>
-	          <div class="pull-right hidden-xs">
-	            <div id="text-7">     
-	              <div class="textwidget">Theme by <a title="Email me now" href="#">JKthemes</a></div>
-	            </div>          
-	          </div>
-	        </div>
-	      </div>
-	      <div class="footer-bottom hidden-xs">
-	        <div class="container">
-	          <div id="nav_menu-2">
-	            <div class="menu-footer-menu-container">
-	              <ul id="menu-footer-menu" class="menu">
-	                <li><a href="#">Home</a></li>
-	                <li><a href="#">News</a></li>
-	                <li><a href="#">Economy</a></li>
-	                <li><a href="#">Sports</a></li>
-	                <li><a href="#">Shows</a></li>
-	                <li><a href="#">Culture &#038; Art</a></li>
-	                <li><a href="#">Gossips</a></li>
-	                <li><a href="#">Fashion</a></li>
-	                <li><a href="#">Health &#038; Body</a></li>
-	                <li><a href="#">Technology</a></li>
-	                <li><a href="#">Science</a></li>
-	              </ul>
-	            </div>
-	          </div>          
-	          <a class="footer-nav-scroll pull-right"></a>
-	        </div>
-	      </div>
-	    </div>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
   </body>
 </html>

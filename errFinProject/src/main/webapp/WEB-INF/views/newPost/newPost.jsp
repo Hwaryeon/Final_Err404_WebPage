@@ -11,7 +11,10 @@
   <meta charset="utf-8">
   <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
   <meta name="viewport" content=" width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <title>Weekend Magazine</title>
+  <link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal.css">
+  <link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal-default-theme.css">
 <link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">
@@ -133,6 +136,8 @@
                     <li class="active"><a href="#popular" data-toggle="tab">내 밴드
                     <em style="color:#2ecc71; margin-left:5px;">${fn:length(bList)}</em> </a></li>
                     <!-- <li><a href="#recent" data-toggle="tab">recent</a></li> -->
+                   
+                   
                 </ul>
                 <div class="tab-content padding-10">
                     <div class="tab-pane fade in active" id="popular">
@@ -154,7 +159,7 @@
                                         </c:forEach>
                                     </a>
                                 </div>
-                             	   <h4 style="margin-top:14px;"><a href="#">${b.bname }</a></h4>
+                             	   <h4 style="margin-top:14px;"><a href="list.do">${b.bname }</a></h4>
 	                            </li>
 	                   
 	                            <c:set var="num" value="${num + 1}"/>
@@ -213,16 +218,7 @@
 
         <div class="main col-md-6 col-xs-12">
 
-          	<!-- <div class="breadcrumbs widget">
-              <ul class="clearfix">
-                <li><h4 class="title">Path</h4></li>
-                <li><a href="#">Weekend</a></li>
-                <li><a class="active" href="#">Culture &amp; Art</a></li>
-              </ul>            
-            </div> -->
-
-
-		<c:forEach var="np" items="${npList }">
+		<c:forEach var="np" items="${newPostList }">
 
 		<div class="post widget" style="margin-bottom:34px;">
               <div class="post-social" style="border-top: 0px solid #EAEAEA; padding-top: 10px;">
@@ -239,7 +235,7 @@
               
               <div class="post-meta" style="padding-bottom:10px;">
                   <!-- June 22, 2014 7:33 pm    -->     
-                  <a href="" class="print" title="Print"><i class="fa fa-print"></i></a>
+                 <!--  <a href="" class="print" title="Print"><i class="fa fa-print"></i></a> -->
               </div>
               <div class="box-content widget fullwidth" id="comments" style="margin-bottom:0px;">
               <h4 class="comment-title"></h4>
@@ -258,14 +254,39 @@
                         
                         <div class="comment-header">
                             
-                            <span class="author">작성자 이름</span> 
+                            <c:forEach var="mName" items="${ mList }">
                             
+                            	<c:if test="${ mName.mid == np.mid }" >
+                            
+                          		  <span class="author">${ mName.mname }</span> 
+                          	  </c:if>
+                            </c:forEach>
                             <span class="date">
                                 <a href="#">${np.bdate }</a>
                             </span>
                             
                             <span class="reply">
-                                <a class="comment-reply-link" href="#">신고</a>
+                            	<!-- 신고글 번호 -->
+                            	<input type="hidden" value="${ np.boardid }">
+                            	
+                            	<!-- 신고글 밴드 번호 -->
+                            	<input type="hidden" value="${np.bid }">
+                            	
+                            	<!-- 신고글 유저 번호 -->
+                            	<input type="hidden" value="${np.mid }">
+                            	
+                            	<!-- 신고글 유저 이름 -->
+                            	<c:forEach var="m" items="${ mList }">
+                            
+	                            	<c:if test="${ m.mid == np.mid }" >
+	                            		<input type="hidden" value="${ m.mname }">
+	                          	  	</c:if>
+                          	  	</c:forEach>
+                            	
+								<!-- 신고글 내용 -->                            	
+                            	<input type="hidden" value="${np.bcontent }">
+                            	
+                                <a class="comment-reply-link reportBoard" style="cursor:pointer;">신고</a>
                             </span>
             
                         </div><!--comment-header-->
@@ -289,6 +310,24 @@
             </div>
 
 		</c:forEach>
+		
+		<script>
+		$('.reportBoard').click(function(){
+			 
+			 var str = ($(this).parents().children("input").eq(4).val()).substr(0, 25);
+			 str += '...';
+				  
+			 document.getElementById('boardid').value = $(this).parents().children("input").eq(0).val()		  
+			 document.getElementById('bid').value = $(this).parents().children("input").eq(1).val()	
+			 document.getElementById('mid').value = $(this).parents().children("input").eq(2).val()	
+			 
+			 document.getElementById('modal1Desc').innerHTML = $(this).parents().children("input").eq(3).val();
+			 document.getElementById('modal1Desc2').innerHTML = str;
+			 
+			 location.href="#modal";
+		});
+		
+		</script>
 
 		<div class="box-content widget fullwidth" id="comments" style="margin-bottom:0px;">
               <h4 class="comment-title">댓글 3</h4>
@@ -531,5 +570,125 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.bxslider.min.js"></script>
     <script src="js/custom.js"></script>
+    
+    
+    <div class="remodal" data-remodal-id="modal" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
+  <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
+  <div>
+    <h2 id="modal1Title" style="border: 1px solid black;padding: 10px;">신고하기</h2>
+    <p id="modal1Desc" style="margin-top:30px; font-size:20px;">
+       	신고 이름
+    </p> 
+    <p id="modal1Desc2" style="font-size:20px;">
+       	신고 내용
+    </p>
+    
+    <ul>
+							<li>
+								<h4 class="list-title"
+									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
+									음란 또는 청소년에게 부적합한 내용
+									<label style="float:right"> 
+										<input name="remember" value="음란 또는 청소년에게 부적합한 내용" type="radio">
+								</label>
+								</h4>
+							</li>
+							<li>
+								<h4 class="list-title"
+									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
+									부적절한 홍보
+									<label style="float:right">
+										<input name="remember" value="부적절한 홍보" type="radio" >
+									</label>
+								</h4>
+							</li>
+							<li>
+								<h4 class="list-title"
+									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
+									개인정보 노출
+									<label style="float:right"> 
+										<input name="remember" value="개인정보 노출" type="radio">
+									
+									</label>
+								</h4>
+							</li>
+							<li>
+								<h4 class="list-title"
+									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
+									저작권 및 명예훼손/기타권리 침해
+									<label style="float:right"> 
+										<input name="remember" value="저작권 및 명예훼손/기타권리 침해" type="radio">
+									
+									</label>
+								</h4>
+							</li>
+						</ul>
+    
+    
+    
+  </div>
+  <br>
+  <input type="hidden" id="boardid" value=""/>
+  <input type="hidden" id="bid" value=""/> 
+  <input type="hidden" id="mid" value=""/>  
+  <button data-remodal-action="cancel" class="remodal-cancel">취소</button>
+  <button id="reportNewPost" data-remodal-action="confirm" class="remodal-confirm">신고하기</button>
+</div>
+    <script>
+
+$('#reportNewPost').click(function(){
+	
+	
+	console.log("id : " + document.getElementById('boardid').value);
+	console.log("id : " + document.getElementById('bid').value);
+	console.log("id : " + document.getElementById('mid').value);
+	
+	var radioVal = $('input[name="remember"]:checked').val();
+	
+	console.log("radio : " + radioVal);
+	
+	/* var mbid = document.getElementById('mbid').value;
+	
+	location.href="deleteBandMultiLeader.bd?mbid=" + mbid; */
+	
+});
+
+</script>
+
+
+<script>window.jQuery || document.write('<script src="../../../libs/jquery/dist/jquery.min.js"><\/script>')</script>
+<script src="${ contextPath }/resources/Remodal-1.1.1/dist/remodal.js"></script>
+
+<!-- Events -->
+<script>
+  $(document).on('opening', '.remodal', function () {
+    /* console.log('opening'); */
+  });
+
+  $(document).on('opened', '.remodal', function () {
+    /* console.log('opened'); */
+  });
+
+  $(document).on('closing', '.remodal', function (e) {
+    /* console.log('closing' + (e.reason ? ', reason: ' + e.reason : '')); */
+  });
+
+  $(document).on('closed', '.remodal', function (e) {
+    /* console.log('closed' + (e.reason ? ', reason: ' + e.reason : '')); */
+  });
+
+  $(document).on('confirmation', '.remodal', function () {
+    /* console.log('confirmation'); */
+  });
+
+  $(document).on('cancellation', '.remodal', function () {
+    /* console.log('cancellation'); */
+  });
+  
+  $('[data-remodal-id=modal2]').remodal({
+    /* modifier: 'with-red-theme' */
+  });
+</script>
+    
   </body>
 </html>

@@ -11,6 +11,7 @@ import com.kh.efp.member.model.vo.Member;
 import com.kh.efp.newPost.model.vo.BandProfile;
 import com.kh.efp.newPost.model.vo.Boards;
 import com.kh.efp.newPost.model.vo.Category;
+import com.kh.efp.newPost.model.vo.MemberProfile;
 
 @Repository
 public class newPostDaoImpl implements newPostDao{
@@ -50,23 +51,27 @@ public class newPostDaoImpl implements newPostDao{
 	}
 
 	@Override
-	public ArrayList<Boards> selectNewPostList(SqlSessionTemplate sqlSession, int mid) {
-		ArrayList<Boards> list = null;
-		
-		list = (ArrayList)sqlSession.selectList("newPost.selectNewPostList", mid);
-		
-		return list;
-	}
-
-	@Override
 	public Member selectMember(SqlSessionTemplate sqlSession, int mid) {
 		return sqlSession.selectOne("newPost.selectMember", mid);
 	}
 
 	@Override
-	public int selectBandNewPostCount(SqlSessionTemplate sqlSession, int bid) {
-		/*return sqlSession.selectOne("newPost.selectBandNewPostCount", bid);*/
-		return 0;
+	public int selectBandNewPostCount(SqlSessionTemplate sqlSession, Boards bs) {
+		return sqlSession.selectOne("newPost.selectBandNewPostCount", bs);
+	}
+
+	@Override
+	public ArrayList<Boards> selectNewPostList2(SqlSessionTemplate sqlSession, Boards bs) {
+		ArrayList<Boards> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("newPost.selectNewPostList2", bs);
+		
+		return list;
+	}
+
+	@Override
+	public MemberProfile selectMemberProfile(SqlSessionTemplate sqlSession, int mid) {
+		return sqlSession.selectOne("newPost.selectMemberProfile", mid);
 	}
 
 

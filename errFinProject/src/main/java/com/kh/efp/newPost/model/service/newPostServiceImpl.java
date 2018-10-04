@@ -12,6 +12,7 @@ import com.kh.efp.newPost.model.dao.newPostDao;
 import com.kh.efp.newPost.model.vo.BandProfile;
 import com.kh.efp.newPost.model.vo.Boards;
 import com.kh.efp.newPost.model.vo.Category;
+import com.kh.efp.newPost.model.vo.MemberProfile;
 
 @Service
 public class newPostServiceImpl implements newPostService{
@@ -40,18 +41,23 @@ public class newPostServiceImpl implements newPostService{
 	}
 
 	@Override
-	public ArrayList<Boards> selectNewPostList(int mid) {
-		return nd.selectNewPostList(sqlSession, mid);
-	}
-
-	@Override
 	public Member selectMember(int mid) {
 		return nd.selectMember(sqlSession, mid);
 	}
 
 	@Override
-	public int selectBandNewPostCount(int bid) {
-		return nd.selectBandNewPostCount(sqlSession, bid);
+	public int selectBandNewPostCount(Boards bs) {
+		return nd.selectBandNewPostCount(sqlSession, bs);
+	}
+
+	@Override
+	public ArrayList<Boards> selectNewPostList2(Boards bs) {
+		return nd.selectNewPostList2(sqlSession, bs);
+	}
+
+	@Override
+	public MemberProfile selectMemberProfile(int mid) {
+		return nd.selectMemberProfile(sqlSession, mid);
 	}
 
 }

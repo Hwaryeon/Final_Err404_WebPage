@@ -25,7 +25,7 @@
   
   <!-- theme -->
   <link rel="stylesheet" href="${contextPath}/resources/css/codeFactory/codemirror/theme/3024-night.css">
-  <link rel="stylesheet" href="${contextPath}/resources/css/codeFactory/codemirror/theme/rubyblue.css">
+  <link rel="stylesheet" href="${contextPath}/resources/css/codeFactory/codemirror/theme/ambiance.css">
   
   <!-- dialog -->
   <link rel="stylesheet" href="${contextPath}/resources/css/codeFactory/codemirror/dialog/dialog.css">
@@ -44,11 +44,13 @@
   <script src="${contextPath}/resources/js/codeFactory/codemirror.js"></script>
   
   <!-- mode -->
-  <script src="${contextPath}/resources/js/codeFactory/codemirror/mode/"></script>
   <script src="${contextPath}/resources/js/codeFactory/codemirror/mode/javascript.js"></script>
   <script src="${contextPath}/resources/js/codeFactory/codemirror/mode/clike.js"></script>
   <script src="${contextPath}/resources/js/codeFactory/codemirror/mode/ruby.js"></script>
   <script src="${contextPath}/resources/js/codeFactory/codemirror/mode/go.js"></script>
+  <script src="${contextPath}/resources/js/codeFactory/codemirror/mode/python.js"></script>
+  <script src="${contextPath}/resources/js/codeFactory/codemirror/mode/simple.js"></script>
+  <script src="${contextPath}/resources/js/codeFactory/codemirror/mode/rust.js"></script>
   
   <!-- hint -->
   <script src="${contextPath}/resources/js/codeFactory/codemirror/hint/show-hint.js"></script>
@@ -64,6 +66,10 @@
   <script src="${contextPath}/resources/js/codeFactory/codemirror/search/matchesonscrollbar.js"></script>
   <script src="${contextPath}/resources/js/codeFactory/codemirror/search/search.js"></script>
   <script src="${contextPath}/resources/js/codeFactory/codemirror/search/searchcursor.js"></script>
+  
+  <!-- editor -->
+  <script src="${contextPath}/resources/js/codeFactory/codemirror/editor/matchbrackets.js"></script>
+  <script src="${contextPath}/resources/js/codeFactory/codemirror/editor/closebrackets.js"></script>
   
 </head>
 
@@ -142,7 +148,7 @@
     
       <div class="main col-md-12 col-xs-12">
       <div class="widget" style='padding:20px; margin-top:20px; '>
-      		<label class='title'>WEB COMPILER</label>
+      		<label class='title'>Code Factory</label>
       	</div>
       </div>
     
@@ -172,9 +178,14 @@ public class MyClass {
       		<select id='selectLanguage'>
 				<option value='java'>JAVA</option>
 				<option value='c'>C</option>
+				<option value='cpp'>C++</option>
 				<option value='csharp'>C#</option>
+				<option value='scala'>Scala</option>
 				<option value='ruby'>Ruby</option>
 				<option value='go'>GO</option>
+				<option value='nodejs'>Nodejs</option>
+				<option value='python3'>Python</option>
+				<option value='rust'>RUST</option>
 			</select>
       	</div>
       </div>
@@ -210,9 +221,19 @@ public class MyClass {
 				<td><label style='color:green;font-weight: 800;'>O</label></td>
 			</tr>
 			<tr>
+				<td>C++</td>
+				<td>GCC 5.3.0</td>
+				<td><label style='color:green;font-weight: 800;'>O</label></td>
+			</tr>
+			<tr>
 				<td>C#</td>
 				<td>mono 4.2.2</td>
-				<td><label style='color:green;font-weight: 800;'>O</label></td>
+				<td><label style='color:red;font-weight: 800;'>X</label></td>
+			</tr>
+			<tr>
+				<td>Scala</td>
+				<td>2.12.0</td>
+				<td><label style='color:red;font-weight: 800;'>X</label></td>
 			</tr>
 			<tr>
 				<td>Ruby</td>
@@ -222,6 +243,21 @@ public class MyClass {
 			<tr>
 				<td>GO</td>
 				<td>1.5.2</td>
+				<td><label style='color:green;font-weight: 800;'>O</label></td>
+			</tr>
+			<tr>
+				<td>Nodejs</td>
+				<td>6.3.1</td>
+				<td><label style='color:green;font-weight: 800;'>O</label></td>
+			</tr>
+			<tr>
+				<td>Python</td>
+				<td>3.5.1</td>
+				<td><label style='color:green;font-weight: 800;'>O</label></td>
+			</tr>
+			<tr>
+				<td>RUST</td>
+				<td>1.10.0</td>
 				<td><label style='color:green;font-weight: 800;'>O</label></td>
 			</tr>
 		</tbody>
@@ -235,8 +271,10 @@ public class MyClass {
 		//코드창
 		var editor = CodeMirror.fromTextArea($('#editor')[0], {
 			  mode: "text/x-java",
-			  theme:'rubyblue',
+			  theme:'ambiance',
+			  matchBrackets: true,
 			  lineNumbers: true,
+			  autoCloseBrackets: true,
 			  extraKeys: {"Ctrl-Space": "autocomplete", "Alt-F": "findPersistent"}
 	  	});
 		
@@ -294,12 +332,26 @@ public class MyClass {
 						
 						result_view.setOption("mode", 'text/x-csrc'); 
 						break;
+					
+					case 'cpp' : 
+						editor.setOption("mode", 'text/x-c++src');
+						editor.setValue(viewData(selectLanguage));
+						
+						result_view.setOption("mode", 'text/x-c++src'); 
+						break;
 						
 					case 'csharp' : 
 						editor.setOption("mode", 'text/x-csharp');
 						editor.setValue(viewData(selectLanguage));
 						
 						result_view.setOption("mode", 'text/x-csharp'); 
+						break;
+					
+					case 'scala' : 
+						editor.setOption("mode", 'text/x-scala');
+						editor.setValue(viewData(selectLanguage));
+						
+						result_view.setOption("mode", 'text/x-scala'); 
 						break;
 						
 					case 'ruby' : 
@@ -314,6 +366,27 @@ public class MyClass {
 						editor.setValue(viewData(selectLanguage));
 						
 						result_view.setOption("mode", 'text/x-go'); 
+						break;
+						
+					case 'nodejs' : 
+						editor.setOption("mode", 'text/javascript');
+						editor.setValue(viewData(selectLanguage));
+						
+						result_view.setOption("mode", 'text/javascript'); 
+						break;
+						
+					case 'python3' : 
+						editor.setOption("mode", 'text/x-python');
+						editor.setValue(viewData(selectLanguage));
+						
+						result_view.setOption("mode", 'text/x-python'); 
+						break;
+						
+					case 'rust' : 
+						editor.setOption("mode", 'text/x-rustsrc');
+						editor.setValue(viewData(selectLanguage));
+						
+						result_view.setOption("mode", 'text/x-rustsrc'); 
 						break;
 				}
 			});
@@ -334,11 +407,23 @@ public class MyClass {
 				    '\treturn 0;\n'+
 				'}';
 				
+				case 'cpp' : return '#include <iostream>\n\n'+
+				'using namespace std;\n\n'+
+				'int main() {\n'+
+					'\tcout<<"hello world";\n'+
+				'}';
+				
 				case 'csharp' : return 'using System;\n\n'+
 				'class Program{\n'+
 				    '\tstatic void Main(){\n'+
 				        '\t\tConsole.Write("hello world");\n'+
 				    '\t}\n'+
+				'}';
+				
+				case 'scala' : return 'object MyClass {\n'+
+			      '\tdef main(args: Array[String]) {\n'+
+			         '\t\tprint("hello world");\n'+
+			      '\t}\n'+
 				'}';
 				
 				case 'ruby' : return 'class HelloWorld\n'+
@@ -353,6 +438,14 @@ public class MyClass {
 				'import "fmt"\n\n'+
 				'func main() {\n'+
 				    '\tfmt.Println("hello world")\n'+
+				'}';
+				
+				case 'nodejs' : return 'console.log("hello world");';
+				
+				case 'python3' : return 'print ("hello world");';
+				
+				case 'rust' : return 'fn main() {\n'+
+				    '\tprintln!("hello world");\n'+
 				'}';
 			}
 		}

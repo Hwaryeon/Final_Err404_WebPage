@@ -37,7 +37,7 @@
     text-align: center;
     background-color: #ebebeb;
     border-radius: 2px;
-    background-image: url(img/addImg.png);
+    background-image: url(img/addImzg.png);
     background-size: contain;
     background-repeat:no-repeat;
 }  

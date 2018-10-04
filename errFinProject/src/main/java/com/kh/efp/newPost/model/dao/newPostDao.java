@@ -9,6 +9,7 @@ import com.kh.efp.member.model.vo.Member;
 import com.kh.efp.newPost.model.vo.BandProfile;
 import com.kh.efp.newPost.model.vo.Boards;
 import com.kh.efp.newPost.model.vo.Category;
+import com.kh.efp.newPost.model.vo.MemberProfile;
 
 public interface newPostDao {
 
@@ -20,11 +21,13 @@ public interface newPostDao {
 
 	int selectBandMemberCount(SqlSessionTemplate sqlSession, int bid);
 
-	ArrayList<Boards> selectNewPostList(SqlSessionTemplate sqlSession, int mid);
-
 	Member selectMember(SqlSessionTemplate sqlSession, int mid);
 
-	int selectBandNewPostCount(SqlSessionTemplate sqlSession, int bid);
+	int selectBandNewPostCount(SqlSessionTemplate sqlSession, Boards bs);
+
+	ArrayList<Boards> selectNewPostList2(SqlSessionTemplate sqlSession, Boards bs);
+
+	MemberProfile selectMemberProfile(SqlSessionTemplate sqlSession, int mid);
 
 
 }

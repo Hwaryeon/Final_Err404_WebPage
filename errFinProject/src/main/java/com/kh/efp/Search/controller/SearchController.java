@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.kh.efp.Search.model.service.SearchService;
 import com.kh.efp.Search.model.vo.Search;
 import com.twitter.penguin.korean.KoreanPosJava;
@@ -171,5 +173,25 @@ public class SearchController {
 		}
 	}
 	
+	//자동 완성 ajax
+	@RequestMapping(value="/autoComplete.search", method=RequestMethod.GET)
+	public void autoComplet(@RequestParam("term") String term, HttpServletResponse res){
+		ArrayList<String> list = filterBox(term);
+		
+		ArrayList<String> autoList = seachservice.selectAutoList(list);
+		
+		if(autoList.size() == 0){
+			autoList.add("# 밴드검색 결과없음");
+		}
+		
+		try {
+			res.setContentType("application/json");
+			res.setCharacterEncoding("UTF-8");
+			res.getWriter().print(new Gson().toJson(autoList));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 }

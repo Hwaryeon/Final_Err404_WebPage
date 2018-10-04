@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,11 +10,14 @@
 <meta name="viewport" content=" width=device-width, initial-scale=1">
 <title>밴드 홈 | 밴드</title>
 <!-- CSS -->
+<jsp:include page="../common/menubar.jsp" />
 <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 <link href="resources/css/font-awesome.min.css" rel="stylesheet">
 <link href="resources/css/style.css" rel="stylesheet">
 <link href="resources/css/responsive.css" rel="stylesheet">
 <link href="resources/css/light-pink-blue.css" rel="stylesheet">
+<link href="resources/css/lightslider.css" rel="stylesheet">
+<script src="resources/js/lightslider.js"></script>
 <style>
 .myband {
 	margin-left: auto;
@@ -187,6 +190,29 @@
 	height: 30px;
 	font-size: 15px;
 }
+
+
+/* 카테고리 */
+ul{
+	list-style: none outside none;
+    padding-left: 0;
+          margin: 0;
+}
+.content-slider li{
+    text-align: center;
+    color:black;
+}
+.content-slider img {
+	width:100px;
+	height:100px;
+    margin: 0;
+    transition: all 0.4s ease-out;
+}
+
+.content-slider img:hover{
+	box-shadow: 5px 10px 18px #888888;
+	transition: all 0.4s ease-out;
+}
 </style>
 
 
@@ -196,7 +222,7 @@
 	<!-- TOP NAV -->
 
 	<!-- LOGO AREA -->
-	<jsp:include page="../common/menubar.jsp" />
+	
 	<%-- <div class="fullwidth bg-pink">
 		<div class="container">
 			<div class="col-md-6 col-xs-12">
@@ -240,29 +266,19 @@
 								<span class="band-membertxt"></span>
 							</div>
 						</li>
-						<c:forEach var="MyBandList" items ="${ myBandList }">
+						<c:forEach var="MyBandList" items="${ myBandList }">
 							<%-- <c:if test='${!empty myBandList[i]}'> --%>
-								<li class="myband-list">
-									<div class="band-profile">
-										<img src="resources/images/profile.png">
-									</div>
-									<div class="band-name">
-										<%-- <p class="band-nametxt">${ myBandList[i].bname }</p>
-										<span class="band-membertxt">멤버 : </span> --%>
-										<p>${ MyBandList.bname }</p>
-									</div>
-								</li>
+							<li class="myband-list">
+								<div class="band-profile">
+									<img src="resources/images/${ MyBandList.edit_name }">
+								</div>
+								<div class="band-name">
+									<p class="band-nametxt">${ MyBandList.bname }</p>
+									<span class="band-membertxt">멤버 : ${ MyBandList.memberCount }</span>
+								</div>
+							</li>
 							<%-- </c:if> --%>
 						</c:forEach>
-						<li class="myband-list">
-							<div class="band-profile">
-								<img src="resources/images/profile.png">
-							</div>
-							<div class="band-name">
-								<p class="band-nametxt">밴드명2</p>
-								<span class="band-membertxt">멤버 n</span>
-							</div>
-						</li>
 					</ul>
 				</div>
 			</div>
@@ -271,30 +287,88 @@
 				<h4 class="page-title">공개밴드 인기글</h4>
 				<div class="poppost-container">
 					<ul>
-						<li class="poppost-list">
-							<div class="poppost-name">
-								<p>게시글 제목 1</p>
-							</div>
-							<div class="poppost-content">
-								<p>
-									글 내용입니다.<br> 글 내용입니다.<br> 글 내용입니다.<br> 글 내용입니다.<br>
-									글 내용입니다.<br> 글 내용입니다.<br> 글 내용입니다.
-								</p>
-							</div>
-						</li>
-						<li class="poppost-list">
-							<div class="poppost-name">
-								<p>게시글 제목 2</p>
-							</div>
-							<div class="poppost-content">
-								<p>
-									글 내용입니다.<br> 글 내용입니다.<br> 글 내용입니다.<br> 글 내용입니다.<br>
-									글 내용입니다.<br> 글 내용입니다.<br> 글 내용입니다.
-								</p>
-							</div>
-						</li>
+						<c:forEach var="PopularContents" items="${ popContents }">
+							<li class="poppost-list">
+								<div class="poppost-name">
+									<p>${ PopularContents.bname } 밴드</p>
+								</div>
+								<div class="poppost-content">
+									<c:choose>
+										<c:when test="${ PopularContents.flevel eq 'I'}">
+											<p>
+											이미지 있는애<br>
+											<c:choose>
+												<c:when test="${fn:length(PopularContents.bcontent) > 240 }">
+													${fn:substring(PopularContents.bcontent, 0, 240) }....
+												</c:when>
+												<c:otherwise>
+													${ PopularContents.bcontent }
+												</c:otherwise>
+											</c:choose>
+											</p>
+										</c:when>
+										<c:otherwise>
+											<p>
+											<c:choose>
+												<c:when test="${fn:length(PopularContents.bcontent) > 240 }">
+													${fn:substring(PopularContents.bcontent, 0, 240) }....
+												</c:when>
+												<c:otherwise>
+													${ PopularContents.bcontent }
+												</c:otherwise>
+											</c:choose>
+											<br>작성자 : ${ PopularContents.mname }
+											</p>
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</li>
+						</c:forEach>
 					</ul>
 				</div>
+			</div>
+
+			<script>
+				function first(){
+					var first = (int)Math.random() * 5;
+				}
+			</script>
+			<div class="widget">
+				<h4 class="page-title">카테고리</h4>
+				<div class="item">
+	            <ul id="content-slider" class="content-slider">
+	                <li>
+	                    <a href='categoryDetail.category?kind=JAVA'><img src='${contextPath}/resources/images/category/JAVA.png'></a>
+	                </li>
+	                <li>
+	                    <a href='categoryDetail.category?kind=C'><img src='${contextPath}/resources/images/category/C.png'></a>
+	                </li>
+	                <li>
+	                    <a href='categoryDetail.category?kind=cpp'><img src='${contextPath}/resources/images/category/cpp.png'></a>
+	                </li>
+	                <li>
+	                    <a href='categoryDetail.category?kind=csharp'><img src='${contextPath}/resources/images/category/Csharp.png'></a>
+	                </li>
+	                <li>
+	                    <a href='categoryDetail.category?kind=nodejs'><img src='${contextPath}/resources/images/category/nodejs.png'></a>
+	                </li>
+	                <li>
+	                    <a href='categoryDetail.category?kind=PYTHON'><img src='${contextPath}/resources/images/category/PYTHON.png'></a>
+	                </li>
+	                <li>
+	                    <a href='categoryDetail.category?kind=RUBY'><img src='${contextPath}/resources/images/category/RUBY.jpg'></a>
+	                </li>
+	                <li>
+	                    <a href='categoryDetail.category?kind=SCALA'><img src='${contextPath}/resources/images/category/SCALA.png'></a>
+	                </li>
+	                <li>
+	                    <a href='categoryDetail.category?kind=GO'><img src='${contextPath}/resources/images/category/GO.png'></a>
+	                </li>
+	                <li>
+	                    <a href='categoryDetail.category?kind=RUST'><img src='${contextPath}/resources/images/category/RUST.png'></a>
+	                </li>
+	            </ul>
+        </div>
 			</div>
 
 			<div class="widget">
@@ -449,9 +523,23 @@
 			</div>
 		</div>
 	</div>
-	<script src="resources/js/jquery.min.js"></script>
+
+	<script src="resources/js/custom.js"></script>
 	<script src="resources/js/bootstrap.min.js"></script>
 	<script src="resources/js/jquery.bxslider.min.js"></script>
-	<script src="resources/js/custom.js"></script>
+	
+	<script>
+    
+	 $(document).ready(function() {
+		$("#content-slider").lightSlider({
+			item:5,
+            loop:true,
+         	auto:true,
+            prevHtml: '<img src="https://t1.daumcdn.net/cfile/tistory/18718E3D5083FDF705"/ style="width:40px; height:40px; transform: rotate(180deg)">',
+            nextHtml: '<img src="https://t1.daumcdn.net/cfile/tistory/18718E3D5083FDF705"/ style="width:40px; height:40px">'
+       });
+	});
+	</script>
+
 </body>
 </html>

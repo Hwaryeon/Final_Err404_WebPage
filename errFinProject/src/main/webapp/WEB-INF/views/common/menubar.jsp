@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -9,8 +10,10 @@
   <meta name="viewport" content=" width=device-width, initial-scale=1">
   <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <title>Weekend Magazine</title>
+  
   <!-- CSS -->
   <link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
   <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">
   <link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
@@ -18,8 +21,15 @@
   <link href="${ contextPath }/resources/css/light-pink-blue.css" rel="stylesheet">
   
   <!-- JavaScript -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	
   
 </head>
+<style>
+	.ui-autocomplete-loading {
+    background: white url("images/ui-anim_basic_16x16.gif") right center no-repeat;
+  }
+</style>
 <body>
 <div class="fullwidth bg-pink" style="min-height:84px; height:84px;">
       <div class="container">
@@ -31,7 +41,9 @@
           <div id="search-3" class="widget fullwidth widget_search" style="width:300px; min-width:300px; float:left; border:1px solid lightgray; border-radius:11px; height:20px;margin-top:10px;">
           		<!-- 검색 -->
                	<div class="search"  style="color:black;margin:-12px;">
-                   <input type="search" id='searchBox' value="" name="searchBox"  placeholder="Search &hellip;" title="Search for:">
+
+                   <input type="search" id='searchBox' value="" name="searchBox"  placeholder="검색 &hellip;" title="검색" autocomplete=off>
+
                	</div>
                	<!-- /검색 -->
             </div>
@@ -60,7 +72,38 @@
     </div>
     <h1 style="font-size:0.001px;">.</h1>
     <script>
+    
+
+    $(function(){
+
+    	$( "#searchBox" ).autocomplete({
+   	      source: function( request, response ) {
+   	    	  if(request.term.trim().length != 0){
+	   	    	  $.ajax({
+	   	    		  url:'autoComplete.search',
+	   	    		  dataType: "json",
+	   	    		  data:{term:request.term.trim()},
+	   	    		  success:function(data){
+			   	    	response(data);
+	   	    		  },
+	   	    		  error:function(error){
+	   	    			  alert(error);
+	   	    		  }
+	   	    	  })
+   	    	  }
+   	      },
+   	      minLength: 2,
+   	      select: function( event, ui ) {
+   	      }
+   	    });
+
+    })
+    
+    
     $(document).ready(function(){
+    	
+
+    	
     	
         $("#searchBox").keypress(function (e) {
         	if (window.event.keyCode == 13) {	//엔터를 눌렀을때
@@ -73,21 +116,15 @@
            }
 
 	    });
-        
-      	var pf = '';
-      	
-      	if(`${sessionScope.loginUser.mType}` == 'LOCAL'){
-      		pf = `${sessionScope.loginUser.editName}`;
-      	}else{
-      		pf = `${sessionScope.loginUser.fileSrc}${sessionScope.loginUser.editName}`;
-      	}
-        
-        $.ajax({
-        	url : 'http://192.168.20.246:3000/',
+
+    	
+        /* $.ajax({
+
+        	url : 'http://127.0.0.1:3000/',
         	data : {
         		mid : `${sessionScope.loginUser.mid}`,
         		name : `${sessionScope.loginUser.mName}`,
-        		profile : pf,
+        		profile : ``,
         		language : `${sessionScope.loginUser.mNational}`,
         		},
         	type : 'post',
@@ -98,13 +135,13 @@
         		console.log("실패");
         	}
         
-        })
+        }) */
         
 	});
     
     function chatting(){
-    	/* var url = "http://127.0.0.1:3000/chat/" + ${sessionScope.loginUser.mid}; */
-    	var url = "http://192.168.20.246:3000/chat/" + ${sessionScope.loginUser.mid};
+    	//var url = "http://127.0.0.1:3000/chat/" + ${sessionScope.loginUser.mid};
+    	/* var url = "http://192.168.20.248:3000/" + ${sessionScope.loginUser.mid}; */
 		var settings = "width=400, height=622, toolbar=no, menubar=no, scrollbars=no, resizable=no";
 		
 		window.open(url, 'test window', settings);
@@ -112,4 +149,5 @@
     </script>
 </body>
 </html>
+
 
