@@ -53,11 +53,15 @@
  	<!-- 02.게시글 작성 -->
  	
  	<insert id ="insert">
- 	INSERT INTO (  )
- 	VALUES(   )
- 	
- 	
- 	
+ 	INSERT INTO BOARDS()
+ 	BID,
+ 	MID,
+ 	BCONTENT,
+ 	BDATE
+ 	)
+ 	VALUES(
+ 	#{bId},#{mId},#{bContent},SYSDATE
+ 	)
  	</insert>
  
  	<!-- 03.게시글 상세보기 조회 -->

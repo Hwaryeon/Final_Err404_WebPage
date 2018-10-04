@@ -36,16 +36,9 @@ public class BoardController {
     	return mav;// boardMain.jsp로 List 전달
     }
     
+
     
- /*   //02_01 게시글 작성화면
-    //@RequestMapping("board/write.do")
-    //value="",method="전송방식"
-    @RequestMapping(value = "write.do", method=RequestMethod.GET)
-    public String write(){
-    	return "board/write";//write.jsp로 이동
-    }*/
-    
-    //02_02. 게시글 작성처리
+    //02. 게시글 작성처리
     @RequestMapping(value="insert.do",method=RequestMethod.POST)
     public String insert(@ModelAttribute Board vo)throws Exception{
     	boardService.create(vo);
