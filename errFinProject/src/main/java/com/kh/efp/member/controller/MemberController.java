@@ -31,11 +31,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kh.efp.band.model.service.BandService;
 import com.kh.efp.commons.CommonUtils;
 import com.kh.efp.commons.MailHandler;
 import com.kh.efp.commons.TempKey;
 import com.kh.efp.login.naver.model.vo.NaverLoginBO;
+import com.kh.efp.mainPage.model.service.mainService;
 import com.kh.efp.member.model.exception.LoginException;
 import com.kh.efp.member.model.service.MemberService;
 import com.kh.efp.member.model.vo.Member;
@@ -51,7 +51,7 @@ public class MemberController {
 	@Autowired private FacebookConnectionFactory connectionFactory;
     @Autowired private OAuth2Parameters oAuth2Parameters;
     @Autowired private GoogleConnectionFactory googleConnectionFactory;
-    @Autowired private BandService bs;
+    @Autowired private mainService mps;
     
     @Inject
     private JavaMailSender mailSender;
@@ -152,8 +152,9 @@ public class MemberController {
 			
       model.addAttribute("loginUser", loginUser);
       
-			model.addAttribute("myBandList", bs.bandList(mid));
-
+			model.addAttribute("myBandList", mps.bandList(mid));
+			model.addAttribute("popContents", mps.popContent());
+;
 			System.out.println(loginUser);
 
 

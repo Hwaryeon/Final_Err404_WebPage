@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="Main">
+	
+	<resultMap type="MyBandList" id="MyBand">
+		<id property="mid" column="MID"/>
+		<result property="bname" column="BNAME"/>
+		<result property="memberCount" column="MEMBERCOUNT"/>
+		<result property="edit_name" column="EDIT_NAME"/>
+		<result property="bid" column="BID"/>
+	</resultMap>
+	
+	<resultMap type="PopularContent" id="PopContent">
+		<id property="no" column="NO"/>
+		<result property="replyCount" column="REF_COUNT"/>
+		<result property="bid" column="BID"/>
+		<result property="bname" column="BNAME"/>
+		<result property="mid" column="MID"/>
+		<result property="mname" column="MNAME"/>
+		<result property="edit_name" column="EDIT_NAME"/>
+		<result property="flevel" column="FLEVEL"/>
+		<result property="bcontent" column="BCONTENT"/>
+	</resultMap>
+
+	<select id="selectMyBand" resultMap="MyBand" parameterType="java.util.ArrayList" resultType="java.util.ArrayList">
+		SELECT MID, BNAME, MEMBERCOUNT, EDIT_NAME, MY.BID
+		FROM BAND B
+		JOIN (SELECT COUNT(MB.MID) AS MEMBERCOUNT, MB.BID
+			  FROM MEMBER_BAND MB
+			  GROUP BY MB.BID
+			  ORDER BY MB.BID ASC) C ON (C.BID = B.BID)
+		JOIN (SELECT M.MID, MB.BID, P.EDIT_NAME
+			  FROM MEMBER M
+			  JOIN MEMBER_BAND MB ON (M.MID = MB.MID)
+              JOIN PROFILE P ON (MB.BID = P.BID)
+			  WHERE M.MID = #{mid}) MY ON (MY.BID = B.BID)
+	</select>
+	
+	<select id="selectPopContent" resultMap="PopContent" parameterType="java.util.ArrayList" resultType="java.util.ArrayList">
+		SELECT R.NO, R.REF_COUNT, B.BID, D.BNAME, B.MID, M.MNAME, A.EDIT_NAME, A.FLEVEL, B.BCONTENT
+		FROM(SELECT ROWNUM AS NO, C.REF_COUNT, C.REF_BID
+		     FROM(
+		        SELECT COUNT(BCONTENT) AS REF_COUNT, REF_BID
+		        FROM BOARDS
+		        WHERE REF_STATUS = 'COMMENT'
+		        GROUP BY REF_BID
+		        ORDER BY REF_COUNT DESC) C
+		    WHERE ROWNUM BETWEEN 1 AND 5) R
+		JOIN BOARDS B ON (R.REF_BID = B.BOARDID)
+		JOIN BAND D ON (B.BID = D.BID)
+		JOIN MEMBER M ON (B.MID = M.MID)
+		JOIN ATTFILE A ON (A.BOARDID = B.BOARDID)
+	</select>
+</mapper>
