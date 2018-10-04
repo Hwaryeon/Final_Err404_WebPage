@@ -224,6 +224,10 @@
 	  var value = '${search}';
 	  var lastScroll = true;
 	  
+	  $(document).ready(function(){
+		 console.log(value);
+	  });
+	  
 	  (function() {
 		  if(${fn:length(band)==0}){
 			  lastScroll = false;
