@@ -1,4 +1,4 @@
-package com.kh.efp.member_band.model.vo;
+package com.kh.efp.mainPage.model.vo;
 
 import org.springframework.stereotype.Repository;
 
@@ -64,12 +64,6 @@ public class MyBandList implements java.io.Serializable{
 	@Override
 	public String toString() {
 		return "MyBandList [memberCount=" + memberCount + ", bname=" + bname + ", mid=" + mid + ", edit_name="
-				+ edit_name + ", bid=" + bid + "]";
+				+ edit_name + ", bid=" + bid + "]\n";
 	}
-
-	
-	
-	
-	
-
 }

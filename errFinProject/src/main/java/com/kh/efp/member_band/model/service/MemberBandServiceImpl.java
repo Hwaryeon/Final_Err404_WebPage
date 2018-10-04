@@ -14,6 +14,7 @@ import com.kh.efp.member_band.model.vo.PageInfo;
 
 @Service
 public class MemberBandServiceImpl implements MemberBandService{
+	
 	@Autowired private SqlSessionTemplate sqlSession;
 	@Autowired private MemberBandDao mbd;
 	

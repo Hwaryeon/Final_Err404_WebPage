@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -266,17 +266,17 @@ ul{
 								<span class="band-membertxt"></span>
 							</div>
 						</li>
-						<c:forEach var="MyBandList" items ="${ myBandList }">
+						<c:forEach var="MyBandList" items="${ myBandList }">
 							<%-- <c:if test='${!empty myBandList[i]}'> --%>
-								<li class="myband-list">
-									<div class="band-profile">
-										<img src="resources/images/${ MyBandList.edit_name }">
-									</div>
-									<div class="band-name">
-										<p class="band-nametxt">${ MyBandList.bname }</p>
-										<span class="band-membertxt">멤버 : ${ MyBandList.memberCount }</span>
-									</div>
-								</li>
+							<li class="myband-list">
+								<div class="band-profile">
+									<img src="resources/images/${ MyBandList.edit_name }">
+								</div>
+								<div class="band-name">
+									<p class="band-nametxt">${ MyBandList.bname }</p>
+									<span class="band-membertxt">멤버 : ${ MyBandList.memberCount }</span>
+								</div>
+							</li>
 							<%-- </c:if> --%>
 						</c:forEach>
 					</ul>
@@ -287,32 +287,52 @@ ul{
 				<h4 class="page-title">공개밴드 인기글</h4>
 				<div class="poppost-container">
 					<ul>
-						<li class="poppost-list">
-							<div class="poppost-name">
-								<p>게시글 제목 1</p>
-							</div>
-							<div class="poppost-content">
-								<p>
-									글 내용입니다.<br> 글 내용입니다.<br> 글 내용입니다.<br> 글 내용입니다.<br>
-									글 내용입니다.<br> 글 내용입니다.<br> 글 내용입니다.
-								</p>
-							</div>
-						</li>
-						<li class="poppost-list">
-							<div class="poppost-name">
-								<p>게시글 제목 2</p>
-							</div>
-							<div class="poppost-content">
-								<p>
-									글 내용입니다.<br> 글 내용입니다.<br> 글 내용입니다.<br> 글 내용입니다.<br>
-									글 내용입니다.<br> 글 내용입니다.<br> 글 내용입니다.
-								</p>
-							</div>
-						</li>
+						<c:forEach var="PopularContents" items="${ popContents }">
+							<li class="poppost-list">
+								<div class="poppost-name">
+									<p>${ PopularContents.bname } 밴드</p>
+								</div>
+								<div class="poppost-content">
+									<c:choose>
+										<c:when test="${ PopularContents.flevel eq 'I'}">
+											<p>
+											이미지 있는애<br>
+											<c:choose>
+												<c:when test="${fn:length(PopularContents.bcontent) > 240 }">
+													${fn:substring(PopularContents.bcontent, 0, 240) }....
+												</c:when>
+												<c:otherwise>
+													${ PopularContents.bcontent }
+												</c:otherwise>
+											</c:choose>
+											</p>
+										</c:when>
+										<c:otherwise>
+											<p>
+											<c:choose>
+												<c:when test="${fn:length(PopularContents.bcontent) > 240 }">
+													${fn:substring(PopularContents.bcontent, 0, 240) }....
+												</c:when>
+												<c:otherwise>
+													${ PopularContents.bcontent }
+												</c:otherwise>
+											</c:choose>
+											<br>작성자 : ${ PopularContents.mname }
+											</p>
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</li>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>
 
+			<script>
+				function first(){
+					var first = (int)Math.random() * 5;
+				}
+			</script>
 			<div class="widget">
 				<h4 class="page-title">카테고리</h4>
 				<div class="item">
@@ -503,6 +523,7 @@ ul{
 			</div>
 		</div>
 	</div>
+
 	<script src="resources/js/custom.js"></script>
 	<script src="resources/js/bootstrap.min.js"></script>
 	<script src="resources/js/jquery.bxslider.min.js"></script>
@@ -519,5 +540,6 @@ ul{
        });
 	});
 	</script>
+
 </body>
 </html>

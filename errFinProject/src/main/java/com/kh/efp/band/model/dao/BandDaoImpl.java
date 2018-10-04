@@ -15,7 +15,6 @@ import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
 import com.kh.efp.member.model.vo.Profile;
 import com.kh.efp.member_band.model.vo.BoardList;
-import com.kh.efp.member_band.model.vo.MyBandList;
 
 @Repository
 public class BandDaoImpl implements BandDao{
@@ -186,20 +185,5 @@ public class BandDaoImpl implements BandDao{
 	public void insertBanMember(SqlSessionTemplate sqlSession, Ban b) {
 		sqlSession.insert("Band.insertBanMember", b);
 	
-	}
-
-
-	
-	@Override
-	public List<Object> bandList(SqlSessionTemplate sqlSession, int mid) {
-		List<Object> bandList = new ArrayList<Object>();
-		System.out.println("Dao mid : " + mid);
-		bandList = sqlSession.selectList("Search.selectMyBand", mid);
-		System.out.println("밴드리스트 : " + bandList);
-		
-		return bandList;
-	}
-	
-	
-	
+	}	
 }
