@@ -24,7 +24,8 @@
 		<typeAlias type="com.kh.efp.member_band.model.vo.MyBandList" alias = "MyBandList"/>
 		<typeAlias type="com.kh.efp.member.model.vo.loginUser" alias = "loginUser"/>
 		<typeAlias type="com.kh.efp.band.model.vo.Board" alias = "Board"/>
-		<!-- <typeAlias type="com.kh.efp.band.model.vo.Board" alias = "Board"/> -->
+		<typeAlias type="com.kh.efp.category.model.vo.CategoryBandList" alias = "CategoryBandList"/>
+
 		
 	</typeAliases>
 
@@ -37,7 +38,8 @@
 		<mapper resource="mappers/bandLeader-mapper.xml"/>
 		<mapper resource="mappers/newPost-mapper.xml"/>
 		<mapper resource="mappers/board-mapper.xml"/>
-		<!-- <mapper resource="mappers/board-mapper.xml"/> -->
+		<mapper resource="mappers/category-mapper.xml"/>
+
 	</mappers>
 	
 	

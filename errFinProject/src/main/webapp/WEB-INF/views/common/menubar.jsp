@@ -40,7 +40,9 @@
           <div id="search-3" class="widget fullwidth widget_search" style="width:300px; min-width:300px; float:left; border:1px solid lightgray; border-radius:11px; height:20px;margin-top:10px;">
           		<!-- 검색 -->
                	<div class="search"  style="color:black;margin:-12px;">
-                   <input type="search" id='searchBox' value="" name="searchBox"  placeholder="Search &hellip;" title="Search for:">
+
+                   <input type="search" id='searchBox' value="" name="searchBox"  placeholder="검색 &hellip;" title="검색" autocomplete=off>
+
                	</div>
                	<!-- /검색 -->
             </div>
@@ -70,8 +72,9 @@
     <h1 style="font-size:0.001px;">.</h1>
     <script>
     
-    $(document).ready(function(){
-    	
+
+    $(function(){
+
     	$( "#searchBox" ).autocomplete({
    	      source: function( request, response ) {
    	    	  if(request.term.trim().length != 0){
@@ -92,6 +95,13 @@
    	      select: function( event, ui ) {
    	      }
    	    });
+
+    })
+    
+    
+    $(document).ready(function(){
+    	
+
     	
     	
         $("#searchBox").keypress(function (e) {
