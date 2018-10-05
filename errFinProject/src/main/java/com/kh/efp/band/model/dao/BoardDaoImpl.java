@@ -46,6 +46,10 @@ public class BoardDaoImpl implements BoardDao {
 		// TODO Auto-generated method stub
 		return SqlSession.selectList("board.listAll");
 	}
+	@Override
+	public List<Board> updatePage() throws Exception{
+		return SqlSession.selectList("board.listAll");
+	}
 
 	@Override
 	public void increaseViewcnt(int bno) throws Exception {
