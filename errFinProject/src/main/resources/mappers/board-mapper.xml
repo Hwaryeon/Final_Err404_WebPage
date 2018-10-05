@@ -53,14 +53,8 @@
  	<!-- 02.게시글 작성 -->
  	
  	<insert id ="insert">
- 	INSERT INTO BOARDS()
- 	BID,
- 	MID,
- 	BCONTENT,
- 	BDATE
- 	)
- 	VALUES(
- 	#{bId},#{mId},#{bContent},SYSDATE
+ 	INSERT INTO BOARDS VALUES(,
+ 	#{bId},#{mId},#{bContent},SYSDATE,'Y',NULL,NULL
  	)
  	</insert>
  
@@ -75,10 +69,14 @@
 
 	<!-- 05.수정 처리 -->
 	<update id="updateArticle">
-	UPDATE
-	WHERE
+	UPDATE BOARDS SET
+	bContent = #{bContent}
+	WHERE SEQ_BOARDID.NEXTVAL=#{SEQ_BOARDID.NEXTVAL} 
 	</update>
+	
 
+	
+	
 	<!-- 06.삭제 -->
 	<delete id = "deleteArticle">
 	DELETE FROM

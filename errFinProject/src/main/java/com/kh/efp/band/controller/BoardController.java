@@ -65,8 +65,16 @@ public class BoardController {
     //폼에서 입력한 내용들은 @ModelAttribute Board vo로 전달
     @RequestMapping(value="update.do",method=RequestMethod.POST)
     public String update(@ModelAttribute Board vo)throws Exception{
+    	boardService.update(vo);
     	return "redirect:list.do";
     }
+    
+    //05. 게시글 수정 처리 화면
+    @RequestMapping(value="updatePage.do",method=RequestMethod.GET)
+    public String updatePage(){
+    	return "boardBand/boardEdit";
+    }
+    
     
     //05. 게시글 삭제
     @RequestMapping("delete.do")
@@ -74,6 +82,8 @@ public class BoardController {
     	boardService.delete(bno);
     	return "redirect:list.do";
     }
+    
+    
     
     
 }
