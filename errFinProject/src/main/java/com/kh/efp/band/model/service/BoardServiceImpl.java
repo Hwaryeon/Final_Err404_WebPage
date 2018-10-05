@@ -63,6 +63,13 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return boardDao.listAll();
 	}
+	
+	//06.수정화면
+	@Override
+	public List<Board> updatePage() throws Exception{
+		return boardDao.updatePage();
+		
+	}
 
 	//06.게시글 조회수 증가
 	@Override
