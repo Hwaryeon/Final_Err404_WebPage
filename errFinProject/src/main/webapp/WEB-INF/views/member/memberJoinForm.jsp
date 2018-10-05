@@ -21,6 +21,11 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <style>
+  	#btns:hover{
+  		cursor : pointer;
+  	}
+  </style>
 </head>
 
 <body
@@ -130,13 +135,13 @@
 								<td width="300px"><input class="form-control" name="mEmail" id = "mEmail"
 									type="text" placeholder="이메일" /></td>
 								<td width="20px"></td>
-								<td><a class="button-navy button-link" onclick = "cntEmail()">인증하기</a></td>
+								<td><a id = 'btns' class="button-navy button-link" onclick = "cntEmail()">인증하기</a></td>
 							</tr>
 							<tr>
 								<td width="300px"><input class="form-control" type="text" name = "checkAuth"
 									id = "checkAuth" placeholder="인증번호" /></td>
 								<td width="20px"></td>
-								<td><a class="button-navy button-link" onclick = "authEmail()">확인하기</a></td>
+								<td><a id = 'btns' class="button-navy button-link" onclick = "authEmail()">확인하기</a></td>
 							</tr>
 							<tr>
 								<td width="300px" height="38px"><input class="form-control"
@@ -158,7 +163,7 @@
 								<td colspan="4" width="290px"><input class="form-control"
 									name="mName" type="text" id="mName" placeholder="닉네임" /></td>
 								<td width="20px"></td>
-								<td><a class="button-navy button-link"
+								<td><a id = 'btns' class="button-navy button-link"
 									onclick='checkmName()'>중복확인</a></td>
 								<td width="20px"></td>
 							</tr>
@@ -196,8 +201,8 @@
 							</tr>
 						</table>
 						<div align="center">
-							<a class="button-gray button-link">돌아가기</a> <a
-								class="button-orange button-link" onclick="insertForm()">가입하기</a>
+							<a id = 'btns' class="button-gray button-link">돌아가기</a> <a
+								id = 'btns' class="button-orange button-link" onclick="insertForm()">가입하기</a>
 						</div>
 					</form>
 				</div>
@@ -223,48 +228,8 @@
 		</div>
 	</div>
 
-	<div class="footer">
-		<div class="footer-top">
-			<div class="container">
-				<div class="pull-left">
-					<div id="text-6">
-						<div class="textwidget">
-							<a href="#">Weekend Magazine</a> &copy; 2015 All rights reserved
-						</div>
-					</div>
-				</div>
-				<div class="pull-right hidden-xs">
-					<div id="text-7">
-						<div class="textwidget">
-							Theme by <a title="Email me now" href="#">JKthemes</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="footer-bottom hidden-xs">
-			<div class="container">
-				<div id="nav_menu-2">
-					<div class="menu-footer-menu-container">
-						<ul id="menu-footer-menu" class="menu">
-							<li><a href="#">Home</a></li>
-							<li><a href="#">News</a></li>
-							<li><a href="#">Economy</a></li>
-							<li><a href="#">Sports</a></li>
-							<li><a href="#">Shows</a></li>
-							<li><a href="#">Culture &#038; Art</a></li>
-							<li><a href="#">Gossips</a></li>
-							<li><a href="#">Fashion</a></li>
-							<li><a href="#">Health &#038; Body</a></li>
-							<li><a href="#">Technology</a></li>
-							<li><a href="#">Science</a></li>
-						</ul>
-					</div>
-				</div>
-				<a class="footer-nav-scroll pull-right"></a>
-			</div>
-		</div>
-	</div>
+	<jsp:include page = '../common/footer.jsp'/>
+	
 	<script>
 		$(function() {
 			$("#userImage").hide(); 

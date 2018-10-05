@@ -206,7 +206,7 @@
     			error:function(){
     				console.log("실패");
     			}
-    		})  
+    		});  
     	}
     	
     	function bandCancel(mid, bid, index){
@@ -226,7 +226,7 @@
     			error:function(){
     				console.log("실패");
     			}
-    		}) 
+    		});
     	}
     </script>
     <script src="resources/js/jquery.min.js"></script>

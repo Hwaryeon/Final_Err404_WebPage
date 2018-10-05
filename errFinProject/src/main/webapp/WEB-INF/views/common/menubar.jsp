@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -118,7 +117,7 @@
 	    });
 
     	
-        /* $.ajax({
+         $.ajax({
 
         	url : 'http://127.0.0.1:3000/',
         	data : {
@@ -135,12 +134,12 @@
         		console.log("실패");
         	}
         
-        }) */
+        }) 
         
 	});
     
     function chatting(){
-    	//var url = "http://127.0.0.1:3000/chat/" + ${sessionScope.loginUser.mid};
+    	var url = "http://127.0.0.1:3000/chat/" + ${sessionScope.loginUser.mid};
     	/* var url = "http://192.168.20.248:3000/" + ${sessionScope.loginUser.mid}; */
 		var settings = "width=400, height=622, toolbar=no, menubar=no, scrollbars=no, resizable=no";
 		
