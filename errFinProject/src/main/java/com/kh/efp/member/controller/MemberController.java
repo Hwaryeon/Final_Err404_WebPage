@@ -154,7 +154,7 @@ public class MemberController {
       
 			model.addAttribute("myBandList", mps.bandList(mid));
 			model.addAttribute("popContents", mps.popContent());
-;
+
 			System.out.println(loginUser);
 
 

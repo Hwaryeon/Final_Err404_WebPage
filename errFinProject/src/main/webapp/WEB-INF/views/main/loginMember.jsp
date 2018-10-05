@@ -11,7 +11,7 @@
     <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
 
     
-    <title>ERR404 l 마이페이지</title>
+    <title>ERR404</title>
     <!-- CSS -->
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="resources/css/font-awesome.min.css" rel="stylesheet">
@@ -27,6 +27,12 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
+  
+  <style>
+  	#btns:hover{
+  		cursor : pointer;
+  	}
+  </style>
 </head>
 
 <body class="home page page-id-4 page-template page-template-template_home-php">
@@ -89,7 +95,7 @@
                         <br>
                         <input class="form-control" type="password" name = "mPwd" id = "mPwd" placeholder="비밀번호">
                         <br>
-                        <a class = "button-orange button-link" onclick = "moveMain();">로그인</a>
+                        <a id = 'btns' class = "button-orange button-link" onclick = "moveMain();">로그인</a>
                         <br>
                     	</form>
                         <hr>
