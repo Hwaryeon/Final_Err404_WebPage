@@ -21,11 +21,13 @@
 		<typeAlias type="com.kh.efp.member_band.model.vo.BandList" alias = "BandList"/>
 		<typeAlias type="com.kh.efp.member_band.model.vo.BoardList" alias = "BoardList"/>
 		<typeAlias type="com.kh.efp.Search.model.vo.Ban" alias = "Ban"/>
-		<typeAlias type="com.kh.efp.member_band.model.vo.MyBandList" alias = "MyBandList"/>
+		<typeAlias type="com.kh.efp.mainPage.model.vo.MyBandList" alias = "MyBandList"/>
+    	<typeAlias type="com.kh.efp.mainPage.model.vo.PopularContents" alias="PopularContent"/>
 		<typeAlias type="com.kh.efp.member.model.vo.loginUser" alias = "loginUser"/>
 		<typeAlias type="com.kh.efp.band.model.vo.Board" alias = "Board"/>
 		<typeAlias type="com.kh.efp.category.model.vo.CategoryBandList" alias = "CategoryBandList"/>
-		<!-- <typeAlias type="com.kh.efp.band.model.vo.Board" alias = "Board"/> -->
+    
+
 		
 	</typeAliases>
 
@@ -39,15 +41,11 @@
 		<mapper resource="mappers/newPost-mapper.xml"/>
 		<mapper resource="mappers/board-mapper.xml"/>
 		<mapper resource="mappers/category-mapper.xml"/>
-		<!-- <mapper resource="mappers/board-mapper.xml"/> -->
+    <mapper resource="mappers/main-mapper.xml"/>
 	</mappers>
 	
 	
 </configuration>
-
-
-
-
 
 
 

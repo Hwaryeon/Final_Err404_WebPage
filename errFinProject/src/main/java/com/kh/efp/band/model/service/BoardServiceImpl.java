@@ -22,12 +22,15 @@ public class BoardServiceImpl implements BoardService{
 	public void create(Board vo) throws Exception {
 		// TODO Auto-generated method stub
 
-		
+		int bId = vo.getbId();
+		int mId = vo.getmId();
 		String bContent = vo.getbContent();
 		
 		//줄바꿈 문자처리
 		bContent = bContent.replace("\n","<br>");
 		
+		vo.setbId(bId);
+		vo.setmId(mId);
 		vo.setbContent(bContent);
 		boardDao.create(vo);
 	}
