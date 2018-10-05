@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- xml문서의 유효성 체크를 위해 필요한 부분 -->
 <!DOCTYPE configuration
@@ -22,7 +21,7 @@
 		<typeAlias type="com.kh.efp.member_band.model.vo.BandList" alias = "BandList"/>
 		<typeAlias type="com.kh.efp.member_band.model.vo.BoardList" alias = "BoardList"/>
 		<typeAlias type="com.kh.efp.Search.model.vo.Ban" alias = "Ban"/>
-		<typeAlias type="com.kh.efp.member_band.model.vo.MyBandList" alias = "MyBandList"/>
+		<typeAlias type="com.kh.efp.mainPage.model.vo.MyBandList" alias = "MyBandList"/>
     <typeAlias type="com.kh.efp.mainPage.model.vo.PopularContents" alias="PopularContent"/>
 		<typeAlias type="com.kh.efp.member.model.vo.loginUser" alias = "loginUser"/>
 		<typeAlias type="com.kh.efp.band.model.vo.Board" alias = "Board"/>
