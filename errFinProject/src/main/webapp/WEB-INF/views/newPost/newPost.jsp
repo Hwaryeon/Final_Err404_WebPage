@@ -220,7 +220,7 @@
 
 		<c:forEach var="np" items="${newPostList }">
 
-		<div class="post widget" style="margin-bottom:34px;">
+		<div class="post widget" style="margin-bottom:0px;">
               <div class="post-social" style="border-top: 0px solid #EAEAEA; padding-top: 10px;">
                 <div class="share-container" style="width:100%;">
                 
@@ -308,6 +308,55 @@
                 <img class="post-image img-beresponsive" src="http://placehold.it/469x291" alt=""> -->
               </div>
             </div>
+            
+            <div class="box-content widget fullwidth" id="comments" style="margin-bottom:10px;">
+              <h4 class="comment-title">댓글 3</h4>
+              <ol class="commentlist">
+                
+                <c:forEach var="commentList" items="${commentList}">
+                
+                	<c:if test="${ commentList.ref_bid eq np.boardid  }">
+                	 <li class="comment parent">
+                    <div class="comment-body">
+            
+                    <div class="line"></div>
+                    <div class="comment-vcard">
+                        <img width="60" height="60" alt="" src="http://placehold.it/70x70" class="avatar">            
+                        <!-- <span class="author-tag">Author</span> -->
+                    </div>
+                    
+                    <div class="comment_detail">
+                        
+                        <div class="comment-header">
+                            
+                            <span class="author">john</span> 
+                            
+                            <span class="date">
+                                <a href="#">2:14 AM 22 feb 2013</a>
+                            </span>
+                            
+                            <span class="reply">
+                                <a class="comment-reply-link" href="#">신고</a>
+                            </span>
+            
+                        </div><!--comment-header-->
+                        
+                        <p>${commentList.bcontent }</p>
+                        
+                    </div><!--.comment_detail-->
+                    
+                    </div><!--.comment-body-->
+                </li><!--Parent li-->
+                
+                </c:if>
+                </c:forEach>
+                
+                
+              </ol>
+            </div>
+            
+            
+            
 
 		</c:forEach>
 		
