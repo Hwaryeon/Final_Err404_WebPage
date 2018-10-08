@@ -142,8 +142,14 @@
 	
 	<update id = "updateMidmPwd" parameterType = "Member">
 		UPDATE MEMBER SET MPWD = #{mPwd}
+		WHERE MID = #{mid} AND MSTATUS = 'Y' AND MTYPE = 'LOCAL'
+	</update>
+	
+	<update id = "updatemEmailmPwd" parameterType = "Member">
+		UPDATE MEMBER SET MPWD = #{mPwd}
 		WHERE MEMAIL = #{mEmail} AND MSTATUS = 'Y' AND MTYPE = 'LOCAL'
 	</update>
+	
 	
 	<select id = "selectAuthmEmail" parameterType = "Member" resultType = "_int">
 		SELECT COUNT(*) FROM MEMBER
@@ -163,6 +169,11 @@
 		WHERE M.MSTATUS = 'Y' AND MEMAIL = #{mEmail} AND FDATE = (SELECT MAX(FDATE) FROM PROFILE WHERE MID = #{mid})
 	</select>
 
+	<!-- 개인정보 수정 -->
+	<update id = "updateInfo" parameterType = "Member">
+		UPDATE MEMBER SET MNAME = #{mName}, MPHONE = #{mPhone}
+		WHERE MID = #{mid} AND MSTATUS = 'Y' AND MTYPE = 'LOCAL'
+	</update>
 </mapper>
 
 
