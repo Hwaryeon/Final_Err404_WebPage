@@ -57,6 +57,12 @@ public class BoardDaoImpl implements BoardDao {
 		SqlSession.update("board.increseViewcnt",bno);
 		
 	}
+
+	@Override
+	public Board selectBoard(Board board)throws Exception {
+		// TODO Auto-generated method stub
+		return SqlSession.selectOne("board.selectBoard", board);
+	}
 	
 	
 	

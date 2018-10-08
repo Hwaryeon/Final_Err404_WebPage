@@ -1,5 +1,8 @@
 package com.kh.efp.member.model.service;
 
+import java.util.List;
+
+import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.member.model.exception.LoginException;
 import com.kh.efp.member.model.vo.Member;
 import com.kh.efp.member.model.vo.Profile;
@@ -40,10 +43,12 @@ public interface MemberService {
 
 	loginUser loginMember2(Member m) throws LoginException;
 
+
 	void selectPwd(int mid, String nowPwd, String newPwd) throws LoginException;
 
 	int updatemEmailmPwd(Member m);
 
 	void selectInfo(Member m) throws LoginException;
+
 
 }

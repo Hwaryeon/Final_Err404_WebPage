@@ -65,6 +65,7 @@
                         <li><a href="bandLeader.bd?bid=1">밴드 리더</a></li>
                         <li><a href="bandLeader.bd">밴드 리더</a></li>
                         <li><a href="list.do">으쟈쟈쟈</a></li>
+                        <li><a href="boardMember.do">회원리스트</a></li>
                     </ul>
                 </div>
             </div>

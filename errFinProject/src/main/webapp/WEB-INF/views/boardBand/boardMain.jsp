@@ -22,9 +22,9 @@
 <script>
    $(document).ready(function(){
 	   
-	   $("#btnUpdate").click(function(){
+	  /*  $("#btnUpdate").click(function(){
 		  location.href="updatePage.do"; 
-	   });
+	   }); */
 	   
 	   
       $("#btnSave").click(function(){
@@ -275,7 +275,7 @@
                         <ul class="dropdown-menu" role="menu">
                            <li><a>   <img alt="" src="${ contextPath }/resources/images/dropEdit.png?id=${row.boardId}"
                         class="avatar avatar-75 photo avatar-default" >
-                        <button type="button" id="btnUpdate">수정</button></a></li>
+                        <button type="button" id="btnUpdate" onclick=update()>수정</button></a></li>
                         
                            <li><a href="index2.html">   <img alt="" src="${ contextPath }/resources/images/dropDelete.png"
                         class="avatar avatar-75 photo avatar-default" >&nbsp&nbsp&nbsp&nbsp&nbsp삭제하기</a></li>
@@ -285,6 +285,20 @@
                   </ul>
                </div>
                </div>
+               
+               <script>
+               	function update(){
+               		var mId = '30';
+               		var boardId = "${row.boardId}"
+               		var bContent = "${row.bContent}"
+               		console.log(mId);
+               		console.log(boardId);
+               		console.log(bContent);
+               		
+               		
+               		location.href="updatePage.do?mId=" + mId + "&boardId=" + boardId +"&bContent=" + bContent;
+               	}
+               </script>
                
               <div class="box-content widget fullwidth" id="comments" style="margin-bottom:0px;">
               <h4 class="comment-title"></h4>
@@ -348,12 +362,8 @@
             </div>
               <div class="post-content" style="margin-top:60px;border-top:2px solid #EAEAEA; padding-top:15px;">
               
-                <!-- <h1 class="post-title"><a href="#">Pistorius numb with grief and shock over death of girlfriend, family says the truth</a></h1>
-                <p class="bold">Our entire family is devastated, we are in a state of total shock - first about the tragic death of Reeva, who we had all got to know well and care for deeply over the last few months," the statement, from Arnold Pistorius, uncle of the accused. All of us saw at first hand how close she had become to Oscar.</p> -->
                 <p>${row.bContent }</p>
-                <!-- <blockquote>Intelligence services, identified energy, finance, information technology, aerospace and automotive companies as the most frequent targets of hacking campaigns that appear state sponsored, according to The Washington Post earlier this week.</blockquote>
-                <img class="post-image img-beresponsive" src="http://placehold.it/469x291" alt=""> -->
-            
+             
             	
               </div>
               

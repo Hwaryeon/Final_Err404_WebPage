@@ -80,7 +80,7 @@ public class BoardServiceImpl implements BoardService{
 		// 최초로 조회할 경우 세션에 저장된 값이 없기 때무우우웅ㅇ if문 실행안하하아아앙
 		if(session.getAttribute("update_time_"+bno)!=null){
 					//세션에서 읽어오기
-			update_time = (long)session.getAttribute("update_time_"+bno);
+		/*	update_time = (long)session.getAttribute("update_time_"+bno);*/
 			
 		}
 		//현재시간 current_time에 저장
@@ -92,7 +92,12 @@ public class BoardServiceImpl implements BoardService{
 		}
 		
 	}
+
+	@Override
+	public Board selectBoard(Board board) throws Exception {
+		// TODO Auto-generated method stub
+		return boardDao.selectBoard(board);
+	}
  
 
 }
- 
