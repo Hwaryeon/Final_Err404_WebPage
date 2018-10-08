@@ -62,6 +62,10 @@ public interface BandService {
 
 	void insertBanMember(Ban b);
 
+	int checkBandCategory(int bid);
+
+	void updateCategory(Band b);
+
 	
 
 

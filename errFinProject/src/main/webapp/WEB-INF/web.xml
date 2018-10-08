@@ -61,6 +61,11 @@
 	</servlet>
 
 	<servlet-mapping>
+		<servlet-name>band</servlet-name>
+		<url-pattern>*.bd</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
 		<servlet-name>newPost</servlet-name>
 		<url-pattern>*.np</url-pattern>
 	</servlet-mapping>

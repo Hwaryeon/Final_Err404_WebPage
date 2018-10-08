@@ -639,17 +639,21 @@
 $('#reportNewPost').click(function(){
 	
 	
-	console.log("id : " + document.getElementById('boardid').value);
+	/* console.log("id : " + document.getElementById('boardid').value);
 	console.log("id : " + document.getElementById('bid').value);
-	console.log("id : " + document.getElementById('mid').value);
+	console.log("id : " + document.getElementById('mid').value); */
+	
+	var boardid = document.getElementById('boardid').value;
+	var bid = document.getElementById('bid').value;
+	var mid = document.getElementById('mid').value;
 	
 	var radioVal = $('input[name="remember"]:checked').val();
 	
 	console.log("radio : " + radioVal);
 	
 	/* var mbid = document.getElementById('mbid').value;
-	
-	location.href="deleteBandMultiLeader.bd?mbid=" + mbid; */
+	*/
+	location.href="reportPost.np?boardid=" + boardid + "&bid=" + bid + "&mid=" + mid + "&radioVal=" + radioVal; 
 	
 });
 
