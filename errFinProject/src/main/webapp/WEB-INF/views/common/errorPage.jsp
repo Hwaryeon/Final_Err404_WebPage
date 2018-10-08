@@ -115,7 +115,7 @@
         <div class="error_msg">
           <div class="circle_top">Circle</div>
           <img src="resources/images/404.png" alt="error">        
-          <div class="error">에러!</div>
+          <div class="error">에러! : ${ msg }</div>
         </div>
       </div>
     </div>

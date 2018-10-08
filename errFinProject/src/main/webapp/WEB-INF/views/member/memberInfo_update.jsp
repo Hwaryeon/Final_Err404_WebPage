@@ -25,6 +25,11 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <style>
+  	a{
+  		cursor : pointer;
+  	}
+  </style>
 </head>
 
 <body class="home page page-id-4 page-template page-template-template_home-php">
@@ -39,7 +44,6 @@
                 <div class="widget-content">
                     <ul>
                         <li>
-                         
                             <table style="display: table-cell; vertical-align: middle; text-align: center;">
                                 <tr>
                                     <td style="vertical-align: middle;">
@@ -60,107 +64,77 @@
 
                             </table>
                             <input type="file" id="userImage" name="userImage" multiple onchange="loadImg(this)">
-                            <br>
                             <hr>
                             <br>
+                            <form id= 'changedInfo' method = "post">
                             <table style="display: table-cell; vertical-align: middle; text-align: center;">
                                 <tr>
-                                    <td style="vertical-align: middle;" rowspan = "5">
+                                    <td width = "100px" style="vertical-align: middle; border-right : 1px solid lightgray;" rowspan = "11">
                                         <h5>개인정보</h5>
                                     </td>
-                                    <td width="100px" style="padding-top : 10px; padding-bottom : 10px; vertical-align: middle;">이메일</td>
-                                    <td width="120px" style="vertical-align: middle; text-align: left;">${ sessionScope.loginUser.mEmail }</td>
-                                    <td width="510px" style="vertical-align: middle; text-align: right"></td>
+                                    <td width="160px" style="padding-top : 10px; padding-bottom : 10px; vertical-align: middle;">이메일</td>
+                                    <td width="400px" style="vertical-align: middle; text-align: left;">
+                                    <input class = 'form-control' type = "text" value = "${ sessionScope.loginUser.mEmail }" id = "disabledInput" disabled></td>
+                                    <td width="90px" style="vertical-align: middle; text-align: right"></td>
                                 </tr>
                                 <tr>
-                                    <td style="vertical-align: middle;">비밀번호</td>
-                                    <td id = "nop" style="vertical-align: middle; text-align: left;"></td>
-                                    <td style="vertical-align: middle; text-align: right;"><a class="button-blue button-link" data-toggle="modal" data-target="#pwdModal">비밀번호 수정하기</a></td>
+                                	<td colspan = '3' height = "20px"></td>
                                 </tr>
                                 <tr>
-                                	<td colspan = "4"><hr></td>
+                                    <td style="vertical-align: middle;">현재 비밀번호</td>
+                                    <td id = "nop" style="vertical-align: middle; text-align: left;">
+                                    <input id = "nowPwd" name = "nowPwd" class = 'form-control' type = "password"></td>
+                                    <td style="vertical-align: middle; text-align: right;"></td>
+                                </tr>
+                                <tr>
+                                	<td colspan = '3' height = "20px"></td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align: middle;">변경할 비밀번호</td>
+                                    <td id = "nop" style="vertical-align: middle; text-align: left;">
+                                    <input id = "newPwd" name = "newPwd" class = 'form-control' type = "password"></td>
+                                    <td style="vertical-align: middle; text-align: right;"></td>
+                                </tr>
+                                <tr>
+                                	<td colspan = '3' height = "20px"></td>
+                                </tr>
+                                <tr>
+                                    <td style="vertical-align: middle;">변경할 비밀번호 확인</td>
+                                    <td id = "nop" style="vertical-align: middle; text-align: left;">
+                                    <input id = "newPwd2" name = "newPwd2"  class = 'form-control' type = "password"></td>
+                                    <td style="vertical-align: middle; text-align: right;"></td>
+                                </tr>
+                                <tr>
+                                	<td colspan = '3' height = "20px"></td>
                                 </tr>
                                 <tr>
                                     <td style="vertical-align: middle;">닉네임</td>
-                                    <td id = "showName" style="vertical-align: middle; text-align: left;">${ sessionScope.loginUser.mName }</td>
-                                    <td style="vertical-align: middle; text-align: right;"><a class="button-blue button-link" data-toggle="modal" data-target="#myModal">닉네임 수정하기</a></td>
+                                    <td id = "showName" style="vertical-align: middle; text-align: left;">
+                                    <input id = 'mName' name = "mName" class = 'form-control' type = "text" value = "${ sessionScope.loginUser.mName }"></td>
+                                    <td style="vertical-align: middle; text-align: right;"></td>
+                                </tr>
+                                <tr>
+                                	<td colspan = '3' height = "20px"></td>
                                 </tr>
                                 <tr>
                                     <td style="vertical-align: middle;">연락처</td>
-                                    <td id = "showPhone" style="vertical-align: middle; text-align: left;">${ sessionScope.loginUser.mPhone }</td>
-                                    <td style="vertical-align: middle; text-align: right;"><a class="button-blue button-link"  data-toggle="modal" data-target="#phoneModal">연락처 수정하기</a></td>
+                                    <td id = "showPhone" style="vertical-align: middle; text-align: left;">
+                                    <input id = 'mPhone' name = "mPhone" class = 'form-control' type = "text" value = "${ sessionScope.loginUser.mPhone }"></td>
+                                    <td style="vertical-align: middle; text-align: right;"></td>
                                 </tr>
-
                             </table>
                             <br>
-                            <div class="modal fade" id="myModal" role="dialog">
-								<div class="modal-dialog modal-sm">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal">&times;</button>
-											<h4 class="modal-title">닉네임 바꾸기</h4>
-										</div>
-										<div class="modal-body">
-											<p>변경할 닉네임을 입력하세요</p>
-											<input type="text" class="form-control" id="changedName" name="changedName">
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-primary" id="ckNameBtn"
-												onclick="ChangedName()">확인</button>
-											<button type="button" class="btn btn-default" id="cancelBtn"
-												data-dismiss="modal">취소</button>
-										</div>
-									</div>
-								</div>
-							</div>
+                            <input name = "mid" type = "hidden" value = "${sessionScope.loginUser.mid }">
+                            <input name = "mEmail" type = "hidden" value = "${sessionScope.loginUser.mEmail }">
+                            <div align = "center">
+                           		<a class="button-blue button-link" onclick = 'changedInfo();'>개인정보 수정하기</a>
+                            </div>
+                            </form>
+                            <br>
 						</li>
                     </ul>
                 </div>
             </div>
-			<div class="modal fade" id="phoneModal" role="dialog">
-				<div class="modal-dialog modal-sm">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title">연락처 변경</h4>
-						</div>
-						<div class="modal-body">
-							<p>변경할 연락처을 입력하세요</p>
-							<input type="text" class="form-control" id="changedPhone" name="changedPhone">
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" id="ckNameBtn"
-								onclick="ChangedPhone()">확인</button>
-							<button type="button" class="btn btn-default" id="cancelBtn1"
-								data-dismiss="modal">취소</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal fade" id="pwdModal" role="dialog">
-				<div class="modal-dialog modal-sm">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<h4 class="modal-title">비밀번호 변경</h4>
-						</div>
-						<div class="modal-body">
-							기존 비밀번호를 입력하세요
-							<input type="text" class="form-control" id="oldPwd" name="oldPwd"><br>
-							새로운 비밀번호를 입력하세요
-							<input type="text" class="form-control" id="newPwd1" name="newPwd1"><br>
-							새로운 비밀번호를 입력하세요
-							<input type="text" class="form-control" id="newPwd2" name="newPwd2"><br>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary" id="ckNameBtn"
-								onclick="ChangedPwd()">확인</button>
-							<button type="button" class="btn btn-default" id="cancelBtn2"
-								data-dismiss="modal">취소</button>
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
 
         <!-- Left Sidebar Content -->
@@ -207,50 +181,38 @@
 				</c:url>
     </div>
 
-    <div class="footer">
-        <div class="footer-top">
-            <div class="container">
-                <div class="pull-left">
-                    <div id="text-6">
-                        <div class="textwidget"><a href="#">Weekend Magazine</a> &copy; 2015 All rights reserved</div>
-                    </div>
-                </div>
-                <div class="pull-right hidden-xs">
-                    <div id="text-7">
-                        <div class="textwidget">Theme by <a title="Email me now" href="#">JKthemes</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom hidden-xs">
-            <div class="container">
-                <div id="nav_menu-2">
-                    <div class="menu-footer-menu-container">
-                        <ul id="menu-footer-menu" class="menu">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">News</a></li>
-                            <li><a href="#">Economy</a></li>
-                            <li><a href="#">Sports</a></li>
-                            <li><a href="#">Shows</a></li>
-                            <li><a href="#">Culture &#038; Art</a></li>
-                            <li><a href="#">Gossips</a></li>
-                            <li><a href="#">Fashion</a></li>
-                            <li><a href="#">Health &#038; Body</a></li>
-                            <li><a href="#">Technology</a></li>
-                            <li><a href="#">Science</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <a class="footer-nav-scroll pull-right"></a>
-            </div>
-        </div>
-    </div>
+    <jsp:include page="../common/footer.jsp" />
     <c:set var = "loginUserMid" value = "${ sessionScope.loginUser.mid }" scope = "page"></c:set>
     <script>
     	$(function(){
     		$("#userImage").hide();
     		$("#lobtn").hide();
-    	})
+    	});
+    	
+    	function changedInfo(){
+    		var newPwd = $("#newPwd").val();
+    		var newPwd2 = $("#newPwd2").val();
+    		var nowPwd = $("#nowPwd").val();
+    		
+    		if(nowPwd != ""){
+    		if(newPwd != ""){
+    			//비밀번호 바꾸기
+	    			if(newPwd == newPwd2){
+	    				$("#changedInfo").attr('action', "changePwd.me");
+	    				$("#changedInfo").submit();
+	    			}else{
+	    				alert("변경할 비밀번호를 확인해주세요");
+	    			}
+	    		}else{
+	    			//정보 수정
+	    			$("#changedInfo").attr('action', "changeInfo.me");
+	    			$("#changedInfo").submit();
+	    		}
+    		}else{
+    			alert("현재 비밀번호를 입력하세요");
+    		}
+    		
+    	}
 
     	function changeProfile(){
     		$("#userImage").click();
@@ -290,119 +252,6 @@
 				}
 			})
 		}
-    	
-    	function ChangedName(){
-			var ckName = $("#changedName").val();
-			
-			$.ajax({
-				url : "ChangedName.me",
-				data : {mName : ckName, mid : ${ loginUserMid } },
-				type : "post",
-				success:function(data){
-					console.log(data);
-					if(data == 1){
-						$("#changedName").val("");
-						$("#cancelBtn").click();
-						alert("변경이 완료되었습니다.");
-						$("#showName").html(ckName);
-					}else{
-						alert("중복되는 닉네임입니다. 다시 입력하세요");
-						
-					}
-				},
-				error:function(){
-					console.log("실패");
-				}
-			})
-    	
-    	}
-    	
-    	function ChangedPhone() {
-			var changedPhone = $("#changedPhone").val();
-
-			$.ajax({
-				url : "ChangedPhone.me",
-				type : "post",
-				data : {
-					mPhone : changedPhone, 
-					mid : ${ loginUserMid }
-				},
-				success:function(data){
-					console.log(data);
-					if(data == 1){
-						$("#changedPhone").val("");
-						$("#cancelBtn1").click();
-						alert("변경이 완료되었습니다.");
-						$("#showPhone").html(changedPhone);
-					}else{
-						alert("중복되는 연락처입니다. 다시 입력하세요");
-						
-					}
-				},
-				error:function(){
-					console.log("실패");
-				}
-			})
-		}
-    	
-    	function ChangedPwd(){
-    		var old = $("#oldPwd").val();
-    		var new1 = $("#newPwd1").val();
-    		var new2 = $("#newPwd2").val();
-    		
-    		if(old == "" || new1 == "" || new2 == ""){
-    			alert("비밀번호를 입력해주세요.");
-    			return false;
-    		}
-    		
-    		$.ajax({
-    			url : "CkPwd.me",
-				type : "post",
-				data : {
-					old : old,
-					mid : `${ loginUserMid }`
-				},
-				success:function(data){
-					if(data == 1){
-						if(new1 != new2){
-							alert("새로운 비밀번호가 일치하지 않습니다.");
-							return false;
-						}else{
-							ChangedPwdAjax(new1);
-						}
-					}else{
-						alert("기존 비밀번호가 일치하지 않습니다.");
-					}
-				},
-				error:function(){
-					console.log("실패");
-				}
-    		})
-    		
-    	}
-    	
-    	function ChangedPwdAjax(new1){
-    		$.ajax({
-    			url : "ChangedPwd.me",
-				type : "post",
-				data : {
-					newPwd : new1,
-					mid : `${ loginUserMid }`
-				},
-				success:function(data){
-					$("#oldPwd").val("");
-		    		$("#newPwd1").val("");
-		    		$("#newPwd2").val("");
-		    		$("#cancelBtn2").click();
-		    		$("#cancelBtn2").click();
-					alert("비밀번호 변경이 성공했습니다.");
-				},
-				error:function(){
-					console.log("실패");
-				}
-    		})
-    	}
-
     	
     	function deleteMember(){
     		var ck = window.confirm("진짜 탈퇴?");
