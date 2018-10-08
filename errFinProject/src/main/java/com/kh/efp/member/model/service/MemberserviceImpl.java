@@ -76,17 +76,7 @@ public class MemberserviceImpl implements MemberService {
 		return md.insertChangedProfile(sqlSession, pf);
 	}
 
-	@Override
-	public int updatemName(Member m) {
-		int ck = md.selectMemberName(sqlSession, m);
-		int result = 0;
-
-		if(ck == 0){
-			result = md.updateMemberName(sqlSession, m);
-		}
-		
-		return result;
-	}
+	
 
 	@Override
 	public Member selectMember(Member m) {
@@ -100,40 +90,7 @@ public class MemberserviceImpl implements MemberService {
 		return md.selectmPhone(sqlSession, mPhone);
 	}
 
-	@Override
-	public int updatemPhone(Member m) {
-		String phone = m.getmPhone();
-		System.out.println(phone);
-		int ck = md.selectmPhone(sqlSession, phone);
-		int result = 0;
-
-		if(ck == 0){
-			result = md.updateMemberPhone(sqlSession, m);
-		}
-		
-		return result;
-	}
-
-	@Override
-	public int chPwd(Member m) {
-		int result = -99;
-		
-		String encPassword = md.selectEncPassword(sqlSession, m);
-
-		if(!passwordEncoder.matches(m.getmPwd(), encPassword)){
-			result = 0;
-		}else{
-			result = 1;
-		}
-		
-		return result;
-	}
-
-	@Override
-	public int updatemPwd(Member m) {
-		return md.updateMemberPwd(sqlSession, m);
-	}
-
+	
 	@Override
 	public int selectCntEmail(String mEmail) {
 		return md.selectCntEmail(sqlSession, mEmail);
@@ -145,9 +102,9 @@ public class MemberserviceImpl implements MemberService {
 	}
 
 	@Override
-	public int updateMidmPwd(Member m) {
+	public int updatemEmailmPwd(Member m) {
 		// TODO Auto-generated method stub
-		return md.updateMidmPwd(sqlSession, m);
+		return md.updatemEmailmPwd(sqlSession, m);
 	}
 
 	@Override
@@ -177,6 +134,44 @@ public class MemberserviceImpl implements MemberService {
 		
 		return loginUser;
 	}
+
+	@Override
+	public void selectPwd(int mid, String nowPwd, String newPwd) throws LoginException {
+		Member m = new Member();
+		m.setMid(mid);
+		
+		String encPassword = md.selectEncPassword(sqlSession, m);
+		
+		if(!passwordEncoder.matches(nowPwd, encPassword)){
+			throw new LoginException("비밀번호가 일치하지 않습니다.");
+		}else{
+			m.setmPwd(passwordEncoder.encode(newPwd));
+			int result = md.updateMidmPwd(sqlSession, m);
+			
+			if(result <= 0){
+				throw new LoginException("비밀번호 수정에 실패했습니다.");
+			}
+		}
+		
+		
+	}
+
+	@Override
+	public void selectInfo(Member m) throws LoginException {
+		String encPassword = md.selectEncPassword(sqlSession, m);
+
+		if(!passwordEncoder.matches(m.getmPwd(), encPassword)){
+			throw new LoginException("비밀번호가 일치하지 않습니다.");
+		}else{
+			int result = md.updateInfo(sqlSession, m);
+
+			if(result <= 0){
+				throw new LoginException("회원정보 수정에 실패했습니다.");
+			}
+		}
+	}
+
+
 
 
 
