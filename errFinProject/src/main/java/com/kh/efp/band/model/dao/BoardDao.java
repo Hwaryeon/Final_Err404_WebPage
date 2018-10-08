@@ -19,5 +19,7 @@ public interface BoardDao {
 	public void increaseViewcnt(int bno)throws Exception;
 	//07.수정화면
 	public List<Board> updatePage() throws Exception;
+	public Board selectBoard(Board board) throws Exception;
+
 
 }

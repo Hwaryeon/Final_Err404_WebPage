@@ -25,4 +25,6 @@ public interface BoardService {
 	public void increaseViewcnt(int bno, HttpSession session) throws Exception;
 	//07.게시글 수섲ㅇ
 	public List<Board> updatePage() throws Exception;
+	
+	public Board selectBoard(Board board) throws Exception;
 }

@@ -184,10 +184,11 @@
       </div>
 	
 	
-		<c:forEach items="${boardMain }" var="row">
+		<form:from action="update.do" method="post" modelAttribute="vo">
+		
       <div class="main col-md-6 col-xs-12">
 
-
+			<input type="hidden" path="boardId"/>
 
          <div id="search-3" class="widget fullwidth widget_search">
             <form class="search" role="search" method="get" action="#">
@@ -210,10 +211,11 @@
                   </p>
                   <p class="comment-form-comment">
                      <label for="comment"></label>
-                     <textarea name="bContent" id="bContent" cols="45" rows="8"
+                     <textarea  name="bContent" id="bContent" cols="45" rows="8"
                         aria-required="true">
-                        <p>${row.bContent }</p>
+                     ${ Board.bContent }
                         </textarea>
+              
                   </p>
                   <%-- <p class="form-allowed-tags">
                      You may use these <abbr title="HyperText Markup Language">HTML</abbr>
@@ -242,7 +244,7 @@
 
 
 
-		</c:forEach>
+	</form:from>
 
 
 

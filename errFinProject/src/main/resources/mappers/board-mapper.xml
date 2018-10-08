@@ -65,7 +65,15 @@
 	WHERE B.MID=#{mid} AND B.BSTATUS ='Y'
 	
 	</select>
-
+	
+	
+	<!-- 수정화면 -->
+	<select id="selectBoard" parameterType="Board" resultMap="BoarddResultSet">
+	SELECT * 
+	FROM BOARDS
+	WHERE BSTATUS = 'Y' AND BOARDID=#{boardId} AND MID=#{mId}
+	</select>
+	
 
 	<!-- 05.수정 처리 -->
 	<update id="updateArticle">
