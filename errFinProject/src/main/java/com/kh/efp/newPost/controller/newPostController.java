@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.efp.band.model.service.BandService;
 import com.kh.efp.band.model.vo.Band;
@@ -17,6 +18,7 @@ import com.kh.efp.newPost.model.vo.BandProfile;
 import com.kh.efp.newPost.model.vo.Boards;
 import com.kh.efp.newPost.model.vo.Category;
 import com.kh.efp.newPost.model.vo.MemberProfile;
+import com.kh.efp.newPost.model.vo.Report;
 
 
 @Controller
@@ -79,6 +81,8 @@ public class newPostController {
 		
 		for(int i=0; i < bList.size(); i++){
 			
+			System.out.println("bid : " + bList.get(i).getBid());
+			
 			bs.setBid(bList.get(i).getBid());
 			bs.setMid(mid);
 			
@@ -137,6 +141,10 @@ public class newPostController {
 		
 		
 		
+		
+		
+		
+		
 		model.addAttribute("newPostList", test);
 		model.addAttribute("mList", mList);
 		
@@ -150,4 +158,33 @@ public class newPostController {
 		
 		return "newPost/newPost";
 	}
+	
+	@RequestMapping("reportPost.np")
+	public String insertReport(@RequestParam int boardid, int bid, int mid, String radioVal , Model model){
+		
+		System.out.println("boardid : " + boardid);
+		System.out.println("bid : " + bid);
+		System.out.println("mid : " + mid);
+		System.out.println("radioVal : " + radioVal);
+		
+		Report re = new Report();
+		
+		
+		//임시로 지정
+		int id = 1;
+		
+		re.setRcontent(radioVal);
+		re.setMid(id);
+		re.setRlevel("B");
+		re.setBoardid(boardid);
+		re.setBid(bid);
+		re.setCid(mid);
+		
+		ns.insertReport(re);
+		
+		
+		return "newPost/newPost";
+		
+	}
+	
 }
