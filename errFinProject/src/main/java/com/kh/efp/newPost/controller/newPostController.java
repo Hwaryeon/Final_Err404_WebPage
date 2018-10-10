@@ -166,15 +166,24 @@ public class newPostController {
 			}
 		}
 		
-		
+		// 새글피드 프로필 검색
 		ArrayList<MemberProfile> mList = new ArrayList<MemberProfile>(test.length);
 		
 		for(int i=0; i < test.length; i++){
 			mList.add(ns.selectMemberProfile(test[i].getMid()));
 		}
 		
+		//댓글 프로필 검색
+		ArrayList<MemberProfile> mList2 = new ArrayList<MemberProfile>(test2.length);
 		
-		model.addAttribute("commentList", test2);
+		for(int i=0; i<test2.length; i++){
+			mList2.add(ns.selectMemberProfile(test2[i].getMid()));
+		}
+		
+		for(int i=0; i<mList.size(); i++){
+			System.out.println(mList.get(i).toString());
+		}
+		
 		
 		
 		model.addAttribute("newPostList", test);
@@ -188,19 +197,17 @@ public class newPostController {
 		model.addAttribute("rpList", rpList);
 		model.addAttribute("bmcList", bmcList);
 		
+		model.addAttribute("commentList", test2);
+		model.addAttribute("mList2", mList2);
+		
+		
 		return "newPost/newPost";
 	}
 	
 	@RequestMapping("reportPost.np")
 	public String insertReport(@RequestParam int boardid, int bid, int mid, String radioVal , Model model){
 		
-		System.out.println("boardid : " + boardid);
-		System.out.println("bid : " + bid);
-		System.out.println("mid : " + mid);
-		System.out.println("radioVal : " + radioVal);
-		
 		Report re = new Report();
-		
 		
 		//임시로 지정
 		int id = 1;
