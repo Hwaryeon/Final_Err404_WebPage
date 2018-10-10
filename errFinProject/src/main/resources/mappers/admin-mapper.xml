@@ -19,5 +19,6 @@
 		FROM MEMBER
 		WHERE MID != 0
 		ORDER BY MID ASC
+	
 	</select>
 </mapper>

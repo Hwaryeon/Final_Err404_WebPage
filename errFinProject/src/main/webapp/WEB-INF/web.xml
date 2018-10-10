@@ -230,7 +230,7 @@
 	<servlet-mapping>
 		<servlet-name>mainPageServlet</servlet-name>
 		<url-pattern>*.mp</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> 
 	
 
 </web-app>

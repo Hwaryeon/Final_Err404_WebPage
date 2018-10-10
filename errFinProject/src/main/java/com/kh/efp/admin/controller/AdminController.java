@@ -24,8 +24,6 @@ public class AdminController {
 		model.addAttribute("loginUser", loginUser);
 		model.addAttribute("memberList", as.memberAllList());
 		
-		//System.out.println("goMemberSelect 호출됨");
-		
 		return "administer/memberSelect";
 	}
 	@RequestMapping("goBandSelect.ad")

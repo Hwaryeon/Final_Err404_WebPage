@@ -164,7 +164,6 @@ public class MemberController {
 				return "main/main";
 			}
 			else {
-				
 				return "redirect:/goMemberSelect.ad";
 			}
 

@@ -12,7 +12,6 @@ import com.kh.efp.member.model.vo.Profile;
 
 @Service
 public class mainServiceImpl implements mainService {
-	
 	@Autowired private SqlSessionTemplate sqlSession;
 	@Autowired private mainDao md;
 	

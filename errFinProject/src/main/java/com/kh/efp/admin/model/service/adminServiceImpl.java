@@ -18,7 +18,4 @@ public class adminServiceImpl implements adminService {
 	public List<Object> memberAllList() {
 		return ad.memberAllList(sqlSession);
 	}
-	
-	
-
 }

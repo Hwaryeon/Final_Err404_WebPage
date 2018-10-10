@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content=" width=device-width, initial-scale=1">
 <title>관리자 | 밴드 검색</title>
-<!-- CSS -->
+<!-- CSS --> 
 <jsp:include page="../admin/adminMenubar.jsp" />
 <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 <link href="resources/css/font-awesome.min.css" rel="stylesheet">

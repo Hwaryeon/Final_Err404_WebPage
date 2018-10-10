@@ -42,6 +42,7 @@
 		<mapper resource="mappers/category-mapper.xml"/>
     	<mapper resource="mappers/main-mapper.xml"/>
     	<mapper resource="mappers/admin-mapper.xml"/>
+    	
 	</mappers>
 	
 	

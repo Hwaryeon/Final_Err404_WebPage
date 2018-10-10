@@ -17,5 +17,4 @@ public class adminDaoImpl implements adminDao {
 		System.out.println("memberList[3] : " + memberList.get(3).toString());
 		return memberList;
 	}
-
 }

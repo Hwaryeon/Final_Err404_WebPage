@@ -1,5 +1,8 @@
 package com.kh.efp.mainPage.model.vo;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class RecommendContents implements java.io.Serializable {
 	private String bname;
 	private String cname;

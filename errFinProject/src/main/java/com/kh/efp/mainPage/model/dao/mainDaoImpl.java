@@ -13,7 +13,6 @@ import com.kh.efp.member.model.vo.Profile;
 
 @Repository
 public class mainDaoImpl implements mainDao {
-	
 	@Override
 	public List<Object> bandList(SqlSessionTemplate sqlSession, int mid) {
 		List<Object> bandList = new ArrayList<Object>();

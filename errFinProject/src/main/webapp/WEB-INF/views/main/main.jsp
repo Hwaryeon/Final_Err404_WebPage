@@ -9,7 +9,7 @@
 <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content=" width=device-width, initial-scale=1">
 <title>밴드 홈 | 밴드</title>
-<!-- CSS -->
+<!-- CSS --> 
 <jsp:include page="../common/menubar.jsp" />
 <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 <link href="resources/css/font-awesome.min.css" rel="stylesheet">

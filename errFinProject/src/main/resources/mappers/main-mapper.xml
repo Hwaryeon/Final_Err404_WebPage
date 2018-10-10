@@ -88,5 +88,6 @@
 	<insert id="insertProfile" parameterType="Profile">
 		INSERT INTO PROFILE
 		VALUES(SEQ_PID.NEXTVAL, #{originName}, #{editName}, #{fileSrc}, SYSDATE, 2, NULL, #{bid})
+
 	</insert>
 </mapper>
