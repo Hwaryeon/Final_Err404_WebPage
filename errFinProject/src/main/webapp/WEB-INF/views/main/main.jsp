@@ -125,11 +125,30 @@
 .poppost-content {
 	width: 490px;
 	height: 160px;
+	float:left;
+	display:inline-block;
 }
 
 .poppost-content>p {
 	font-size: 15px;
 	margin-left: 10px;
+	width:380px;
+	margin-right:0px;
+	float:left;
+	display:inline-block;
+}
+
+.poppost-content>div {
+	/* margin-left:390px; */
+	width:95px;
+	height:95px;
+	float:left;
+	display:inline-block;
+}
+
+.poppostPic>img {
+	width:100%;
+	height:100%;
 }
 
 .recommend-container {
@@ -213,6 +232,8 @@ ul{
 	box-shadow: 5px 10px 18px #888888;
 	transition: all 0.4s ease-out;
 }
+
+
 </style>
 
 
@@ -257,7 +278,7 @@ ul{
 						<li class="myband-list">
 							<div class="band-profile">
 								<div style="height: 65px"></div>
-								<div id="plus-icon" onclick="location.href='newBand.jsp'">
+								<div id="plus-icon" onclick="location.href='newBand.mp'">
 									<p>+</p>
 								</div>
 							</div>
@@ -267,17 +288,15 @@ ul{
 							</div>
 						</li>
 						<c:forEach var="MyBandList" items="${ myBandList }">
-							<%-- <c:if test='${!empty myBandList[i]}'> --%>
 							<li class="myband-list">
 								<div class="band-profile">
-									<img src="resources/images/${ MyBandList.edit_name }">
+									<img src="resources/upload_images/${ MyBandList.edit_name }">
 								</div>
 								<div class="band-name">
 									<p class="band-nametxt">${ MyBandList.bname }</p>
 									<span class="band-membertxt">멤버 : ${ MyBandList.memberCount }</span>
 								</div>
 							</li>
-							<%-- </c:if> --%>
 						</c:forEach>
 					</ul>
 				</div>
@@ -296,16 +315,18 @@ ul{
 									<c:choose>
 										<c:when test="${ PopularContents.flevel eq 'I'}">
 											<p>
-											이미지 있는애<br>
 											<c:choose>
-												<c:when test="${fn:length(PopularContents.bcontent) > 240 }">
-													${fn:substring(PopularContents.bcontent, 0, 240) }....
+												<c:when test="${fn:length(PopularContents.bcontent) > 180 }">
+													${fn:substring(PopularContents.bcontent, 0, 180) }....
 												</c:when>
 												<c:otherwise>
 													${ PopularContents.bcontent }
 												</c:otherwise>
 											</c:choose>
 											</p>
+											<div class="poppostPic">
+												<img src="resources/upload_images/${ PopularContents.edit_name }">
+											</div>
 										</c:when>
 										<c:otherwise>
 											<p>
@@ -328,11 +349,6 @@ ul{
 				</div>
 			</div>
 
-			<script>
-				function first(){
-					var first = (int)Math.random() * 5;
-				}
-			</script>
 			<div class="widget">
 				<h4 class="page-title">카테고리</h4>
 				<div class="item">
