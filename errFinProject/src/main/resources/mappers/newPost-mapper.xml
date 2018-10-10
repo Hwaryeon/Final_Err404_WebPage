@@ -154,7 +154,20 @@
 		WHERE BID = #{bid} AND BSTATUS = 'Y' AND REF_STATUS = 'COMMENT'
 	</select>
 	
+	<!-- 댓글을 등록하는 메소드 -->
+	<insert id="insertNewPost" parameterType="Boards">
+		INSERT INTO BOARDS
+		 VALUES(SEQ_BOARDID.NEXTVAL, #{bid}, #{mid}, #{bcontent}, SYSDATE, #{bstatus}, #{ref_status}, #{ref_bid})
+	</insert>
 	
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM BOARDS WHERE BOARDID = #{boardid}
+	
+	</delete>
+	
+	<update id="updateBoard" parameterType="Boards">
+		UPDATE BOARDS SET BCONTENT = #{bcontent}, BDATE = SYSDATE WHERE BOARDID = #{boardid}
+	</update>
 	
 </mapper>
 

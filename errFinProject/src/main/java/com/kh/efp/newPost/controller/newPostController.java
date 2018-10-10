@@ -180,11 +180,6 @@ public class newPostController {
 			mList2.add(ns.selectMemberProfile(test2[i].getMid()));
 		}
 		
-		for(int i=0; i<mList.size(); i++){
-			System.out.println(mList.get(i).toString());
-		}
-		
-		
 		
 		model.addAttribute("newPostList", test);
 		model.addAttribute("mList", mList);
@@ -222,8 +217,59 @@ public class newPostController {
 		ns.insertReport(re);
 		
 		
-		return "newPost/newPost";
+		return "redirect:/newPost.np";
+	}
+	
+	@RequestMapping("insertNewPost.np")
+	public String insertNewPost(@RequestParam int boardid, int bid, String comment , Model model){
 		
+		/*System.out.println("boardid :" +boardid);
+		System.out.println("bid : " + bid);
+		System.out.println("comment : " +comment);*/
+		
+		
+		//임시로 설정
+		int mid = 1;
+		
+		Boards b = new Boards();
+		
+		b.setMid(mid);
+		b.setRef_bid(boardid);
+		b.setBid(bid);
+		b.setBcontent(comment);
+		b.setBstatus("Y");
+		b.setRef_status("COMMENT");
+		
+		ns.insertNewPost(b);
+		
+		return "redirect:/newPost.np";
+	}
+	
+	@RequestMapping("deleteBoard.np")
+	public String deleteBoard(@RequestParam int boardid, Model model){
+		
+		ns.deleteBoard(boardid);
+		
+		
+		return "redirect:/newPost.np";
+	}
+	
+	@RequestMapping("updateBoard.np")
+	public String updateBoard(@RequestParam int boardid, String comment , Model model){
+		
+		
+		
+		//임시로 설정
+		int mid = 1;
+		
+		Boards b = new Boards();
+
+		b.setBoardid(boardid);
+		b.setBcontent(comment);
+		
+		ns.updateBoard(b);
+		
+		return "redirect:/newPost.np";
 	}
 	
 }

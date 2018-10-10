@@ -94,5 +94,20 @@ public class newPostDaoImpl implements newPostDao{
 		return list;
 	}
 
+	@Override
+	public void insertNewPost(SqlSessionTemplate sqlSession, Boards b) {
+		sqlSession.insert("newPost.insertNewPost", b);
+	}
+
+	@Override
+	public void deleteBoard(SqlSessionTemplate sqlSession, int boardid) {
+		sqlSession.delete("newPost.deleteBoard", boardid);
+	}
+
+	@Override
+	public void updateBoard(SqlSessionTemplate sqlSession, Boards b) {
+		sqlSession.update("newPost.updateBoard", b);
+	}
+
 
 }
