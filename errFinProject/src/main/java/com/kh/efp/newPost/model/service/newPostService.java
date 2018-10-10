@@ -34,5 +34,11 @@ public interface newPostService {
 
 	ArrayList<Boards> selectCommentList(Boards bs);
 
+	void insertNewPost(Boards b);
+
+	void deleteBoard(int boardid);
+
+	void updateBoard(Boards b);
+
 
 }

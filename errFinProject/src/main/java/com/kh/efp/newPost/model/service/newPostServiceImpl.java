@@ -76,4 +76,19 @@ public class newPostServiceImpl implements newPostService{
 		return nd.selectCommentList(sqlSession, bs);
 	}
 
+	@Override
+	public void insertNewPost(Boards b) {
+		nd.insertNewPost(sqlSession, b);
+	}
+
+	@Override
+	public void deleteBoard(int boardid) {
+		nd.deleteBoard(sqlSession, boardid);
+	}
+
+	@Override
+	public void updateBoard(Boards b) {
+		nd.updateBoard(sqlSession, b);
+	}
+
 }
