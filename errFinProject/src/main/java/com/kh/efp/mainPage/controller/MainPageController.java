@@ -1,16 +1,23 @@
 package com.kh.efp.mainPage.controller;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.efp.band.model.vo.Band;
@@ -87,6 +94,28 @@ public class MainPageController {
 			if(result == 0){
 				return "common/errorPage";
 			} else {
+				
+				int bid = mps.selectBandId(b);
+				
+				// RestTemplate 에 MessageConverter 세팅
+			    List<HttpMessageConverter<?>> converters = new ArrayList<HttpMessageConverter<?>>();
+			    converters.add(new FormHttpMessageConverter());
+			    converters.add(new StringHttpMessageConverter());
+			 
+			    RestTemplate restTemplate = new RestTemplate();
+			    restTemplate.setMessageConverters(converters);
+			 
+			    // parameter 세팅
+			    MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
+			    map.add("title", bname);
+			    map.add("bid", String.valueOf(bid));
+			    map.add("mid", String.valueOf(loginUser.getMid()));
+			 
+			    // REST API 호출
+//			    String result2 = restTemplate.postForObject("http://127.0.0.1:3000/createRoom", map, String.class);
+//			    System.out.println(result2);
+				
+				
 				model.addAttribute("loginUser", loginUser);
 				model.addAttribute("myBandList", mps.bandList(mid));
 				model.addAttribute("popContents", mps.popContent());

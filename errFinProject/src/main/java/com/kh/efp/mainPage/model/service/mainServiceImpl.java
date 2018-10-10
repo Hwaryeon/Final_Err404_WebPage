@@ -54,4 +54,10 @@ public class mainServiceImpl implements mainService {
 		
 		return result;
 	}
+
+	@Override
+	public int selectBandId(Band b) {
+		// TODO Auto-generated method stub
+		return md.selectBand(sqlSession, b.getBname());
+	}
 }
