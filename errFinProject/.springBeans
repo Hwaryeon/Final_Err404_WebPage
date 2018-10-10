@@ -7,15 +7,21 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
+		<config>src/main/webapp/WEB-INF/config/admin-servlet.xml</config>
 	</configs>
 	<autoconfigs>
-		<config>src/main/webapp/WEB-INF/config/login-servlet.xml</config>
 		<config>src/main/webapp/WEB-INF/config/band-servlet.xml</config>
-		<config>src/main/webapp/WEB-INF/config/member-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/config/codeFactory-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/config/mainPage-servlet.xml</config>
 		<config>src/main/webapp/WEB-INF/config/spring-security.xml</config>
 		<config>src/main/resources/root-context.xml</config>
+		<config>src/main/webapp/WEB-INF/config/board-servlet.xml</config>
 		<config>src/main/webapp/WEB-INF/config/download-servlet.xml</config>
 		<config>src/main/webapp/WEB-INF/config/sampleData-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/config/newPost-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/config/login-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/config/member-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/config/category-servlet.xml</config>
 		<config>src/main/webapp/WEB-INF/config/member_band-servlet.xml</config>
 	</autoconfigs>
 	<configSets>

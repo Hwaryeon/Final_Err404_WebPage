@@ -20,5 +20,7 @@ public interface mainDao {
 	int insertMemberBand(SqlSessionTemplate sqlSession, int bandId, int mid);
 
 	int insertProfile(SqlSessionTemplate sqlSession, Profile pf);
+	
+	List<Object> recommendContent(SqlSessionTemplate sqlSession);
 
 }

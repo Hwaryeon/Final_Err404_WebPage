@@ -147,19 +147,26 @@ public class MemberController {
 		System.out.println("login m : " + m);
 		try {
 			//세션에 올라감
-      loginUser loginUser = ms.loginMember2(m);
-
+			loginUser loginUser = ms.loginMember2(m);
+			//System.out.println("loginMember 2 : " + loginUser);
 			int mid = loginUser.getMid();
 			
-      model.addAttribute("loginUser", loginUser);
-      
-			model.addAttribute("myBandList", mps.bandList(mid));
-			model.addAttribute("popContents", mps.popContent());
-
-			System.out.println(loginUser);
-
-
-			return "main/main";
+			if(mid > 0) {
+				model.addAttribute("loginUser", loginUser);
+	      
+				model.addAttribute("myBandList", mps.bandList(mid));
+				model.addAttribute("popContents", mps.popContent());
+				model.addAttribute("rcmContents", mps.recommendContent());
+	
+				System.out.println(loginUser);
+	
+	
+				return "main/main";
+			}
+			else {
+				
+				return "redirect:/goMemberSelect.ad";
+			}
 
 		} catch (LoginException e) {
 			model.addAttribute("msg", e.getMessage());

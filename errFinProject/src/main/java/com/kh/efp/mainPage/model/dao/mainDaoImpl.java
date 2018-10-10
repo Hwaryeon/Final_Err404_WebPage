@@ -78,4 +78,23 @@ public class mainDaoImpl implements mainDao {
 		return sqlSession.insert("Main.insertProfile", pf);
 	}
 
+	@Override
+	public List<Object> recommendContent(SqlSessionTemplate sqlSession) {
+		List<Object> recommendContent = new ArrayList<Object>();
+		recommendContent = sqlSession.selectList("Main.selectRcmContent");
+		//System.out.println("popContent (first) : " + popContent);
+		
+		List<Object> finalContent = new ArrayList<Object>();
+		int rcLength = recommendContent.size();
+		int first = (int)(Math.random() * (rcLength-10));
+		
+		for(int i=first;i<first + 10;i++){
+			finalContent.add(recommendContent.get(i));
+		}
+		
+		System.out.println("finalContent : " + finalContent);
+		
+		return finalContent;
+	}
+
 }

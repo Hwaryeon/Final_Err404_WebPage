@@ -12,4 +12,6 @@ public interface mainService {
 	List<Object> popContent();
 
 	int insertBand(Profile pf, Band b, int mid);
+
+	List<Object> recommendContent();
 }

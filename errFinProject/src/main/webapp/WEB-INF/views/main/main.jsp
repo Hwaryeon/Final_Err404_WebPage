@@ -182,6 +182,11 @@
 	display: inline-block;
 }
 
+.recommend-profile>img {
+	width:100%;
+	height:100%;
+}
+
 .recommend-content {
 	width: 400px;
 	height: 100px;
@@ -196,18 +201,19 @@
 }
 
 .recommend-content>.introduction {
-	font-size: 10px;
+	font-size: 12px;
 	margin-bottom: 0px;
 	margin-left: 10px;
 }
 
 .recommend-content>button {
 	/* margin-top:4px; */
-	margin-left: 250px;
+	margin-left: 230px;
+	width:150px;
 	background-color: white;
 	border: 0.5px solid black;
 	height: 30px;
-	font-size: 15px;
+	font-size: 10px;
 }
 
 
@@ -338,7 +344,7 @@ ul{
 													${ PopularContents.bcontent }
 												</c:otherwise>
 											</c:choose>
-											<br>작성자 : ${ PopularContents.mname }
+											<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;작성자 : ${ PopularContents.mname }
 											</p>
 										</c:otherwise>
 									</c:choose>
@@ -391,106 +397,27 @@ ul{
 				<h4 class="page-title">이런 밴드는 어때요?</h4>
 				<div class="recommend-container">
 					<ul>
-						<li class="recommend-list">
-							<div class="recommend-profile">프로필사진</div>
-							<div class="recommend-content">
-								<p class="title">밴드제목</p>
-								<p class="introduction">
-									밴드소개<br>밴드소개
-								</p>
-								<button>밴드 더 보기</button>
-							</div>
-						</li>
-						<li class="recommend-list">
-							<div class="recommend-profile">프로필사진</div>
-							<div class="recommend-content">
-								<p class="title">밴드제목</p>
-								<p class="introduction">
-									밴드소개<br>밴드소개
-								</p>
-								<button>밴드 더 보기</button>
-							</div>
-						</li>
-						<li class="recommend-list">
-							<div class="recommend-profile">프로필사진</div>
-							<div class="recommend-content">
-								<p class="title">밴드제목</p>
-								<p class="introduction">
-									밴드소개<br>밴드소개
-								</p>
-								<button>밴드 더 보기</button>
-							</div>
-						</li>
-						<li class="recommend-list">
-							<div class="recommend-profile">프로필사진</div>
-							<div class="recommend-content">
-								<p class="title">밴드제목</p>
-								<p class="introduction">
-									밴드소개<br>밴드소개
-								</p>
-								<button>밴드 더 보기</button>
-							</div>
-						</li>
-						<li class="recommend-list">
-							<div class="recommend-profile">프로필사진</div>
-							<div class="recommend-content">
-								<p class="title">밴드제목</p>
-								<p class="introduction">
-									밴드소개<br>밴드소개
-								</p>
-								<button>밴드 더 보기</button>
-							</div>
-						</li>
-						<li class="recommend-list">
-							<div class="recommend-profile">프로필사진</div>
-							<div class="recommend-content">
-								<p class="title">밴드제목</p>
-								<p class="introduction">
-									밴드소개<br>밴드소개
-								</p>
-								<button>밴드 더 보기</button>
-							</div>
-						</li>
-						<li class="recommend-list">
-							<div class="recommend-profile">프로필사진</div>
-							<div class="recommend-content">
-								<p class="title">밴드제목</p>
-								<p class="introduction">
-									밴드소개<br>밴드소개
-								</p>
-								<button>밴드 더 보기</button>
-							</div>
-						</li>
-						<li class="recommend-list">
-							<div class="recommend-profile">프로필사진</div>
-							<div class="recommend-content">
-								<p class="title">밴드제목</p>
-								<p class="introduction">
-									밴드소개<br>밴드소개
-								</p>
-								<button>밴드 더 보기</button>
-							</div>
-						</li>
-						<li class="recommend-list">
-							<div class="recommend-profile">프로필사진</div>
-							<div class="recommend-content">
-								<p class="title">밴드제목</p>
-								<p class="introduction">
-									밴드소개<br>밴드소개
-								</p>
-								<button>밴드 더 보기</button>
-							</div>
-						</li>
-						<li class="recommend-list">
-							<div class="recommend-profile">프로필사진</div>
-							<div class="recommend-content">
-								<p class="title">밴드제목</p>
-								<p class="introduction">
-									밴드소개<br>밴드소개
-								</p>
-								<button>밴드 더 보기</button>
-							</div>
-						</li>
+						<c:forEach var="rcmContents" items="${ rcmContents }">
+							<li class="recommend-list">
+								<div class="recommend-profile">
+									<img src="${contextPath}/resources/upload_images/${rcmContents.edit_name}">
+								</div>
+								<div class="recommend-content">
+									<p class="title">${rcmContents.bname}</p>
+									<p class="introduction">
+										<c:choose>
+											<c:when test="${fn:length(rcmContents.bintro) > 75 }">
+												${fn:substring(rcmContents.bintro, 0, 75) }....
+											</c:when>
+											<c:otherwise>
+												${rcmContents.bintro}
+											</c:otherwise>
+										</c:choose>
+									</p>
+									<button><b>${rcmContents.cname}</b>밴드 더 보기</button>
+								</div>
+							</li>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="Admin">
+	<resultMap type="Member" id="adMember">
+		<id property="mid" column="MID"/>
+		<result property="mEmail" column="MEMAIL"/>
+		<result property="mName" column="MNAME"/>
+		<result property="mPhone" column="MPHONE"/>
+		<result property="mNational" column="MNATIONAL"/>
+		<result property="mDate" column="MDATE"/>
+		<result property="mType" column="MTYPE"/>
+	</resultMap>
+	
+	<select id="selectAllMember" resultMap="adMember" parameterType="java.util.ArrayList">
+		SELECT MID, MEMAIL, MNAME, MPHONE, MNATIONAL, MDATE, MTYPE
+		FROM MEMBER
+		WHERE MID != 0
+		ORDER BY MID ASC
+	</select>
+</mapper>

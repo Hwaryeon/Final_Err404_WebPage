@@ -24,6 +24,13 @@
 		<result property="flevel" column="FLEVEL"/>
 		<result property="bcontent" column="BCONTENT"/>
 	</resultMap>
+	
+	<resultMap type="RecommendContent" id="RcmContent">
+		<id property="bname" column="BNAME"/>
+		<result property="cname" column="CNAME"/>
+		<result property="edit_name" column="EDIT_NAME"/>
+		<result property="bintro" column="BINTRO"/>
+	</resultMap>
 
 	<select id="selectMyBand" resultMap="MyBand" parameterType="java.util.ArrayList" resultType="java.util.ArrayList">
 		SELECT MID, BNAME, MEMBERCOUNT, EDIT_NAME, MY.BID
@@ -53,6 +60,13 @@
 		JOIN BAND D ON (B.BID = D.BID)
 		JOIN MEMBER M ON (B.MID = M.MID)
 		JOIN ATTFILE A ON (A.BOARDID = B.BOARDID)
+	</select>
+	
+	<select id="selectRcmContent" resultMap="RcmContent" parameterType="java.util.ArrayList" resultType="java.util.ArrayList">
+		SELECT B.BNAME, C.CNAME, P.EDIT_NAME, B.BINTRO
+		FROM BAND B
+		JOIN PROFILE P ON (P.BID = B.BID)
+		JOIN CATEGORY C ON (B.CID = C.CID)
 	</select>
 	
 	<insert id="insertBand" parameterType="Band">
