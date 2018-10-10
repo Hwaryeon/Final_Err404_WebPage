@@ -66,4 +66,14 @@ public class newPostServiceImpl implements newPostService{
 		nd.insertReport(sqlSession, re);
 	}
 
+	@Override
+	public int selectCommentCount(Boards bs) {
+		return nd.selectCommentCount(sqlSession, bs);
+	}
+
+	@Override
+	public ArrayList<Boards> selectCommentList(Boards bs) {
+		return nd.selectCommentList(sqlSession, bs);
+	}
+
 }

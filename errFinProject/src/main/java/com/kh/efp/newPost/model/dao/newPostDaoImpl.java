@@ -80,5 +80,19 @@ public class newPostDaoImpl implements newPostDao{
 		sqlSession.insert("newPost.insertReport", re);
 	}
 
+	@Override
+	public int selectCommentCount(SqlSessionTemplate sqlSession, Boards bs) {
+		return sqlSession.selectOne("newPost.selectCommentCount", bs);
+	}
+
+	@Override
+	public ArrayList<Boards> selectCommentList(SqlSessionTemplate sqlSession, Boards bs) {
+		ArrayList<Boards> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("newPost.selectCommentList", bs);
+		
+		return list;
+	}
+
 
 }

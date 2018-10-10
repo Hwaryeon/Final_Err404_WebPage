@@ -67,7 +67,7 @@
 	
 	<!-- 가입 밴드 목록 메소드 -->
 	<select id = "selectBandList" parameterType = "java.lang.String" resultMap = "BandResultSet">
-		SELECT B.BID, B.BNAME
+		SELECT DISTINCT B.BID, B.BNAME
 		FROM MEMBER M
 		JOIN MEMBER_BAND MB ON(MB.MID = M.MID)
 		JOIN BAND B ON(B.BID = MB.BID)
@@ -127,7 +127,7 @@
 		SELECT * FROM(SELECT M.MID, M.MNAME, P.EDIT_NAME
 		FROM MEMBER M
 		JOIN PROFILE P ON(P.MID = M.MID)
-		WHERE M.MID = 1
+		WHERE M.MID = #{mid}
         ORDER BY FDATE DESC
         ) WHERE ROWNUM = 1
 	</select>
@@ -136,9 +136,24 @@
 	<insert id="insertReport" parameterType="Report">
 		INSERT INTO REPORT
 		 VALUES(SEQ_RID.NEXTVAL, #{rcontent}, #{mid}, SYSDATE, #{rlevel}, #{bid}, #{boardid}, #{cid})
-	
-	
 	</insert>
+	
+
+	<!-- 해당 밴드에 댓글 갯수를 가져오는 메소드 -->
+	 <select id = "selectCommentCount" parameterType = "Boards" resultType = "int">
+		SELECT count(*)
+		FROM BOARDS
+		WHERE BID = #{bid} AND BSTATUS = 'Y' AND REF_STATUS = 'COMMENT'
+	</select>
+	
+	
+	<!-- 댓글 목록을 가져오는 메소드 -->
+	 <select id = "selectCommentList" parameterType = "Boards" resultMap = "BoardsResultSet">
+		SELECT *
+		FROM BOARDS
+		WHERE BID = #{bid} AND BSTATUS = 'Y' AND REF_STATUS = 'COMMENT'
+	</select>
+	
 	
 	
 </mapper>

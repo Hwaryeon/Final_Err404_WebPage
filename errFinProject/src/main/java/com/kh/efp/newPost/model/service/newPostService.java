@@ -30,5 +30,9 @@ public interface newPostService {
 
 	void insertReport(Report re);
 
+	int selectCommentCount(Boards bs);
+
+	ArrayList<Boards> selectCommentList(Boards bs);
+
 
 }

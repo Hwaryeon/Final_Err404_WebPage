@@ -32,5 +32,9 @@ public interface newPostDao {
 
 	void insertReport(SqlSessionTemplate sqlSession, Report re);
 
+	int selectCommentCount(SqlSessionTemplate sqlSession, Boards bs);
+
+	ArrayList<Boards> selectCommentList(SqlSessionTemplate sqlSession, Boards bs);
+
 
 }
