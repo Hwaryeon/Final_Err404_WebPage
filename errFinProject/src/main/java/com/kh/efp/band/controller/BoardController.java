@@ -45,7 +45,7 @@ public class BoardController {
     	return "redirect:list.do";
     }
     
-    //03. 게시글 상세내용 조회, 게시글 조회수 증가 처리
+/*    //03. 게시글 상세내용 조회, 게시글 조회수 증가 처리
     // @RequestParam : get/post방식으로 전달된 변수 1개
     //HttpSession 세션객체
     @RequestMapping(value="view.do",method=RequestMethod.GET)
@@ -60,13 +60,34 @@ public class BoardController {
     	mav.addObject("dto",boardService.read(bno));
     	return mav;
     }
-    
+    */
     //04. 게시글 수정
     //폼에서 입력한 내용들은 @ModelAttribute Board vo로 전달
     @RequestMapping(value="update.do",method=RequestMethod.POST)
-    public String update(@ModelAttribute Board vo)throws Exception{
+    public String update( @ModelAttribute Board vo)throws Exception{
+    	
+    	/*boardService.update(vo);*/
     	return "redirect:list.do";
     }
+    
+    //05. 게시글 수정 처리 화면
+    @RequestMapping(value="updatePage.do",method=RequestMethod.GET)
+    public String updatePage(int boardId, int mId, String bContent) throws Exception{
+  
+    	Board board = new Board();
+    	
+    	 board.setBoardId(boardId);
+    	board.setmId(mId);
+    	board.setbContent(bContent);
+    	
+    	System.out.println(board);	
+    	Board selectBoard = boardService.selectBoard(board);
+//    	ModelAndView mav = new ModelAndView();
+//    	mav.setViewName("board/view");
+  	
+    	return "boardBand/boardEdit";
+    }
+    
     
     //05. 게시글 삭제
     @RequestMapping("delete.do")
@@ -74,6 +95,8 @@ public class BoardController {
     	boardService.delete(bno);
     	return "redirect:list.do";
     }
+    
+    
     
     
 }

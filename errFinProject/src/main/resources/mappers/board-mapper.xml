@@ -53,14 +53,8 @@
  	<!-- 02.게시글 작성 -->
  	
  	<insert id ="insert">
- 	INSERT INTO BOARDS()
- 	BID,
- 	MID,
- 	BCONTENT,
- 	BDATE
- 	)
- 	VALUES(
- 	#{bId},#{mId},#{bContent},SYSDATE
+ 	INSERT INTO BOARDS VALUES(,
+ 	#{bId},#{mId},#{bContent},SYSDATE,'Y',NULL,NULL
  	)
  	</insert>
  
@@ -71,14 +65,26 @@
 	WHERE B.MID=#{mid} AND B.BSTATUS ='Y'
 	
 	</select>
-
+	
+	
+	<!-- 수정화면 -->
+	<select id="selectBoard" parameterType="Board" resultMap="BoarddResultSet">
+	SELECT * 
+	FROM BOARDS
+	WHERE BSTATUS = 'Y' AND BOARDID=#{boardId} AND MID=#{mId}
+	</select>
+	
 
 	<!-- 05.수정 처리 -->
 	<update id="updateArticle">
-	UPDATE
-	WHERE
+	UPDATE BOARDS SET
+	bContent = #{bContent}
+	WHERE SEQ_BOARDID.NEXTVAL=#{SEQ_BOARDID.NEXTVAL} 
 	</update>
+	
 
+	
+	
 	<!-- 06.삭제 -->
 	<delete id = "deleteArticle">
 	DELETE FROM

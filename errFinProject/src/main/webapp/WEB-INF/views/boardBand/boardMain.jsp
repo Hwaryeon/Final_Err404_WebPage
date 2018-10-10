@@ -21,6 +21,12 @@
 
 <script>
    $(document).ready(function(){
+	   
+	  /*  $("#btnUpdate").click(function(){
+		  location.href="updatePage.do"; 
+	   }); */
+	   
+	   
       $("#btnSave").click(function(){
     	 var mId = $("#mId").val();
          var bContent = $("#bContent").val();
@@ -241,6 +247,8 @@
 
 
       <div class="post widget" style="margin-bottom:34px;">
+      
+      
               <div class="post-social" style="border-top: 0px solid #EAEAEA; padding-top: 10px;">
                 <div class="share-container" style="width:100%;">
                 
@@ -253,22 +261,64 @@
                   </div>
               </div>
               
-              <div class="post-meta" style="padding-bottom:10px;">
-                  <!-- June 22, 2014 7:33 pm    -->     
-                  <a href="" class="print" title="Print"><i class="fa fa-print"></i></a>
-              </div>
+               <div class="post-meta">
+
+               <!-- 게시글 드롭다운 -->
+               <div style="float: right" class="menu-primary-navigation-container">
+                  <ul id="menu-primary-navigation" class="nav navbar-nav">
+                     <li class="dropdown"><a href="#" class="dropdown-toggle"
+                        data-toggle="dropdown" role="button" aria-expanded="false">
+                        <img alt="" src="${ contextPath }/resources/images/dropBar.png"
+                        class="avatar avatar-75 photo avatar-default" >
+                        
+                     </a>
+                        <ul class="dropdown-menu" role="menu">
+                           <li><a>   <img alt="" src="${ contextPath }/resources/images/dropEdit.png?id=${row.boardId}"
+                        class="avatar avatar-75 photo avatar-default" >
+                        <button type="button" id="btnUpdate" onclick=update()>수정</button></a></li>
+                        
+                           <li><a href="index2.html">   <img alt="" src="${ contextPath }/resources/images/dropDelete.png"
+                        class="avatar avatar-75 photo avatar-default" >&nbsp&nbsp&nbsp&nbsp&nbsp삭제하기</a></li>
+                           <li><a href="index3.html">   <img alt="" src="${ contextPath }/resources/images/dropPolice.png"
+                        class="avatar avatar-75 photo avatar-default" >&nbsp&nbsp&nbsp&nbsp&nbsp신고하기</a></li>
+                        </ul></li>
+                  </ul>
+               </div>
+               </div>
+               
+               <script>
+               	function update(){
+               		var mId = '30';
+               		var boardId = "${row.boardId}"
+               		var bContent = "${row.bContent}"
+               		console.log(mId);
+               		console.log(boardId);
+               		console.log(bContent);
+               		
+               		
+               		location.href="updatePage.do?mId=" + mId + "&boardId=" + boardId +"&bContent=" + bContent;
+               	}
+               </script>
+               
               <div class="box-content widget fullwidth" id="comments" style="margin-bottom:0px;">
               <h4 class="comment-title"></h4>
               <ol class="commentlist">
                 <li class="comment parent">
                 
                     <div class="comment-body">
+                    
+                    
+                    
             
                     <div class="line"></div>
                     <div class="comment-vcard">
                         <img width="60" height="60" alt="" src="http://placehold.it/70x70" class="avatar">            
                         <!-- <span class="author-tag">Author</span> -->
+                        
+                        
                     </div>
+                    
+                    
                     
                     <div class="comment_detail" style="width: 423px;">
                         
@@ -285,17 +335,22 @@
                                 <a href="#">${row.bDate }</a>
                             </span>
                             
+                  
+                            
                             <%-- <span class="author">작성자 이름</span> 
                             
                             <span class="date">
                                 <a href="#">${row.bDate }</a>
                             </span> --%>
                             
-                            <span class="reply">
+                           <!--  <span class="reply">
                                 <a class="comment-reply-link" href="#">신고</a>
-                            </span>
+                            </span> -->
+            	
             
                         </div><!--comment-header-->
+                        
+                        
                         
                     </div><!--.comment_detail-->
                     
@@ -307,12 +362,74 @@
             </div>
               <div class="post-content" style="margin-top:60px;border-top:2px solid #EAEAEA; padding-top:15px;">
               
-                <!-- <h1 class="post-title"><a href="#">Pistorius numb with grief and shock over death of girlfriend, family says the truth</a></h1>
-                <p class="bold">Our entire family is devastated, we are in a state of total shock - first about the tragic death of Reeva, who we had all got to know well and care for deeply over the last few months," the statement, from Arnold Pistorius, uncle of the accused. All of us saw at first hand how close she had become to Oscar.</p> -->
                 <p>${row.bContent }</p>
-                <!-- <blockquote>Intelligence services, identified energy, finance, information technology, aerospace and automotive companies as the most frequent targets of hacking campaigns that appear state sponsored, according to The Washington Post earlier this week.</blockquote>
-                <img class="post-image img-beresponsive" src="http://placehold.it/469x291" alt=""> -->
+             
+            	
               </div>
+              
+            
+               
+            <!-- 댓글창 -->
+            <div class="box-content widget fullwidth" id="comments">
+               <h4 class="comment-title">2 Comments</h4>
+               <ol class="commentlist">
+
+                  <ul class="children">
+                     <li class="comment">
+                        <div class="comment-body">
+
+                           <div class="line"></div>
+                           <div class="comment-vcard">
+                              <img width="60" height="60" alt=""
+                                 src="http://placehold.it/70x70" class="avatar"> <span
+                                 class="author-tag"></span>
+                           </div>
+
+                           <div class="comment_detail">
+
+                              <div class="comment-header">
+
+                                 <span class="author">이름임</span> <span class="date"> <a
+                                    href="#">2:14 AM 22 feb 2013</a>
+                                 </span>
+
+
+                              </div>
+                              <!--comment-header-->
+                              <p>댓그으ㅡ으으으으ㅡ으으으으으으으으을</p>
+                           </div>
+                           <!--.comment_detail-->
+
+                        </div>
+                        <!--.comment-body-->
+                     </li>
+                  </ul>
+
+               </ol>
+            </div>
+
+
+
+
+            <div id="widget-feedburner-2"
+               class="widget fullwidth widget-feedburner">
+               <h1 class="widget-title">댓글쓰기</h1>
+               <div class="widget-feedburner-counter subscribe">
+                  <form action="#" method="post">
+                     <input class="feedburner-email input-subscribe" type="text"
+                        name="comment" value="댓글을 남겨주세요."
+                        onfocus="if (this.value == '댓글을 남겨주세요.') {this.value = '';}"
+                        onblur="if (this.value == '') {this.value = '댓글을 남겨주세요.';}">
+                     <input class="feedburner-subscribe input-button" type="submit"
+                        name="submit" value="보내기">
+                  </form>
+               </div>
+
+
+
+
+            </div>
+               
             </div>
          
          

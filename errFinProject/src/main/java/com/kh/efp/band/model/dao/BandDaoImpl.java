@@ -185,5 +185,20 @@ public class BandDaoImpl implements BandDao{
 	public void insertBanMember(SqlSessionTemplate sqlSession, Ban b) {
 		sqlSession.insert("Band.insertBanMember", b);
 	
+	}
+
+	@Override
+	public int checkBandCategory(SqlSessionTemplate sqlSession, int bid) {
+		return sqlSession.selectOne("Band.checkBandCategory", bid);
+	}
+
+	@Override
+	public void updateCategory(SqlSessionTemplate sqlSession, Band b) {
+
+		System.out.println("daoImple 까지옴");
+		
+		System.out.println(b.toString());
+		
+		sqlSession.update("Band.updateCategory", b);
 	}	
 }

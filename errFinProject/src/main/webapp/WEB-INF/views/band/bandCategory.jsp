@@ -1,29 +1,22 @@
+<!DOCTYPE>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
+    pageEncoding="UTF-8" import="com.kh.efp.band.model.vo.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import= "java.util.*"  %>
+<%@ page import= "java.text.*"  %>
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <meta charset="utf-8">
 <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content=" width=device-width, initial-scale=1">
-<title>ERR404</title>
-<!-- CSS -->
+<title>Weekend Magazine</title>
 <link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
-<link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
-<link href="${ contextPath }/resources/style.css" rel="stylesheet">
-<link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
-<link href="${ contextPath }/resources/css/sss.css" rel="stylesheet">
-<!-- Skin -->
-<link href="${ contextPath }/resources/skins/light-pink-blue.css" rel="stylesheet">
-
+    <link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/light-pink-blue.css" rel="stylesheet">
 </head>
-<style>
-#categort-posts-widget-2 {
-	background-color: transparent;
-}
-.
-</style>
 <body
 	class="home page page-id-4 page-template page-template-template_home-php">
 	<!-- TOP NAV -->
@@ -122,91 +115,85 @@
 
 		<div class="left-sidebar col-md-3" role="complementary">
 
-			<div id="categort-posts-widget-2"
-				class="widget fullwidth categort-posts">
-				<h1 class="widget-title"></h1>
-				<ul class="tvshows">
-					<li><a href="#"> <!-- <span class="comment-count">11</span> -->
-							<img src="http://placehold.it/209x128" alt="">
-					</a>
-						<h2
-							style="color: #222; font-size: 21px; margin-bottom: 15px; font-weight: 600; margin-top: 20px;">밴드명</h2>
-						<h4
-							style="display: inline-block; font-size: 13px; font-weight: 400; color: #333;">
-							멤버 4<a href="#"
-								style="position: relative; padding-left: 12px; color: #fdb00d !important; font-size: 13px;">
-								초대코드 </a>
-						</h4>
-						<h4
-							style="margin-top: 14px; padding-top: 13px; border-top: 1px solid #e1e1e1;">
-							<a href="#"
-								style="font-size: 12px; font-weight: 400; color: #666; text-decoration: none;">*
-								밴드 설정</a>
-						</h4></li>
-				</ul>
-				<div class="clear"></div>
-			</div>
-
-		</div>
+			<div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title"></h1>
+                <ul class="tvshows">
+                    <li>
+                        <a href="#">
+                            <!-- <img src="http://placehold.it/209x128" alt=""> -->
+                             <img src="${ contextPath }/resources/upload_images/${pf.editName }" alt="">
+                        </a>
+                        <h2 style="color:#222; font-size:21px; margin-bottom:15px;font-weight:600;margin-top:20px;">${bname }</h2>
+                        <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
+                        			멤버 ${memberCount}<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
+                        			초대코드 </a></h4>
+                        <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
+                        <a href="bandLeader.bd?bid=1" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            
+        </div>
 
 		<div class="main col-md-6 col-xs-12">
 
+			<div class="widget fullwidth post-single">
+				<h4 class="widget-title">밴드 카테고리 설정</h4>
+				<!-- <form action="#" method="post" class="mrgn-bottom-0"> -->
+					<div class="widget-content">
+						<ul>
+							
+							<c:forEach var="cate" items="${cList}">
+								<li>
+								<h4 class="list-title"
+									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
+									${cate.cname}
+									<label style="float:right"> 
+									<c:if test="${ cid eq cate.cid }">
+										<input name="remember" value="${cate.cid}" type="radio" checked>
+									</c:if>
+									<c:if test="${ cid ne cate.cid }">
+										<input name="remember" value="${cate.cid}" type="radio">
+									</c:if>
+								</label>
+									<!-- <a style="float: right; background: #fafafa; border: 1px solid #c9c8c8; padding: 3px 8px 3px 8px;">변경</a> -->
+								</h4>
+							</li>
+							
+							
+							
+							</c:forEach>
+						</ul>
 
 
-			<div id="search-3" class="widget fullwidth widget_search">
-				<form class="search" role="search" method="get" action="#">
-					<input type="search" placeholder="Search &hellip;" value=""
-						name="s" title="Search for:">
-				</form>
+						<div class="row survey" style="margin-top: 50px;">
+							<div class="col-md-6">
+								<button id="save" class="button vote">저장</button>
+							</div>
+							<div class="col-md-6">
+								<button class="button">취소</button>
+							</div>
+						</div>
+					</div>
+				<!-- </form> -->
 			</div>
-
-			<div class="widget clearfix">
-				<div id="respond" class="comment-respond">
-					<h3 id="reply-title" class="comment-reply-title">
-						글 수정<small><a rel="nofollow"
-							id="cancel-comment-reply-link" href="" style="display: none;">Cancel
-								reply</a></small>
-					</h3>
-					<form action="#" method="post" id="commentform"
-						class="comment-form">
-						<p class="comment-notes">
-							게시글을 수정하실 수 있습니다.<span class="required">*</span>
-						</p>
-						<p class="comment-form-comment">
-							<label for="comment"></label>
-							<textarea id="comment" name="comment" cols="45" rows="8"
-								aria-required="true"></textarea>
-						</p>
-						<p class="form-allowed-tags">
-							You may use these <abbr title="HyperText Markup Language">HTML</abbr>
-							tags and attributes:
-							<code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt;
-								&lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt;
-								&lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt;
-								&lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code>
-						</p>
-						<p class="form-submit">
-							<span > <input name="submit"
-								type="submit" id="submit" value="        취소        "></span> 
-							<span style="float: right"> <input name="submit"
-								type="submit" id="submit" value="        게시        "></span> 
-								
-								<input type="hidden" name="comment_parent" id="comment_parent"
-								value="0">
-								
-						</p>
-					</form>
-				</div>
-				<!-- #respond -->
-			</div>
-
-
-
-
-
-
 
 		</div>
+		
+		<script>
+		
+		$('#save').click(function(){
+			
+			var radioVal = $('input[name="remember"]:checked').val();
+	        
+			location.href='updateCategory.bd?category='+radioVal;
+			
+			/* alert(radioVal); */
+
+			
+		});
+		
+		</script>
 
 		<div class="right-sidebar col-md-3" role="complementary">
 
@@ -289,11 +276,18 @@
 			</div>
 
 
-
-
+			<div id="ads250_250-widget-2"
+				class="widget fullwidth ads250_250-widget">
+				<h1 class="widget-title">Advertisement</h1>
+				<div class="ads250-250">
+					<div class="ad-cell">
+						<a href="#"><img src="img/ad-210x190.png" class="fullwidth"
+							alt=""></a>
+					</div>
+				</div>
+			</div>
 
 		</div>
-
 
 	</div>
 
@@ -339,9 +333,9 @@
 			</div>
 		</div>
 	</div>
-	<script src="${ contextPath }/resources/js/jquery.min.js"></script>
-	<script src="${ contextPath }/resources/js/bootstrap.min.js"></script>
-	<script src="${ contextPath }/resources/js/jquery.bxslider.min.js"></script>
-	<script src="${ contextPath }/resources/js/custom.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.bxslider.min.js"></script>
+	<script src="js/custom.js"></script>
 </body>
 </html>

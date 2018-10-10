@@ -17,5 +17,9 @@ public interface BoardDao {
 	public List<Board> listAll() throws Exception;
 	//06.게시글 조회 증가
 	public void increaseViewcnt(int bno)throws Exception;
+	//07.수정화면
+	public List<Board> updatePage() throws Exception;
+	public Board selectBoard(Board board) throws Exception;
+
 
 }
