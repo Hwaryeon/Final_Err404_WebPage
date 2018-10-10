@@ -54,4 +54,25 @@
 		JOIN MEMBER M ON (B.MID = M.MID)
 		JOIN ATTFILE A ON (A.BOARDID = B.BOARDID)
 	</select>
+	
+	<insert id="insertBand" parameterType="Band">
+		INSERT INTO BAND
+		VALUES(SEQ_BID.NEXTVAL, #{bname}, #{bopen_status}, null, 999, null, 'Y')
+	</insert>
+	
+	<select id="selectBand" parameterType="java.lang.String" resultType="_int">
+		SELECT BID
+		FROM BAND
+		WHERE BNAME = #{bName}
+	</select>
+	
+	<insert id="insertMemberBand" parameterType="MyBandList">
+		INSERT INTO MEMBER_BAND
+		VALUES(SEQ_MBID.NEXTVAL, #{bid}, #{mid}, SYSDATE, 'Y', 1)
+	</insert>
+	
+	<insert id="insertProfile" parameterType="Profile">
+		INSERT INTO PROFILE
+		VALUES(SEQ_PID.NEXTVAL, #{originName}, #{editName}, #{fileSrc}, SYSDATE, 2, NULL, #{bid})
+	</insert>
 </mapper>
