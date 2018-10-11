@@ -36,5 +36,11 @@ public interface newPostDao {
 
 	ArrayList<Boards> selectCommentList(SqlSessionTemplate sqlSession, Boards bs);
 
+	void insertNewPost(SqlSessionTemplate sqlSession, Boards b);
+
+	void deleteBoard(SqlSessionTemplate sqlSession, int boardid);
+
+	void updateBoard(SqlSessionTemplate sqlSession, Boards b);
+
 
 }

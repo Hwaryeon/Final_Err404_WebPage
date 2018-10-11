@@ -57,5 +57,11 @@ public class mainServiceImpl implements mainService {
 	@Override
 	public List<Object> recommendContent() {
 		return md.recommendContent(sqlSession);
+
+  @Override
+	public int selectBandId(Band b) {
+		// TODO Auto-generated method stub
+		return md.selectBand(sqlSession, b.getBname());
+
 	}
 }

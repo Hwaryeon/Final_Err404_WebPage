@@ -179,10 +179,10 @@
 							<tr>
 								<td align="center" rowspan="2">Language</td>
 								<td align="right"><input type="radio" name="mNational"
-									id="EN" value = "EN"></td>
+									id="EN" value = "en"></td>
 								<td><label for="EN" style="padding-left: 10px;">EN</label></td>
 								<td align="right" style="padding-right: 10px;"><input
-									type="radio" name="mNational" id="KR" value = "KR"></td>
+									type="radio" name="mNational" id="KR" value = "ko"></td>
 								<td><label for="KR">KR</label></td>
 							</tr>
 							<tr>
