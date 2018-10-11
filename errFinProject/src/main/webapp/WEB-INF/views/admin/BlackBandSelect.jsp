@@ -7,18 +7,15 @@
 <meta charset="utf-8">
 <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content=" width=device-width, initial-scale=1">
-<title>Weekend Magazine</title>
-<!-- CSS -->
-<link href="../../resources/css/bootstrap.min.css" rel="stylesheet">
-<link href="../../resources/css/font-awesome.min.css" rel="stylesheet">
-<link href="../../resources/css/style.css" rel="stylesheet">
-<link href="../../resources/css/responsive.css" rel="stylesheet">
+<title>관리자 | 신고받은 밴드 조회</title>
+<!-- CSS --> 
+<jsp:include page="../admin/adminMenubar.jsp" />
+<link href="resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="resources/css/font-awesome.min.css" rel="stylesheet">
+<link href="resources/css/style.css" rel="stylesheet">
+<link href="resources/css/responsive.css" rel="stylesheet">
+<link href="resources/css/light-pink-blue.css" rel="stylesheet">
 <style>
-.menu-container {
-	/* width:200px; */
-	background-color: lightgray;
-}
-
 .menu-list {
 	/* width:200px; */
 	height: 50px;
@@ -26,13 +23,15 @@
 	/* text-align:center; */
 	font-size: 15px;
 	padding-top: 20px;
-	border-bottom: 1px solid black;
+	color:black;
+	border-bottom: 2px solid black;
 }
 
 .admin-container {
 	width: 800px;
 	margin-bottom: 20%;
-	background-color: lightgray;
+	/* background-color: lightgray; */
+	/* font-color: white; */
 }
 
 .admin-table {
@@ -41,6 +40,8 @@
 	margin-right: auto;
 	text-align: center;
 	font-size: 15px;
+	background-color:white;
+	color:black;
 }
 
 .admin-table td {
@@ -81,48 +82,21 @@
 			</div>
 		</div>
 		<!-- LOGO AREA -->
-		<div class="fullwidth bg-pink">
-			<div class="container">
-				<div class="col-md-6 col-xs-12">
-					<div class="logo">
-						<h1>
-							<a href="index.html" title="Weekend Magazine">상단바메뉴</a>
-						</h1>
-					</div>
-				</div>
-				<div class="col-md-6 col-xs-12">
-					<div id="ads120_60-widget-2" class="ads120-60 ads-one">
-						<div class="ad-cell">
-							<a href="#" target="_blank"> <img src="img/ad-468x60.png "
-								alt="">
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		
 		<!-- MAIN NAV -->
 		<div class="container">
 
 			<div class="left-sidebar col-md-3" role="complementary">
 				<div class="menu-container">
 					<ul>
-						<li class="menu-list" 
-							onclick="location.href='MemberSelect.jsp'">회원조회</li>
-						<li class="menu-list" 
-							onclick="location.href='BandSelect.jsp'">밴드조회</li>
-						<li class="menu-list" 
-							onclick="location.href='MemberSearch.jsp'">회원검색</li>
-						<li class="menu-list" 
-							onclick="location.href='BandSearch.jsp'">밴드검색</li>
-						<li class="menu-list"
-							onclick="location.href='BlackMemberSelect.jsp'">신고받은 회원 조회</li>
-						<li class="menu-list"
-							onclick="location.href='BlackBandSelect.jsp'">신고받은 밴드 조회</li>
-						<li class="menu-list" 
-							onclick="location.href='BlackMember.jsp'">블랙리스트 회원 조회</li>
-						<li class="menu-list" 
-							onclick="location.href='BlackBand.jsp'">블랙리스트 밴드 조회</li>
+						<li class="menu-list" onclick="location.href='goMemberSelect.ad'">회원조회</li>
+						<li class="menu-list" onclick="location.href='goBandSelect.ad'">밴드조회</li>
+						<li class="menu-list" onclick="location.href='goMemberSearch.ad'">회원검색</li>
+						<li class="menu-list" onclick="location.href='goBandSearch.ad'">밴드검색</li>
+						<li class="menu-list" onclick="location.href='goBMSelect.ad'">신고받은 회원 조회</li>
+						<li class="menu-list" onclick="location.href='goBBSelect.ad'">신고받은 밴드 조회</li>
+						<li class="menu-list" onclick="location.href='goBlackMember.ad'">블랙리스트 회원 조회</li>
+						<li class="menu-list" onclick="location.href='goBlackBand.ad'">블랙리스트 밴드 조회</li>
 					</ul>
 				</div>
 			</div>
@@ -132,6 +106,7 @@
 					<div class="search-area">
 						정렬방법  : 
 						<select style="margin-left:2%; font-size:15px; height:25px;">
+							<option>-------</option>
 							<option>밴드명</option>
 							<option>밴드생성일</option>
 							<option>카테고리</option>
@@ -140,7 +115,7 @@
 						<button>정렬</button>
 					</div>
 					<table class="admin-table">
-						<tr>
+						<tr style="background-color:lightblue">
 							<td width="10%">밴드번호</td>
 							<td width="40%">밴드명</td>
 							<td width="10%">신고일자</td>

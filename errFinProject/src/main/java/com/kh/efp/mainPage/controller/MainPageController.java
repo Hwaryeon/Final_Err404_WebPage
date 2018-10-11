@@ -31,7 +31,6 @@ import com.kh.efp.member.model.vo.loginUser;
 public class MainPageController {
 	@Autowired private mainService mps;
 	
-	
 	@RequestMapping("newBand.mp")
 	//밴드생성 페이지 진입
 	public String newBand() {
