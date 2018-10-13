@@ -14,11 +14,23 @@
 		<result property="mType" column="MTYPE"/>
 	</resultMap>
 	
+	<resultMap type="AdmBandList" id="adBand">
+		<id property="bid" column="BID"/>
+		<result property="bname" column="BNAME"/>
+		<result property="cname" column="CNAME"/>
+		<result property="bopen_status" column="BOPEN_STATUS"/>
+	</resultMap>
+	
 	<select id="selectAllMember" resultMap="adMember" parameterType="java.util.ArrayList">
 		SELECT MID, MEMAIL, MNAME, MPHONE, MNATIONAL, MDATE, MTYPE
 		FROM MEMBER
 		WHERE MID != 0
 		ORDER BY MID ASC
+	</select>
 	
+	<select id="selectAllBand" resultMap="adBand" parameterType="java.util.ArrayList">
+		select b.bid, b.bname, c.cname, DECODE(b.bopen_status, 'PRV', '비공개 밴드', 'PTD', '밴드명 공개', 'PUB', '공개 밴드') bopen_status
+		from band b
+		join category c on(c.cid = b.cid)
 	</select>
 </mapper>

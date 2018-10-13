@@ -5,4 +5,6 @@ import java.util.List;
 public interface adminService {
 	List<Object> memberAllList();
 	
+	List<Object> bandAllList();
+	
 }

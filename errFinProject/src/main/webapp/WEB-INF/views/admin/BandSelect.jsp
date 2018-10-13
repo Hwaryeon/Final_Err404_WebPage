@@ -120,67 +120,14 @@
 							<td width="15%">카테고리명</td>
 							<td width="15%">밴드유형</td>
 						</tr>
-						<tr>
-							<td>000001</td>
-							<td>밴드명1</td>
-							<td>카테고리1</td>
-							<td>개방형</td>
-						</tr>
-						<tr>
-							<td>000002</td>
-							<td>밴드명2</td>
-							<td>카테고리2</td>
-							<td>이름공개형</td>
-							
-						</tr>
-						<tr>
-							<td>000003</td>
-							<td>밴드명3</td>
-							<td>카테고리3</td>
-							<td>폐쇄형</td>
-						</tr>
-						<tr>
-							<td>000004</td>
-							<td>밴드명4</td>
-							<td>카테고리3</td>
-							<td>개방형</td>
-						</tr>
-						<tr>
-							<td>000005</td>
-							<td>밴드명5</td>
-							<td>카테고리5</td>
-							<td>이름공개형</td>
-						</tr>
-						<tr>
-							<td>000006</td>
-							<td>밴드명6</td>
-							<td>카테고리6</td>
-							<td>폐쇄형</td>
-						</tr>
-						<tr>
-							<td>000007</td>
-							<td>밴드명7</td>
-							<td>카테고리7</td>
-							<td>개방형</td>
-						</tr>
-						<tr>
-							<td>000008</td>
-							<td>밴드명8</td>
-							<td>카테고리8</td>
-							<td>이름공개형</td>
-						</tr>
-						<tr>
-							<td>000009</td>
-							<td>밴드명9</td>
-							<td>카테고리9</td>
-							<td>폐쇄형</td>
-						</tr>
-						<tr>
-							<td>000010</td>
-							<td>밴드명10</td>
-							<td>카테고리10</td>
-							<td>개방형</td>
-						</tr>
+						<c:forEach var="AllBand" items="${ bandList }">
+							<tr>
+								<td>${ AllBand.bid }</td>
+								<td>${ AllBand.bname }</td>
+								<td>${ AllBand.cname }</td>
+								<td>${ AllBand.bopen_status }</td>
+							</tr>
+						</c:forEach>
 					</table>
 
 					<div class="paging-area">

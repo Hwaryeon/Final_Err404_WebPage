@@ -28,7 +28,11 @@ public class AdminController {
 	}
 	@RequestMapping("goBandSelect.ad")
 	//밴드조회 페이지 진입
-	public String goBandSelect(){
+	public String goBandSelect(Model model, HttpServletRequest request){
+		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
+		
+		model.addAttribute("loginUser", loginUser);
+		model.addAttribute("bandList", as.bandAllList());
 		return "admin/BandSelect";
 	}
 	@RequestMapping("goMemberSearch.ad")
