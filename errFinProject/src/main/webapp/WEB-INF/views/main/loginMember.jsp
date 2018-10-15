@@ -51,8 +51,8 @@
             <div class="navbar-collapse collapse topmenu">
                 <div class="menu-header-templates-menu-container">
                     <ul class="nav navbar-nav">
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="article.html">Article</a></li>
+                        <li><a href="sampleForward.sample">샘플데이터</a></li>
+                        <li><a href="codeFactoryMain.codeFac">codeFactory</a></li>
                         <li><a href="article-review.html">Article Review</a></li>
                         <li><a href="archives.html">Archives</a></li>
                         <li><a href="category.html">Category</a></li>

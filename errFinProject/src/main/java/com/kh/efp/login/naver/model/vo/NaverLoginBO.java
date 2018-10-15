@@ -19,6 +19,7 @@ import com.github.scribejava.core.oauth.OAuth20Service;
 public class NaverLoginBO {
 	private final static String CLIENT_ID = "QcXOMl7yhi4UXLghAaDI";
 	private final static String CLIENT_SECRET = "l3A79D4Nx0";
+	//private final static String REDIRECT_URI = "http://192.168.20.228:8001/efp/callback.lg";
 	private final static String REDIRECT_URI = "http://127.0.0.1:8001/efp/callback.lg";
 	private final static String SESSION_STATE = "oauth_state";
 	/* 프로필 조회 API URL */
