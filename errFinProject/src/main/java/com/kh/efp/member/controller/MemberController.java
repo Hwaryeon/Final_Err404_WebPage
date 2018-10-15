@@ -300,7 +300,6 @@ public class MemberController {
 	
 
 	//이메일 중복확인
-
 	@RequestMapping("cntEmail.me")
 	public void cntEmail(String mEmail, HttpServletResponse response){
 		System.out.println("쳌");
@@ -316,7 +315,6 @@ public class MemberController {
 		}
 	}
 	
-
 	//아이디 비밀번호 창으로 이동
 	@RequestMapping("searchIdnPwd.me")
 	public String searchIdnPwd(){
@@ -348,6 +346,7 @@ public class MemberController {
 			}
 	}
 
+	//비밀번호찾기 인증메일 발송
 	@RequestMapping("findPwd.me")
 	public void mEamil(String mEmail, Model model, HttpServletRequest request, HttpServletResponse response){
 		Member m = new Member();
@@ -395,11 +394,13 @@ public class MemberController {
 		}
 	}
 	
+	//첫 화면으로 돌아가기
 	@RequestMapping("goMain.me")
 	public String goMain(){
 		return "main/loginMember";		
 	}
 	
+	//로그아웃
 	@RequestMapping("logout.me")
 	public String logout(HttpSession session){
 		/*SessionStatus status;*/
@@ -407,7 +408,7 @@ public class MemberController {
 		return "main/loginMember";		
 	}
 
-	
+	//회원 탈퇴
 	@RequestMapping("deleteMember.me")
 	public void deleteMember(String mid, HttpServletResponse response){
 		int imid = Integer.parseInt(mid);
@@ -424,6 +425,7 @@ public class MemberController {
 		}
 	}
 	
+	//비밀번호 변경
 	@RequestMapping("changePwd.me")
 	public String changePwd(int mid, String nowPwd, String newPwd, Model model){
 		
@@ -439,6 +441,7 @@ public class MemberController {
 		
 	}
 	
+	//개인정보 변경
 	@RequestMapping("changeInfo.me")
 	public String changeInfo(Member m, String nowPwd, Model model){
 		m.setmPwd(nowPwd);
@@ -461,6 +464,7 @@ public class MemberController {
 		
 	}
 	
+	//비밀번호 변경 본인확인
 	@RequestMapping("changeNewPwd.me")
 	public String chPwdMid(String mEmail, String newPwd1){
 		Member m = new Member();
@@ -475,6 +479,24 @@ public class MemberController {
 			return "common/errorPage";
 		}
 		
+	}
+	
+	@RequestMapping(value = "/loginUserMain.me")
+	public String loginUserMain(HttpServletRequest request, Model model){
+			//세션에 올라감
+			int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
+			System.out.println("지나갑니다.");
+			if(mid > 0) {
+				model.addAttribute("myBandList", mps.bandList(mid));
+				model.addAttribute("popContents", mps.popContent());
+				model.addAttribute("rcmContents", mps.recommendContent());
+	
+				return "main/main";
+			}
+			else {
+				return "redirect:/goMemberSelect.ad";
+			}
+
 	}
 	
 	
