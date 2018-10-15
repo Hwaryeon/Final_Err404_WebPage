@@ -82,6 +82,11 @@
 	margin-top:10px;
 	height:20px;
 }
+
+#contentImg, #cover1, #cover2, #cover3, #cover4, #cover5, #cover6, #cover7{
+	cursor:pointer;
+}
+
 </style>
 </head>
 <body
