@@ -29,10 +29,10 @@ public class CategoryController {
 		}
 		
 		ArrayList<CategoryBandList> list = categoryService.selectList(kind);
-		
+		String[] category = {"JAVA","C","C++","C#","RUBY","nodejs","PYTHON","SCALA","GO","RUST"};
 		model.addAttribute("kind", kind);
 		model.addAttribute("list", list);
-		
+		model.addAttribute("category",category);
 		return "category/categoryDetail";
 	}
 
