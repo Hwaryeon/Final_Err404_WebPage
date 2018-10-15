@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository;
 public class adminDaoImpl implements adminDao {
 
 	@Override
-	public List<Object> memberAllList(SqlSessionTemplate sqlSession) {
+	public List<Object> memberAllList(SqlSessionTemplate sqlSession, String alignment) {
 		List<Object> memberList = new ArrayList<Object>();
-		memberList = sqlSession.selectList("Admin.selectAllMember");
+		System.out.println("dao alignment = " + alignment);
+		memberList = sqlSession.selectList("Admin.selectAllMember", alignment);
 		
-		//System.out.println("memberList[3] : " + memberList.get(3).toString());
 		return memberList;
 	}
 
@@ -24,5 +24,24 @@ public class adminDaoImpl implements adminDao {
 		bandList = sqlSession.selectList("Admin.selectAllBand");
 		
 		return bandList;
+	}
+
+	@Override
+	public List<Object> memberSearchList(SqlSessionTemplate sqlSession, String keyword) {
+		List<Object> memberSearchList = new ArrayList<Object>();
+		memberSearchList = sqlSession.selectList("Admin.searchMember", keyword);
+		
+		return memberSearchList;
+	}
+
+	@Override
+	public List<Object> bandSearchList(SqlSessionTemplate sqlSession, String keyword, String keywordValue) {
+		List<Object> bandSearchList = new ArrayList<Object>();
+		
+		if(keywordValue.equals("bandName"))
+			bandSearchList = sqlSession.selectList("Admin.searchBandByName", keyword);
+		else
+			bandSearchList = sqlSession.selectList("Admin.searchBandByMaster", keyword);
+		return bandSearchList;
 	}
 }
