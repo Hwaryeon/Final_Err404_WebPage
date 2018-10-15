@@ -5,15 +5,17 @@ public class AdmBandList {
 	private String bname;
 	private String cname;
 	private String bopen_status;
+	private String mname;
 	
 	public AdmBandList(){}
 	
-	public AdmBandList(int bid, String bname, String cname, String bopen_status) {
+	public AdmBandList(int bid, String bname, String cname, String bopen_status, String mname) {
 		super();
 		this.bid = bid;
 		this.bname = bname;
 		this.cname = cname;
 		this.bopen_status = bopen_status;
+		this.mname = mname;
 	}
 
 	public int getBid() {
@@ -48,10 +50,18 @@ public class AdmBandList {
 		this.bopen_status = bopen_status;
 	}
 
+	public String getMname() {
+		return mname;
+	}
+	
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
+	
 	@Override
 	public String toString() {
-		return "AdmBandList [bid=" + bid + ", bname=" + bname + ", cname=" + cname + ", bopen_status=" + bopen_status
-				+ "]";
+		return "AdmBandList [bid=" + bid + ", bname=" + bname + ", cname=" + cname + ", bopen_status=" + bopen_status +
+				", mname=" + mname + "]";
 	}
 	
 	

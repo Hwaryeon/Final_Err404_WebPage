@@ -102,16 +102,18 @@
 			<div class="main col-md-6 col-xs-12">
 				<div class="admin-container">
 					<h1 style="height: 50px; padding-left: 20px; padding-top: 10px;">밴드검색</h1>
-					<div class="search-area">
-						검색방법  : 
-						<select style="margin-left:2%; font-size:15px; height:25px;">
-							<option>-------</option>
-							<option>밴드명</option>
-							<option>밴드장</option>
-						</select>
-						<input type="text">
-						<button>검색</button>
-					</div>
+					<form action="BandSearch.ad">
+						<div class="search-area">
+							검색방법  : 
+							<select name="keywordValue" style="margin-left:2%; font-size:15px; height:25px;">
+								<!-- <option>-------</option> -->
+								<option value="bandName">밴드명</option>
+								<option value="bandMaster">밴드장</option>
+							</select>
+							<input type="text" name="keyword">
+							<button>검색</button>
+						</div>
+					</form>
 					<table class="admin-table">
 						<tr style="background-color:lightblue">
 							<td width="10%">밴드번호</td>
@@ -120,76 +122,15 @@
 							<td width="15%">밴드유형</td>
 							<td width="10%">밴드장</td>
 						</tr>
-						<tr>
-							<td>000001</td>
-							<td>밴드명1</td>
-							<td>카테고리1</td>
-							<td>개방형</td>
-							<td>밴드장1</td>
-						</tr>
-						<tr>
-							<td>000002</td>
-							<td>밴드명2</td>
-							<td>카테고리2</td>
-							<td>이름공개형</td>
-							<td>밴드장2</td>
-						</tr>
-						<tr>
-							<td>000003</td>
-							<td>밴드명3</td>
-							<td>카테고리3</td>
-							<td>폐쇄형</td>
-							<td>밴드장3</td>
-						</tr>
-						<tr>
-							<td>000004</td>
-							<td>밴드명4</td>
-							<td>카테고리3</td>
-							<td>개방형</td>
-							<td>밴드장4</td>
-						</tr>
-						<tr>
-							<td>000005</td>
-							<td>밴드명5</td>
-							<td>카테고리5</td>
-							<td>이름공개형</td>
-							<td>밴드장5</td>
-						</tr>
-						<tr>
-							<td>000006</td>
-							<td>밴드명6</td>
-							<td>카테고리6</td>
-							<td>폐쇄형</td>
-							<td>밴드장6</td>
-						</tr>
-						<tr>
-							<td>000007</td>
-							<td>밴드명7</td>
-							<td>카테고리7</td>
-							<td>개방형</td>
-							<td>밴드장7</td>
-						</tr>
-						<tr>
-							<td>000008</td>
-							<td>밴드명8</td>
-							<td>카테고리8</td>
-							<td>이름공개형</td>
-							<td>밴드장8</td>
-						</tr>
-						<tr>
-							<td>000009</td>
-							<td>밴드명9</td>
-							<td>카테고리9</td>
-							<td>폐쇄형</td>
-							<td>밴드장9</td>
-						</tr>
-						<tr>
-							<td>000010</td>
-							<td>밴드명10</td>
-							<td>카테고리10</td>
-							<td>개방형</td>
-							<td>밴드장10</td>
-						</tr>
+						<c:forEach var="SearchBand" items="${ bandSearch }">
+							<tr>
+								<td>${ SearchBand.bid }</td>
+								<td>${ SearchBand.bname }</td>
+								<td>${ SearchBand.cname }</td>
+								<td>${ SearchBand.bopen_status }</td>
+								<td>${ SearchBand.mname }</td>
+							</tr>
+						</c:forEach>
 					</table>
 
 					<div class="paging-area">

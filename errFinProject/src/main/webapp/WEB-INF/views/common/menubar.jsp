@@ -39,7 +39,7 @@
           </div>
           <div id="search-3" class="widget fullwidth widget_search" style="width:300px; min-width:300px; float:left; border:1px solid lightgray; border-radius:11px; height:20px;margin-top:10px;">
           		<!-- 검색 -->
-               	<div class="search"  style="color:black;margin:-12px;">
+               	<div class="search"  style="color:black; margin:-12px;">
 
                    <input type="search" id='searchBox' value="" name="searchBox"  placeholder="검색 &hellip;" title="검색" autocomplete=off>
 

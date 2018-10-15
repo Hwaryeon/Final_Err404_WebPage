@@ -15,12 +15,22 @@ public class adminServiceImpl implements adminService {
 	@Autowired private adminDao ad;
 
 	@Override
-	public List<Object> memberAllList() {
-		return ad.memberAllList(sqlSession);
+	public List<Object> memberAllList(String alignment) {
+		return ad.memberAllList(sqlSession, alignment);
 	}
-
+	
 	@Override
 	public List<Object> bandAllList() {
 		return ad.bandAllList(sqlSession);
+	}
+
+	@Override
+	public List<Object> memberSearchList(String keyword) {
+		return ad.memberSearchList(sqlSession, keyword); 
+	}
+
+	@Override
+	public List<Object> bandSearchList(String keyword, String keywordValue) {
+		return ad.bandSearchList(sqlSession, keyword, keywordValue);
 	}
 }

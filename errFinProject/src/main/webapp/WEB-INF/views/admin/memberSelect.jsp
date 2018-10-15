@@ -102,16 +102,18 @@
 			<div class="main col-md-6 col-xs-12">
 				<div class="admin-container">
 					<h1 style="height: 50px; padding-left: 20px; padding-top: 10px;">회원조회</h1>
-					<div class="search-area">
-						정렬방법  : 
-						<select style="margin-left:2%; font-size:15px; height:25px;">
-							<option>-------</option>
-							<option>플랫폼타입</option>
-							<option>가입일</option>
-							<option>닉네임</option>
-						</select>
-						<button>정렬</button>
-					</div>
+					<form action="MemberSelect.ad">
+						<div class="search-area">
+							정렬방법  : 
+							<select name="alignment" style="margin-left:2%; font-size:15px; height:25px;">
+								<option value="mid">-------</option>
+								<option value="mtype">플랫폼타입</option>
+								<option value="mdate">가입일</option>
+								<option value="mname">닉네임</option>
+							</select>
+							<button>정렬</button>
+						</div>
+					</form>
 					<table class="admin-table">
 						<tr style="background-color:lightblue">
 							<td>회원번호</td>

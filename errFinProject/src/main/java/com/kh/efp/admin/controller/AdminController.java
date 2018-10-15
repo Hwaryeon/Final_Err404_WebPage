@@ -20,29 +20,67 @@ public class AdminController {
 	@RequestMapping("goMemberSelect.ad")
 	public String goMemberSelect(Model model, HttpServletRequest request){
 		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
-		
+		String alignment="mid";
 		model.addAttribute("loginUser", loginUser);
-		model.addAttribute("memberList", as.memberAllList());
-		
-		return "administer/memberSelect";
+		model.addAttribute("memberList", as.memberAllList(alignment));
+		return "admin/memberSelect";
 	}
+	
+	@RequestMapping("MemberSelect.ad")
+	public String MemberSelect(Model model, HttpServletRequest request){
+		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
+		String alignment=request.getParameter("alignment");
+		model.addAttribute("loginUser", loginUser);
+		model.addAttribute("memberList", as.memberAllList(alignment));
+		return "admin/memberSelect";
+	}
+	
 	@RequestMapping("goBandSelect.ad")
 	//밴드조회 페이지 진입
 	public String goBandSelect(Model model, HttpServletRequest request){
 		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
-		
 		model.addAttribute("loginUser", loginUser);
 		model.addAttribute("bandList", as.bandAllList());
 		return "admin/BandSelect";
 	}
+	
 	@RequestMapping("goMemberSearch.ad")
 	//회원검색 페이지 진입
-	public String goMemberSearch(){
+	public String goMemberSearch(Model model, HttpServletRequest request){
+		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
+		model.addAttribute("loginUser", loginUser);
 		return "admin/MemberSearch";
 	}
+	
 	@RequestMapping("goBandSearch.ad")
 	//밴드검색 페이지 진입
-	public String goBandSearch(){
+	public String goBandSearch(Model model, HttpServletRequest request){
+		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
+		model.addAttribute("loginUser", loginUser);
+		return "admin/BandSearch";
+	}
+	
+	@RequestMapping("MemberSearch.ad")
+	//회원 검색해오기
+	public String memberSearch(Model model, HttpServletRequest request) {
+		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
+		String keyword = request.getParameter("searchNickName");
+		System.out.println("keyword : " + keyword);
+		model.addAttribute("loginUser", loginUser);
+		model.addAttribute("memberSearch", as.memberSearchList(keyword));
+		
+		return "admin/MemberSearch";
+	}
+	
+	@RequestMapping("BandSearch.ad")
+	//밴드 검색해오기
+	public String bandSearch(Model model, HttpServletRequest request) {
+		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
+		String keyword = request.getParameter("keyword");
+		String keywordValue = request.getParameter("keywordValue");
+		model.addAttribute("loginUser", loginUser);
+		model.addAttribute("bandSearch", as.bandSearchList(keyword, keywordValue));
+		
 		return "admin/BandSearch";
 	}
 	@RequestMapping("goBMSelect.ad")
@@ -50,16 +88,19 @@ public class AdminController {
 	public String goBMSelect(){
 		return"admin/BlackMemberSelect";
 	}
+	
 	@RequestMapping("goBBSelect.ad")
 	//신고받은 밴드 조회
 	public String goBBSelect(){
 		return "admin/BlackBandSelect";
 	}
+	
 	@RequestMapping("goBlackMember.ad")
 	//블랙리스트 회원 조회
 	public String goBlackMember(){
 		return "admin/BlackMember";
 	}
+	
 	@RequestMapping("goBlackBand.ad")
 	//블랙리스트 밴드 조회
 	public String goBlackBand(){

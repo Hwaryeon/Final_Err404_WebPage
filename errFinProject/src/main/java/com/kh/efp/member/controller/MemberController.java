@@ -150,6 +150,7 @@ public class MemberController {
 			loginUser loginUser = ms.loginMember2(m);
 			//System.out.println("loginMember 2 : " + loginUser);
 			int mid = loginUser.getMid();
+			System.out.println("login mid : " + mid);
 			
 			if(mid > 0) {
 				model.addAttribute("loginUser", loginUser);
