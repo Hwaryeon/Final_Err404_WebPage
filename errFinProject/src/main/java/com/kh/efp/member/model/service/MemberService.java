@@ -20,20 +20,11 @@ public interface MemberService {
 
 	int insertChangedProfile(Profile pf);
 
-	//int updatemName(Member m);
-
 	Member selectMember(Member m);
 
 	int selectmPhone(String mPhone);
 
-	//int updatemPhone(Member m);
-
-	//int chPwd(Member m);
-
-	//int updatemPwd(Member m);
-
 	int selectCntEmail(String mEmail);
-
 
 	String selectmEmail(Member m);
 
@@ -42,7 +33,6 @@ public interface MemberService {
 	int updatemStatus(int imid);
 
 	loginUser loginMember2(Member m) throws LoginException;
-
 
 	void selectPwd(int mid, String nowPwd, String newPwd) throws LoginException;
 
