@@ -347,7 +347,28 @@
 					 
 					 plusUl.append(plusLi);
 					 
-					 
+					 $(function(){
+							$("#scheduleArea").find("li").mouseenter(function(){
+							}).mouseout(function(){
+							}).click(function(){
+								
+								 document.getElementById('modal1Title').innerHTML = $(this).children("input").eq(1).val();
+					              
+					              document.getElementById('modal1Desc').innerHTML = $(this).children("input").eq(2).val();
+					              
+					              $('#dId').val($(this).children("input").eq(0).val());
+					              
+								  var con = document.getElementById('delBu');
+					              
+					              con.style.display = '-webkit-inline-box';
+					              
+					              location.href="#modal";
+					              
+					              return false;
+								
+								
+							});
+						});	
 				});
 				
 				
