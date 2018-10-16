@@ -170,11 +170,36 @@
                         </li>
 
                     </ul>
-                    <a id = "dm" onclick = "deleteMember()">회원 탈퇴하기</a>
+                    <a id = "dm" data-toggle="modal" data-target="#myModal">회원 탈퇴하기</a>
                 </div>
             </div>
 
         </div>
+        
+        <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content" style = "width : 350px;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">회원 탈퇴</h4>
+        </div>
+        <div class="modal-body">
+          <p><font>회원 탈퇴 전에 꼭 확인하세요</font><br><br>
+
+회원탈퇴하면,<br><br>
+
+내가 가입한 모든 밴드의 내가 등록한 글, 사진, 댓글 등을 수정/삭제할 수 없게 됩니다.<br>
+필요한 경우 탈퇴 전에 수정하거나 삭제하시기 바랍니다.<br><br>
+
+가입되어있는 밴드의 멤버들과의 모든 채팅방에서 나가게 됩니다.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">취소하기</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" onclick = "deleteMember()">탈퇴하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 				<c:url value = "insertChangedProfile.me">
 					<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
@@ -254,9 +279,7 @@
 		}
     	
     	function deleteMember(){
-    		var ck = window.confirm("진짜 탈퇴?");
     		
-    		if(ck){
     			$.ajax({
     				url : "deleteMember.me",
     				data : {
@@ -271,7 +294,7 @@
     					console.log("실패");
     				}
     			})
-    		}
+    		
     	}
     </script>
     <script src="resources/js/jquery.min.js"></script>

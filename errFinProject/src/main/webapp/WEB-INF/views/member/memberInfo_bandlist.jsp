@@ -42,16 +42,17 @@
                         <li>
                             <table style="display: table-cell; vertical-align: middle; text-align: center;">
                             <c:if test = "${ !empty list }">
-                            <c:forEach var = "list" items = "${ list }" varStatus = "status">
+                            <c:forEach var = "lists" items = "${ list }" varStatus = "status">
                                 <tr id = "tr${ status.index }">
-                                    <td width="150px" style="vertical-align: middle;"><img src="resources/upload_images/${ list.editName }" alt=""></td>
-                                    <td width="600px" style="vertical-align: middle; text-align: left">
-                                        <p class="bold">${ list.bName }</p>
+                                    <td width="180px" style="vertical-align: middle; padding-top : 5px; padding-bottom : 5px;">
+                                    	<img src="resources/upload_images/${ lists.editName }" style = "height : 80px; width : 100px; " alt=""></td>
+                                    <td width="600px" style="vertical-align: middle; text-align: left; text-indent: 20px;">
+                                        <p class="bold">${ lists.bName }</p>
                                         
                                     </td>
-                                    <c:if test = "${ list.iStatus eq 'Y' }">
-                                    <td width="200px" style="vertical-align: middle; text-align: right"><a class="button-blue button-link" data-toggle="modal" data-target="#bandOutModal">밴드 탈퇴하기</a></td>
-                                    <div class="modal fade" id="bandOutModal" role="dialog">
+                                    <c:if test = "${ lists.iStatus eq 'Y' }">
+                                    <td width="200px" style="vertical-align: middle; text-align: right"><a class="button-blue button-link" data-toggle="modal" data-target="#bandOutModal${ status.index }">밴드 탈퇴하기</a></td>
+                                    <div class="modal fade" id="bandOutModal${ status.index }" role="dialog">
 										<div class="modal-dialog modal-sm" >
 											<div class="modal-content" style = "width : 500px; margin-left : -70px;">
 												<div class="modal-header">
@@ -65,17 +66,17 @@
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-primary" id="ckBtn"
-														onclick="bandOut(${ list.mid}, ${ list.bid }, ${ status.index })">확인</button>
-													<button type="button" class="btn btn-default" id="cancelBtn"
+														onclick="bandOut(${ lists.mid}, ${ lists.bid }, ${ status.index })">확인</button>
+													<button type="button" class="btn btn-default" id="cancelBtn${ status.index }"
 														data-dismiss="modal">취소</button>
 												</div>
 											</div>
 										</div>
 									</div>
                                     </c:if>
-                                    <c:if test = "${ list.iStatus eq 'S' }">
-                                    <td width="200px" style="vertical-align: middle; text-align: right"><a class="button-blue button-link" data-toggle="modal" data-target="#bandCancelModal">가입신청 취소하기</a></td>
-                                   	<div class="modal fade" id="bandCancelModal" role="dialog">
+                                    <c:if test = "${ lists.iStatus eq 'S' }">
+                                    <td width="200px" style="vertical-align: middle; text-align: right"><a class="button-blue button-link" data-toggle="modal" data-target="#bandCancelModal${ status.index }">가입신청 취소하기</a></td>
+                                   	<div class="modal fade" id="bandCancelModal${ status.index }" role="dialog">
 										<div class="modal-dialog modal-sm" >
 											<div class="modal-content" style = "width : 500px; margin-left : -70px;">
 												<div class="modal-header">
@@ -87,8 +88,8 @@
 												</div>
 												<div class="modal-footer">
 												<button type="button" class="btn btn-primary" id="ckBtn"
-													onclick="bandCancel(${ list.mid}, ${ list.bid }, ${ status.index })">확인</button>
-												<button type="button" class="btn btn-default" id="cancelBtn1"
+													onclick="bandCancel(${ lists.mid}, ${ lists.bid }, ${ status.index })">확인</button>
+												<button type="button" class="btn btn-default" id="cancelBtn${ status.index }"
 													data-dismiss="modal">취소</button>
 												</div>
 											</div>
@@ -162,7 +163,7 @@
     			data : {mid : mid, bid : bid},
     			type : "post",
     			success:function(data){
-					$("#cancelBtn").click();
+					$("#cancelBtn" + index).click();
 					alert("밴드를 탈퇴했습니다.");
 					$("#tr" + index).remove();
     			},
@@ -184,7 +185,7 @@
     			success:function(data){
 					alert("가입신청이 취소되었습니다.");
 					$("#tr" + index).remove();
-					$("#cancelBtn1").click();
+					$("#cancelBtn" + index).click();
     			},
     			error:function(){
     				console.log("실패");

@@ -63,6 +63,7 @@
 									<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
 								  </c:url>"  
 							style="border:0px;"><img src="${ contextPath }/resources/images/profile.png " alt="" width=25px; height=25px;></a></li>
+					<li><a href = "logout.me" style="border:0px;"><img src="${ contextPath }/resources/images/logout.png " alt="" width=25px; height=25px;></a></li>
 				</ul>
               </div>
             </div>
