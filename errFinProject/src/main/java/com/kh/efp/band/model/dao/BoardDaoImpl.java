@@ -42,9 +42,9 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<Board> listAll() throws Exception {
+	public List<Board> listAll(int pbid) throws Exception {
 		// TODO Auto-generated method stub
-		return SqlSession.selectList("board.listAll");
+		return SqlSession.selectList("board.listAll", pbid);
 	}
 	@Override
 	public List<Board> updatePage() throws Exception{

@@ -59,9 +59,9 @@ public class BoardServiceImpl implements BoardService{
 
 	//05.게시글 전체 목록
 	@Override
-	public List<Board> listAll() throws Exception {
+	public List<Board> listAll(int pbid) throws Exception {
 		// TODO Auto-generated method stub
-		return boardDao.listAll();
+		return boardDao.listAll(pbid);
 	}
 	
 	//06.수정화면
