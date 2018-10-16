@@ -67,7 +67,7 @@
 													<button type="button" class="btn btn-primary" id="ckBtn"
 														onclick="bandOut(${ list.mid}, ${ list.bid }, ${ status.index })">확인</button>
 													<button type="button" class="btn btn-default" id="cancelBtn"
-														data-dismiss="modal">취소</button>
+														data-dismiss="modal">취소</button> 
 												</div>
 											</div>
 										</div>

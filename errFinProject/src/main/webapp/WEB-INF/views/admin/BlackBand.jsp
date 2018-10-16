@@ -125,7 +125,7 @@
 							<td width="10%">밴드장</td>
 							<td width="20%">차단사유</td>
 						</tr>
-						<c:forEach var="banBand" items="${ banBand }">
+						<c:forEach var="banBand" items="${ banBand }"> 
 							<tr>
 								<td>${ banBand.bid }</td>
 								<td>${ banBand.bname }</td>

@@ -17,7 +17,7 @@ public class adminDaoImpl implements adminDao {
 		//System.out.println("dao alignment = " + alignment);
 		Map<String, Object> align = new HashMap<String, Object>();
 		align.put("alignment", alignment);
-		memberList = sqlSession.selectList("Admin.selectAllMember", align);
+		memberList = sqlSession.selectList("Admin.selectAllMember", align); 
 		
 		return memberList;
 	}

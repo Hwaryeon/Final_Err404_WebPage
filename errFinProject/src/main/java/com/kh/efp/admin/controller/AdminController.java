@@ -23,7 +23,7 @@ public class AdminController {
 		String alignment="mid";
 		model.addAttribute("loginUser", loginUser);
 		model.addAttribute("memberList", as.memberAllList(alignment));
-		return "admin/memberSelect";
+		return "admin/memberSelect"; 
 	}
 	//회원조회 페이지 정렬
 	@RequestMapping("MemberSelect.ad")

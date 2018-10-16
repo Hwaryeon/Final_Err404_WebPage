@@ -3,7 +3,7 @@ package com.kh.efp.admin.model.vo;
 import java.sql.Date;
 
 public class BanList implements java.io.Serializable{
-	private int mid;
+	private int mid; 
 	private String memail;
 	private String mname;
 	private String mphone;

@@ -30,9 +30,9 @@ public class adminServiceImpl implements adminService {
 	}
 
 	@Override
-	public List<Object> bandSearchList(String keyword, String keywordValue) {
+	public List<Object> bandSearchList(String keyword, String keywordValue) { 
 		return ad.bandSearchList(sqlSession, keyword, keywordValue);
-	}
+	} 
 
 	@Override
 	public List<Object> reportMemberList() {

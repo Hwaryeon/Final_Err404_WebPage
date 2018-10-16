@@ -9,7 +9,7 @@ public interface adminService {
 
 	List<Object> memberSearchList(String keyword);
 
-	List<Object> bandSearchList(String keyword, String keywordValue);
+	List<Object> bandSearchList(String keyword, String keywordValue); 
 
 	List<Object> reportMemberList();
 

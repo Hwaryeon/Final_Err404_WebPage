@@ -19,5 +19,5 @@ public interface adminDao {
 
 	List<Object> banMemberList(SqlSessionTemplate sqlSession, String alignment);
 
-	List<Object> banBandList(SqlSessionTemplate sqlSession, String alignment);
+	List<Object> banBandList(SqlSessionTemplate sqlSession, String alignment); 
 }

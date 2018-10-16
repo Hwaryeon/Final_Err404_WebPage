@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class ReportList implements java.io.Serializable{
 	private int cid; //신고당한회원번호
-	private String memail; //신고당한회원이메일
+	private String memail; //신고당한회원이메일 
 	private String mcname; //신고당한회원이름
 	private String mname; //신고자이름
 	private int bid; //신고된 밴드번호

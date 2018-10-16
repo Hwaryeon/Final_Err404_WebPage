@@ -4,7 +4,7 @@ public class AdmBandList implements java.io.Serializable{
 	private int bid;
 	private String bname;
 	private String cname;
-	private String bopen_status;
+	private String bopen_status; 
 	private String mname;
 	
 	public AdmBandList(){}
