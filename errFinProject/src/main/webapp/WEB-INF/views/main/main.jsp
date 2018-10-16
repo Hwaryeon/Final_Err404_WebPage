@@ -294,7 +294,7 @@ ul{
 							</div>
 						</li>
 						<c:forEach var="MyBandList" items="${ myBandList }">
-							<li class="myband-list">
+							<li class="myband-list" onclick = 'showBand(${MyBandList.bid});'>
 								<div class="band-profile">
 								
 									<c:if test="${ MyBandList.edit_name == 'cover1.jpeg' || MyBandList.edit_name == 'cover2.jpg'
@@ -498,6 +498,10 @@ ul{
             nextHtml: '<img src="https://t1.daumcdn.net/cfile/tistory/18718E3D5083FDF705"/ style="width:40px; height:40px">'
        });
 	});
+	 
+	 function showBand(bid){
+		 location.href = 'list.do?bid=' + bid;
+	 }
 	</script>
 
 </body>

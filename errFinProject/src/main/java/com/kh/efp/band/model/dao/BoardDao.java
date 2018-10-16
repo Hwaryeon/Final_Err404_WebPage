@@ -14,7 +14,7 @@ public interface BoardDao {
 	//04.삭제
 	public void delete(int bno) throws Exception;
 	//05.게시글 전체 목록
-	public List<Board> listAll() throws Exception;
+	public List<Board> listAll(int pbid) throws Exception;
 	//06.게시글 조회 증가
 	public void increaseViewcnt(int bno)throws Exception;
 	//07.수정화면

@@ -27,8 +27,9 @@ public class BoardController {
     
     // 01.게시글 목록
     @RequestMapping("list.do")
-    public ModelAndView list() throws Exception{
-    	List<Board>list = boardService.listAll();
+    public ModelAndView list(String bid) throws Exception{
+    	int pbid = Integer.parseInt(bid);
+    	List<Board> list = boardService.listAll(pbid);
     	//ModelAndView - 모델과 뷰
     	ModelAndView mav = new ModelAndView();
     	mav.setViewName("boardBand/boardMain"); //뷰를 boardMain.jsp로 설정
