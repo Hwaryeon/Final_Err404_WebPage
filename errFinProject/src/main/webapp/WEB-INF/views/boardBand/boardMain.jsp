@@ -102,8 +102,8 @@
                         reply</a></small>
                </h3>
                <form name="form1" action="insert.do" method="post" >
-                  <input type = 'hidden' name = 'bId' value = "${ sessionScope.loginUser.mid }">
-                  <input type = 'hidden' name = 'mId' value = "${ Band.bid }">
+                  <input type = 'hidden' name = 'mId' value = "${ sessionScope.loginUser.mid }">
+                  <input type = 'hidden' name = 'bId' value = "${ Band.bid }">
                   <p class="comment-notes">
                      멤버들에게 전할 소식을 남겨주세요~ <span class="required">*</span>
                   </p>
