@@ -209,7 +209,7 @@ public class newPostController {
 		
 		re.setRcontent(radioVal);
 		re.setMid(id);
-		re.setRlevel("B");
+		re.setRlevel("C");
 		re.setBoardid(boardid);
 		re.setBid(bid);
 		re.setCid(mid);
