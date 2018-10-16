@@ -10,6 +10,13 @@
 <body>
 	<h1 align = "center">인덱스 페이지</h1>
 	<c:set var = "contextPath" value = "${ pageContext.servletContext.contextPath }" scope = "application" />
-	<jsp:forward page = "WEB-INF/views/main/loginMember.jsp"/>
+	<c:if test = "${ empty sessionScope.loginUser }">
+		<jsp:forward page = "WEB-INF/views/main/loginMember.jsp"/>
+	</c:if>
+	<c:if test = "${ !empty sessionScope.loginUser }">
+		<c:url var="url" value="/loginUserMain.me"/>
+		<% response.sendRedirect("loginUserMain.me"); %>
+
+	</c:if>
 </body>
 </html>

@@ -22,6 +22,7 @@ import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -146,19 +147,25 @@ public class MemberController {
 		System.out.println("login m : " + m);
 		try {
 			//세션에 올라감
-      loginUser loginUser = ms.loginMember2(m);
-
+			loginUser loginUser = ms.loginMember2(m);
+			//System.out.println("loginMember 2 : " + loginUser);
 			int mid = loginUser.getMid();
-			
-      model.addAttribute("loginUser", loginUser);
-      
-			model.addAttribute("myBandList", mps.bandList(mid));
-			model.addAttribute("popContents", mps.popContent());
-;
-			System.out.println(loginUser);
 
-
-			return "main/main";
+			if(mid > 0) {
+				model.addAttribute("loginUser", loginUser);
+	      
+				model.addAttribute("myBandList", mps.bandList(mid));
+				model.addAttribute("popContents", mps.popContent());
+				model.addAttribute("rcmContents", mps.recommendContent());
+	
+				System.out.println(loginUser);
+	
+	
+				return "main/main";
+			}
+			else {
+				return "redirect:/goMemberSelect.ad";
+			}
 
 		} catch (LoginException e) {
 			model.addAttribute("msg", e.getMessage());
@@ -237,44 +244,6 @@ public class MemberController {
 		}
 	}
 	
-	//이름 변경
-	@RequestMapping("ChangedName.me")
-	public void ChangedName(@RequestParam("mName") String mName,
-							@RequestParam("mid") String mid,
-							Model model, HttpServletResponse response){
-		ObjectMapper mapper = new ObjectMapper();
-		System.out.println("아니 " + mid + " / " + mName);
-		int imid = Integer.parseInt(mid);
-		
-		//이름이 없다면 실패
-		if(mName.equals("")){
-			try {
-				response.getWriter().println(mapper.writeValueAsString(false));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return;
-		}
-		
-		Member m = new Member();
-		m.setmName(mName);
-		m.setMid(imid);
-		
-		int result = ms.updatemName(m);
-		System.out.println("업데이트");
-		try {
-			//로그인 유저 갱신
-			model.addAttribute("loginUser", ms.selectMember(m));
-
-			response.getWriter().println(mapper.writeValueAsString(result));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-	
 	//연락처 중복확인
 	@RequestMapping("checkmPhone.me")
 	public void checkmPhone(@RequestParam("mPhone") String mPhone,
@@ -293,91 +262,6 @@ public class MemberController {
 			e.printStackTrace();
 		}
 	}
-	
-	//연락처 변경
-	@RequestMapping("ChangedPhone.me")
-	public void ChangedPhone(@RequestParam("mPhone") String mPhone,
-							 @RequestParam("mid") String mid,
-							 Model model, HttpServletResponse response){
-		ObjectMapper mapper = new ObjectMapper();
-		System.out.println("controll : " + mPhone);
-		int imid = Integer.parseInt(mid);
-		
-		if(mPhone.equals("")){
-			try {
-				response.getWriter().println(mapper.writeValueAsString(false));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return;
-		}
-		
-		Member m = new Member();
-		m.setmPhone(mPhone);
-		m.setMid(imid);
-		
-		int result = ms.updatemPhone(m);
-
-		try {
-			model.addAttribute("loginUser", ms.selectMember(m));
-
-			response.getWriter().println(mapper.writeValueAsString(result));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-
-	//패스워드 기존값과 비교
-
-	@RequestMapping("CkPwd.me")
-	public void CkPwd(String old, String mid, HttpServletResponse response){
-		int imid = Integer.parseInt(mid);
-		
-		ObjectMapper mapper = new ObjectMapper();
-		
-		Member m = new Member();
-		
-		m.setmPwd(old);
-		m.setMid(imid);
-		
-		int result = ms.chPwd(m);
-		
-		try {
-			response.getWriter().println(mapper.writeValueAsString(result));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	
-
-	//패스워드 변경
-
-	@RequestMapping("ChangedPwd.me")
-	public void ChangedPwd(String newPwd, String mid, HttpServletResponse response){
-		int imid = Integer.parseInt(mid);
-		
-		Member m = new Member();
-		
-		m.setMid(imid);
-		m.setmPwd(passwordEncoder.encode(newPwd));
-		
-		int result = ms.updatemPwd(m);
-		
-		ObjectMapper mapper = new ObjectMapper();
-		
-		try {
-			response.getWriter().println(mapper.writeValueAsString(result));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 
 	//이메일 인증
 
@@ -416,7 +300,6 @@ public class MemberController {
 	
 
 	//이메일 중복확인
-
 	@RequestMapping("cntEmail.me")
 	public void cntEmail(String mEmail, HttpServletResponse response){
 		System.out.println("쳌");
@@ -432,7 +315,6 @@ public class MemberController {
 		}
 	}
 	
-
 	//아이디 비밀번호 창으로 이동
 	@RequestMapping("searchIdnPwd.me")
 	public String searchIdnPwd(){
@@ -464,6 +346,7 @@ public class MemberController {
 			}
 	}
 
+	//비밀번호찾기 인증메일 발송
 	@RequestMapping("findPwd.me")
 	public void mEamil(String mEmail, Model model, HttpServletRequest request, HttpServletResponse response){
 		Member m = new Member();
@@ -511,29 +394,13 @@ public class MemberController {
 		}
 	}
 	
-	@RequestMapping("chPwdMid.me")
-	public void chPwdMid(String mEmail, String newPwd1, HttpServletResponse response){
-		Member m = new Member();
-		m.setmEmail(mEmail);
-		m.setmPwd(passwordEncoder.encode(newPwd1));
-		
-		int result = ms.updateMidmPwd(m);
-		
-		ObjectMapper mapper = new ObjectMapper();
-		
-		try {
-			response.getWriter().println(mapper.writeValueAsString(result));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
+	//첫 화면으로 돌아가기
 	@RequestMapping("goMain.me")
 	public String goMain(){
 		return "main/loginMember";		
 	}
 	
+	//로그아웃
 	@RequestMapping("logout.me")
 	public String logout(HttpSession session){
 		/*SessionStatus status;*/
@@ -541,7 +408,7 @@ public class MemberController {
 		return "main/loginMember";		
 	}
 
-	
+	//회원 탈퇴
 	@RequestMapping("deleteMember.me")
 	public void deleteMember(String mid, HttpServletResponse response){
 		int imid = Integer.parseInt(mid);
@@ -557,5 +424,81 @@ public class MemberController {
 			e.printStackTrace();
 		}
 	}
+	
+	//비밀번호 변경
+	@RequestMapping("changePwd.me")
+	public String changePwd(int mid, String nowPwd, String newPwd, Model model){
+		
+		try {
+			ms.selectPwd(mid ,nowPwd, newPwd);
+			
+			return "main/loginMember";
+			
+		} catch (LoginException e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorPage";
+		}
+		
+	}
+	
+	//개인정보 변경
+	@RequestMapping("changeInfo.me")
+	public String changeInfo(Member m, String nowPwd, Model model){
+		m.setmPwd(nowPwd);
+		System.out.println("뭐가오니 : " + m);
+
+		try {
+			ms.selectInfo(m);
+			
+			loginUser loginUser = ms.loginMember2(m);
+			
+			 model.addAttribute("loginUser", loginUser);
+			
+			
+			return "main/main";
+		} catch (LoginException e) {
+			// TODO Auto-generated catch block
+
+			return "common/errorPage";
+		}
+		
+	}
+	
+	//비밀번호 변경 본인확인
+	@RequestMapping("changeNewPwd.me")
+	public String chPwdMid(String mEmail, String newPwd1){
+		Member m = new Member();
+		m.setmEmail(mEmail);
+		m.setmPwd(passwordEncoder.encode(newPwd1));
+		
+		int result = ms.updatemEmailmPwd(m);
+		
+		if(result > 0){
+			return "main/loginMember";
+		}else{
+			return "common/errorPage";
+		}
+		
+	}
+	
+	@RequestMapping(value = "/loginUserMain.me")
+	public String loginUserMain(HttpServletRequest request, Model model){
+			//세션에 올라감
+			int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
+			System.out.println("지나갑니다.");
+			if(mid > 0) {
+				model.addAttribute("myBandList", mps.bandList(mid));
+				model.addAttribute("popContents", mps.popContent());
+				model.addAttribute("rcmContents", mps.recommendContent());
+	
+				return "main/main";
+			}
+			else {
+				return "redirect:/goMemberSelect.ad";
+			}
+
+	}
+	
+	
 	
 }

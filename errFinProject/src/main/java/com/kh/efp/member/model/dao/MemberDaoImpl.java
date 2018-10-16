@@ -58,16 +58,7 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.insert("Member.insertChangedProfile", pf);
 	}
 
-	@Override
-	public int selectMemberName(SqlSessionTemplate sqlSession, Member m) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("Member.selectMemberName", m);
-	}
-
-	@Override
-	public int updateMemberName(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.update("Member.updateMemberName", m);
-	}
+	
 
 	@Override
 	public int selectmPhone(SqlSessionTemplate sqlSession, String mPhone) {
@@ -75,17 +66,7 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.selectOne("Member.selectmPhone", mPhone);
 	}
 
-	@Override
-	public int updateMemberPhone(SqlSessionTemplate sqlSession, Member m) {
-		// TODO Auto-generated method stub
-		return sqlSession.update("Member.updatemPhone", m);
-	}
-
-	@Override
-	public int updateMemberPwd(SqlSessionTemplate sqlSession, Member m) {
-		// TODO Auto-generated method stub
-		return sqlSession.update("Member.updatemPwd", m);
-	}
+	
 
 	@Override
 	public int selectCntEmail(SqlSessionTemplate sqlSession, String mEmail) {
@@ -122,6 +103,18 @@ public class MemberDaoImpl implements MemberDao{
 	public loginUser selectLoginUser(SqlSessionTemplate sqlSession, Member m) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("Member.selectLoginUser2", m);
+	}
+
+	@Override
+	public int updatemEmailmPwd(SqlSessionTemplate sqlSession, Member m) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("Member.updatemEmailmPwd", m);
+	}
+
+	@Override
+	public int updateInfo(SqlSessionTemplate sqlSession, Member m) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("Member.updateInfo", m);
 	}
 
 	

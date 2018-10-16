@@ -13,6 +13,7 @@ import com.kh.efp.newPost.model.vo.BandProfile;
 import com.kh.efp.newPost.model.vo.Boards;
 import com.kh.efp.newPost.model.vo.Category;
 import com.kh.efp.newPost.model.vo.MemberProfile;
+import com.kh.efp.newPost.model.vo.Report;
 
 @Service
 public class newPostServiceImpl implements newPostService{
@@ -58,6 +59,36 @@ public class newPostServiceImpl implements newPostService{
 	@Override
 	public MemberProfile selectMemberProfile(int mid) {
 		return nd.selectMemberProfile(sqlSession, mid);
+	}
+
+	@Override
+	public void insertReport(Report re) {
+		nd.insertReport(sqlSession, re);
+	}
+
+	@Override
+	public int selectCommentCount(Boards bs) {
+		return nd.selectCommentCount(sqlSession, bs);
+	}
+
+	@Override
+	public ArrayList<Boards> selectCommentList(Boards bs) {
+		return nd.selectCommentList(sqlSession, bs);
+	}
+
+	@Override
+	public void insertNewPost(Boards b) {
+		nd.insertNewPost(sqlSession, b);
+	}
+
+	@Override
+	public void deleteBoard(int boardid) {
+		nd.deleteBoard(sqlSession, boardid);
+	}
+
+	@Override
+	public void updateBoard(Boards b) {
+		nd.updateBoard(sqlSession, b);
 	}
 
 }

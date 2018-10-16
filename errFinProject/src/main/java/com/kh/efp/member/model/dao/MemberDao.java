@@ -24,18 +24,9 @@ public interface MemberDao {
 
 	int insertChangedProfile(SqlSessionTemplate sqlSession, Profile pf);
 
-	int selectMemberName(SqlSessionTemplate sqlSession, Member m);
-
-	int updateMemberName(SqlSessionTemplate sqlSession, Member m);
-
 	int selectmPhone(SqlSessionTemplate sqlSession, String mPhone);
 
-	int updateMemberPhone(SqlSessionTemplate sqlSession, Member m);
-
-	int updateMemberPwd(SqlSessionTemplate sqlSession, Member m);
-
 	int selectCntEmail(SqlSessionTemplate sqlSession, String mEmail);
-
 
 	String selectmEmail(SqlSessionTemplate sqlSession, Member m);
 
@@ -46,5 +37,9 @@ public interface MemberDao {
 	int updatemStatus(SqlSessionTemplate sqlSession, int imid);
 
 	loginUser selectLoginUser(SqlSessionTemplate sqlSession, Member m);
+
+	int updatemEmailmPwd(SqlSessionTemplate sqlSession, Member m);
+
+	int updateInfo(SqlSessionTemplate sqlSession, Member m);
 
 }

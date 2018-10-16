@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.efp.band.model.service.BandService;
 import com.kh.efp.band.model.service.BoardService;
+import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.band.model.vo.Board;
  
 @Controller
@@ -24,15 +26,19 @@ public class BoardController {
 	//의존관계 주입
     @Autowired
     BoardService boardService;
+    @Autowired BandService bs;
     
     // 01.게시글 목록
     @RequestMapping("list.do")
-    public ModelAndView list() throws Exception{
-    	List<Board>list = boardService.listAll();
+    public ModelAndView list(String bid) throws Exception{
+    	int pbid = Integer.parseInt(bid);
+    	List<Board> list = boardService.listAll(pbid);
+    	Band b = bs.selectBand(pbid);
     	//ModelAndView - 모델과 뷰
     	ModelAndView mav = new ModelAndView();
     	mav.setViewName("boardBand/boardMain"); //뷰를 boardMain.jsp로 설정
     	mav.addObject("boardMain",list);//데이터를 저장
+    	mav.addObject("Band", b);
     	return mav;// boardMain.jsp로 List 전달
     }
     
@@ -41,11 +47,12 @@ public class BoardController {
     //02. 게시글 작성처리
     @RequestMapping(value="insert.do",method=RequestMethod.POST)
     public String insert(@ModelAttribute Board vo)throws Exception{
+    	System.out.println(vo);
     	boardService.create(vo);
-    	return "redirect:list.do";
+    	return "redirect:list.do?bid=" + vo.getbId();
     }
     
-    //03. 게시글 상세내용 조회, 게시글 조회수 증가 처리
+/*    //03. 게시글 상세내용 조회, 게시글 조회수 증가 처리
     // @RequestParam : get/post방식으로 전달된 변수 1개
     //HttpSession 세션객체
     @RequestMapping(value="view.do",method=RequestMethod.GET)
@@ -60,13 +67,34 @@ public class BoardController {
     	mav.addObject("dto",boardService.read(bno));
     	return mav;
     }
-    
+    */
     //04. 게시글 수정
     //폼에서 입력한 내용들은 @ModelAttribute Board vo로 전달
     @RequestMapping(value="update.do",method=RequestMethod.POST)
-    public String update(@ModelAttribute Board vo)throws Exception{
+    public String update( @ModelAttribute Board vo)throws Exception{
+    	
+    	/*boardService.update(vo);*/
     	return "redirect:list.do";
     }
+    
+    //05. 게시글 수정 처리 화면
+    @RequestMapping(value="updatePage.do",method=RequestMethod.GET)
+    public String updatePage(int boardId, int mId, String bContent) throws Exception{
+  
+    	Board board = new Board();
+    	
+    	 board.setBoardId(boardId);
+    	board.setmId(mId);
+    	board.setbContent(bContent);
+    	
+    	System.out.println(board);	
+    	Board selectBoard = boardService.selectBoard(board);
+//    	ModelAndView mav = new ModelAndView();
+//    	mav.setViewName("board/view");
+  	
+    	return "boardBand/boardEdit";
+    }
+    
     
     //05. 게시글 삭제
     @RequestMapping("delete.do")
@@ -74,6 +102,8 @@ public class BoardController {
     	boardService.delete(bno);
     	return "redirect:list.do";
     }
+    
+    
     
     
 }

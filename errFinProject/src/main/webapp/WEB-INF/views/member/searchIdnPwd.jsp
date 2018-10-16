@@ -186,11 +186,13 @@
 							<button type="button" class="close" data-dismiss="modal">&times;</button>
 							<h4 class="modal-title">비밀번호 변경</h4>
 						</div>
+						<form id = "changeNewPwd" method = "post">
 						<div class="modal-body">
 							새로운 비밀번호를 입력하세요
 							<input type="text" class="form-control" id="newPwd1" name="newPwd1"><br>
 							새로운 비밀번호를 입력하세요
 							<input type="text" class="form-control" id="newPwd2" name="newPwd2"><br>
+							<input type = "hidden" id = "email" name = "mEmail">
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-primary" id="ckNameBtn"
@@ -198,6 +200,7 @@
 							<button type="button" class="btn btn-default" id="cancelBtn2"
 								data-dismiss="modal">취소</button>
 						</div>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -319,31 +322,17 @@
     		var mEmail = $("#mEmail").val();
     		var newPwd1 = $("#newPwd1").val();
     		var newPwd2 = $("#newPwd2").val();
+    		$("#email").val($("#mEmail").val());
     		
+    		if(newPwd1 != ""){
+    			
     		if(newPwd1 ==newPwd2){
-    			$.ajax({
-    				url : "chPwdMid.me",
-    				type : "post",
-    				data : {
-    					mEmail : mEmail,
-    					newPwd1 : newPwd1
-    				},
-    				success:function(data){
-    					if(data == 1){
-    						alert("비밀번호를 재설정 했습니다.");
-    						$("#newPwd1").val();
-    						$("#newPwd2").val();
-    						$("#cancelBtn2").click();
-    					}else{
-    						alert("비밀번호를 변경에 실패했습니다.");
-    					}
-    				},
-    				error:function(){
-    					
-    				}
-    			})
+    			$("#changeNewPwd").attr("action", "changeNewPwd.me");
+    			$("#changeNewPwd").submit();
+    			alert("비밀번호 변경이 완료되었습니다.");
     		}else{
     			alert("비밀번호가 일치하지 않습니다.");
+    		}
     		}
     	}
     	

@@ -28,6 +28,12 @@ public class Band implements Serializable{
 		this.binvite_code = binvite_code;
 		this.bstatus = bstatus;
 	}
+	
+	/*public Band(int bid, String bname, String bopen_status){
+		this.bid = bid;
+		this.bname = bname;
+		this.bopen_status = bopen_status;
+	}*/
 
 	public int getBid() {
 		return bid;

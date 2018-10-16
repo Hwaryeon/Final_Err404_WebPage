@@ -11,7 +11,7 @@
     <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
 
     
-    <title>ERR404 l 마이페이지</title>
+    <title>ERR404</title>
     <!-- CSS -->
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="resources/css/font-awesome.min.css" rel="stylesheet">
@@ -27,6 +27,12 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
+  
+  <style>
+  	#btns:hover{
+  		cursor : pointer;
+  	}
+  </style>
 </head>
 
 <body class="home page page-id-4 page-template page-template-template_home-php">
@@ -45,8 +51,8 @@
             <div class="navbar-collapse collapse topmenu">
                 <div class="menu-header-templates-menu-container">
                     <ul class="nav navbar-nav">
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="article.html">Article</a></li>
+                        <li><a href="sampleForward.sample">샘플데이터</a></li>
+                        <li><a href="codeFactoryMain.codeFac">codeFactory</a></li>
                         <li><a href="article-review.html">Article Review</a></li>
                         <li><a href="archives.html">Archives</a></li>
                         <li><a href="category.html">Category</a></li>
@@ -59,6 +65,7 @@
                         <li><a href="bandLeader.bd?bid=1">밴드 리더</a></li>
                         <li><a href="bandLeader.bd">밴드 리더</a></li>
                         <li><a href="list.do">으쟈쟈쟈</a></li>
+                        <li><a href="boardMember.do">회원리스트</a></li>
                     </ul>
                 </div>
             </div>
@@ -89,7 +96,7 @@
                         <br>
                         <input class="form-control" type="password" name = "mPwd" id = "mPwd" placeholder="비밀번호">
                         <br>
-                        <a class = "button-orange button-link" onclick = "moveMain();">로그인</a>
+                        <a id = 'btns' class = "button-orange button-link" onclick = "moveMain();">로그인</a>
                         <br>
                     	</form>
                         <hr>
@@ -114,44 +121,7 @@
         </div>
     </div>
 
-    <div class="footer">
-        <div class="footer-top">
-            <div class="container">
-                <div class="pull-left">
-                    <div id="text-6">
-                        <div class="textwidget"><a href="#">Weekend Magazine</a> &copy; 2015 All rights reserved</div>
-                    </div>
-                </div>
-                <div class="pull-right hidden-xs">
-                    <div id="text-7">
-                        <div class="textwidget">Theme by <a title="Email me now" href="#">JKthemes</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom hidden-xs">
-            <div class="container">
-                <div id="nav_menu-2">
-                    <div class="menu-footer-menu-container">
-                        <ul id="menu-footer-menu" class="menu">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">News</a></li>
-                            <li><a href="#">Economy</a></li>
-                            <li><a href="#">Sports</a></li>
-                            <li><a href="#">Shows</a></li>
-                            <li><a href="#">Culture &#038; Art</a></li>
-                            <li><a href="#">Gossips</a></li>
-                            <li><a href="#">Fashion</a></li>
-                            <li><a href="#">Health &#038; Body</a></li>
-                            <li><a href="codeFactoryMain.codeFac">Technology</a></li>
-                            <li><a href="sampleForward.sample">Science</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <a class="footer-nav-scroll pull-right"></a>
-            </div>
-        </div>
-    </div>
+    <jsp:include page="../common/footer.jsp" />
     <script>
     $(function(){
   	  

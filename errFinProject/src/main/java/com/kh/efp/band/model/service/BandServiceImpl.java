@@ -180,4 +180,29 @@ public class BandServiceImpl implements BandService {
 	public void insertBanMember(Ban b) {
 		bd.insertBanMember(sqlSession, b);
 	}
+
+	@Override
+	public int checkBandCategory(int bid) {
+		
+		return bd.checkBandCategory(sqlSession, bid);
+	}
+
+	@Override
+	public void updateCategory(Band b) {
+		
+		bd.updateCategory(sqlSession, b);
+		
+	}
+
+	@Override
+	public Band selectBand(int pbid) {
+		// TODO Auto-generated method stub
+		return bd.selectBand(sqlSession, pbid);
+	}
+
+//	@Override
+//	public Band selectBand(int pbid) {
+//		// TODO Auto-generated method stub
+//		return bd.selectBand(sqlSession, pbid);
+//	}
 }

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="Admin">
+	<resultMap type="Member" id="adMember">
+		<id property="mid" column="MID"/>
+		<result property="mEmail" column="MEMAIL"/>
+		<result property="mName" column="MNAME"/>
+		<result property="mPhone" column="MPHONE"/>
+		<result property="mNational" column="MNATIONAL"/> 
+		<result property="mDate" column="MDATE"/>
+		<result property="mType" column="MTYPE"/>
+	</resultMap>
+	
+	<resultMap type="AdmBandList" id="adBand">
+		<id property="bid" column="BID"/>
+		<result property="bname" column="BNAME"/>
+		<result property="cname" column="CNAME"/>
+		<result property="bopen_status" column="BOPEN_STATUS"/>
+	</resultMap>
+	
+	<resultMap type="Member" id="searchMember">
+		<id property="mid" column="MID"/>
+		<result property="mEmail" column="MEMAIL"/>
+		<result property="mPhone" column="MPHONE"/>
+		<result property="mNational" column="MNATIONAL"/>
+		<result property="mDate" column="MDATE"/>
+		<result property="mType" column="MTYPE"/>
+	</resultMap>
+	
+	<resultMap type="AdmBandList" id="searchBand">
+		<id property="bid" column="BID"/>
+		<result property="bname" column="BNAME"/>
+		<result property="cname" column="CNAME"/>
+		<result property="bopen_status" column="BOPEN_STATUS"/>
+		<result property="mname" column="MNAME"/>
+	</resultMap>
+	
+	<resultMap type="ReportList" id="reportMember">
+		<id property="cid" column="CID"/>
+		<result property="memail" column="MEMAIL"/>
+		<result property="mcname" column="MCNAME"/>
+		<result property="mname" column="MNAME"/>
+		<result property="bname" column="BNAME"/>
+		<result property="rcontent" column="RCONTENT"/>
+	</resultMap>
+	
+	<resultMap type="ReportList" id="reportBand">
+		<id property="bid" column="BID"/>
+		<result property="bname" column="BNAME"/>
+		<result property="mbname" column="MNAME"/>
+		<result property="bopen_status" column="BOPEN_STATUS"/>
+		<result property="rdate" column="RDATE"/>
+		<result property="rcontent" column="RCONTENT"/>
+	</resultMap>
+	
+	<resultMap type="BanList" id="banMember">
+		<id property="mid" column="MID"/>
+		<result property="memail" column="MEMAIL"/>
+		<result property="mname" column="MNAME"/>
+		<result property="mphone" column="MPHONE"/>
+		<result property="mnational" column="MNATIONAL"/>
+		<result property="mdate" column="MDATE"/>
+		<result property="mtype" column="MTYPE"/>
+		<result property="banreason" column="BANREASON"/>
+	</resultMap>
+
+	<resultMap type="BanList" id="banBand">
+		<id property="bid" column="BID"/>
+		<result property="bname" column="BNAME"/>
+		<result property="cname" column="CNAME"/>
+		<result property="bopen_status" column="BOPEN_STATUS"/>
+		<result property="mname" column="MNAME"/>
+		<result property="banreason" column="BANREASON"/>
+	</resultMap>	
+	
+	<select id="selectAllMember" resultMap="adMember" parameterType="String">
+		SELECT MID, MEMAIL, MNAME, MPHONE, MNATIONAL, MDATE, DECODE(mtype, 'LOCAL', '로컬', 'FB', '페이스북', 'NAVER', '네이버', 'GOOGLE', '구글') mType
+		FROM MEMBER
+		WHERE MID != 0
+		order by ${alignment} asc
+		
+	</select>
+	
+	<select id="selectAllBand" resultMap="adBand" parameterType="java.util.ArrayList">
+		select b.bid, b.bname, c.cname, DECODE(b.bopen_status, 'PRV', '비공개 밴드', 'PTD', '밴드명 공개', 'PUB', '공개 밴드') bopen_status
+		from band b
+		join category c on(c.cid = b.cid)
+		order by ${alignment} asc
+	</select>
+	
+	<select id="searchMember" resultMap="searchMember" parameterType="java.lang.String">
+		select mid, memail, mname, mphone, mnational, mdate, DECODE(mtype, 'LOCAL', '로컬', 'FB', '페이스북', 'NAVER', '네이버', 'GOOGLE', '구글') mType
+		from member
+		where mname like '%' || #{keyword} || '%'
+	</select>
+	
+	<select id="searchBandByName" resultMap="searchBand" parameterType="java.lang.String">
+		select b.bid, b.bname, c.cname, DECODE(b.bopen_status, 'PRV', '비공개 밴드', 'PTD', '밴드명 공개', 'PUB', '공개 밴드') bopen_status, tb.mname
+		from band b
+		join category c on(c.cid = b.cid)
+		join (select mb.bid, mb.mid, mb.mlevel, m.mname
+		      from member_band mb
+		      join member m on(mb.mid = m.mid)
+		      where mlevel = 1) tb on(tb.bid = b.bid)
+		where b.bname like '%' || #{keyword} || '%'
+	</select>
+	
+	<select id="searchBandByMaster" resultMap="searchBand" parameterType="java.lang.String">
+		select b.bid, b.bname, c.cname, DECODE(b.bopen_status, 'PRV', '비공개 밴드', 'PTD', '밴드명 공개', 'PUB', '공개 밴드') bopen_status, tb.mname
+		from band b
+		join category c on(c.cid = b.cid)
+		join (select mb.bid, mb.mid, mb.mlevel, m.mname
+		      from member_band mb
+		      join member m on(mb.mid = m.mid)
+		      where mlevel = 1) tb on(tb.bid = b.bid)
+		where tb.mname like '%' || #{keyword} || '%'
+	</select>
+	
+	<select id="selectReportMember" resultMap="reportMember">
+		SELECT RE.CID, RE.MEMAIL, RE.MCNAME, RE.MNAME, RE.BNAME, RE.RCONTENT
+		FROM (SELECT MB.CID, MB.MEMAIL, MB.MCNAME, M.MNAME, MB.BNAME, MB.TIMES, MB.RCONTENT
+		        FROM(SELECT R.CID, M.MEMAIL, M.MNAME AS MCNAME, R.MID, B.BNAME, C.TIMES , R.RCONTENT
+		             FROM (SELECT CID, COUNT(RID) AS TIMES
+		                   FROM REPORT
+		                   GROUP BY CID) C
+		             FULL JOIN REPORT R ON (C.CID = R.CID)
+		             JOIN MEMBER M ON (C.CID = M.MID)
+		             JOIN BAND B ON (R.BID = B.BID)
+		             WHERE C.TIMES >= 5) MB
+		        JOIN MEMBER M ON (MB.MID = M.MID))RE
+		LEFT JOIN BAN BA ON (RE.CID = BA.MID)
+		WHERE BA.MID IS NULL
+		ORDER BY RE.TIMES DESC
+	</select>
+	
+	<select id="selectReportBand" resultMap="reportBand">
+		select r.bid, b.bname, mb.mname, DECODE(b.bopen_status, 'PTD', '비공개 밴드', 'PRV', '밴드명 공개', 'PUB', '공개 밴드') as bopen_status, m.mname as mcname, r.rdate, r.rcontent
+		from (select bid, count(rid) as times
+		      from report
+		      group by bid) c
+		full join report r on (c.bid = r.bid)
+		join band b on (r.bid = b.bid)
+		join(select mb.bid, m.mname, mb.mlevel
+		     from member_band mb
+		     join member m on (mb.mid = m.mid)
+		     where mb.mlevel = 1) mb on (mb.bid = r.bid)
+		join member m on (m.mid = r.cid)
+		left join ban ba on (r.bid = ba.bid)
+		where ba.bid is null
+		and c.times >= 5
+		order by c.times desc
+	</select>
+	
+	<select id="selectBanMember" resultMap="banMember">
+		select ba.mid, m.memail, m.mname, m.mphone, m.mnational, m.mdate, DECODE(m.mtype, 'LOCAL', '로컬', 'FB', '페이스북', 'NAVER', '네이버', 'GOOGLE', '구글') mType, ba.banreason
+		from ban ba
+		join member m on (ba.mid = m.mid)
+		where ba.bid is null
+		order by ${alignment} asc
+	</select>
+
+	<select id="selectBanBand" resultMap="banBand">
+		select ba.bid, b.bname, c.cname, DECODE(b.bopen_status, 'PTD', '비공개 밴드', 'PRV', '밴드명 공개', 'PUB', '공개 밴드') as bopen_status, m.mname, ba.banreason
+		from ban ba
+		join band b on (ba.bid = b.bid)
+		join category c on (b.cid = c.cid)
+		join member_band mb on (b.bid = mb.bid)
+		join member m on (mb.mid = m.mid)
+		where mb.mlevel = 1
+		and ba.mid is null
+		order by ${alignment} asc
+	</select>
+</mapper>

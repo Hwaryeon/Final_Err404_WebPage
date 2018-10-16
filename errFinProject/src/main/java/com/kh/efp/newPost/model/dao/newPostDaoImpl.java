@@ -12,6 +12,7 @@ import com.kh.efp.newPost.model.vo.BandProfile;
 import com.kh.efp.newPost.model.vo.Boards;
 import com.kh.efp.newPost.model.vo.Category;
 import com.kh.efp.newPost.model.vo.MemberProfile;
+import com.kh.efp.newPost.model.vo.Report;
 
 @Repository
 public class newPostDaoImpl implements newPostDao{
@@ -72,6 +73,40 @@ public class newPostDaoImpl implements newPostDao{
 	@Override
 	public MemberProfile selectMemberProfile(SqlSessionTemplate sqlSession, int mid) {
 		return sqlSession.selectOne("newPost.selectMemberProfile", mid);
+	}
+
+	@Override
+	public void insertReport(SqlSessionTemplate sqlSession, Report re) {
+		sqlSession.insert("newPost.insertReport", re);
+	}
+
+	@Override
+	public int selectCommentCount(SqlSessionTemplate sqlSession, Boards bs) {
+		return sqlSession.selectOne("newPost.selectCommentCount", bs);
+	}
+
+	@Override
+	public ArrayList<Boards> selectCommentList(SqlSessionTemplate sqlSession, Boards bs) {
+		ArrayList<Boards> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("newPost.selectCommentList", bs);
+		
+		return list;
+	}
+
+	@Override
+	public void insertNewPost(SqlSessionTemplate sqlSession, Boards b) {
+		sqlSession.insert("newPost.insertNewPost", b);
+	}
+
+	@Override
+	public void deleteBoard(SqlSessionTemplate sqlSession, int boardid) {
+		sqlSession.delete("newPost.deleteBoard", boardid);
+	}
+
+	@Override
+	public void updateBoard(SqlSessionTemplate sqlSession, Boards b) {
+		sqlSession.update("newPost.updateBoard", b);
 	}
 
 

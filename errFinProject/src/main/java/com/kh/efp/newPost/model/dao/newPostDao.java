@@ -10,6 +10,7 @@ import com.kh.efp.newPost.model.vo.BandProfile;
 import com.kh.efp.newPost.model.vo.Boards;
 import com.kh.efp.newPost.model.vo.Category;
 import com.kh.efp.newPost.model.vo.MemberProfile;
+import com.kh.efp.newPost.model.vo.Report;
 
 public interface newPostDao {
 
@@ -28,6 +29,18 @@ public interface newPostDao {
 	ArrayList<Boards> selectNewPostList2(SqlSessionTemplate sqlSession, Boards bs);
 
 	MemberProfile selectMemberProfile(SqlSessionTemplate sqlSession, int mid);
+
+	void insertReport(SqlSessionTemplate sqlSession, Report re);
+
+	int selectCommentCount(SqlSessionTemplate sqlSession, Boards bs);
+
+	ArrayList<Boards> selectCommentList(SqlSessionTemplate sqlSession, Boards bs);
+
+	void insertNewPost(SqlSessionTemplate sqlSession, Boards b);
+
+	void deleteBoard(SqlSessionTemplate sqlSession, int boardid);
+
+	void updateBoard(SqlSessionTemplate sqlSession, Boards b);
 
 
 }

@@ -8,6 +8,7 @@ import com.kh.efp.newPost.model.vo.BandProfile;
 import com.kh.efp.newPost.model.vo.Boards;
 import com.kh.efp.newPost.model.vo.Category;
 import com.kh.efp.newPost.model.vo.MemberProfile;
+import com.kh.efp.newPost.model.vo.Report;
 
 public interface newPostService {
 
@@ -26,6 +27,18 @@ public interface newPostService {
 	ArrayList<Boards> selectNewPostList2(Boards bs);
 
 	MemberProfile selectMemberProfile(int mid);
+
+	void insertReport(Report re);
+
+	int selectCommentCount(Boards bs);
+
+	ArrayList<Boards> selectCommentList(Boards bs);
+
+	void insertNewPost(Boards b);
+
+	void deleteBoard(int boardid);
+
+	void updateBoard(Boards b);
 
 
 }

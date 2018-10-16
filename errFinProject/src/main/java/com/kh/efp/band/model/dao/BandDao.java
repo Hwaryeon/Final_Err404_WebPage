@@ -63,6 +63,12 @@ public interface BandDao {
 
 	void insertBanMember(SqlSessionTemplate sqlSession, Ban b);
 
+	int checkBandCategory(SqlSessionTemplate sqlSession, int bid);
+
+	void updateCategory(SqlSessionTemplate sqlSession, Band b);
+
+	Band selectBand(SqlSessionTemplate sqlSession, int pbid);
+
 
 
 

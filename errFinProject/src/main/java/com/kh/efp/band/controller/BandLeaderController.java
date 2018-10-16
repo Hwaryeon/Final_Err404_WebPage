@@ -21,11 +21,14 @@ import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.commons.CommonUtils;
 import com.kh.efp.member.model.vo.Profile;
+import com.kh.efp.newPost.model.service.newPostService;
+import com.kh.efp.newPost.model.vo.Category;
 
 @Controller
 public class BandLeaderController {
 
 	@Autowired private BandService bs;
+	@Autowired private newPostService ns;
 	
 	public void bandLeftSideBar(int bid, Model model){
 		
@@ -72,6 +75,26 @@ public class BandLeaderController {
 		bandLeftSideBar(bid, model);
 		
 		return "band/bandOpenStatus";
+	}
+	
+	@RequestMapping("bandCategory.bd")
+	public String bandCategory(Model model){
+		
+		//임시로 설정
+		int bid = 1;
+		
+		ArrayList<Category> cList = ns.selectCategoryList();
+		
+		int cid = bs.checkBandCategory(bid);
+		
+		
+		
+		model.addAttribute("cid", cid);
+		model.addAttribute("cList", cList);
+		
+		bandLeftSideBar(bid, model);
+		
+		return "band/bandCategory";
 	}
 	
 	@RequestMapping("changeStatus.bd")
@@ -544,6 +567,22 @@ public class BandLeaderController {
 		bs.deleteBanMember(banid);
 		
 		return "redirect:/bandMemberManagement.bd";
+	}
+	
+	@RequestMapping("updateCategory.bd")
+	public String updateCategory(@RequestParam int category, Model model){
+		
+		//임시로 지정
+		int bid = 1;
+		
+		Band b = new Band();
+		b.setBid(bid);
+		b.setCid(category);
+		
+		bs.updateCategory(b);
+		
+		
+		return "redirect:/bandLeader.bd";
 	}
 	
 }

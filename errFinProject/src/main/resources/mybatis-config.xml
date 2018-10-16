@@ -5,7 +5,7 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.kh.efp.member.model.vo.Member" alias = "Member"/>
+		<typeAlias type="com.kh.efp.member.model.vo.Member" alias = "Member"/> 
 		<typeAlias type="com.kh.efp.band.model.vo.Scehdule" alias = "Scehdule"/>
 		<typeAlias type="com.kh.efp.band.model.vo.Member_Band" alias = "Member_Band"/>
 		<typeAlias type="com.kh.efp.band.model.vo.Band" alias = "Band"/>
@@ -16,6 +16,7 @@
 		<typeAlias type="com.kh.efp.newPost.model.vo.BandMemberCount" alias = "BandMemberCount"/>
 		<typeAlias type="com.kh.efp.newPost.model.vo.Boards" alias = "Boards"/>
 		<typeAlias type="com.kh.efp.newPost.model.vo.MemberProfile" alias = "MemberProfile"/>
+		<typeAlias type="com.kh.efp.newPost.model.vo.Report" alias = "Report"/>
 		<typeAlias type="com.kh.efp.member.model.vo.Profile" alias = "Profile"/>
 		<typeAlias type="com.kh.efp.Search.model.vo.Search" alias = "Search"/>
 		<typeAlias type="com.kh.efp.member_band.model.vo.BandList" alias = "BandList"/>
@@ -26,9 +27,10 @@
 		<typeAlias type="com.kh.efp.member.model.vo.loginUser" alias = "loginUser"/>
 		<typeAlias type="com.kh.efp.band.model.vo.Board" alias = "Board"/>
 		<typeAlias type="com.kh.efp.category.model.vo.CategoryBandList" alias = "CategoryBandList"/>
-    
-
-		
+		<typeAlias type="com.kh.efp.mainPage.model.vo.RecommendContents" alias = "RecommendContent"/>
+		<typeAlias type="com.kh.efp.admin.model.vo.AdmBandList" alias="AdmBandList"/>
+		<typeAlias type="com.kh.efp.admin.model.vo.ReportList" alias="ReportList"/>
+		<typeAlias type="com.kh.efp.admin.model.vo.BanList" alias="BanList"/>
 	</typeAliases>
 
 	<mappers>
@@ -41,7 +43,9 @@
 		<mapper resource="mappers/newPost-mapper.xml"/>
 		<mapper resource="mappers/board-mapper.xml"/>
 		<mapper resource="mappers/category-mapper.xml"/>
-    <mapper resource="mappers/main-mapper.xml"/>
+    	<mapper resource="mappers/main-mapper.xml"/>
+    	<mapper resource="mappers/admin-mapper.xml"/>
+    	
 	</mappers>
 	
 	

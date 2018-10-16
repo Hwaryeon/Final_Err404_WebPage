@@ -44,7 +44,7 @@
                             <c:if test = "${ !empty list }">
                             <c:forEach var = "list" items = "${ list }" varStatus = "status">
                                 <tr id = "tr${ status.index }">
-                                    <td width="150px" style="vertical-align: middle;"><img src="resources/upload_images/${ list.editName }" alt=""></td>
+                                    <td width="150px" style="vertical-align: middle;"><img src="resources/upload_images/${ list.editName }" alt="" style="width:100%; height:100px;"></td>
                                     <td width="600px" style="vertical-align: middle; text-align: left">
                                         <p class="bold">${ list.bName }</p>
                                         
@@ -67,7 +67,7 @@
 													<button type="button" class="btn btn-primary" id="ckBtn"
 														onclick="bandOut(${ list.mid}, ${ list.bid }, ${ status.index })">확인</button>
 													<button type="button" class="btn btn-default" id="cancelBtn"
-														data-dismiss="modal">취소</button>
+														data-dismiss="modal">취소</button> 
 												</div>
 											</div>
 										</div>
@@ -150,44 +150,7 @@
         </div>
     </div>
 
-    <div class="footer">
-        <div class="footer-top">
-            <div class="container">
-                <div class="pull-left">
-                    <div id="text-6">
-                        <div class="textwidget"><a href="#">Weekend Magazine</a> &copy; 2015 All rights reserved</div>
-                    </div>
-                </div>
-                <div class="pull-right hidden-xs">
-                    <div id="text-7">
-                        <div class="textwidget">Theme by <a title="Email me now" href="#">JKthemes</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom hidden-xs">
-            <div class="container">
-                <div id="nav_menu-2">
-                    <div class="menu-footer-menu-container">
-                        <ul id="menu-footer-menu" class="menu">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">News</a></li>
-                            <li><a href="#">Economy</a></li>
-                            <li><a href="#">Sports</a></li>
-                            <li><a href="#">Shows</a></li>
-                            <li><a href="#">Culture &#038; Art</a></li>
-                            <li><a href="#">Gossips</a></li>
-                            <li><a href="#">Fashion</a></li>
-                            <li><a href="#">Health &#038; Body</a></li>
-                            <li><a href="#">Technology</a></li>
-                            <li><a href="#">Science</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <a class="footer-nav-scroll pull-right"></a>
-            </div>
-        </div>
-    </div>
+    <jsp:include page="../common/footer.jsp" />
     <script>
     	function bandOut(mid, bid, index){
     		console.log(mid);
@@ -206,7 +169,7 @@
     			error:function(){
     				console.log("실패");
     			}
-    		})  
+    		});  
     	}
     	
     	function bandCancel(mid, bid, index){
@@ -226,7 +189,7 @@
     			error:function(){
     				console.log("실패");
     			}
-    		}) 
+    		});
     	}
     </script>
     <script src="resources/js/jquery.min.js"></script>

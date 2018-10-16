@@ -9,7 +9,7 @@
 <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content=" width=device-width, initial-scale=1">
 <title>밴드 홈 | 밴드</title>
-<!-- CSS -->
+<!-- CSS --> 
 <jsp:include page="../common/menubar.jsp" />
 <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 <link href="resources/css/font-awesome.min.css" rel="stylesheet">
@@ -125,11 +125,30 @@
 .poppost-content {
 	width: 490px;
 	height: 160px;
+	float:left;
+	display:inline-block;
 }
 
 .poppost-content>p {
 	font-size: 15px;
 	margin-left: 10px;
+	width:380px;
+	margin-right:0px;
+	float:left;
+	display:inline-block;
+}
+
+.poppost-content>div {
+	/* margin-left:390px; */
+	width:95px;
+	height:95px;
+	float:left;
+	display:inline-block;
+}
+
+.poppostPic>img {
+	width:100%;
+	height:100%;
 }
 
 .recommend-container {
@@ -163,6 +182,11 @@
 	display: inline-block;
 }
 
+.recommend-profile>img {
+	width:100%;
+	height:100%;
+}
+
 .recommend-content {
 	width: 400px;
 	height: 100px;
@@ -177,18 +201,19 @@
 }
 
 .recommend-content>.introduction {
-	font-size: 10px;
+	font-size: 12px;
 	margin-bottom: 0px;
 	margin-left: 10px;
 }
 
 .recommend-content>button {
 	/* margin-top:4px; */
-	margin-left: 250px;
+	margin-left: 230px;
+	width:150px;
 	background-color: white;
 	border: 0.5px solid black;
 	height: 30px;
-	font-size: 15px;
+	font-size: 10px;
 }
 
 
@@ -213,6 +238,8 @@ ul{
 	box-shadow: 5px 10px 18px #888888;
 	transition: all 0.4s ease-out;
 }
+
+
 </style>
 
 
@@ -257,7 +284,7 @@ ul{
 						<li class="myband-list">
 							<div class="band-profile">
 								<div style="height: 65px"></div>
-								<div id="plus-icon" onclick="location.href='newBand.jsp'">
+								<div id="plus-icon" onclick="location.href='newBand.mp'">
 									<p>+</p>
 								</div>
 							</div>
@@ -267,17 +294,31 @@ ul{
 							</div>
 						</li>
 						<c:forEach var="MyBandList" items="${ myBandList }">
-							<%-- <c:if test='${!empty myBandList[i]}'> --%>
-							<li class="myband-list">
+							<li class="myband-list" onclick = 'showBand(${MyBandList.bid});'>
 								<div class="band-profile">
-									<img src="resources/images/${ MyBandList.edit_name }">
+								
+									<c:if test="${ MyBandList.edit_name == 'cover1.jpeg' || MyBandList.edit_name == 'cover2.jpg'
+									|| MyBandList.edit_name == 'cover3.jpg' || MyBandList.edit_name == 'cover4.jpg'
+									|| MyBandList.edit_name == 'cover5.jpg' || MyBandList.edit_name == 'cover6.jpg'
+									|| MyBandList.edit_name == 'cover7.jpg' }">
+								
+										<img src="resources/images/cover/${ MyBandList.edit_name }">
+									</c:if>
+									
+									<c:if test="${ !(MyBandList.edit_name == 'cover1.jpeg' || MyBandList.edit_name == 'cover2.jpg'
+									|| MyBandList.edit_name == 'cover3.jpg' || MyBandList.edit_name == 'cover4.jpg'
+									|| MyBandList.edit_name == 'cover5.jpg' || MyBandList.edit_name == 'cover6.jpg'
+									|| MyBandList.edit_name == 'cover7.jpg') }">
+								
+										<img src="resources/upload_images/${ MyBandList.edit_name }">
+									</c:if>
+									
 								</div>
 								<div class="band-name">
 									<p class="band-nametxt">${ MyBandList.bname }</p>
 									<span class="band-membertxt">멤버 : ${ MyBandList.memberCount }</span>
 								</div>
 							</li>
-							<%-- </c:if> --%>
 						</c:forEach>
 					</ul>
 				</div>
@@ -296,16 +337,18 @@ ul{
 									<c:choose>
 										<c:when test="${ PopularContents.flevel eq 'I'}">
 											<p>
-											이미지 있는애<br>
 											<c:choose>
-												<c:when test="${fn:length(PopularContents.bcontent) > 240 }">
-													${fn:substring(PopularContents.bcontent, 0, 240) }....
+												<c:when test="${fn:length(PopularContents.bcontent) > 180 }">
+													${fn:substring(PopularContents.bcontent, 0, 180) }....
 												</c:when>
 												<c:otherwise>
 													${ PopularContents.bcontent }
 												</c:otherwise>
 											</c:choose>
 											</p>
+											<div class="poppostPic">
+												<img src="resources/upload_images/${ PopularContents.edit_name }">
+											</div>
 										</c:when>
 										<c:otherwise>
 											<p>
@@ -317,7 +360,7 @@ ul{
 													${ PopularContents.bcontent }
 												</c:otherwise>
 											</c:choose>
-											<br>작성자 : ${ PopularContents.mname }
+											<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;작성자 : ${ PopularContents.mname }
 											</p>
 										</c:otherwise>
 									</c:choose>
@@ -328,11 +371,6 @@ ul{
 				</div>
 			</div>
 
-			<script>
-				function first(){
-					var first = (int)Math.random() * 5;
-				}
-			</script>
 			<div class="widget">
 				<h4 class="page-title">카테고리</h4>
 				<div class="item">
@@ -375,106 +413,27 @@ ul{
 				<h4 class="page-title">이런 밴드는 어때요?</h4>
 				<div class="recommend-container">
 					<ul>
-						<li class="recommend-list">
-							<div class="recommend-profile">프로필사진</div>
-							<div class="recommend-content">
-								<p class="title">밴드제목</p>
-								<p class="introduction">
-									밴드소개<br>밴드소개
-								</p>
-								<button>밴드 더 보기</button>
-							</div>
-						</li>
-						<li class="recommend-list">
-							<div class="recommend-profile">프로필사진</div>
-							<div class="recommend-content">
-								<p class="title">밴드제목</p>
-								<p class="introduction">
-									밴드소개<br>밴드소개
-								</p>
-								<button>밴드 더 보기</button>
-							</div>
-						</li>
-						<li class="recommend-list">
-							<div class="recommend-profile">프로필사진</div>
-							<div class="recommend-content">
-								<p class="title">밴드제목</p>
-								<p class="introduction">
-									밴드소개<br>밴드소개
-								</p>
-								<button>밴드 더 보기</button>
-							</div>
-						</li>
-						<li class="recommend-list">
-							<div class="recommend-profile">프로필사진</div>
-							<div class="recommend-content">
-								<p class="title">밴드제목</p>
-								<p class="introduction">
-									밴드소개<br>밴드소개
-								</p>
-								<button>밴드 더 보기</button>
-							</div>
-						</li>
-						<li class="recommend-list">
-							<div class="recommend-profile">프로필사진</div>
-							<div class="recommend-content">
-								<p class="title">밴드제목</p>
-								<p class="introduction">
-									밴드소개<br>밴드소개
-								</p>
-								<button>밴드 더 보기</button>
-							</div>
-						</li>
-						<li class="recommend-list">
-							<div class="recommend-profile">프로필사진</div>
-							<div class="recommend-content">
-								<p class="title">밴드제목</p>
-								<p class="introduction">
-									밴드소개<br>밴드소개
-								</p>
-								<button>밴드 더 보기</button>
-							</div>
-						</li>
-						<li class="recommend-list">
-							<div class="recommend-profile">프로필사진</div>
-							<div class="recommend-content">
-								<p class="title">밴드제목</p>
-								<p class="introduction">
-									밴드소개<br>밴드소개
-								</p>
-								<button>밴드 더 보기</button>
-							</div>
-						</li>
-						<li class="recommend-list">
-							<div class="recommend-profile">프로필사진</div>
-							<div class="recommend-content">
-								<p class="title">밴드제목</p>
-								<p class="introduction">
-									밴드소개<br>밴드소개
-								</p>
-								<button>밴드 더 보기</button>
-							</div>
-						</li>
-						<li class="recommend-list">
-							<div class="recommend-profile">프로필사진</div>
-							<div class="recommend-content">
-								<p class="title">밴드제목</p>
-								<p class="introduction">
-									밴드소개<br>밴드소개
-								</p>
-								<button>밴드 더 보기</button>
-							</div>
-						</li>
-						<li class="recommend-list">
-							<div class="recommend-profile">프로필사진</div>
-							<div class="recommend-content">
-								<p class="title">밴드제목</p>
-								<p class="introduction">
-									밴드소개<br>밴드소개
-								</p>
-								<button>밴드 더 보기</button>
-							</div>
-						</li>
+						<c:forEach var="rcmContents" items="${ rcmContents }">
+							<li class="recommend-list">
+								<div class="recommend-profile">
+									<img src="${contextPath}/resources/upload_images/${rcmContents.edit_name}">
+								</div>
+								<div class="recommend-content">
+									<p class="title">${rcmContents.bname}</p>
+									<p class="introduction">
+										<c:choose>
+											<c:when test="${fn:length(rcmContents.bintro) > 75 }">
+												${fn:substring(rcmContents.bintro, 0, 75) }....
+											</c:when>
+											<c:otherwise>
+												${rcmContents.bintro}
+											</c:otherwise>
+										</c:choose>
+									</p>
+									<button><b>${rcmContents.cname}</b>밴드 더 보기</button>
+								</div>
+							</li>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>
@@ -539,6 +498,10 @@ ul{
             nextHtml: '<img src="https://t1.daumcdn.net/cfile/tistory/18718E3D5083FDF705"/ style="width:40px; height:40px">'
        });
 	});
+	 
+	 function showBand(bid){
+		 location.href = 'list.do?bid=' + bid;
+	 }
 	</script>
 
 </body>

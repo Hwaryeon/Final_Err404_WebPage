@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<c:set var="category" value="${['JAVA','C','C++','C#','RUBY','nodejs','PYTHON','SCALA','GO','RUST']}"/>
+<%-- <c:set var="category" value="${['JAVA','C','C++','C#','RUBY','nodejs','PYTHON','SCALA','GO','RUST']}"/> --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head profile="http://www.w3.org/2005/10/profile">
