@@ -91,7 +91,7 @@
                         			멤버 ${memberCount}<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
                         			초대코드 </a></h4>
                         <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
-                        <a href="bandLeader.bd?bid=1" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
+                        <a href="bandLeader.bd?bid=${ bid }" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
                     </li>
                 </ul>
                 <div class="clear"></div>
@@ -108,17 +108,17 @@
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  밴드 이름 및 커버 설정
-                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandModify.bd">변경</a></h4>
+                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandModify.bd?bid=${ bid }">변경</a></h4>
                   </li>
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  밴드 카테고리 변경
-                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandCategory.bd">변경</a></h4>
+                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandCategory.bd?bid=${ bid }">변경</a></h4>
                   </li>
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  밴드 공개 설정
-                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandOpenStatus.bd">변경</a></h4>
+                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandOpenStatus.bd?bid=${ bid }">변경</a></h4>
                   </li>
                 </ul>
               </div>
@@ -131,17 +131,17 @@
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  공동리더 관리
-                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandMultiLeader.bd">변경</a></h4>
+                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandMultiLeader.bd?bid=${ bid }">변경</a></h4>
                   </li>
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  리더 위임
-                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandChangeLeader.bd">변경</a></h4>
+                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandChangeLeader.bd?bid=${ bid }">변경</a></h4>
                   </li>
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  멤버 탈퇴,차단 설정
-                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandMemberManagement.bd">변경</a></h4>
+                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandMemberManagement.bd?bid=${ bid }">변경</a></h4>
                   </li>
                 </ul>
               </div>
@@ -155,17 +155,17 @@
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		 밴드 소개 변경
-                  		 <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandIntro.bd">변경</a></h4>
+                  		 <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandIntro.bd?bid=${ bid }">변경</a></h4>
                   </li>
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  밴드 탈퇴
-                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandSecession.bd">변경</a></h4>
+                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandSecession.bd?bid=${ bid }">변경</a></h4>
                   </li>
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  밴드 삭제
-                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandDelete.bd">변경</a></h4>
+                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandDelete.bd?bid=${ bid }">변경</a></h4>
                   </li>
                 </ul>
               </div>

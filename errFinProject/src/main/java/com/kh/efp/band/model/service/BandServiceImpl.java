@@ -200,6 +200,13 @@ public class BandServiceImpl implements BandService {
 		return bd.selectBand(sqlSession, pbid);
 	}
 
+	@Override
+	public int selectMlevel(Member_Band mb) {
+		return bd.selectMlevel(sqlSession, mb);
+	}
+
+
+
 //	@Override
 //	public Band selectBand(int pbid) {
 //		// TODO Auto-generated method stub

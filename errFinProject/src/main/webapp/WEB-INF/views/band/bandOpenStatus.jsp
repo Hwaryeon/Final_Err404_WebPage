@@ -127,7 +127,7 @@
                         			멤버 ${memberCount}<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
                         			초대코드 </a></h4>
                         <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
-                        <a href="bandLeader.bd?bid=1" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
+                        <a href="bandLeader.bd?bid=${ bid }" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
                     </li>
                 </ul>
                 <div class="clear"></div>
@@ -188,6 +188,8 @@
 								</h4>
 							</li>
 						</ul>
+						
+						<input type="hidden" id="bid" name="bid" value="${ bid }" >
 
 
 						<div class="row survey" style="margin-top: 50px;">
@@ -209,8 +211,10 @@
 		$('#save').click(function(){
 			
 			var radioVal = $('input[name="remember"]:checked').val();
+			
+			var bid = document.getElementById('bid').value;
 	        
-			location.href='changeStatus.bd?status='+radioVal;
+			location.href='changeStatus.bd?status='+radioVal + '&bid=' + bid;
 			
 
 			

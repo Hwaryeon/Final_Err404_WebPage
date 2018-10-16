@@ -104,7 +104,7 @@
                      <div class="post widget" style="float:unset; padding-left:138px;">
               <div class="post-social" id="postsocial" style="border-top:0px; padding-top:0px;">
                   <div class="share-container" style="width:75px;">
-                      <span class="share-title" style="color:#25afe5;">새글 피드   |</span>
+                      <span class="share-title" style="color:#25afe5;"><a href="newPost.np" style="color:#25afe5;">새글 피드   |</a></span>
                   </div>
                   <div class="share-container"style="width:75px;">
                       <span class="share-title" style="color:#25afe5;">밴드 찾기</span>

@@ -128,7 +128,7 @@
                         			멤버 ${memberCount}<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
                         			초대코드 </a></h4>
                         <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
-                        <a href="bandLeader.bd?bid=1" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
+                        <a href="bandLeader.bd?bid=${ bid }" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
                     </li>
                 </ul>
                 <div class="clear"></div>
@@ -189,7 +189,7 @@
 				
 			</c:forEach>
             
-                    
+                    <input type="hidden" id="bid" name="bid" value="${ bid }" >
                     
                     
                     </div>
@@ -451,8 +451,9 @@
 $('#deleteBanMember').click(function(){
 	
 	var banid = document.getElementById('banid').value;
+	var bid = document.getElementById('bid').value;
 	
-	location.href="deleteBanMember.bd?banid=" + banid;
+	location.href="deleteBanMember.bd?banid=" + banid + '&bid=' + bid;
 	
 });
 
@@ -462,8 +463,9 @@ $('#deleteBandMember').click(function(){
 	
 	var radioVal = $('input[name="remember"]:checked').val();
 	var mid = document.getElementById('mid').value;
+	var bid = document.getElementById('bid').value;
 	
-	location.href="deleteBandMember.bd?mbid=" + mbid + "&mid=" + mid + "&radioVal=" + radioVal;
+	location.href="deleteBandMember.bd?mbid=" + mbid + "&mid=" + mid + "&radioVal=" + radioVal + '&bid=' + bid;
 	
 });
 

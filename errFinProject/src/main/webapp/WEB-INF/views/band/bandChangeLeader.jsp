@@ -128,7 +128,7 @@
                         			멤버 ${memberCount}<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
                         			초대코드 </a></h4>
                         <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
-                        <a href="bandLeader.bd?bid=1" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
+                        <a href="bandLeader.bd?bid=${ bid }" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
                     </li>
                 </ul>
                 <div class="clear"></div>
@@ -345,6 +345,7 @@
   </div>
   <br>
   <input type="hidden" id="mbid" value=""/> 
+  <input type="hidden" id="bid" name="bid" value="${ bid }" >
   <button data-remodal-action="cancel" class="remodal-cancel">취소</button>
   <button id="changeBandLeaderBu" data-remodal-action="confirm" class="remodal-confirm">확인</button>
 </div>
@@ -355,8 +356,9 @@ $('#changeBandLeaderBu').click(function(){
 	console.log("id : " + document.getElementById('mbid').value);
 	
 	var mbid = document.getElementById('mbid').value;
+	var bid = document.getElementById('bid').value;
 	
-	location.href="changeBandLeader.bd?mbid=" + mbid;
+	location.href="changeBandLeader.bd?mbid=" + mbid + '&bid=' + bid;
 	
 });
 

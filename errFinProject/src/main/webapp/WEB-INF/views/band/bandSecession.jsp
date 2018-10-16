@@ -129,7 +129,7 @@
                         			멤버 ${memberCount}<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
                         			초대코드 </a></h4>
                         <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
-                        <a href="bandLeader.bd?bid=1" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
+                        <a href="bandLeader.bd?bid=${ bid }" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
                     </li>
                 </ul>
                 <div class="clear"></div>
@@ -159,17 +159,21 @@
             </div>
 		</div>
 		
+		<input type="hidden" id="bid" name="bid" value="${ bid }" >
+							
 		<script>
 			$('#bandSecession').click(function(){
 				
-				var bid = 1;
-				var mid = 1;
+				var bid = document.getElementById('bid').value;
 				
-				location.href="secessionBand.bd?bid=" + bid + "&mid=" + mid;
+				location.href="secessionBand.bd?bid=" + bid;
 			});
 			
 			$('#cancle').click(function(){
-				location.href="bandLeader.bd";
+				
+				var bid = document.getElementById('bid').value;
+				
+				location.href="bandLeader.bd?bid=" + bid;
 			});
 		
 		
