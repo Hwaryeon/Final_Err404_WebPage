@@ -103,16 +103,18 @@
 			<div class="main col-md-6 col-xs-12">
 				<div class="admin-container">
 					<h1 style="height: 50px; padding-left: 20px; padding-top: 10px;">밴드조회</h1>
-					<div class="search-area">
-						정렬방법  : 
-						<select style="margin-left:2%; font-size:15px; height:25px;">
-							<option>-------</option>
-							<option>밴드명</option>
-							<option>카테고리</option>
-							<option>밴드유형</option>
-						</select>
-						<button>정렬</button>
-					</div>
+					<form action="BandSelect.ad">
+						<div class="search-area">
+							정렬방법  : 
+							<select name="alignment" style="margin-left:2%; font-size:15px; height:25px;">
+								<option value="bid">-------</option>
+								<option value="bname">밴드명</option>
+								<option value="cname">카테고리</option>
+								<option value="bopen_status">밴드유형</option>
+							</select>
+							<button>정렬</button>
+						</div>
+					</form>
 					<table class="admin-table">
 						<tr style="background-color:lightblue">
 							<td width="10%">밴드번호</td>

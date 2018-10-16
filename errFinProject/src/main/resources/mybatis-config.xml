@@ -29,6 +29,8 @@
 		<typeAlias type="com.kh.efp.category.model.vo.CategoryBandList" alias = "CategoryBandList"/>
 		<typeAlias type="com.kh.efp.mainPage.model.vo.RecommendContents" alias = "RecommendContent"/>
 		<typeAlias type="com.kh.efp.admin.model.vo.AdmBandList" alias="AdmBandList"/>
+		<typeAlias type="com.kh.efp.admin.model.vo.ReportList" alias="ReportList"/>
+		<typeAlias type="com.kh.efp.admin.model.vo.BanList" alias="BanList"/>
 	</typeAliases>
 
 	<mappers>

@@ -103,7 +103,7 @@
 			<div class="main col-md-6 col-xs-12">
 				<div class="admin-container">
 					<h1 style="height: 50px; padding-left: 20px; padding-top: 10px;">신고받은 밴드 조회</h1>
-					<div class="search-area">
+					<!-- <div class="search-area">
 						정렬방법  : 
 						<select style="margin-left:2%; font-size:15px; height:25px;">
 							<option>-------</option>
@@ -113,96 +113,26 @@
 							<option>밴드유형</option>
 						</select>
 						<button>정렬</button>
-					</div>
+					</div> -->
 					<table class="admin-table">
 						<tr style="background-color:lightblue">
 							<td width="10%">밴드번호</td>
 							<td width="40%">밴드명</td>
 							<td width="10%">신고일자</td>
-							<td width="10%">밴드유형</td>
+							<td width="15%">밴드유형</td>
 							<td width="10%">밴드장</td>
 							<td width="20%">신고사유</td>
 						</tr>
-						<tr>
-							<td>000001</td>
-							<td>밴드명1</td>
-							<td>2018-10-19</td>
-							<td>개방형</td>
-							<td>밴드장1</td>
-							<td>신고사유1</td>
-						</tr>
-						<tr>
-							<td>000002</td>
-							<td>밴드명2</td>
-							<td>2018-10-20</td>
-							<td>이름공개형</td>
-							<td>밴드장2</td>
-							<td>신고사유2</td>
-						</tr>
-						<tr>
-							<td>000003</td>
-							<td>밴드명3</td>
-							<td>2018-10-21</td>
-							<td>폐쇄형</td>
-							<td>밴드장3</td>
-							<td>신고사유3</td>
-						</tr>
-						<tr>
-							<td>000004</td>
-							<td>밴드명4</td>
-							<td>2018-10-22</td>
-							<td>개방형</td>
-							<td>밴드장4</td>
-							<td>신고사유4</td>
-						</tr>
-						<tr>
-							<td>000005</td>
-							<td>밴드명5</td>
-							<td>2018-10-23</td>
-							<td>이름공개형</td>
-							<td>밴드장5</td>
-							<td>신고사유5</td>
-						</tr>
-						<tr>
-							<td>000006</td>
-							<td>밴드명6</td>
-							<td>2018-10-24</td>
-							<td>폐쇄형</td>
-							<td>밴드장6</td>
-							<td>신고사유6</td>
-						</tr>
-						<tr>
-							<td>000007</td>
-							<td>밴드명7</td>
-							<td>2018-10-25</td>
-							<td>개방형</td>
-							<td>밴드장7</td>
-							<td>신고사유7</td>
-						</tr>
-						<tr>
-							<td>000008</td>
-							<td>밴드명8</td>
-							<td>2018-10-26</td>
-							<td>이름공개형</td>
-							<td>밴드장8</td>
-							<td>신고사유8</td>
-						</tr>
-						<tr>
-							<td>000009</td>
-							<td>밴드명9</td>
-							<td>2018-10-27</td>
-							<td>폐쇄형</td>
-							<td>밴드장9</td>
-							<td>신고사유9</td>
-						</tr>
-						<tr>
-							<td>000010</td>
-							<td>밴드명10</td>
-							<td>2018-10-28</td>
-							<td>개방형</td>
-							<td>밴드장10</td>
-							<td>신고사유10</td>
-						</tr>
+						
+						<c:forEach var="reportBand" items="${ reportBand }">
+							<tr>
+								<td>${ reportBand.bid }</td>
+								<td>${ reportBand.bname }</td>
+								<td>${ reportBand.rdate }</td>
+								<td>${ reportBand.bopen_status}</td>
+								<td>${ reportBand.mbname }</td>
+								<td>${ reportBand.rcontent }</td>
+						</c:forEach>
 					</table>
 
 					<div class="paging-area">
