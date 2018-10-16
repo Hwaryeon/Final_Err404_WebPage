@@ -23,9 +23,9 @@ public class AdminController {
 		String alignment="mid";
 		model.addAttribute("loginUser", loginUser);
 		model.addAttribute("memberList", as.memberAllList(alignment));
-		return "admin/memberSelect";
+		return "admin/memberSelect"; 
 	}
-	
+	//회원조회 페이지 정렬
 	@RequestMapping("MemberSelect.ad")
 	public String MemberSelect(Model model, HttpServletRequest request){
 		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
@@ -34,16 +34,24 @@ public class AdminController {
 		model.addAttribute("memberList", as.memberAllList(alignment));
 		return "admin/memberSelect";
 	}
-	
 	@RequestMapping("goBandSelect.ad")
 	//밴드조회 페이지 진입
 	public String goBandSelect(Model model, HttpServletRequest request){
 		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
+		String alignment="bid";
 		model.addAttribute("loginUser", loginUser);
-		model.addAttribute("bandList", as.bandAllList());
+		model.addAttribute("bandList", as.bandAllList(alignment));
 		return "admin/BandSelect";
 	}
-	
+	@RequestMapping("BandSelect.ad")
+	//밴드조회 페이지 정렬
+	public String BandSelect(Model model, HttpServletRequest request){
+		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
+		String alignment = request.getParameter("alignment");
+		model.addAttribute("loginUser", loginUser);
+		model.addAttribute("bandList", as.bandAllList(alignment));
+		return "admin/BandSelect";
+	}
 	@RequestMapping("goMemberSearch.ad")
 	//회원검색 페이지 진입
 	public String goMemberSearch(Model model, HttpServletRequest request){
@@ -51,7 +59,6 @@ public class AdminController {
 		model.addAttribute("loginUser", loginUser);
 		return "admin/MemberSearch";
 	}
-	
 	@RequestMapping("goBandSearch.ad")
 	//밴드검색 페이지 진입
 	public String goBandSearch(Model model, HttpServletRequest request){
@@ -59,7 +66,6 @@ public class AdminController {
 		model.addAttribute("loginUser", loginUser);
 		return "admin/BandSearch";
 	}
-	
 	@RequestMapping("MemberSearch.ad")
 	//회원 검색해오기
 	public String memberSearch(Model model, HttpServletRequest request) {
@@ -71,7 +77,6 @@ public class AdminController {
 		
 		return "admin/MemberSearch";
 	}
-	
 	@RequestMapping("BandSearch.ad")
 	//밴드 검색해오기
 	public String bandSearch(Model model, HttpServletRequest request) {
@@ -85,25 +90,55 @@ public class AdminController {
 	}
 	@RequestMapping("goBMSelect.ad")
 	//신고받은 회원 조회
-	public String goBMSelect(){
+	public String goBMSelect(Model model, HttpServletRequest request){
+		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
+		model.addAttribute("loginUser", loginUser);
+		model.addAttribute("reportMember", as.reportMemberList());
 		return"admin/BlackMemberSelect";
 	}
-	
 	@RequestMapping("goBBSelect.ad")
 	//신고받은 밴드 조회
-	public String goBBSelect(){
+	public String goBBSelect(Model model, HttpServletRequest request){
+		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
+		model.addAttribute("loginUser", loginUser);
+		model.addAttribute("reportBand", as.reportBandList());
 		return "admin/BlackBandSelect";
 	}
-	
+
+	//블랙리스트 회원 조회화면 이동
 	@RequestMapping("goBlackMember.ad")
-	//블랙리스트 회원 조회
-	public String goBlackMember(){
+	public String goBlackMember(Model model, HttpServletRequest request){
+		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
+		String alignment="mid";
+		model.addAttribute("loginUser", loginUser);
+		model.addAttribute("banMember", as.banMemberList(alignment));
 		return "admin/BlackMember";
 	}
-	
-	@RequestMapping("goBlackBand.ad")
+	//블랙리스트 회원 조회 정렬화면
+	@RequestMapping("BlackMember.ad")
+	public String BlackMember(Model model, HttpServletRequest request){
+		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
+		String alignment=request.getParameter("alignment");
+		model.addAttribute("loginUser", loginUser);
+		model.addAttribute("banMember", as.banMemberList(alignment));
+		return "admin/BlackMember";
+	}
 	//블랙리스트 밴드 조회
-	public String goBlackBand(){
+	@RequestMapping("goBlackBand.ad")
+	public String goBlackBand(Model model, HttpServletRequest request){
+		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
+		String alignment="bid";
+		model.addAttribute("loginUser", loginUser);
+		model.addAttribute("banBand", as.banBandList(alignment));
+		return "admin/BlackBand";
+	}
+	//블랙리스트 밴드 조회 정렬화면
+	@RequestMapping("BlackBand.ad")
+	public String BlackBand(Model model, HttpServletRequest request){
+		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
+		String alignment=request.getParameter("alignment");
+		model.addAttribute("loginUser", loginUser);
+		model.addAttribute("banBand", as.banBandList(alignment));
 		return "admin/BlackBand";
 	}
 	

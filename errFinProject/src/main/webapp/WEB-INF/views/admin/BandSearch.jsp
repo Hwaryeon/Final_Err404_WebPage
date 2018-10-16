@@ -10,7 +10,7 @@
 <!-- CSS --> 
 <jsp:include page="../admin/adminMenubar.jsp" />
 <link href="resources/css/bootstrap.min.css" rel="stylesheet">
-<link href="resources/css/font-awesome.min.css" rel="stylesheet">
+<link href="resources/css/font-awesome.min.css" rel="stylesheet"> 
 <link href="resources/css/style.css" rel="stylesheet">
 <link href="resources/css/responsive.css" rel="stylesheet">
 <link href="resources/css/light-pink-blue.css" rel="stylesheet">

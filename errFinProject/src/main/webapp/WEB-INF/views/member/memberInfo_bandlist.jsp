@@ -44,7 +44,7 @@
                             <c:if test = "${ !empty list }">
                             <c:forEach var = "list" items = "${ list }" varStatus = "status">
                                 <tr id = "tr${ status.index }">
-                                    <td width="150px" style="vertical-align: middle;"><img src="resources/upload_images/${ list.editName }" alt=""></td>
+                                    <td width="150px" style="vertical-align: middle;"><img src="resources/upload_images/${ list.editName }" alt="" style="width:100%; height:100px;"></td>
                                     <td width="600px" style="vertical-align: middle; text-align: left">
                                         <p class="bold">${ list.bName }</p>
                                         
@@ -67,7 +67,7 @@
 													<button type="button" class="btn btn-primary" id="ckBtn"
 														onclick="bandOut(${ list.mid}, ${ list.bid }, ${ status.index })">확인</button>
 													<button type="button" class="btn btn-default" id="cancelBtn"
-														data-dismiss="modal">취소</button>
+														data-dismiss="modal">취소</button> 
 												</div>
 											</div>
 										</div>
