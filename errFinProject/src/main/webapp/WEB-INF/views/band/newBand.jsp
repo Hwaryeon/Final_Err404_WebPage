@@ -82,6 +82,11 @@
 	margin-top:10px;
 	height:20px;
 }
+
+#contentImg, #cover1, #cover2, #cover3, #cover4, #cover5, #cover6, #cover7{
+	cursor:pointer;
+}
+
 </style>
 </head>
 <body
@@ -122,6 +127,8 @@
 						<input type="text" name="bname" id="bname"
 							value="이곳에 밴드 이름을 입력해주세요" class="required requiredField"
 							style="line-height: 54px; border-bottom: 1px solid #ccc; font-size: 30px; font-weight: 400; color: #c5c0c0; background: white;">
+						<input type="hidden" id="coverType" name="coverType" value="cover1" >
+					
 					</p>
 					<div class="box-content widget fullwidth">
 						<h4 class="widget-title"></h4>
@@ -140,37 +147,34 @@
 										onclick="changeImage()"> <!-- width="270"  -->
 										<input type="file" id="bandImage" name="bandImage" class="imageUpload" multiple onchange="loadImg(this)" style="width: 120px; height: 90px;">
 									</span>
-									<a href="#">
 										<img src="${ contextPath }/resources/images/cover/cover1.jpeg" width="270" alt="" style="width: 120px; height: 90px;"
+										id="cover1" onclick="damaY('cover1')" 
 										>
-									</a>
-									<a href="#">
 										<img src="${ contextPath }/resources/images/cover/cover2.jpg" width="270" alt="" style="width: 120px; height: 90px;"
+										id="cover2" onclick="damaY('cover2')"
+										
 										>
-									</a>
-									<a href="#"> 
 										<img src="${ contextPath }/resources/images/cover/cover3.jpg" width="270" alt="" style="width: 120px; height: 90px;"
+										id="cover3" onclick="damaY('cover3')"
 										>
-									</a>
 								</li>
+								
+								
+								
 
 								<li>
-									<a href="#">
 										<img src="${ contextPath }/resources/images/cover/cover4.jpg" width="270" alt="" style="width: 120px; height: 90px;"
+										id="cover4" onclick="damaY('cover4')"
 										>
-									</a>
-									<a href="#">
 										<img src="${ contextPath }/resources/images/cover/cover5.jpg" width="270" alt="" style="width: 120px; height: 90px;"
+										id="cover5" onclick="damaY('cover5')"
 										>
-									</a>
-									<a href="#">
 										<img src="${ contextPath }/resources/images/cover/cover6.jpg" width="270" alt="" style="width: 120px; height: 90px;"
+										id="cover6" onclick="damaY('cover6')"
 										>
-									</a>
-									<a href="#">
 										<img src="${ contextPath }/resources/images/cover/cover7.jpg" width="270" alt="" style="width: 120px; height: 90px;"
+										id="cover7" onclick="damaY('cover7')"
 										>
-									</a>
 								</li>
 							</ul>
 						</div>
@@ -243,8 +247,60 @@
 				$("#contentImg").attr("src", e.target.result);
 			}
 			reader.readAsDataURL(value.files[0])
+			
+			document.getElementById('coverType').value = 'Y';
+			
 		}
 	}
+	
+	function damaY(value){
+		
+		document.getElementById('coverType').value = value;
+		
+		 for(var i=1; i<8; i++){
+			var str = 'cover';
+			str += i;
+			var dama = document.getElementById(str);
+			 
+			 if(i == 1){
+				 dama.src="/efp/resources/images/cover/" + str + ".jpeg";
+			 }else{
+				 dama.src="/efp/resources/images/cover/" + str + ".jpg";
+			 }
+			
+		}
+		
+		
+			var dama = document.getElementById(value);
+			
+			var test = document.getElementById('changeCover');
+			
+			
+			
+		if(value == 'cover1'){
+			
+			if(dama.src.match("cover1.jpeg")){
+				dama.src="/efp/resources/images/cover/check.jpg";
+				test.src="/efp/resources/images/cover/cover2.jpg";
+			}else{
+				dama.src="/efp/resources/images/cover/cover1.jpeg";
+				test.src="/efp/resources/images/cover/cover1.jpeg";
+			}
+		}else{
+			if(dama.src.match(value + ".jpg")){
+				dama.src="/efp/resources/images/cover/check.jpg";
+				test.src="/efp/resources/images/cover/" + value + ".jpg";
+			}else{
+				dama.src="/efp/resources/images/cover/" + value + ".jpg";
+				test.src="/efp/resources/images/cover/cover1.jpeg";
+			}
+			
+			
+		}
+		
+		
+	}
+	
 	
 	/* function checkbTitle(){
 		var title = $("#contactName").val();

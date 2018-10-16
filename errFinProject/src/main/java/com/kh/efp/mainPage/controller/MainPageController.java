@@ -56,7 +56,11 @@ public class MainPageController {
 		String ext = "";
 		String changeName = "";
 		
-		if(!photo.isEmpty()){
+		String coverType = request.getParameter("coverType");
+		
+		System.out.println("coverType : " + coverType);
+		
+		/*if(!photo.isEmpty()){
 			root=request.getSession().getServletContext().getRealPath("resources");
 			filePath=root + "/upload_images/";
 			originFileName= photo.getOriginalFilename();
@@ -67,7 +71,28 @@ public class MainPageController {
 			changeName = "cover1";
 			ext = ".jpeg";
 			filePath="C:/Users/user/git/FinalProject_Err/errFinProject/src/main/webapp/resources/upload_images/";
+		}*/
+		
+		if(coverType.equals("Y")){
+			root=request.getSession().getServletContext().getRealPath("resources");
+			filePath=root + "/upload_images/";
+			originFileName= photo.getOriginalFilename();
+			ext=originFileName.substring(originFileName.lastIndexOf("."));
+			changeName=CommonUtils.getRandomString();
+		} else {
+			if(coverType.equals("cover1") ){
+				originFileName = coverType + ".jpeg";
+				changeName = coverType;
+				ext = ".jpeg";
+				filePath="C:/Users/user/git/FinalProject_Err/errFinProject/src/main/webapp/resources/images/cover/";
+			}else{
+				originFileName = coverType + ".jpg";
+				changeName = coverType;
+				ext = ".jpg";
+				filePath="C:/Users/user/git/FinalProject_Err/errFinProject/src/main/webapp/resources/images/cover/";
+			}
 		}
+		
 		
 		pf.setFileSrc(filePath);
 		pf.setOriginName(originFileName);
@@ -127,6 +152,6 @@ public class MainPageController {
 		
 		
 		
-		//return "main/main";
+		/*return "main/main";*/
 	}
 }

@@ -296,7 +296,23 @@ ul{
 						<c:forEach var="MyBandList" items="${ myBandList }">
 							<li class="myband-list">
 								<div class="band-profile">
-									<img src="resources/upload_images/${ MyBandList.edit_name }">
+								
+									<c:if test="${ MyBandList.edit_name == 'cover1.jpeg' || MyBandList.edit_name == 'cover2.jpg'
+									|| MyBandList.edit_name == 'cover3.jpg' || MyBandList.edit_name == 'cover4.jpg'
+									|| MyBandList.edit_name == 'cover5.jpg' || MyBandList.edit_name == 'cover6.jpg'
+									|| MyBandList.edit_name == 'cover7.jpg' }">
+								
+										<img src="resources/images/cover/${ MyBandList.edit_name }">
+									</c:if>
+									
+									<c:if test="${ !(MyBandList.edit_name == 'cover1.jpeg' || MyBandList.edit_name == 'cover2.jpg'
+									|| MyBandList.edit_name == 'cover3.jpg' || MyBandList.edit_name == 'cover4.jpg'
+									|| MyBandList.edit_name == 'cover5.jpg' || MyBandList.edit_name == 'cover6.jpg'
+									|| MyBandList.edit_name == 'cover7.jpg') }">
+								
+										<img src="resources/upload_images/${ MyBandList.edit_name }">
+									</c:if>
+									
 								</div>
 								<div class="band-name">
 									<p class="band-nametxt">${ MyBandList.bname }</p>
