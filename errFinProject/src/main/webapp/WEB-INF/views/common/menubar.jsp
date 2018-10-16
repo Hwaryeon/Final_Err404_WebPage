@@ -87,12 +87,12 @@
       <div class="container">
         <div class="col-md-6 col-xs-12" style="min-width:600px;">
           <div class="logo" style="width:120px; min-width:120px; float:left;">
-            <h1><a href="index.html" title="Weekend Magazine">ERR404</a></h1>
+            <h1><a href="${contextPath }" title="Weekend Magazine">ERR404</a></h1>
             
           </div>
           <div id="search-3" class="widget fullwidth widget_search" style="width:300px; min-width:300px; float:left; border:1px solid lightgray; border-radius:11px; height:20px;margin-top:10px;">
           		<!-- 검색 -->
-               	<div class="search"  style="color:black;margin:-12px;">
+               	<div class="search"  style="color:black; margin:-12px;">
 
                    <input type="search" id='searchBox' value="" name="searchBox"  placeholder="검색 &hellip;" title="검색" autocomplete=off>
 
@@ -151,6 +151,7 @@
     
 
     $(function(){
+
     	
     	//알람 보이기
     	$('.alarm_img').click(function(){
@@ -163,6 +164,7 @@
     			$('.alarm').hide();
     		}
     	});
+
 
     	$( "#searchBox" ).autocomplete({
    	      source: function( request, response ) {
@@ -185,7 +187,7 @@
    	      }
    	    });
 
-    })
+    });
     
     
     $(document).ready(function(){
@@ -228,8 +230,10 @@
 	});
     
     function chatting(){
+
     	var url = "http://127.0.0.1:3000/chat/" + ${sessionScope.loginUser.mid};
     	/* var url = "http://192.168.20.248:3000/" + ${sessionScope.loginUser.mid}; */
+
 		var settings = "width=400, height=622, toolbar=no, menubar=no, scrollbars=no, resizable=no";
 		
 		window.open(url, 'test window', settings);
