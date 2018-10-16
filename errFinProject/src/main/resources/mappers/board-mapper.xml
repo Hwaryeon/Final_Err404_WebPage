@@ -53,7 +53,7 @@
  	<!-- 02.게시글 작성 -->
  	
  	<insert id ="insert">
- 	INSERT INTO BOARDS VALUES(
+ 	INSERT INTO BOARDS VALUES(SEQ_BOARDID.NEXTVAL,
  	#{bId},#{mId},#{bContent},SYSDATE,'Y',NULL,NULL
  	)
  	</insert>

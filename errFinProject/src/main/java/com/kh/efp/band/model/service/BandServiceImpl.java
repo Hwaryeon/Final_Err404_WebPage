@@ -193,4 +193,16 @@ public class BandServiceImpl implements BandService {
 		bd.updateCategory(sqlSession, b);
 		
 	}
+
+	@Override
+	public Band selectBand(int pbid) {
+		// TODO Auto-generated method stub
+		return bd.selectBand(sqlSession, pbid);
+	}
+
+//	@Override
+//	public Band selectBand(int pbid) {
+//		// TODO Auto-generated method stub
+//		return bd.selectBand(sqlSession, pbid);
+//	}
 }

@@ -66,6 +66,8 @@ public interface BandService {
 
 	void updateCategory(Band b);
 
+	Band selectBand(int pbid);
+
 	
 
 

@@ -200,5 +200,11 @@ public class BandDaoImpl implements BandDao{
 		System.out.println(b.toString());
 		
 		sqlSession.update("Band.updateCategory", b);
+	}
+
+	@Override
+	public Band selectBand(SqlSessionTemplate sqlSession, int pbid) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("Band.selectBandInfo", pbid);
 	}	
 }
