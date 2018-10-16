@@ -44,10 +44,12 @@
                             <c:if test = "${ !empty list }">
                             <c:forEach var = "lists" items = "${ list }" varStatus = "status">
                                 <tr id = "tr${ status.index }">
+
                                     <td width="180px" style="vertical-align: middle; padding-top : 5px; padding-bottom : 5px;">
                                     	<img src="resources/upload_images/${ lists.editName }" style = "height : 80px; width : 100px; " alt=""></td>
                                     <td width="600px" style="vertical-align: middle; text-align: left; text-indent: 20px;">
                                         <p class="bold">${ lists.bName }</p>
+
                                         
                                     </td>
                                     <c:if test = "${ lists.iStatus eq 'Y' }">
@@ -66,9 +68,11 @@
 												</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-primary" id="ckBtn"
+
 														onclick="bandOut(${ lists.mid}, ${ lists.bid }, ${ status.index })">확인</button>
 													<button type="button" class="btn btn-default" id="cancelBtn${ status.index }"
 														data-dismiss="modal">취소</button>
+
 												</div>
 											</div>
 										</div>

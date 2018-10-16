@@ -81,12 +81,16 @@
 
  function paintScehdule(){
 	 
-	  $('#calendar').fullCalendar( 'removeEvents' );
+	  /* $('#calendar').fullCalendar( 'removeEvents' ); */
 	  
-	 /*  $('#calendar').fullCalendar('removeEventSource', 'koHolidays'); 
+	 $('#calendar').remove();
+	  
+	 var area = document.getElementById('calendarArea');
 
-	  $('#calendar').fullCalendar('addEventSource', 'koHolidays'); */
+	 var div1 = document.createElement('div'); 
+	 div1.setAttribute("id", "calendar");
 	  
+	 area.append(div1);
 	 
 	 $('#calendar').fullCalendar({
 		    
@@ -113,11 +117,6 @@
 	      selectable: true,
 	      selectHelper: true,
 	      select: function(start, end) {
-	    	  
-	    	  
-	    	  
-	    	  
-	        /* var title = prompt('일정 제목 :'); */
 	        
 	        var sDateFormat = moment(start, 'YYYY-MM-DD');
 	     	var eDateFormat = moment(end, 'YYYY-MM-DD');
@@ -139,45 +138,6 @@
 	        location.href="#modal2";
 	        
 	        
-	        /* if(title != null){
-	    	    var content = prompt('일정 내용 : ');
-	        } */
-	        
-	        /* if (title) {
-	        	var eventNum;
-	        	var sDateFormat = moment(start, 'YYYY-MM-DD');
-	        	var eDateFormat = moment(end, 'YYYY-MM-DD');
-	        	
-	        	var sDate = sDateFormat.format('YYYY-MM-DD');
-	        	var eDate = eDateFormat.format('YYYY-MM-DD');
-	        	
-	        	  $.ajax({
-					url:"addCalendar.bd",
-					type:"post",
-					async: false,
-					data:{title:title, content:content, sDate:sDate, eDate:eDate},
-					success:function(data){
-						console.log(data.next);
-						
-						eventNum = data.next;
-						
-							AllListScehdule();
-						
-					},error:function(){
-						console.log("일정 추가 실패");
-					}
-				});  
-	        	
-	           eventData = {
-	        		  id: eventNum,							
-			            title: title,
-			            content:content,
-			            start: start,
-			            end: end
-			          };  
-	          $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-	        		  
-	        } */
 	        $('#calendar').fullCalendar('unselect');
 	      },
 	      editable: true,
@@ -347,7 +307,28 @@
 					 
 					 plusUl.append(plusLi);
 					 
-					 
+					 $(function(){
+							$("#scheduleArea").find("li").mouseenter(function(){
+							}).mouseout(function(){
+							}).click(function(){
+								
+								 document.getElementById('modal1Title').innerHTML = $(this).children("input").eq(1).val();
+					              
+					              document.getElementById('modal1Desc').innerHTML = $(this).children("input").eq(2).val();
+					              
+					              $('#dId').val($(this).children("input").eq(0).val());
+					              
+								  var con = document.getElementById('delBu');
+					              
+					              con.style.display = '-webkit-inline-box';
+					              
+					              location.href="#modal";
+					              
+					              return false;
+								
+								
+							});
+						});	
 				});
 				
 				
@@ -476,9 +457,10 @@
 
         <div class="main col-md-6 col-xs-12" style="background:#ffffff">
 
-            
-            <div id='calendar'></div>
-
+            <div id="calendarArea">
+        	   <div id='calendar'></div>
+			</div>
+			
             <div class="widget fullwidth post-single">
               <h4 class="widget-title">일정  <span>리스트</span> </h4>
               <div class="widget-content">

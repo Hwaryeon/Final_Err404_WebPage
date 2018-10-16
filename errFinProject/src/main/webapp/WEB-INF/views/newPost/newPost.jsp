@@ -478,11 +478,11 @@
                   <input name="bid" type="hidden" value="${np.bid }">
 
 
-                  <textarea id="comment" name="comment" cols="45" rows="1" aria-required="true" style="min-height:1px; resize: none;" onclick="this.value=''">댓글을 입력해주세요</textarea></p>       
+                  <textarea id="comment" name="comment" cols="55" rows="1" aria-required="true" style="min-height:1px; resize: none;" onclick="this.value=''">댓글을 입력해주세요</textarea></p>       
                   <p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr>
                   tags and attributes:  <code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code></p>
                   <p class="form-submit" style="float:left; width:10px;">
-                  <input name="submit" type="submit" id="submit" value="Post Comment">
+                  <input name="submit" type="submit" id="submit" value="댓글 등록" style="background-color: #5497e7;">
                   <input type="hidden" name="comment_parent" id="comment_parent" value="0">
                   </p>
                 </form>

@@ -28,6 +28,59 @@
 	.ui-autocomplete-loading {
     background: white url("images/ui-anim_basic_16x16.gif") right center no-repeat;
   }
+  
+	.alarm{
+		position:absolute;
+		width: 300px;
+		z-index: 100;
+	}
+	
+	.alarm_img:hover{
+		cursor:pointer;
+	}
+	
+	.alarm .alarm_band{
+		color: white; 
+		background-color: #2d2d2d;
+		width: 300px; 
+		line-height: 22px; 
+		vertical-align: middle; 
+		position: relative;
+		display:inline-block;
+	    padding-left: 10px;
+	    padding-top: 15px;
+	    padding-right: 10px;
+	    border-bottom: gray dashed 1px;
+	}
+	
+	.alarm .alarm_band:hover{
+		background-color: black;
+		cursor:pointer;
+	}
+	
+	.alarm_title{
+		color: white; 
+		background-color: #2d2d2d;
+		width: 300px; 
+		font-size:20px;
+		line-height: 22px; 
+	    padding: 10px;
+    	border-bottom: white solid;
+	}
+	
+	.alarm_content{
+		overflow:auto;
+		height:400px;
+	}
+	
+	.band_line{
+		margin-top: 5px;
+    	margin-bottom: 5px;
+	}
+  	
+  	.alarm_type{
+  	}
+  	
 </style>
 <body>
 <div class="fullwidth bg-pink" style="min-height:84px; height:84px;">
@@ -57,7 +110,31 @@
                       <span class="share-title" style="color:#25afe5;">밴드 찾기</span>
                   </div>
                   <ul class="share-social">
-                     <li><a target="_blank" href="" style="border:0px;"><img src="${ contextPath }/resources/images/al.png " alt="" width=25px; height=25px;></a></li>
+                     <li>
+                     	<c:set var='alarm_list' value='1'/>
+                     	<c:if test="${empty alarm_list}">
+	                     	<img src="${ contextPath }/resources/images/al.png " class='alarm_img' alt="" width=25px; height=25px;>
+                     	</c:if>
+                     	<c:if test="${!empty alarm_list }">
+                     		<img src="${ contextPath }/resources/images/al2.png " class='alarm_img' alt="" width=25px; height=25px;>
+                     	</c:if>
+                     	<ul class='alarm' style='display:none;'>
+                     		<li class='alarm_title'>새소식</li>
+                     		<li>
+		                     	<ul class='alarm_content'>
+		                     		<c:forEach var='i' begin="0" end="4">
+			                     		<li class='alarm_band' style='margin-right:0px;' onclick='location.href="#${i}"'>
+			                     			<h3 class='alarm_band_name'>몬헌꿀잼 밴드 : ${i}</h3>
+			                     			이것저것 작성합니다. 일단 글이긴한데 게시글알람이나 댓글알람이 길어지면 이거 어떻게 나오게 해야할까요 ?
+			                     			당연히 짤라야죠 슈바라아알
+			                     			<hr class='band_line'>
+			                     			<label class='alarm_type'>게시글</label>
+			                     		</li>
+		                     		</c:forEach>
+		                     	</ul>
+                     		</li>
+                     	</ul>
+                     </li>
                      <li><a onclick="chatting();" style="border:0px;"><img src="${ contextPath }/resources/images/message.png " alt="" width=25px; height=25px;></a></li>
                      <li><a href="<c:url value = "showMemberInfo_update.me">
 									<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
@@ -75,6 +152,21 @@
     
 
     $(function(){
+
+    	
+    	//알람 보이기
+    	$('.alarm_img').click(function(){
+    		$('.alarm').show();
+    	});
+    	
+    	//다른쪽 눌렀을때 숨김
+    	$(document).click(function(e){
+    		if(!$('.alarm_img').is(e.target) && $('.alarm').has(e.target).length === 0){
+    			$('.alarm').hide();
+    		}
+    	});
+
+
     	$( "#searchBox" ).autocomplete({
    	      source: function( request, response ) {
    	    	  if(request.term.trim().length != 0){
@@ -139,8 +231,10 @@
 	});
     
     function chatting(){
-    	//var url = "http://192.168.20.246:3000/chat/" + ${sessionScope.loginUser.mid};
+
     	var url = "http://127.0.0.1:3000/chat/" + ${sessionScope.loginUser.mid};
+    	/* var url = "http://192.168.20.248:3000/" + ${sessionScope.loginUser.mid}; */
+
 		var settings = "width=400, height=622, toolbar=no, menubar=no, scrollbars=no, resizable=no";
 		
 		window.open(url, 'test window', settings);

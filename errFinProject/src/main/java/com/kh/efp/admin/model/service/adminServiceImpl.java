@@ -20,8 +20,8 @@ public class adminServiceImpl implements adminService {
 	}
 	
 	@Override
-	public List<Object> bandAllList() {
-		return ad.bandAllList(sqlSession);
+	public List<Object> bandAllList(String alignment) {
+		return ad.bandAllList(sqlSession, alignment);
 	}
 
 	@Override
@@ -30,7 +30,27 @@ public class adminServiceImpl implements adminService {
 	}
 
 	@Override
-	public List<Object> bandSearchList(String keyword, String keywordValue) {
+	public List<Object> bandSearchList(String keyword, String keywordValue) { 
 		return ad.bandSearchList(sqlSession, keyword, keywordValue);
+	} 
+
+	@Override
+	public List<Object> reportMemberList() {
+		return ad.reportMemberList(sqlSession);
+	}
+
+	@Override
+	public List<Object> reportBandList() {
+		return ad.reportBandList(sqlSession);
+	}
+
+	@Override
+	public List<Object> banMemberList(String alignment) {
+		return ad.banMemberList(sqlSession, alignment);
+	}
+
+	@Override
+	public List<Object> banBandList(String alignment) {
+		return ad.banBandList(sqlSession, alignment);
 	}
 }
