@@ -9,14 +9,23 @@
 <meta name="viewport" content=" width=device-width, initial-scale=1">
 <title>ERR404</title>
 <!-- CSS -->
+<%-- <link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal.css">
+  <link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal-default-theme.css">
 <link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
 <link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
 <link href="${ contextPath }/resources/style.css" rel="stylesheet">
 <link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
 <link href="${ contextPath }/resources/css/sss.css" rel="stylesheet">
 <!-- Skin -->
-<link href="${ contextPath }/resources/skins/light-pink-blue.css" rel="stylesheet">
-
+<link href="${ contextPath }/resources/css/light-pink-blue.css" rel="stylesheet">
+</head> --%>
+<link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal.css">
+  <link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal-default-theme.css">
+<link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/light-pink-blue.css" rel="stylesheet">
 </head>
 <style>
 #categort-posts-widget-2 {
@@ -159,8 +168,10 @@
 								reply</a></small>
 
 					</h3>
-					<br> <br>
-
+					<br> 
+					
+					 <p class="comment-notes">초대할 멤버와 가까이 있다면,<br>아래의 코드를 멤버에게 보여주세요.<span class="required">*</span></p>
+					<br>
 					<div class="post-content">
 						<img
 							style="margin-left: auto; margin-right: auto; display: block;"
@@ -196,9 +207,8 @@
 						</p>
 					</form>
 
-
-					<img class="post-image img-beresponsive"
-						src="http://placehold.it/469x291" alt="">
+ 				 <img align="center"  width="469px" height="291px" alt="" src="${ contextPath }/resources/images/chodaeImg.png">
+ 				 
 
 
 

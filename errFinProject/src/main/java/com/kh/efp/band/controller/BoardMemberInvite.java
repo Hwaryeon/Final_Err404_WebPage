@@ -25,17 +25,16 @@ import com.kh.efp.band.model.service.BoardMemberService;
 
  
 @Controller
-public class BoardMemberController {
+public class BoardMemberInvite {
 	
-	@Autowired private BandService bs;
+	
  
 	@Inject
 	BoardMemberService boardMemberService;
     
 	// 01. 회원 목록
-	@RequestMapping("boardMember.do")
+	@RequestMapping("boardMemberInvite.do")
 	public String BoardMemberList(Model model){
-		System.out.println("bandMemberManagement.bd 호출");
 		
 		//임시로 지정
 		int bid = 1;
@@ -44,15 +43,14 @@ public class BoardMemberController {
 		Member_Band mb = new Member_Band();
 		
 		mb.setBid(bid);
+	/*	
+		ArrayList<Member_Band> mbList = boardMemberService.boardMemberInvite(mb);
 		
-		ArrayList<Member_Band> mbList = bs.selectMember_BandList(mb);
-		
-		ArrayList<BanMemberList> banList = bs.selectBanMemberList(bid);
 		
 		model.addAttribute("list", mbList);
-		model.addAttribute("banList", banList);
+		model.addAttribute("banList", banList);*/
 		
-		return "boardBand/boardMemberList";
+		return "boardBand/memberInvite";
 	}
     
     
