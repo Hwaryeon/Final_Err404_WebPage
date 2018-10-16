@@ -67,6 +67,8 @@ public interface BandDao {
 
 	void updateCategory(SqlSessionTemplate sqlSession, Band b);
 
+	Band selectBand(SqlSessionTemplate sqlSession, int pbid);
+
 
 
 

@@ -28,25 +28,12 @@
 	   
 	   
       $("#btnSave").click(function(){
-    	 var mId = $("#mId").val();
          var bContent = $("#bContent").val();
-         var bId = $("#bId").val();
          if(bContent==""){
             alert("내용을 입력하세요");
             document.form1.bContent.focus();
             return;
          }
-         if(bId==""){
- 			alert("밴드를 입력하세요");
- 			document.form1.bId.focus();
- 			return;
- 		}
-         
-    		if(mId==""){
-    			alert("이름을 입력하세요");
-    			document.form1.mId.focus();
-    			return;
-    		}
          
          document.form1.submit();
       });
@@ -77,7 +64,7 @@
                      <img src="http://placehold.it/209x128" alt="">
                </a>
                   <h2
-                     style="color: #222; font-size: 21px; margin-bottom: 15px; font-weight: 600; margin-top: 20px;">밴드명</h2>
+                     style="color: #222; font-size: 21px; margin-bottom: 15px; font-weight: 600; margin-top: 20px;">${ Band.bname }</h2>
                   <h4
                      style="display: inline-block; font-size: 13px; font-weight: 400; color: #333;">
                      멤버 4<a href="#"
@@ -115,7 +102,8 @@
                         reply</a></small>
                </h3>
                <form name="form1" action="insert.do" method="post" >
-                  
+                  <input type = 'hidden' name = 'bId' value = "${ sessionScope.loginUser.mid }">
+                  <input type = 'hidden' name = 'mId' value = "${ Band.bid }">
                   <p class="comment-notes">
                      멤버들에게 전할 소식을 남겨주세요~ <span class="required">*</span>
                   </p>

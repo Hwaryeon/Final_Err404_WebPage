@@ -188,6 +188,11 @@
 	
 		UPDATE BAND SET CID = #{cid} WHERE BID = #{bid}
 	</update>
+	<select id="selectBandInfo" parameterType = "int" resultMap = "BandResultSet">
+		SELECT *
+		FROM BAND
+		WHERE BID = #{pbid}
+	</select>
 	
 </mapper>
 
