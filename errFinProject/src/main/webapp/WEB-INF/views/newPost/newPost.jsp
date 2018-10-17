@@ -222,7 +222,7 @@
         <div class="main col-md-6 col-xs-12">
 
 
-		<c:set var="userId" value="1"/>
+		<c:set var="userId" value="${ sessionScope.loginUser.mid }"/>
 
 		<c:forEach var="np" items="${newPostList }">
 		

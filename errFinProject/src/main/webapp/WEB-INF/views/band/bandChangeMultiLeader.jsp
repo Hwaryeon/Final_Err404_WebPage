@@ -119,16 +119,29 @@
 			 <div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title"></h1>
                 <ul class="tvshows">
                     <li>
-                        <a href="#">
-                            <!-- <img src="http://placehold.it/209x128" alt=""> -->
-                             <img src="${ contextPath }/resources/upload_images/${pf.editName }" alt="">
+                         <a href="#">
+                             <c:if test="${ pf.editName == 'cover1.jpeg' || pf.editName == 'cover2.jpg'
+									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
+									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
+									|| pf.editName == 'cover7.jpg' }">
+								
+										<img src="${ contextPath }/resources/images/cover/${ pf.editName }">
+									</c:if>
+									
+									<c:if test="${ !(pf.editName == 'cover1.jpeg' || pf.editName == 'cover2.jpg'
+									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
+									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
+									|| pf.editName == 'cover7.jpg') }">
+								
+										<img src="${ contextPath }/resources/upload_images/${ pf.editName }">
+									</c:if>
                         </a>
                         <h2 style="color:#222; font-size:21px; margin-bottom:15px;font-weight:600;margin-top:20px;">${bname }</h2>
                         <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
                         			멤버 ${memberCount}<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
                         			초대코드 </a></h4>
                         <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
-                        <a href="bandLeader.bd?bid=1" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
+                        <a href="bandLeader.bd?bid=${ bid }" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
                     </li>
                 </ul>
                 <div class="clear"></div>
@@ -174,6 +187,8 @@
             
 
 		</div>
+		
+		<input type="hidden" id="bid" name="bid" value="${ bid }" >
 		
 		<script>
 			$('.addMultiLeader').click(function(){
@@ -356,7 +371,9 @@ $('#addBandMultiLeader').click(function(){
 	
 	var mbid = document.getElementById('mbid').value;
 	
-	location.href="insertBandMultiLeader.bd?mbid=" + mbid;
+	var bid = document.getElementById('bid').value;
+	
+	location.href="insertBandMultiLeader.bd?mbid=" + mbid + '&bid=' + bid;;
 	
 });
 
