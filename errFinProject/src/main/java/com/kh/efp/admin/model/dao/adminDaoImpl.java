@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.efp.member_band.model.vo.PageInfo;
 
 @Repository
-public class adminDaoImpl implements adminDao {
+public class adminDaoImpl implements adminDao { 
 	
 	//전체 리스트 조회용 메소드
 	@Override

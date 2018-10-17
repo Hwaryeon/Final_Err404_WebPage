@@ -18,7 +18,7 @@ import com.kh.efp.newPost.model.vo.Report;
 @Service
 public class newPostServiceImpl implements newPostService{
 
-	@Autowired private SqlSessionTemplate sqlSession;
+	@Autowired private SqlSessionTemplate sqlSession; 
 	@Autowired private newPostDao nd;
 	
 	@Override

@@ -8,7 +8,7 @@ import com.kh.efp.member.model.vo.Profile;
 public interface mainService {
 	List<Object> bandList(int mid);
 
-	List<Object> popContent();
+	List<Object> popContent(); 
 
 	int insertBand(Profile pf, Band b, int mid);
 

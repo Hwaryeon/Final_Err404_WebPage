@@ -8,7 +8,7 @@
 		<id property="mid" column="MID"/>
 		<result property="mEmail" column="MEMAIL"/>
 		<result property="mName" column="MNAME"/>
-		<result property="mPhone" column="MPHONE"/>
+		<result property="mPhone" column="MPHONE"/> 
 		<result property="mNational" column="MNATIONAL"/> 
 		<result property="mDate" column="MDATE"/>
 		<result property="mType" column="MTYPE"/>

@@ -10,7 +10,7 @@ import com.kh.efp.admin.model.dao.adminDao;
 import com.kh.efp.member_band.model.vo.PageInfo;
 
 @Service
-public class adminServiceImpl implements adminService {
+public class adminServiceImpl implements adminService { 
 	
 	@Autowired private SqlSessionTemplate sqlSession;
 	@Autowired private adminDao ad;
