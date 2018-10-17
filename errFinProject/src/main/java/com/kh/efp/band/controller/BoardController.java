@@ -23,6 +23,7 @@ import com.kh.efp.band.model.service.BandService;
 import com.kh.efp.band.model.service.BoardService;
 import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.band.model.vo.Board;
+import com.kh.efp.newPost.model.vo.Boards;
  
 @Controller
 public class BoardController {
@@ -36,14 +37,26 @@ public class BoardController {
     @RequestMapping("list.do")
     public ModelAndView list(String bid) throws Exception{
     	int pbid = Integer.parseInt(bid);
+    	
     	List<Board> list = boardService.listAll(pbid);
+    	
     	Band b = bs.selectBand(pbid);
     	//ModelAndView - 모델과 뷰
+    	
+    	
+
+
+    	
     	ModelAndView mav = new ModelAndView();
     	mav.setViewName("boardBand/boardMain"); //뷰를 boardMain.jsp로 설정
     	mav.addObject("boardMain",list);//데이터를 저장
     	mav.addObject("Band", b);
     	return mav;// boardMain.jsp로 List 전달
+    	
+
+
+    	
+    	
     }
     // 사진 올리기
     
@@ -129,14 +142,14 @@ public class BoardController {
     	return "boardBand/boardEdit";
     }
     
-    
+/*    
     //05. 게시글 삭제
     @RequestMapping("delete.do")
     public String delete(@RequestParam int bno)throws Exception{
     	boardService.delete(bno);
     	return "redirect:list.do";
     }
-    
+    */
     
     
     
