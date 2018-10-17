@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -402,9 +403,9 @@ public class MemberController {
 	
 	//로그아웃
 	@RequestMapping("logout.me")
-	public String logout(HttpSession session){
+	public String logout(SessionStatus status){
 		/*SessionStatus status;*/
-		session.invalidate();
+		status.setComplete();
 		return "main/loginMember";		
 	}
 

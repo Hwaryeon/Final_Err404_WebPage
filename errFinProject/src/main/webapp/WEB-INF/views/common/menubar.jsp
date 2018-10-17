@@ -103,11 +103,8 @@
         <div class="col-md-6 col-xs-12" style="width:525px;">
                      <div class="post widget" style="float:unset; padding-left:138px;">
               <div class="post-social" id="postsocial" style="border-top:0px; padding-top:0px;">
-                  <div class="share-container" style="width:75px;">
-                      <span class="share-title" style="color:#25afe5;"><a href="newPost.np" style="color:#25afe5;">새글 피드</a><a>   |</a></span>
-                  </div>
-                  <div class="share-container"style="width:75px;">
-                      <span class="share-title" style="color:#25afe5;">밴드 찾기</span>
+                  <div class="share-container" style="width:150px;">
+                      <span class="share-title" style="color:#25afe5; text-align : right;"><a href="newPost.np" style="color:#25afe5;">새글 피드</a></span>
                   </div>
                   <ul class="share-social">
                      <li>

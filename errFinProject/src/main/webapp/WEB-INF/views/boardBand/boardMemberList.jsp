@@ -17,6 +17,7 @@
     <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/light-pink-blue.css" rel="stylesheet">
+    <script src="resources/js/MemberChattingFn.js"></script>
 </head>
 <body
 	class="home page page-id-4 page-template page-template-template_home-php">
@@ -187,10 +188,10 @@
                         
                      </a>
                         <ul class="dropdown-menu" role="menu">
-                           <li><a href="index2.html">   <img alt="" src="${ contextPath }/resources/images/chat2.png?id=${row.boardId}"
+                           <li><a onclick = "doChatting(${b.mid});">   <img alt="" src="${ contextPath }/resources/images/chat2.png?id=${row.boardId}"
                         class="avatar avatar-75 photo avatar-default" >채팅하기</a></li>
                         
-                           <li><a href="index2.html">   <img alt="" src="${ contextPath }/resources/images/chatInvite.png?id=${row.boardId}"
+                           <li><a onclick = "inviteChatting(${b.mid});">   <img alt="" src="${ contextPath }/resources/images/chatInvite.png?id=${row.boardId}"
                         class="avatar avatar-75 photo avatar-default" >채팅초대</a></li>
                           
                         </ul></li>
@@ -484,6 +485,32 @@ $('#deleteBandMember').click(function(){
 	location.href="deleteBandMember.bd?mbid=" + mbid + "&mid=" + mid + "&radioVal=" + radioVal;
 	
 });
+
+function doChatting(mid){
+	$.ajax({
+		url : 'http://127.0.0.1:3000/startChat',
+		data : {mid : ${sessionScope.loginUser.mid}, target : mid},
+		type : 'post',
+		success : function(data){
+			var link = "http://127.0.0.1:3000/chat/" + ${sessionScope.loginUser.mid} + "/room/" + data;
+	    	/* var url = "http://192.168.20.248:3000/" + ${sessionScope.loginUser.mid}; */
+
+			var settings = "width=400, height=622, toolbar=no, menubar=no, scrollbars=no, resizable=no";
+			
+			window.open(link, 'test window', settings);
+	    }
+		
+	})
+}
+
+function inviteChatting(mid){
+			var link = "http://127.0.0.1:3000/inviteChat/${sessionScope.loginUser.mid}/" + mid;
+	    	/* var url = "http://192.168.20.248:3000/" + ${sessionScope.loginUser.mid}; */
+
+			var settings = "width=400, height=622, toolbar=no, menubar=no, scrollbars=no, resizable=no";
+			
+			window.open(link, 'test window', settings);
+}
 
 </script>
 
