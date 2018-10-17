@@ -7,6 +7,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content=" width=device-width, initial-scale=1">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>Weekend Magazine</title>
@@ -153,73 +154,45 @@
 		<div class="main col-md-6 col-xs-12">
 
 			<div class="widget fullwidth post-single" style="margin-bottom:1px;">
-				<h4 class="widget-title" style="font-size:20px;">공동리더
-				 <span style="float:right; border:1px solid #fdb00d!important; padding:7px; cursor:pointer;">
-				<a style="font-size:12px; color:#fdb00d!important;" href="bandChangeMultiLeader.bd?bid=${ bid }">공동리더 추가</a></span></h4>
+				<h4 class="widget-title" style="font-size:20px;">밴드 탈퇴 실패 </h4>
 			</div>
-			
-            
-            <c:forEach var="b" items="${list}">
-            	
-            	<c:if test="${b.mlevel == 1}" >
-					<div class="author-bar widget" style="margin-bottom:1px;">
-		              <div class="author-content">
-		                <img alt="" src="http://placehold.it/89x89" class="avatar avatar-75 photo avatar-default" height="75" width="75">        
-		                <h4> <span><a href="#">리더</a></span> </h4>
-		                <h4><a href="" title="Posts by admin" rel="author">${b.mname}</a></h4>
-		                <div class="clear"></div>
-		              </div>
-		            </div>
-					
-				</c:if>
-            
-            
-            	<c:if test="${b.mlevel == 2}" >
-					<div class="author-bar widget" style="margin-bottom:1px;">
-		              <div class="author-content">
-		                <img alt="" src="http://placehold.it/89x89" class="avatar avatar-75 photo avatar-default" height="75" width="75">        
-		                <h4> <span><a href="#">공동 리더</a></span> </h4>
-		                <h4><a href="" title="Posts by admin" rel="author">${b.mname}</a></h4>
-		                <span style="float:right;">
-			               		<input type="hidden" value="${b.mbid }" >
-			                	<a style="border:1px solid lightgray; padding:7px; cursor:pointer;" class="deleteMultiLeader">
-			                	공동리더 삭제</a>
-			                </span>
-		                <div class="clear"></div>
-		              </div>
-		            </div>
-					
-				</c:if>
+            <div class="widget team-member">
+              <h4 class="page-title">밴드 탈퇴에 실패하였습니다.</h4>
+              <!-- <h6>밴드에서 탈퇴하려면,</h4> -->
+              <p>회원님의 등급이 밴드리더이실 경우 밴드 탈퇴가 불가능합니다. 
+              리더의 권한을 위임하시면 탈퇴가 가능합니다.</p>
+				<div class="row survey" style="margin-top:20px;">
+							<div class="col-md-6" style="margin-left:220px; width: 150px;">
+								<button class="button vote" id="bandSecessionFail">확인</button>
+							</div>
+							<!-- <div class="col-md-6">
+								<button class="button" id="cancle">취소</button>
+							</div> -->
+						</div>
+            </div>
+		</div>
+		
+		<input type="hidden" id="bid" name="bid" value="${ bid }" >
+							
+		<script>
+			$('#bandSecessionFail').click(function(){
 				
+				var bid = document.getElementById('bid').value;
 				
-				
-			</c:forEach>
-            
-            <script>
-			$('.deleteMultiLeader').click(function(){
-				
-				document.getElementById('mbid').value = $(this).parents().children("input").eq(0).val();
-				
-				 location.href="#modal";
-				
+				location.href="bandLeader.bd?bid=" + bid;
 			});
 			
-			
+			$('#cancle').click(function(){
+				
+				var bid = document.getElementById('bid').value;
+				
+				location.href="bandLeader.bd?bid=" + bid;
+			});
+		
 		
 		</script>
-            
-            
-            <div class="widget">
-          <div class="col-md-3 text-center">
-            <!-- <a href="#" class="about-btn-job">Job Oppertunities</a> -->
-          </div>
-          <div class="col-md-6" style="text-align:center">공동리더는 무엇을 할 수 있나요?<br>
-설정 메뉴에서 공동리더의 권한을 설정할 수 있습니다.
-<a href="#" class="about-btn-download">멤버들의 권한 설정 바로가기</a>
-</div>
-        </div> 
-
-		</div>
+		
+		
 
 		<div class="right-sidebar col-md-3" role="complementary">
 
@@ -363,69 +336,5 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.bxslider.min.js"></script>
 	<script src="js/custom.js"></script>
-	
-		<div class="remodal" data-remodal-id="modal" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
-  <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
-  <div>
-    <h2 id="modal1Title">공동 리더 삭제</h2>
-    <p id="modal1Desc">
-       	해당 멤버를 공동리더에서 삭제하시겠습니까?
-    </p>
-  </div>
-  <br>
-  <input type="hidden" id="mbid" value=""/> 
-  <input type="hidden" id="bid" name="bid" value="${ bid }" >
-  <button data-remodal-action="cancel" class="remodal-cancel">취소</button>
-  <button id="deleteBandMultiLeader" data-remodal-action="confirm" class="remodal-confirm">확인</button>
-</div>
-
-<script>
-
-$('#deleteBandMultiLeader').click(function(){
-	console.log("id : " + document.getElementById('mbid').value);
-	
-	var mbid = document.getElementById('mbid').value;
-	var bid = document.getElementById('bid').value;
-	
-	location.href="deleteBandMultiLeader.bd?mbid=" + mbid + '&bid=' + bid;
-	
-});
-
-</script>
-
-
-<script>window.jQuery || document.write('<script src="../../../libs/jquery/dist/jquery.min.js"><\/script>')</script>
-<script src="${ contextPath }/resources/Remodal-1.1.1/dist/remodal.js"></script>
-
-<!-- Events -->
-<script>
-  $(document).on('opening', '.remodal', function () {
-    /* console.log('opening'); */
-  });
-
-  $(document).on('opened', '.remodal', function () {
-    /* console.log('opened'); */
-  });
-
-  $(document).on('closing', '.remodal', function (e) {
-    /* console.log('closing' + (e.reason ? ', reason: ' + e.reason : '')); */
-  });
-
-  $(document).on('closed', '.remodal', function (e) {
-    /* console.log('closed' + (e.reason ? ', reason: ' + e.reason : '')); */
-  });
-
-  $(document).on('confirmation', '.remodal', function () {
-    /* console.log('confirmation'); */
-  });
-
-  $(document).on('cancellation', '.remodal', function () {
-    /* console.log('cancellation'); */
-  });
-  
-  $('[data-remodal-id=modal2]').remodal({
-    /* modifier: 'with-red-theme' */
-  });
-</script>
 </body>
 </html>

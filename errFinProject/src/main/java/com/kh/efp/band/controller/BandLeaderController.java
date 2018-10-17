@@ -31,7 +31,7 @@ public class BandLeaderController {
 	@Autowired private BandService bs;
 	@Autowired private newPostService ns;
 	
-	public void bandLeftSideBar(int bid, Model model){
+	public void bandLeftSideBar(int bid, int mid, Model model){
 		
 		String bname = bs.selectBandName(bid);  
 		
@@ -45,40 +45,52 @@ public class BandLeaderController {
 		
 		pf = bs.selectProfile(bid);
 		
+		mb = new Member_Band();
+		
+		mb.setBid(bid);
+		mb.setMid(mid);
+		
+		int mlevel = bs.selectMlevel(mb);
+		
 		model.addAttribute("bname", bname);
 		model.addAttribute("memberCount", mbList.size());
 		model.addAttribute("pf", pf);
 		
+		model.addAttribute("bid", bid);
+		model.addAttribute("mlevel", mlevel);
+		
 	}
 	
 	@RequestMapping("bandLeader.bd")
-	public String showBandLeader(@RequestParam int bid, Model model){
+	public String showBandLeader(@RequestParam int bid, HttpServletRequest request, Model model){
+		
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
 		// 밴드 상세보기 왼쪽 프로필 채우기
-		bandLeftSideBar(bid, model);
-		
-		model.addAttribute("bid", bid);
+		bandLeftSideBar(bid, mid, model);
 		
 		return "band/bandLeader";
 	}
 	
 	
 	@RequestMapping("bandOpenStatus.bd")
-	public String bandOpenStatus(@RequestParam int bid, Model model){
+	public String bandOpenStatus(@RequestParam int bid, HttpServletRequest request, Model model){
+		
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
 		String status = bs.checkBandOpenStatus(bid);
 		
 		model.addAttribute("status", status);
 		
-		bandLeftSideBar(bid, model);
-		
-		model.addAttribute("bid", bid);
+		bandLeftSideBar(bid, mid, model);
 		
 		return "band/bandOpenStatus";
 	}
 	
 	@RequestMapping("bandCategory.bd")
-	public String bandCategory(@RequestParam int bid, Model model){
+	public String bandCategory(@RequestParam int bid, HttpServletRequest request, Model model){
+		
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
 		ArrayList<Category> cList = ns.selectCategoryList();
 		
@@ -86,9 +98,8 @@ public class BandLeaderController {
 		
 		model.addAttribute("cid", cid);
 		model.addAttribute("cList", cList);
-		model.addAttribute("bid", bid);
 		
-		bandLeftSideBar(bid, model);
+		bandLeftSideBar(bid, mid, model);
 		
 		return "band/bandCategory";
 	}
@@ -117,11 +128,11 @@ public class BandLeaderController {
 	}
 	
 	@RequestMapping("bandMultiLeader.bd")
-	public String bandMultiLeader(@RequestParam int bid, Model model){
+	public String bandMultiLeader(@RequestParam int bid, HttpServletRequest request, Model model){
 		
-		System.out.println("bandMultiLeader.bd 호출");
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
-		bandLeftSideBar(bid, model);
+		bandLeftSideBar(bid, mid, model);
 		
 		Member_Band mb = new Member_Band();
 		
@@ -130,19 +141,17 @@ public class BandLeaderController {
 		ArrayList<Member_Band> mbList = bs.selectMember_BandList(mb);
 		
 		model.addAttribute("list", mbList); 
-		model.addAttribute("bid", bid);
-		
 		
 		return "band/bandMultiLeader";
 	}
 	
 	
 	@RequestMapping("bandChangeMultiLeader.bd")
-	public String bandChangeMultiLeader(@RequestParam int bid, Model model){
+	public String bandChangeMultiLeader(@RequestParam int bid, HttpServletRequest request, Model model){
 		
-		System.out.println("bandChangeMultiLeader.bd 호출");
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
-		bandLeftSideBar(bid, model);
+		bandLeftSideBar(bid, mid, model);
 		
 		Member_Band mb = new Member_Band();
 		
@@ -151,7 +160,6 @@ public class BandLeaderController {
 		ArrayList<Member_Band> mbList = bs.selectMember_BandList(mb);
 		
 		model.addAttribute("list", mbList);
-		model.addAttribute("bid", bid);
 		
 		return "band/bandChangeMultiLeader";
 	}
@@ -184,17 +192,15 @@ public class BandLeaderController {
 	}
 	
 	@RequestMapping(value="searchBandMultiLeader.bd")
-	public String searchBandMultiLeader(@RequestParam String s, Model model,
+	public String searchBandMultiLeader(@RequestParam String s, HttpServletRequest request, Model model,
 										HttpServletResponse response){
 		
-		System.out.println("searchBandMultiLeader 호출");
-		
-		System.out.println("s :" + s);
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
 		//임시로 설정함
 		int bid = 1;
 		
-		bandLeftSideBar(bid, model);
+		bandLeftSideBar(bid, mid, model);
 				
 		Member_Band mb = new Member_Band();
 				
@@ -211,10 +217,11 @@ public class BandLeaderController {
 	
 	
 	@RequestMapping("bandChangeLeader.bd")
-	public String bandChangeLeader(@RequestParam int bid, Model model){
+	public String bandChangeLeader(@RequestParam int bid, HttpServletRequest request, Model model){
 		
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
-		bandLeftSideBar(bid, model);
+		bandLeftSideBar(bid, mid, model);
 				
 		Member_Band mb = new Member_Band();
 				
@@ -223,7 +230,6 @@ public class BandLeaderController {
 		ArrayList<Member_Band> mbList = bs.selectMember_BandList(mb);
 				
 		model.addAttribute("list", mbList);
-		model.addAttribute("bid", bid);
 		
 		return "band/bandChangeLeader";
 	}
@@ -245,17 +251,15 @@ public class BandLeaderController {
 	}
 	
 	@RequestMapping(value="searchBandLeader.bd")
-	public String searchBandLeader(@RequestParam String s, Model model,
+	public String searchBandLeader(@RequestParam String s, HttpServletRequest request, Model model,
 										HttpServletResponse response){
-		
-		System.out.println("searchBandLeader 호출");
-		
-		System.out.println("s :" + s);
+
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();	
 		
 		//임시로 설정함
 		int bid = 1;
 		
-		bandLeftSideBar(bid, model);
+		bandLeftSideBar(bid, mid, model);
 				
 		Member_Band mb = new Member_Band();
 				
@@ -271,11 +275,11 @@ public class BandLeaderController {
 	}
 	
 	@RequestMapping("bandSecession.bd")
-	public String bandSecession(@RequestParam int bid, Model model){
+	public String bandSecession(@RequestParam int bid, HttpServletRequest request, Model model){
 		
-		bandLeftSideBar(bid, model);
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
-		model.addAttribute("bid", bid);
+		bandLeftSideBar(bid, mid, model);
 		
 		return "band/bandSecession";
 	}
@@ -286,27 +290,25 @@ public class BandLeaderController {
 		
 		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
-		System.out.println("bid : " + bid);
-		System.out.println("mid : " + mid);
-		
 		Member_Band mb = new Member_Band();
 		
 		mb.setBid(bid);
 		mb.setMid(mid);
 		
-		//테스트중
 		int mlevel = bs.selectMlevel(mb);
 		
 		if(mlevel == 1){
 			
 			//밴드 리더는 탈퇴가 불가능
 			
-			System.out.println("탈퇴 실패");
+			bandLeftSideBar(bid, mid, model);
+			model.addAttribute("bid", bid);
+			
+			return "band/bandSecessionFail";
 			
 		}else{
 			
 			//이외에는 탈퇴 가능
-			
 			mb = new Member_Band();
 			
 			mb.setBid(bid);
@@ -314,20 +316,20 @@ public class BandLeaderController {
 			
 			bs.secessionBand(mb);
 			
-			System.out.println("탈퇴 성공");
-			
+			return "redirect:/loginUserMain.me";
 		}
 		
 		
-		return "redirect:/loginUserMain.me";
+		/*return "redirect:/loginUserMain.me";*/
 		
 	}	
 	
 	@RequestMapping("bandDelete.bd")
-	public String bandDelete(@RequestParam int bid, Model model){
+	public String bandDelete(@RequestParam int bid, HttpServletRequest request, Model model){
 		
-		bandLeftSideBar(bid, model);
-		model.addAttribute("bid", bid);
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
+		
+		bandLeftSideBar(bid, mid, model);
 		
 		return "band/bandDelete";
 	}
@@ -336,10 +338,6 @@ public class BandLeaderController {
 	@RequestMapping(value="deleteBand.bd")
 	public String deleteBand(@RequestParam int bid, Model model,
 										HttpServletResponse response){
-		
-		System.out.println("deleteBand.bd 호출");
-		
-		System.out.println("bid : " + bid);
 		
 		Member_Band mb = new Member_Band();
 		mb.setBid(bid);
@@ -352,14 +350,15 @@ public class BandLeaderController {
 	}
 	
 	@RequestMapping("bandIntro.bd")
-	public String bandIntro(@RequestParam int bid, Model model){
+	public String bandIntro(@RequestParam int bid, HttpServletRequest request, Model model){
 		
-		bandLeftSideBar(bid, model);
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
+		
+		bandLeftSideBar(bid, mid, model);
 		
 		String intro = bs.selectBandIntro(bid);
 		
 		model.addAttribute("intro", intro);
-		model.addAttribute("bid", bid);
 		
 		return "band/bandIntro";
 	}
@@ -378,13 +377,11 @@ public class BandLeaderController {
 	}
 	
 	@RequestMapping("bandModify.bd")
-	public String bandModify(@RequestParam int bid, Model model){
+	public String bandModify(@RequestParam int bid, HttpServletRequest request, Model model){
 		
-		System.out.println("bandModify.bd 호출");
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
-		bandLeftSideBar(bid, model);
-		
-		model.addAttribute("bid", bid);		
+		bandLeftSideBar(bid, mid, model);
 		
 		return "band/bandModify";
 	}
@@ -456,9 +453,11 @@ public class BandLeaderController {
 	}
 	
 	@RequestMapping("bandMemberManagement.bd")
-	public String bandMemberManagement(@RequestParam int bid, Model model){
+	public String bandMemberManagement(@RequestParam int bid, HttpServletRequest request, Model model){
 		
-		bandLeftSideBar(bid, model);
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
+		
+		bandLeftSideBar(bid, mid, model);
 		
 		Member_Band mb = new Member_Band();
 		
@@ -470,7 +469,6 @@ public class BandLeaderController {
 		
 		model.addAttribute("list", mbList);
 		model.addAttribute("banList", banList);
-		model.addAttribute("bid", bid);
 		
 		return "band/bandMemberManagement";
 	}
@@ -497,17 +495,16 @@ public class BandLeaderController {
 	}
 	
 	@RequestMapping(value="searchBanMemberSearch.bd")
-	public String searchBanMemberSearch(@RequestParam String s, Model model,
+	public String searchBanMemberSearch(@RequestParam String s, HttpServletRequest request, Model model,
 										HttpServletResponse response){
 		
-		System.out.println("searchBanMemberSearch 호출");
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
-		System.out.println("s :" + s);
 		
 		//임시로 설정함
 		int bid = 1;
 		
-		bandLeftSideBar(bid, model);
+		bandLeftSideBar(bid, mid, model);
 				
 		Member_Band mb = new Member_Band();
 				
@@ -525,10 +522,6 @@ public class BandLeaderController {
 	@RequestMapping("deleteBanMember.bd")
 	public String deleteBanMember(@RequestParam int banid, int bid, Model model){
 		
-		System.out.println("deleteBanMember.bd 호출");
-		
-		System.out.println("mbid : " + banid);
-		
 		bs.deleteBanMember(banid);
 		
 		return "redirect:/bandMemberManagement.bd?bid=" + bid;
@@ -536,11 +529,6 @@ public class BandLeaderController {
 	
 	@RequestMapping("updateCategory.bd")
 	public String updateCategory(@RequestParam int category, int bid, Model model){
-		
-		/*//임시로 지정
-		int bid = 1;*/
-		
-		System.out.println("bid : " + bid);
 		
 		Band b = new Band();
 		b.setBid(bid);
