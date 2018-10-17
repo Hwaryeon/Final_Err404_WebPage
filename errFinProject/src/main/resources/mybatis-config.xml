@@ -32,6 +32,7 @@
 		<typeAlias type="com.kh.efp.admin.model.vo.AdmMemberList" alias="AdmMemberList"/>
 		<typeAlias type="com.kh.efp.admin.model.vo.ReportList" alias="ReportList"/>
 		<typeAlias type="com.kh.efp.admin.model.vo.BanList" alias="BanList"/>
+		<typeAlias type="com.kh.efp.alarm.model.vo.Alarm" alias="Alarm"/>
 	</typeAliases>
 
 	<mappers>
@@ -46,7 +47,7 @@
 		<mapper resource="mappers/category-mapper.xml"/>
     	<mapper resource="mappers/main-mapper.xml"/>
     	<mapper resource="mappers/admin-mapper.xml"/>
-    	
+    	<mapper resource="mappers/alarm-mapper.xml"/>
 	</mappers>
 	
 	

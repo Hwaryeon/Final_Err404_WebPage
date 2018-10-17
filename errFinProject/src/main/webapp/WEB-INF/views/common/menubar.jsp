@@ -156,7 +156,22 @@
     	
     	//알람 보이기
     	$('.alarm_img').click(function(){
-    		$('.alarm').show();
+    		
+    		$.ajax({
+    			url:'NewAlarm.alarm',
+    			data:{
+    				
+    			},
+    			success:function(data){
+    				console.log(data);
+    				
+		    		$('.alarm').show();
+    			},
+    			error:function(error){
+    				alert('에이젝스 에러');
+    			}
+    		});
+    		
     	});
     	
     	//다른쪽 눌렀을때 숨김
