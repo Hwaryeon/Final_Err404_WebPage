@@ -77,6 +77,10 @@ public interface BandDao {
 
 	ArrayList<Member_Band> insertMemberList(SqlSessionTemplate sqlSession, int bid);
 
+	void updateMemberStatus(SqlSessionTemplate sqlSession, int mbid);
+
+	void refuseMemberStatus(SqlSessionTemplate sqlSession, int mbid);
+
 
 
 

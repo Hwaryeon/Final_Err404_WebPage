@@ -76,6 +76,10 @@ public interface BandService {
 
 	ArrayList<Member_Band> insertMemberList(int bid);
 
+	void updateMemberStatus(int mbid);
+
+	void refuseMemberStatus(int mbid);
+
 	
 
 

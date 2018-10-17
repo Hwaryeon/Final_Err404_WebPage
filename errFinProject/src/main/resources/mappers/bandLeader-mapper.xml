@@ -228,6 +228,16 @@
 		
 	</select>
 	
+	<!-- 가입 신청한 회원 가입을 승인하는 메소드 -->
+	<update id="updateMemberStatus" parameterType="int">
+		UPDATE MEMBER_BAND SET ISTATUS='Y' WHERE MBID = #{mbid}
+	</update>
+	
+	<!-- 가입 신청한 회원 가입을 거절하는 메소드 -->
+	<update id="refuseMemberStatus" parameterType="int">
+		UPDATE MEMBER_BAND SET ISTATUS='N' WHERE MBID = #{mbid}
+	</update>
+	
 </mapper>
 
 

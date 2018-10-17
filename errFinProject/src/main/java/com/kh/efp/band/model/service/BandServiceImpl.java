@@ -220,6 +220,16 @@ public class BandServiceImpl implements BandService {
 		return bd.insertMemberList(sqlSession, bid);
 	}
 
+	@Override
+	public void updateMemberStatus(int mbid) {
+		bd.updateMemberStatus(sqlSession, mbid);
+	}
+
+	@Override
+	public void refuseMemberStatus(int mbid) {
+		bd.refuseMemberStatus(sqlSession, mbid);
+	}
+
 
 
 //	@Override

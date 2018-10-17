@@ -232,5 +232,15 @@ public class BandDaoImpl implements BandDao{
 		list = (ArrayList)sqlSession.selectList("Band.insertMemberList", bid);
 		
 		return list;
+	}
+
+	@Override
+	public void updateMemberStatus(SqlSessionTemplate sqlSession, int mbid) {
+		sqlSession.update("Band.updateMemberStatus", mbid);
+	}
+
+	@Override
+	public void refuseMemberStatus(SqlSessionTemplate sqlSession, int mbid) {
+		sqlSession.update("Band.refuseMemberStatus", mbid);
 	}	
 }

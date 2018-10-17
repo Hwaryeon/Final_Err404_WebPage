@@ -568,23 +568,21 @@ public class BandLeaderController {
 	
 	
 	@RequestMapping("updateMemberStatus.bd")
-	public String updateMemberStatus(@RequestParam int bid, HttpServletRequest request, Model model){
+	public String updateMemberStatus(@RequestParam int bid, int mbid, Model model){
 		
-		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
+		bs.updateMemberStatus(mbid);
 		
-		/*bandLeftSideBar(bid, mid, model);
+		return "redirect:/insertMemberList.bd?bid=" + bid;
+	}
+	
+	@RequestMapping("refuseMemberStatus.bd")
+	public String refuseMemberStatus(@RequestParam int bid, int mbid, Model model){
 		
-		ArrayList<Member_Band> list = bs.insertMemberList(bid);
 		
-		for(int i=0; i< list.size(); i++){
-			System.out.println(i + " : " + list.get(i).toString());
-		}
+		bs.refuseMemberStatus(mbid);
 		
-		model.addAttribute("list", list);*/
 		
-		System.out.println("mid : " + mid);
-		
-		return "band/bandInsertMember";
+		return "redirect:/insertMemberList.bd?bid=" + bid;
 	}
 	
 	
