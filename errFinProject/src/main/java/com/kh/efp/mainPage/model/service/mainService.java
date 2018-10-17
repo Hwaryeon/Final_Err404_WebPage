@@ -12,7 +12,7 @@ public interface mainService {
 
 	int insertBand(Profile pf, Band b, int mid);
 
-	List<Object> recommendContent();
+	List<Object> recommendContent(int mid);
 
 	int selectBandId(Band b);
 
