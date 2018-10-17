@@ -32,7 +32,7 @@
                     <li style="width:150px; min-width:150px;" id="tab3">
                     <a href="#tab3" data-toggle="tab" style="width:150px; min-width:150px;">일정</a></li>
                     <li style="width:150px; min-width:150px;" id="tab4">
-                    <a href="#tab4" data-toggle="tab" style="width:150px; min-width:150px;">멤버</a></li>
+                    <a href="boardMember.do?bid=${ bid }" data-toggle="tab" style="width:150px; min-width:150px;">멤버</a></li>
                   </ul>
                 </div>
                 

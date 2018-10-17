@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.commons.Pagination;
 import com.kh.efp.member_band.model.service.MemberBandService;
 import com.kh.efp.member_band.model.vo.BandList;
@@ -80,6 +81,14 @@ public class MemberBandController {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	@RequestMapping("moveToInviteCode.mb")
+	public String moveToInviteCode(String inviteCode){
+		
+		Band b = mbs.selectBandinviteCode(inviteCode);
+		
+		return "redirect:/list.do?bid=" + b.getBid();
 	}
 	
 }

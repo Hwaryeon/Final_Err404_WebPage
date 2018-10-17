@@ -55,9 +55,16 @@
                                     	</td>
                                     </c:if>
                                     <c:if test = "${ memberProfile.editName ne 'user.png' }">
-                                    	<td width="200px" style="vertical-align: middle;">
-                                    	<img id = "contentImg1" src="${ memberProfile.fileSrc }${ memberProfile.editName }" alt="" style = "width : 64px; height : 64px;">
-                                    	</td>
+                                    	<c:if test = "${sessionScope.loginUser.mType eq 'LOCAL' }">
+                                    		<td width="200px" style="vertical-align: middle;">
+	                                    	<img id = "contentImg1" src="resources/upload_images/${ memberProfile.editName }" alt="" style = "width : 64px; height : 64px;">
+	                                    	</td>
+                                    	</c:if>
+                                    	<c:if test = "${sessionScope.loginUser.mType ne 'LOCAL' }">
+	                                    	<td width="200px" style="vertical-align: middle;">
+	                                    	<img id = "contentImg1" src="${ memberProfile.fileSrc }${ memberProfile.editName }" alt="" style = "width : 64px; height : 64px;">
+	                                    	</td>
+                                    	</c:if>
                                     </c:if>
                                     <td width="500px" style="vertical-align: middle; text-align: right"><a class="button-blue button-link" onclick = "changeProfile()">이미지 수정하기</a></td>
                                 </tr>
@@ -200,7 +207,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">취소하기</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" type = "submit">확인하기</button>
+          <button class="btn btn-primary" type = "submit">확인하기</button>
         </div>
         </form>
       </div>

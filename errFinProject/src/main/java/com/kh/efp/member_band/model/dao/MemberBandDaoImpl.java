@@ -6,6 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.member_band.model.vo.BandList;
 import com.kh.efp.member_band.model.vo.BoardList;
 import com.kh.efp.member_band.model.vo.PageInfo;
@@ -43,6 +44,11 @@ public class MemberBandDaoImpl implements MemberBandDao{
 	@Override
 	public int updateiStatus(SqlSessionTemplate sqlSession, BandList bl) {
 		return sqlSession.update("BandList.updateiStatus", bl);
+	}
+
+	@Override
+	public Band selectBandinviteCode(SqlSessionTemplate sqlSession, String inviteCode) {
+		return sqlSession.selectOne("BandList.selectBandInviteCode", inviteCode);
 	}
 
 }
