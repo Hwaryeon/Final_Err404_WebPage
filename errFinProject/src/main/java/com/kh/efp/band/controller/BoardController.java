@@ -26,6 +26,7 @@ import com.kh.efp.band.model.vo.Board;
 import com.kh.efp.newPost.model.vo.Boards;
  
 @Controller
+
 public class BoardController {
  
 	//의존관계 주입
@@ -117,16 +118,17 @@ public class BoardController {
     */
     //04. 게시글 수정
     //폼에서 입력한 내용들은 @ModelAttribute Board vo로 전달
-    @RequestMapping(value="update.do",method=RequestMethod.POST)
-    public String update( @ModelAttribute Board vo)throws Exception{
+    @RequestMapping(value="updateBoard.do",method=RequestMethod.POST)
+    public String updateBoard( @ModelAttribute Board board)throws Exception{
     	
+    	boardService.updateBoard(board);
     	/*boardService.update(vo);*/
     	return "redirect:list.do";
     }
     
     //05. 게시글 수정 처리 화면
     @RequestMapping(value="updatePage.do",method=RequestMethod.GET)
-    public String updatePage(int boardId, int mId, String bContent) throws Exception{
+    public ModelAndView updatePage(int boardId, int mId, String bContent) throws Exception{
   
     	Board board = new Board();
     	
@@ -138,18 +140,23 @@ public class BoardController {
     	Board selectBoard = boardService.selectBoard(board);
 //    	ModelAndView mav = new ModelAndView();
 //    	mav.setViewName("board/view");
+    	
+    	ModelAndView mav = new ModelAndView();
+    	mav.setViewName("boardBand/boardEdit"); //뷰를 boardMain.jsp로 설정
+    	mav.addObject("board",board);//데이터를 저장
+    	return mav;
   	
-    	return "boardBand/boardEdit";
+    	/*return "boardBand/boardEdit";*/
     }
     
-/*    
+    
     //05. 게시글 삭제
-    @RequestMapping("delete.do")
-    public String delete(@RequestParam int bno)throws Exception{
-    	boardService.delete(bno);
+    @RequestMapping(value = "delete.do", method=RequestMethod.GET)
+    public String deleteBoard(@RequestParam int bno)throws Exception{
+    	boardService.deleteBoard(bno);
     	return "redirect:list.do";
     }
-    */
+   
     
     
     

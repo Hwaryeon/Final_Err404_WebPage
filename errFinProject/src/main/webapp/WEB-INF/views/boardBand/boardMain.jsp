@@ -57,7 +57,7 @@
 <body
    class="home page page-id-4 page-template page-template-template_home-php">
    <jsp:include page="../common/menubar.jsp" />
-
+   
    <div class="container">
 
       <div class="left-sidebar col-md-3" role="complementary">
@@ -184,9 +184,16 @@
                         
                      </a>
                         <ul class="dropdown-menu" role="menu">
-                           <li><a>   <img alt="" src="${ contextPath }/resources/images/dropEdit.png?id=${row.boardId}"
+                           <li>
+                           <input type="hidden" id="boardid" name="boardid" value="${row.boardId}">
+                           <input type="hidden" id="bcontent" name="bcontent" value="${row.bContent}">
+                           <input type="hidden" id="mid" name="mid" value="${row.mId}">
+                           <a>
+                           
+                           
+                              <img alt="" src="${ contextPath }/resources/images/dropEdit.png?id=${row.boardId}"
                         class="avatar avatar-75 photo avatar-default" >
-                        <button type="button" id="btnUpdate" onclick=update()>수정</button></a></li>
+                        <button type="button" id="btnUpdate" class="btnUpdate" onclick=update()>수정</button></a></li>
                         
                            <li><a href="index2.html">   <img alt="" src="${ contextPath }/resources/images/dropDelete.png"
                         class="avatar avatar-75 photo avatar-default" >&nbsp&nbsp&nbsp&nbsp&nbsp삭제하기</a></li>
@@ -199,16 +206,36 @@
                
                <script>
                	function update(){
-               		var mId = '30';
+               		/*
+               		var mId = "${row.mId}"
                		var boardId = "${row.boardId}"
                		var bContent = "${row.bContent}"
+               		
                		console.log(mId);
                		console.log(boardId);
                		console.log(bContent);
+               		*/
                		
                		
-               		location.href="updatePage.do?mId=" + mId + "&boardId=" + boardId +"&bContent=" + bContent;
+               		/*location.href="updatePage.do?mId=" + mId + "&boardId=" + boardId +"&bContent=" + bContent;
+               		*/
                	}
+               	
+               	$('.btnUpdate').click(function(){
+					console.log('클릭2');
+               		
+               		var bo = $(this).parent().parent().children("input").eq(0).val();
+               		console.log('bo : ' + bo);
+               		var bcontent = $(this).parent().parent().children("input").eq(1).val();
+               		
+               		console.log('bcontent : ' + bcontent);
+               		
+               		var mId = $(this).parent().parent().children("input").eq(2).val();
+               		
+               		location.href="updatePage.do?mId=" + mId + "&boardId=" + bo +"&bContent=" + bcontent;
+               		
+               	});
+               	
                </script>
                
               <div class="box-content widget fullwidth" id="comments" style="margin-bottom:0px;">

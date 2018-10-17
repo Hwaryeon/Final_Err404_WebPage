@@ -24,27 +24,15 @@
 
 	   
 	   
-      $("#btnSave").click(function(){
-    	 var mId = $("#mId").val();
+      $("#btnUpdate").click(function(){
          var bContent = $("#bContent").val();
-         var bId = $("#bId").val();
          if(bContent==""){
             alert("내용을 입력하세요");
             document.form1.bContent.focus();
             return;
          }
-         if(bId==""){
- 			alert("밴드를 입력하세요");
- 			document.form1.bId.focus();
- 			return;
- 		}
-         
-    		if(mId==""){
-    			alert("이름을 입력하세요");
-    			document.form1.mId.focus();
-    			return;
-    		}
-         
+
+         document.form1.action="updateBoard.do";
          document.form1.submit();
       });
    });
@@ -61,96 +49,12 @@
 <body
    class="home page page-id-4 page-template page-template-template_home-php">
    <!-- TOP NAV -->
-   <div class="navbar navbar-default top-nav-bar" role="navigation">
-      <div class="container">
-         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-               data-target=".topmenu">
-               <span class="sr-only">Toggle navigation</span> <span
-                  class="icon-bar"></span> <span class="icon-bar"></span> <span
-                  class="icon-bar"></span>
-            </button>
-         </div>
-         <div class="navbar-collapse collapse topmenu">
-            <div class="menu-header-templates-menu-container">
-               <ul class="nav navbar-nav">
-                  <li><a href="about.html">About</a></li>
-                  <li><a href="article.html">Article</a></li>
-                  <li><a href="article-review.html">Article Review</a></li>
-                  <li><a href="archives.html">Archives</a></li>
-                  <li><a href="category.html">Category</a></li>
-                  <li><a href="fullwidth.html">Full Width</a></li>
-                  <li><a href="shortcodes.html">Shortcodes</a></li>
-                  <li><a href="404.html">404</a></li>
-                  <li><a href="contact.html">Contact</a></li>
-               </ul>
-            </div>
-         </div>
-      </div>
-   </div>
-   <!-- LOGO AREA -->
-   <div class="fullwidth bg-pink">
-      <div class="container">
-         <div class="col-md-6 col-xs-12">
-            <div class="logo">
-               <h1>
-                  <a href="index.html" title="Weekend Magazine">Weekend Magazine</a>
-               </h1>
-            </div>
-         </div>
-         <div class="col-md-6 col-xs-12">
-            <div id="ads120_60-widget-2" class="ads120-60 ads-one">
-               <div class="ad-cell">
-                  <a href="#" target="_blank"> <img src="img/ad-468x60.png "
-                     alt="">
-                  </a>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-   <!-- MAIN NAV -->
-   <div class="fullwidth navbar navbar-default main-nav-bar"
-      role="navigation">
-      <div class="container">
-         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-               data-target=".mainmenu">
-               <span class="sr-only">Toggle navigation</span> <span
-                  class="icon-bar"></span> <span class="icon-bar"></span> <span
-                  class="icon-bar"></span>
-            </button>
-         </div>
-         <div class="navbar-collapse collapse mainmenu">
-            <div class="menu-primary-navigation-container">
-               <ul id="menu-primary-navigation" class="nav navbar-nav">
-                  <li class="dropdown"><a href="#" class="dropdown-toggle"
-                     data-toggle="dropdown" role="button" aria-expanded="false">Home
-                        <span class="caret"></span>
-                  </a>
-                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="index2.html">Home 2</a></li>
-                        <li><a href="index3.html">Home Dark 1</a></li>
-                        <li><a href="index4.html">Home Dark 2</a></li>
-                        <li><a href="index5.html">Home Light 1</a></li>
-                        <li><a href="index6.html">Home Light 2</a></li>
-                     </ul></li>
-                  <li><a href="#">News</a></li>
-                  <li><a href="#">Economy</a></li>
-                  <li><a href="#">Sports</a></li>
-                  <li><a href="#">Shows</a></li>
-                  <li><a href="#">Culture &#038; Art</a></li>
-                  <li><a href="#">Gossips</a></li>
-                  <li><a href="#">Fashion</a></li>
-                  <li><a href="#">Health &#038; Body</a></li>
-                  <li><a href="#">Technology</a></li>
-                  <li><a href="#">Science</a></li>
-               </ul>
-            </div>
-         </div>
-      </div>
-   </div>
+   
+     <jsp:include page="../common/menubar.jsp" />
+      <jsp:include page="../common/footer.jsp" />
+
+
+
 
    <div class="container">
 
@@ -182,9 +86,22 @@
          </div>
 
       </div>
+      
 	
-	
-		<form:from action="update.do" method="post" modelAttribute="vo">
+	  <script>
+               	function update(){
+               		var mId = "${row.mId}"
+               		var boardId = "${row.boardId}"
+               		var bContent = "${row.bContent}"
+               		console.log(mId);
+               		console.log(boardId);
+               		console.log(bContent);
+               		
+               		
+               		location.href="updatePage.do?mId=" + mId + "&boardId=" + boardId +"&bContent=" + bContent;
+               	}
+               </script>
+               
 		
       <div class="main col-md-6 col-xs-12">
 
@@ -205,7 +122,7 @@
                         reply</a></small>
                </h3>
                <form name="form1" action="insert.do" method="post" >
-                  
+                  <input type="hidden" id="boardId" name="boardId" value="${board.boardId }"> 
                   <p class="comment-notes">
                      멤버들에게 전할 소식을 남겨주세요~ <span class="required">*</span>
                   </p>
@@ -213,7 +130,7 @@
                      <label for="comment"></label>
                      <textarea  name="bContent" id="bContent" cols="45" rows="8"
                         aria-required="true">
-                     ${ Board.bContent }
+                     ${ board.bContent }
                         </textarea>
               
                   </p>
@@ -227,7 +144,7 @@
                   </p> --%>
                   <p class="form-submit">
                      <span style="float: right">
-                      <button id="btnSave">게시</button>
+                      <button id="btnUpdate">게시</button>
                       </span> 
                         <!-- <input type="hidden" name="comment_parent" id="comment_parent"
                         value="0"> -->
@@ -243,8 +160,6 @@
       </div>
 
 
-
-	</form:from>
 
 
 

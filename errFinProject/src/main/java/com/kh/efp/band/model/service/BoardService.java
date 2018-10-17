@@ -18,11 +18,13 @@ public interface BoardService {
 	
 	//03.게시글 수정
 	/*public void update(Board vo)throws Exception;*/
-	public int updateBoard(Board board)throws Exception;
+	public void updateBoard(Board board)throws Exception;
+	
+	public void updateHit(int bno) throws Exception;
 	
 	//04.게시글 삭제
 //	public void delete(int bno) throws Exception;
-	public int deleteBoard(int bno) throws Exception;
+	public void deleteBoard(int bno) throws Exception;
 	
 	//05. 게시글 전체 목록
 	public List<Board> listAll(int pbid) throws Exception;
