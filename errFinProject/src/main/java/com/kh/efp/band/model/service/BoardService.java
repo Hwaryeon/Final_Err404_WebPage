@@ -15,16 +15,21 @@ public interface BoardService {
 	public void create(Board vo) throws Exception;
 	//02.게시글 상세보기
 	public Board read(int bno) throws Exception;
+	
 	//03.게시글 수정
-	public void update(Board vo)throws Exception;
+	/*public void update(Board vo)throws Exception;*/
+	public int updateBoard(Board board)throws Exception;
+	
 	//04.게시글 삭제
-	public void delete(int bno) throws Exception;
+//	public void delete(int bno) throws Exception;
+	public int deleteBoard(int bno) throws Exception;
+	
 	//05. 게시글 전체 목록
 	public List<Board> listAll(int pbid) throws Exception;
 	//06.게시글 조회
 	public void increaseViewcnt(int bno, HttpSession session) throws Exception;
-	//07.게시글 수정
-	public List<Board> updatePage() throws Exception;
+//07.게시글 수정
+	public int updatePage() throws Exception;
 	
 	public Board selectBoard(Board board) throws Exception;
 }

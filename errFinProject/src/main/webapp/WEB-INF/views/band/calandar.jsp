@@ -81,12 +81,16 @@
 
  function paintScehdule(){
 	 
-	  $('#calendar').fullCalendar( 'removeEvents' );
+	  /* $('#calendar').fullCalendar( 'removeEvents' ); */
 	  
-	 /*  $('#calendar').fullCalendar('removeEventSource', 'koHolidays'); 
+	 $('#calendar').remove();
+	  
+	 var area = document.getElementById('calendarArea');
 
-	  $('#calendar').fullCalendar('addEventSource', 'koHolidays'); */
+	 var div1 = document.createElement('div'); 
+	 div1.setAttribute("id", "calendar");
 	  
+	 area.append(div1);
 	 
 	 $('#calendar').fullCalendar({
 		    
@@ -113,11 +117,6 @@
 	      selectable: true,
 	      selectHelper: true,
 	      select: function(start, end) {
-	    	  
-	    	  
-	    	  
-	    	  
-	        /* var title = prompt('일정 제목 :'); */
 	        
 	        var sDateFormat = moment(start, 'YYYY-MM-DD');
 	     	var eDateFormat = moment(end, 'YYYY-MM-DD');
@@ -139,45 +138,6 @@
 	        location.href="#modal2";
 	        
 	        
-	        /* if(title != null){
-	    	    var content = prompt('일정 내용 : ');
-	        } */
-	        
-	        /* if (title) {
-	        	var eventNum;
-	        	var sDateFormat = moment(start, 'YYYY-MM-DD');
-	        	var eDateFormat = moment(end, 'YYYY-MM-DD');
-	        	
-	        	var sDate = sDateFormat.format('YYYY-MM-DD');
-	        	var eDate = eDateFormat.format('YYYY-MM-DD');
-	        	
-	        	  $.ajax({
-					url:"addCalendar.bd",
-					type:"post",
-					async: false,
-					data:{title:title, content:content, sDate:sDate, eDate:eDate},
-					success:function(data){
-						console.log(data.next);
-						
-						eventNum = data.next;
-						
-							AllListScehdule();
-						
-					},error:function(){
-						console.log("일정 추가 실패");
-					}
-				});  
-	        	
-	           eventData = {
-	        		  id: eventNum,							
-			            title: title,
-			            content:content,
-			            start: start,
-			            end: end
-			          };  
-	          $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-	        		  
-	        } */
 	        $('#calendar').fullCalendar('unselect');
 	      },
 	      editable: true,
@@ -478,16 +438,31 @@
 			<div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title"></h1>
                 <ul class="tvshows">
                     <li>
-                        <a href="#">
-                            <!-- <img src="http://placehold.it/209x128" alt=""> -->
-                             <img src="${ contextPath }/resources/upload_images/${pf.editName }" alt="">
+                         <a href="#">
+                            
+                             <c:if test="${ pf.editName == 'cover1.jpeg' || pf.editName == 'cover2.jpg'
+									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
+									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
+									|| pf.editName == 'cover7.jpg' }">
+								
+										<img src="${ contextPath }/resources/images/cover/${ pf.editName }">
+									</c:if>
+									
+									<c:if test="${ !(pf.editName == 'cover1.jpeg' || pf.editName == 'cover2.jpg'
+									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
+									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
+									|| pf.editName == 'cover7.jpg') }">
+								
+										<img src="${ contextPath }/resources/upload_images/${ pf.editName }">
+									</c:if>
                         </a>
                         <h2 style="color:#222; font-size:21px; margin-bottom:15px;font-weight:600;margin-top:20px;">${bname }</h2>
                         <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
                         			멤버 ${memberCount}<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
                         			초대코드 </a></h4>
                         <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
-                        <a href="bandLeader.bd?bid=1" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
+                        <a href="bandLeader.bd?bid=1" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">
+                        * 밴드 설정</a></h4>
                     </li>
                 </ul>
                 <div class="clear"></div>
@@ -497,9 +472,10 @@
 
         <div class="main col-md-6 col-xs-12" style="background:#ffffff">
 
-            
-            <div id='calendar'></div>
-
+            <div id="calendarArea">
+        	   <div id='calendar'></div>
+			</div>
+			
             <div class="widget fullwidth post-single">
               <h4 class="widget-title">일정  <span>리스트</span> </h4>
               <div class="widget-content">

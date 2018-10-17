@@ -206,5 +206,10 @@ public class BandDaoImpl implements BandDao{
 	public Band selectBand(SqlSessionTemplate sqlSession, int pbid) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("Band.selectBandInfo", pbid);
+	}
+
+	@Override
+	public int selectMlevel(SqlSessionTemplate sqlSession, Member_Band mb) {
+		return sqlSession.selectOne("Band.selectMlevel", mb);
 	}	
 }

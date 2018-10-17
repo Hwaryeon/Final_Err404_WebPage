@@ -1,5 +1,7 @@
 package com.kh.efp.band.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +15,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.efp.band.model.service.BandService;
 import com.kh.efp.band.model.service.BoardService;
 import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.band.model.vo.Board;
+import com.kh.efp.newPost.model.vo.Boards;
  
 @Controller
 public class BoardController {
@@ -32,16 +37,58 @@ public class BoardController {
     @RequestMapping("list.do")
     public ModelAndView list(String bid) throws Exception{
     	int pbid = Integer.parseInt(bid);
+    	
     	List<Board> list = boardService.listAll(pbid);
+    	
     	Band b = bs.selectBand(pbid);
     	//ModelAndView - 모델과 뷰
+    	
+    	
+
+
+    	
     	ModelAndView mav = new ModelAndView();
     	mav.setViewName("boardBand/boardMain"); //뷰를 boardMain.jsp로 설정
     	mav.addObject("boardMain",list);//데이터를 저장
     	mav.addObject("Band", b);
     	return mav;// boardMain.jsp로 List 전달
+    	
+
+
+    	
+    	
     }
+    // 사진 올리기
     
+    @RequestMapping(value = "requestupload1")
+    public String requestupload1(MultipartHttpServletRequest mtfRequest) {
+        String src = mtfRequest.getParameter("src");
+        System.out.println("src value : " + src);
+        MultipartFile mf = mtfRequest.getFile("file");
+
+        String path = "C:\\image\\";
+
+        String originFileName = mf.getOriginalFilename(); // 원본 파일 명
+        long fileSize = mf.getSize(); // 파일 사이즈
+
+        System.out.println("originFileName : " + originFileName);
+        System.out.println("fileSize : " + fileSize);
+
+        String safeFile = path + System.currentTimeMillis() + originFileName;
+
+        try {
+            mf.transferTo(new File(safeFile));
+        } catch (IllegalStateException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return "redirect:/";
+    }
+
 
     
     //02. 게시글 작성처리
@@ -95,14 +142,14 @@ public class BoardController {
     	return "boardBand/boardEdit";
     }
     
-    
+/*    
     //05. 게시글 삭제
     @RequestMapping("delete.do")
     public String delete(@RequestParam int bno)throws Exception{
     	boardService.delete(bno);
     	return "redirect:list.do";
     }
-    
+    */
     
     
     

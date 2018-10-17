@@ -46,7 +46,13 @@
 #categort-posts-widget-2 {
    background-color: transparent;
 }
-.
+
+  	#btns:hover{
+  		cursor : pointer;
+  	}
+
+
+
 </style>
 <body
    class="home page page-id-4 page-template page-template-template_home-php">
@@ -73,9 +79,10 @@
                   </h4>
                   <h4
                      style="margin-top: 14px; padding-top: 13px; border-top: 1px solid #e1e1e1;">
-                     <a href="#"
+                     <a href="bandLeader.bd?bid=${ Band.bid }"
                         style="font-size: 12px; font-weight: 400; color: #666; text-decoration: none;">*
                         밴드 설정</a>
+                        
                   </h4></li>
             </ul>
             <div class="clear"></div>
@@ -102,8 +109,8 @@
                         reply</a></small>
                </h3>
                <form name="form1" action="insert.do" method="post" >
-                  <input type = 'hidden' name = 'bId' value = "${ sessionScope.loginUser.mid }">
-                  <input type = 'hidden' name = 'mId' value = "${ Band.bid }">
+                  <input type = 'hidden' name = 'mId' value = "${ sessionScope.loginUser.mid }">
+                  <input type = 'hidden' name = 'bId' value = "${ Band.bid }">
                   <p class="comment-notes">
                      멤버들에게 전할 소식을 남겨주세요~ <span class="required">*</span>
                   </p>
@@ -120,6 +127,19 @@
                         &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt;
                         &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code>
                   </p> --%>
+                   <table
+							style="display: table-cell; vertical-align: middle; text-align: center;">
+							<tr>
+								<td width="270px" style="vertical-align: middle; text-align: left;">
+									<img id = "contentImg1" src="resources/images/fileImg.png" alt="" style = "width : 64px; height : 64px;">
+									<input type="file" id="userImage" name="userImage" multiple onchange="loadImg(this)">
+								</td>
+								<td style="vertical-align: middle;"><a class="button-navy button-link" onclick = "changeImage()">사진 첨부</a> 
+								</td>
+							</tr>
+						</table>
+
+                  
                   <p class="form-submit">
                      <span style="float: right">
                       <button id="btnSave">게시</button>
@@ -533,6 +553,32 @@
    </div>
 
    <jsp:include page="../common/footer.jsp" />
+   
+	<script>
+	
+	$(function() {
+		$("#userImage").hide(); 
+		nameResult = -99;
+		emailResult = -99;
+		ck = -99;
+		
+	});
+
+	function changeImage(){
+		$("#userImage").click();
+	}
+	
+	function loadImg(value){
+		if(value.files && value.files[0]){
+			var reader = new FileReader();
+			reader.onload = function(e){
+				$("#contentImg1").attr("src", e.target.result);
+			}
+			reader.readAsDataURL(value.files[0])
+		}
+	}
+		
+	</script>
    <script src="${ contextPath }/resources/js/jquery.min.js"></script>
    <script src="${ contextPath }/resources/js/bootstrap.min.js"></script>
    <script src="${ contextPath }/resources/js/jquery.bxslider.min.js"></script>

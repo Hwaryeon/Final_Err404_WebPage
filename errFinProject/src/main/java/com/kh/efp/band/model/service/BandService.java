@@ -68,6 +68,8 @@ public interface BandService {
 
 	Band selectBand(int pbid);
 
+	int selectMlevel(Member_Band mb);
+
 	
 
 

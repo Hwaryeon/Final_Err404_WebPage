@@ -1,13 +1,15 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html >
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
   <meta name="viewport" content=" width=device-width, initial-scale=1">
   <title>Weekend Magazine</title>
-
+<jsp:include page="../common/menubar.jsp" />
 <link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">
@@ -17,97 +19,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body class="home page page-id-4 page-template page-template-template_home-php">
-    <!-- TOP NAV -->
-    <div class="navbar navbar-default top-nav-bar" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".topmenu">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div class="navbar-collapse collapse topmenu">
-          <div class="menu-header-templates-menu-container">
-            <ul class="nav navbar-nav">
-              <li><a href="about.html">About</a></li>
-              <li><a href="article.html">Article</a></li>
-              <li><a href="article-review.html">Article Review</a></li>
-              <li><a href="archives.html">Archives</a></li>
-              <li><a href="category.html">Category</a></li>
-              <li><a href="fullwidth.html">Full Width</a></li>
-              <li><a href="shortcodes.html">Shortcodes</a></li>
-              <li><a href="404.html">404</a></li>
-              <li><a href="contact.html">Contact</a></li>
-              <li><a href="lee_category.jsp">전체 카테고리</a></li>
-              <li><a href="newPost.jsp">새글 피드</a></li>
-              <li><a href="photoAlbum.jsp">사진첩</a></li>
-              
-                </ul>
-            </div>        
-            </div>
-      </div>
-    </div>
-    <!-- LOGO AREA -->
-    <div class="fullwidth bg-pink">
-      <div class="container">
-        <div class="col-md-6 col-xs-12">
-          <div class="logo">
-            <h1><a href="index.html" title="Weekend Magazine">Weekend Magazine</a></h1>
-          </div>
-        </div>
-        <div class="col-md-6 col-xs-12">
-            <div id="ads120_60-widget-2" class="ads120-60 ads-one">
-                        <div class="ad-cell">
-                      <a href="#" target="_blank" >                 
-                <img src="img/ad-468x60.png " alt="">
-              </a>  
-            </div>
-                    </div>
-          </div>
-      </div>
-    </div>
-    <!-- MAIN NAV -->
-    <div class="fullwidth navbar navbar-default main-nav-bar" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".mainmenu">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div class="navbar-collapse collapse mainmenu">
-              <div class="menu-primary-navigation-container">
-              <ul id="menu-primary-navigation" class="nav navbar-nav">
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Home <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                      <li><a href="index.html">Home</a></li>
-                      <li><a href="index2.html">Home 2</a></li>
-                      <li><a href="index3.html">Home Dark 1</a></li>
-                      <li><a href="index4.html">Home Dark 2</a></li>
-                      <li><a href="index5.html">Home Light 1</a></li>
-                      <li><a href="index6.html">Home Light 2</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="#">News</a></li>
-                  <li><a href="#">Economy</a></li>
-                  <li><a href="#">Sports</a></li>
-                  <li><a href="#">Shows</a></li>
-                  <li><a href="#">Culture &#038; Art</a></li>
-                  <li><a href="#">Gossips</a></li>
-                  <li><a href="#">Fashion</a></li>
-                  <li><a href="#">Health &#038; Body</a></li>
-                  <li><a href="#">Technology</a></li>
-                  <li><a href="#">Science</a></li>
-              </ul>
-              </div>        
-            </div>
-      </div>
-    </div>
+    
+
+	
 
 <div class="recent-widget" id="tabbed-widget" style="background:#f6f6f6;">
                   <ul class="nav nav-justified nav-tabs" style="width:610px;margin-left:auto;margin-right:auto;">
@@ -172,14 +86,33 @@
                     <li>
                         <a href="#">
                             <!-- <img src="http://placehold.it/209x128" alt=""> -->
-                             <img src="${ contextPath }/resources/upload_images/${pf.editName }" alt="">
+                             <%-- <img src="${ contextPath }/resources/upload_images/${pf.editName }" alt=""> --%>
+                             
+                             <c:if test="${ pf.editName == 'cover1.jpeg' || pf.editName == 'cover2.jpg'
+									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
+									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
+									|| pf.editName == 'cover7.jpg' }">
+								
+										<img src="${ contextPath }/resources/images/cover/${ pf.editName }">
+									</c:if>
+									
+									<c:if test="${ !(pf.editName == 'cover1.jpeg' || pf.editName == 'cover2.jpg'
+									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
+									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
+									|| pf.editName == 'cover7.jpg') }">
+								
+										<img src="${ contextPath }/resources/upload_images/${ pf.editName }">
+									</c:if>
+                             
+                             
+                             
                         </a>
                         <h2 style="color:#222; font-size:21px; margin-bottom:15px;font-weight:600;margin-top:20px;">${bname }</h2>
                         <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
                         			멤버 ${memberCount}<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
                         			초대코드 </a></h4>
                         <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
-                        <a href="bandLeader.bd?bid=1" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
+                        <a href="bandLeader.bd?bid=${ bid }" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
                     </li>
                 </ul>
                 <div class="clear"></div>
@@ -196,17 +129,17 @@
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  밴드 이름 및 커버 설정
-                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandModify.bd">변경</a></h4>
+                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandModify.bd?bid=${ bid }">변경</a></h4>
                   </li>
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  밴드 카테고리 변경
-                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandCategory.bd">변경</a></h4>
+                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandCategory.bd?bid=${ bid }">변경</a></h4>
                   </li>
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  밴드 공개 설정
-                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandOpenStatus.bd">변경</a></h4>
+                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandOpenStatus.bd?bid=${ bid }">변경</a></h4>
                   </li>
                 </ul>
               </div>
@@ -219,17 +152,17 @@
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  공동리더 관리
-                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandMultiLeader.bd">변경</a></h4>
+                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandMultiLeader.bd?bid=${ bid }">변경</a></h4>
                   </li>
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  리더 위임
-                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandChangeLeader.bd">변경</a></h4>
+                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandChangeLeader.bd?bid=${ bid }">변경</a></h4>
                   </li>
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  멤버 탈퇴,차단 설정
-                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandMemberManagement.bd">변경</a></h4>
+                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandMemberManagement.bd?bid=${ bid }">변경</a></h4>
                   </li>
                 </ul>
               </div>
@@ -243,17 +176,17 @@
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		 밴드 소개 변경
-                  		 <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandIntro.bd">변경</a></h4>
+                  		 <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandIntro.bd?bid=${ bid }">변경</a></h4>
                   </li>
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  밴드 탈퇴
-                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandSecession.bd">변경</a></h4>
+                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandSecession.bd?bid=${ bid }">변경</a></h4>
                   </li>
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  밴드 삭제
-                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandDelete.bd">변경</a></h4>
+                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandDelete.bd?bid=${ bid }">변경</a></h4>
                   </li>
                 </ul>
               </div>

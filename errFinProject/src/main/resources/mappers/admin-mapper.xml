@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="Admin">
-	<resultMap type="Member" id="adMember">
+	<resultMap type="AdmMemberList" id="adMember">
 		<id property="mid" column="MID"/>
 		<result property="mEmail" column="MEMAIL"/>
 		<result property="mName" column="MNAME"/>
@@ -13,14 +13,12 @@
 		<result property="mDate" column="MDATE"/>
 		<result property="mType" column="MTYPE"/>
 	</resultMap>
-	
 	<resultMap type="AdmBandList" id="adBand">
 		<id property="bid" column="BID"/>
 		<result property="bname" column="BNAME"/>
 		<result property="cname" column="CNAME"/>
 		<result property="bopen_status" column="BOPEN_STATUS"/>
 	</resultMap>
-	
 	<resultMap type="Member" id="searchMember">
 		<id property="mid" column="MID"/>
 		<result property="mEmail" column="MEMAIL"/>
@@ -29,7 +27,6 @@
 		<result property="mDate" column="MDATE"/>
 		<result property="mType" column="MTYPE"/>
 	</resultMap>
-	
 	<resultMap type="AdmBandList" id="searchBand">
 		<id property="bid" column="BID"/>
 		<result property="bname" column="BNAME"/>
@@ -37,7 +34,6 @@
 		<result property="bopen_status" column="BOPEN_STATUS"/>
 		<result property="mname" column="MNAME"/>
 	</resultMap>
-	
 	<resultMap type="ReportList" id="reportMember">
 		<id property="cid" column="CID"/>
 		<result property="memail" column="MEMAIL"/>
@@ -46,7 +42,6 @@
 		<result property="bname" column="BNAME"/>
 		<result property="rcontent" column="RCONTENT"/>
 	</resultMap>
-	
 	<resultMap type="ReportList" id="reportBand">
 		<id property="bid" column="BID"/>
 		<result property="bname" column="BNAME"/>
@@ -55,7 +50,6 @@
 		<result property="rdate" column="RDATE"/>
 		<result property="rcontent" column="RCONTENT"/>
 	</resultMap>
-	
 	<resultMap type="BanList" id="banMember">
 		<id property="mid" column="MID"/>
 		<result property="memail" column="MEMAIL"/>
@@ -66,7 +60,6 @@
 		<result property="mtype" column="MTYPE"/>
 		<result property="banreason" column="BANREASON"/>
 	</resultMap>
-
 	<resultMap type="BanList" id="banBand">
 		<id property="bid" column="BID"/>
 		<result property="bname" column="BNAME"/>
@@ -76,27 +69,59 @@
 		<result property="banreason" column="BANREASON"/>
 	</resultMap>	
 	
-	<select id="selectAllMember" resultMap="adMember" parameterType="String">
-		SELECT MID, MEMAIL, MNAME, MPHONE, MNATIONAL, MDATE, DECODE(mtype, 'LOCAL', '로컬', 'FB', '페이스북', 'NAVER', '네이버', 'GOOGLE', '구글') mType
-		FROM MEMBER
-		WHERE MID != 0
-		order by ${alignment} asc
-		
+	<!-- 전체 멤버 갯수 조회 -->
+	<select id="countAllMember" resultType="_int">
+		select count(mid)
+		from (SELECT MID
+      		  FROM MEMBER
+      		  WHERE MID != 0
+      		  AND MSTATUS = 'Y')
 	</select>
-	
+	<!-- 전체 멤버 리스트 조회 -->
+	<select id="selectAllMember" resultMap="adMember" parameterType="String">
+		SELECT MID, MEMAIL, MNAME, MPHONE, MNATIONAL, MDATE, 
+       		 		DECODE(mtype, 'LOCAL', '로컬', 'FB', '페이스북', 'NAVER', '네이버', 'GOOGLE', '구글') mType
+     	FROM MEMBER
+     	WHERE MID != 0
+     	AND MSTATUS = 'Y'
+     	order by ${alignment} asc
+	</select>
+	<!-- 전체 밴드 갯수 조회 -->
+	<select id="countAllBand" resultType="_int">
+		select COUNT(b.bid)
+		from band b
+		WHERE B.BSTATUS = 'Y'
+	</select>
+	<!-- 전체 밴드 리스트 조회 -->
 	<select id="selectAllBand" resultMap="adBand" parameterType="java.util.ArrayList">
 		select b.bid, b.bname, c.cname, DECODE(b.bopen_status, 'PRV', '비공개 밴드', 'PTD', '밴드명 공개', 'PUB', '공개 밴드') bopen_status
 		from band b
 		join category c on(c.cid = b.cid)
+		WHERE B.BSTATUS = 'Y'
 		order by ${alignment} asc
 	</select>
-	
+	<!-- 회원 검색 갯수 조회 -->
+	<select id="countSearchMember" resultType="_int" parameterType="java.lang.String">
+		select COUNT(mid)
+		from member
+		where mname like '%' || #{keyword} || '%'
+		AND MSTATUS = 'Y'
+	</select>
+	<!-- 회원 검색 리스트 조회 -->
 	<select id="searchMember" resultMap="searchMember" parameterType="java.lang.String">
 		select mid, memail, mname, mphone, mnational, mdate, DECODE(mtype, 'LOCAL', '로컬', 'FB', '페이스북', 'NAVER', '네이버', 'GOOGLE', '구글') mType
 		from member
 		where mname like '%' || #{keyword} || '%'
+		AND MSTATUS = 'Y'
 	</select>
-	
+	<!-- 밴드 검색 (이름으로)갯수 조회 -->
+	<select id="countSearchBandByName" resultType="_int" parameterType="java.lang.String">
+		select COUNT(b.bid)
+		from band b
+		where b.bname like '%' || #{keyword} || '%'
+		AND B.BSTATUS = 'Y'
+	</select>
+	<!-- 밴드 검색(이름으로) 리스트 조회 -->
 	<select id="searchBandByName" resultMap="searchBand" parameterType="java.lang.String">
 		select b.bid, b.bname, c.cname, DECODE(b.bopen_status, 'PRV', '비공개 밴드', 'PTD', '밴드명 공개', 'PUB', '공개 밴드') bopen_status, tb.mname
 		from band b
@@ -106,8 +131,20 @@
 		      join member m on(mb.mid = m.mid)
 		      where mlevel = 1) tb on(tb.bid = b.bid)
 		where b.bname like '%' || #{keyword} || '%'
+		AND B.BSTATUS = 'Y'
 	</select>
-	
+	<!-- 밴드 검색(밴드장으로) 갯수 조회 -->
+	<select id="countSearchBandByMaster" resultType="_int" parameterType="java.lang.String">
+		select COUNT(tb.mname)
+		from band b
+		join (select mb.bid, mb.mid, mb.mlevel, m.mname
+     		  from member_band mb
+      		  join member m on(mb.mid = m.mid)
+      		  where mlevel = 1) tb on(tb.bid = b.bid)
+		where tb.mname like '%' || #{keyword} || '%'
+		AND B.BSTATUS = 'Y'
+	</select>
+	<!-- 밴드 검색(밴드장으로) 리스트 조회 -->
 	<select id="searchBandByMaster" resultMap="searchBand" parameterType="java.lang.String">
 		select b.bid, b.bname, c.cname, DECODE(b.bopen_status, 'PRV', '비공개 밴드', 'PTD', '밴드명 공개', 'PUB', '공개 밴드') bopen_status, tb.mname
 		from band b
@@ -117,8 +154,26 @@
 		      join member m on(mb.mid = m.mid)
 		      where mlevel = 1) tb on(tb.bid = b.bid)
 		where tb.mname like '%' || #{keyword} || '%'
+		AND B.BSTATUS = 'Y'
 	</select>
-	
+	<!-- 신고받은 회원 갯수 조회 -->
+	<select id="countReportMember" resultType="_int">
+		SELECT COUNT(CID)
+		FROM (SELECT RE.CID, RE.MEMAIL, RE.MCNAME, RE.MNAME, RE.BNAME, RE.RCONTENT
+		      FROM (SELECT MB.CID, MB.MEMAIL, MB.MCNAME, M.MNAME, MB.BNAME, MB.TIMES, MB.RCONTENT
+		            FROM(SELECT R.CID, M.MEMAIL, M.MNAME AS MCNAME, R.MID, B.BNAME, C.TIMES , R.RCONTENT
+		                 FROM (SELECT CID, COUNT(RID) AS TIMES
+		                       FROM REPORT
+		                       GROUP BY CID) C
+		                 FULL JOIN REPORT R ON (C.CID = R.CID)
+		                 JOIN MEMBER M ON (C.CID = M.MID)
+		                 JOIN BAND B ON (R.BID = B.BID)
+		                 WHERE C.TIMES >= 5) MB
+		            JOIN MEMBER M ON (MB.MID = M.MID))RE
+		      LEFT JOIN BAN BA ON (RE.CID = BA.MID)
+		      WHERE BA.MID IS NULL)
+	</select>
+	<!-- 신고받은 회원 리스트 조회 -->
 	<select id="selectReportMember" resultMap="reportMember">
 		SELECT RE.CID, RE.MEMAIL, RE.MCNAME, RE.MNAME, RE.BNAME, RE.RCONTENT
 		FROM (SELECT MB.CID, MB.MEMAIL, MB.MCNAME, M.MNAME, MB.BNAME, MB.TIMES, MB.RCONTENT
@@ -130,12 +185,31 @@
 		             JOIN MEMBER M ON (C.CID = M.MID)
 		             JOIN BAND B ON (R.BID = B.BID)
 		             WHERE C.TIMES >= 5) MB
-		        JOIN MEMBER M ON (MB.MID = M.MID))RE
+		        JOIN MEMBER M ON (MB.MID = M.MID)
+		        WHERE M.MSTATUS = 'Y')RE
 		LEFT JOIN BAN BA ON (RE.CID = BA.MID)
 		WHERE BA.MID IS NULL
 		ORDER BY RE.TIMES DESC
 	</select>
-	
+	<!-- 신고받은 밴드 갯수 조회 -->
+	<select id="countReportBand" resultType="_int">
+		SELECT COUNT(BID)
+		FROM (select r.bid, b.bname, mb.mname, DECODE(b.bopen_status, 'PTD', '비공개 밴드', 'PRV', '밴드명 공개', 'PUB', '공개 밴드') as bopen_status, m.mname as mcname, r.rdate, r.rcontent
+		      from (select bid, count(rid) as times
+		            from report
+		            group by bid) c
+		      full join report r on (c.bid = r.bid)
+		      join band b on (r.bid = b.bid)
+		      join(select mb.bid, m.mname, mb.mlevel
+		           from member_band mb
+		           join member m on (mb.mid = m.mid)
+		           where mb.mlevel = 1) mb on (mb.bid = r.bid)
+		      join member m on (m.mid = r.cid)
+		      left join ban ba on (r.bid = ba.bid)
+		      where ba.bid is null
+		      and c.times >= 5)
+	</select>
+	<!-- 신고받은 밴드 리스트 조회 -->
 	<select id="selectReportBand" resultMap="reportBand">
 		select r.bid, b.bname, mb.mname, DECODE(b.bopen_status, 'PTD', '비공개 밴드', 'PRV', '밴드명 공개', 'PUB', '공개 밴드') as bopen_status, m.mname as mcname, r.rdate, r.rcontent
 		from (select bid, count(rid) as times
@@ -151,17 +225,39 @@
 		left join ban ba on (r.bid = ba.bid)
 		where ba.bid is null
 		and c.times >= 5
+		AND B.BSTATUS = 'Y'
 		order by c.times desc
 	</select>
-	
+	<!-- 차단당한 회원 갯수 조회 -->
+	<select id="countBanMember" resultType="_int">
+		SELECT COUNT(MID)
+		FROM(select ba.mid, m.memail, m.mname, m.mphone, m.mnational, m.mdate, DECODE(m.mtype, 'LOCAL', '로컬', 'FB', '페이스북', 'NAVER', '네이버', 'GOOGLE', '구글') mType, ba.banreason
+		     from ban ba
+		     join member m on (ba.mid = m.mid)
+		     where ba.bid is null)
+	</select>
+	<!-- 차단당한 회원 리스트 조회 -->
 	<select id="selectBanMember" resultMap="banMember">
-		select ba.mid, m.memail, m.mname, m.mphone, m.mnational, m.mdate, DECODE(m.mtype, 'LOCAL', '로컬', 'FB', '페이스북', 'NAVER', '네이버', 'GOOGLE', '구글') mType, ba.banreason
+		select ba.mid, m.memail, m.mname, m.mphone, m.mnational, m.mdate, 
+			   DECODE(m.mtype, 'LOCAL', '로컬', 'FB', '페이스북', 'NAVER', '네이버', 'GOOGLE', '구글') mType, ba.banreason
 		from ban ba
 		join member m on (ba.mid = m.mid)
 		where ba.bid is null
 		order by ${alignment} asc
 	</select>
-
+	<!-- 차단당한 밴드 갯수 조회 -->
+	<select id="countBanBand" resultType="_int">
+		SELECT COUNT(BID)
+		FROM(select ba.bid, b.bname, c.cname, DECODE(b.bopen_status, 'PTD', '비공개 밴드', 'PRV', '밴드명 공개', 'PUB', '공개 밴드') as bopen_status, m.mname, ba.banreason
+		     from ban ba
+		     join band b on (ba.bid = b.bid)
+		     join category c on (b.cid = c.cid)
+		     join member_band mb on (b.bid = mb.bid)
+		     join member m on (mb.mid = m.mid)
+		     where mb.mlevel = 1
+		     and ba.mid is null)
+	</select>
+	<!-- 차단당한 밴드 리스트 조회 -->
 	<select id="selectBanBand" resultMap="banBand">
 		select ba.bid, b.bname, c.cname, DECODE(b.bopen_status, 'PTD', '비공개 밴드', 'PRV', '밴드명 공개', 'PUB', '공개 밴드') as bopen_status, m.mname, ba.banreason
 		from ban ba

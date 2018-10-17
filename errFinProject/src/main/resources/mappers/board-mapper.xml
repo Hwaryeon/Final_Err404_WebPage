@@ -125,4 +125,27 @@
 		AND ISTATUS = 'Y'
 	</select>
 	
+		<!-- 댓글 목록을 가져오는 메소드 -->
+	 <select id = "selectCommentList" parameterType = "Board" resultMap = "BoarddResultSet">
+		SELECT *
+		FROM BOARDS
+		WHERE BID = #{bId} AND BSTATUS = 'Y' AND REF_STATUS = 'COMMENT'
+	</select>
+	
+	<!-- 댓글을 등록하는 메소드 -->
+	<insert id="insertNewPost" parameterType="Board">
+		INSERT INTO BOARDS
+		 VALUES(SEQ_BOARDID.NEXTVAL, #{bId}, #{mId}, #{bContent}, SYSDATE, #{bStatus}, #{refStatus}, #{refBid})
+	</insert>
+	
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM BOARDS WHERE BOARDID = #{boardId}
+	
+	</delete>
+	
+	<update id="updateBoard" parameterType="Board">
+		UPDATE BOARDS SET BCONTENT = #{bContent}, BDATE = SYSDATE WHERE BOARDID = #{boardId}
+	</update>
+	
+	
 </mapper>

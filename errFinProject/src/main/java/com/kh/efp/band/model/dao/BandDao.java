@@ -69,6 +69,8 @@ public interface BandDao {
 
 	Band selectBand(SqlSessionTemplate sqlSession, int pbid);
 
+	int selectMlevel(SqlSessionTemplate sqlSession, Member_Band mb);
+
 
 
 

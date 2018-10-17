@@ -315,7 +315,17 @@ ul{
 									
 								</div>
 								<div class="band-name">
-									<p class="band-nametxt">${ MyBandList.bname }</p>
+									<p class="band-nametxt" style="height:20px">
+										<%-- <c:choose>
+											<c:when test="${ fn:length(MyBandList.bname) > 7 }">
+												${ fn:substring(MyBandList.bname, 0, 7) }..
+											</c:when>
+											<c:otherwise>
+												${ MyBandList.bname }
+											</c:otherwise>
+										</c:choose> --%>
+										${MyBandList.bname}
+									</p>
 									<span class="band-membertxt">멤버 : ${ MyBandList.memberCount }</span>
 								</div>
 							</li>

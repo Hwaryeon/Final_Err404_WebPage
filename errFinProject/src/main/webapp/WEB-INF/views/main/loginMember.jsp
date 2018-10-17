@@ -76,7 +76,7 @@
     <div class="fullwidth bg-pink">
        <div class="col-md-6 col-xs-12" style="min-width:600px;">
           <div class="logo" style="width:120px; min-width:120px; float:left;">
-            <h1><a href="#" title="Weekend Magazine">ERR404</a></h1>
+            <h1><a href="${contextPath }" title="Weekend Magazine">ERR404</a></h1>
           </div>
          
         </div>
