@@ -38,7 +38,7 @@ public class mainDaoImpl implements mainDao {
 					txtByte += 0.7;
 				else if(bandtitle.charAt(j) >= '\uAC00' && bandtitle.charAt(j) <= '\uD7A3')
 					txtByte += 2;
-				else if(bandtitle.charAt(j) >= '0' && bandtitle.charAt(j) <= '9') 
+				else if(bandtitle.charAt(j) >= '0' && bandtitle.charAt(j) <= '9')  
 					txtByte += 1.06;
 				else
 					txtByte++;

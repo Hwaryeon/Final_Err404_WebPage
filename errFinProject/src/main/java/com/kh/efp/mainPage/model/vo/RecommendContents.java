@@ -7,7 +7,7 @@ public class RecommendContents implements java.io.Serializable {
 	private int bid;
 	private String bname;
 	private String cname;
-	private String edit_name;
+	private String edit_name; 
 	private String bintro;
 	
 	public RecommendContents(){}

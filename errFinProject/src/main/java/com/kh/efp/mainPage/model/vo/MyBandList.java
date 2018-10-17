@@ -72,7 +72,7 @@ public class MyBandList implements java.io.Serializable{
 	public void setBname(String bname) {
 		this.bname = bname;
 	}
-
+ 
 	public int getChar_count() {
 		return char_count;
 	}

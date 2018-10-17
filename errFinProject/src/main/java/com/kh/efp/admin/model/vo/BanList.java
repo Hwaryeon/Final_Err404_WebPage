@@ -8,7 +8,7 @@ public class BanList implements java.io.Serializable{
 	private String mname;
 	private String mphone;
 	private String mnational;
-	private Date mdate;
+	private Date mdate; 
 	private String mtype;
 	private String banreason;
 	private int bid;

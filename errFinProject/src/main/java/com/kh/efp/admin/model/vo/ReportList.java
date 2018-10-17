@@ -7,7 +7,7 @@ public class ReportList implements java.io.Serializable{
 	private String memail; //신고당한회원이메일 
 	private String mcname; //신고당한회원이름
 	private String mname; //신고자이름
-	private int bid; //신고된 밴드번호
+	private int bid; //신고된 밴드번호 
 	private String bname; //신고당한밴드이름
 	private Date rdate; //신고된날짜
 	private String bopen_status; //신고된 밴드 유형

@@ -481,7 +481,7 @@ public class MemberController {
 		
 	}
 	
-	@RequestMapping(value = "/loginUserMain.me")
+	@RequestMapping(value = "/loginUserMain.me") 
 	public String loginUserMain(HttpServletRequest request, Model model){
 			//세션에 올라감
 			int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();

@@ -7,7 +7,7 @@
 <mapper namespace="board">
 	
 	<resultMap type="Board" id="BoarddResultSet">
-		<id property="boardId" column="BOARDID" />
+		<id property="boardId" column="BOARDID" /> 
 		<result property="bId" column="BID" />
 		<result property="mId" column="MID" />
 		<result property="bContent" column="BCONTENT" />

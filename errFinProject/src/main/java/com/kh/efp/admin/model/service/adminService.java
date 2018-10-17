@@ -5,7 +5,7 @@ import java.util.List;
 import com.kh.efp.member_band.model.vo.PageInfo;
 
 public interface adminService {
-	List<Object> memberAllList(PageInfo pi, String alignment);
+	List<Object> memberAllList(PageInfo pi, String alignment); 
 	
 	List<Object> bandAllList(PageInfo pi, String alignment);
 

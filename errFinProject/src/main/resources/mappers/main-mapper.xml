@@ -19,7 +19,7 @@
 		<result property="bid" column="BID"/>
 		<result property="bname" column="BNAME"/>
 		<result property="mid" column="MID"/>
-		<result property="mname" column="MNAME"/>
+		<result property="mname" column="MNAME"/> 
 		<result property="edit_name" column="EDIT_NAME"/>
 		<result property="flevel" column="FLEVEL"/>
 		<result property="bcontent" column="BCONTENT"/>

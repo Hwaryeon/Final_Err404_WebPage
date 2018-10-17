@@ -107,7 +107,7 @@ public class MainPageController {
 			}
 			//프사저장
 			//System.out.println("이제 저장할거야");
-			int result = mps.insertBand(pf, b, mid);
+			int result = mps.insertBand(pf, b, mid); 
 				
 			if(result == 0){
 				return "common/errorPage";

@@ -26,7 +26,7 @@ import com.kh.efp.newPost.model.vo.Report;
 @Controller
 public class newPostController {
 	
-	@Autowired private newPostService ns;
+	@Autowired private newPostService ns; 
 	@Autowired private BandService bs;
 	
 	@RequestMapping("newPost.np")

@@ -7,7 +7,7 @@ public class AdmBandList implements java.io.Serializable{
 	private String bopen_status; 
 	private String mname;
 	
-	public AdmBandList(){}
+	public AdmBandList(){} 
 	
 	public AdmBandList(int bid, String bname, String cname, String bopen_status, String mname) {
 		super();

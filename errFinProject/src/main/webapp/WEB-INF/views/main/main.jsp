@@ -320,7 +320,7 @@ ul{
 									
 								</div>
 								<div class="band-name">
-									<p class="band-nametxt" style="height:20px">
+									<p class="band-nametxt" style="height:20px"> 
 										<c:choose>
 											<c:when test="${ MyBandList.char_count > 15  }">
 												<%-- <c:set var="length" value="${ fn:length(MyBandList.bname) }"/> --%>
