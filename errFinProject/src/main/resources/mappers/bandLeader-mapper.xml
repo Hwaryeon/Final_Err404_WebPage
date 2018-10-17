@@ -196,8 +196,36 @@
 	
 	<!-- 밴드 회원의 등급을 가져오는 메소드 -->
 	<select id="selectMlevel" parameterType = "Member_Band" resultType = "int">
-		SELECT MLEVEL FROM MEMBER_BAND
-		WHERE BID = ${ bid } AND MID = ${ mid }
+		 SELECT * FROM(SELECT MLEVEL FROM MEMBER_BAND
+		WHERE BID = ${ bid } AND MID =${ mid }
+        AND NOT ISTATUS = 'N'
+        
+        ORDER BY IDATE DESC
+        
+        )WHERE ROWNUM = 1
+		
+		
+	</select>
+	
+	<!-- 밴드 공개 상태 정보를 가져오는 메소드 -->
+	<select id = "selectBstatus" parameterType = "int" resultType = "java.lang.String">
+		SELECT BOPEN_STATUS FROM BAND WHERE BID = #{bid}
+	</select>
+	
+	<!-- 멤버 밴드 가입 메소드 -->
+	<insert id="insertMember_Band" parameterType="Member_Band">
+		INSERT INTO MEMBER_BAND
+		VALUES(SEQ_MBID.NEXTVAL, #{bid}, #{mid}, SYSDATE, #{istatus}, '3')
+
+	</insert>
+	
+	<!-- 가입 신청한 회원 목록 메소드 -->
+	<select id = "insertMemberList" parameterType = "int" resultMap = "Member_BandResultSet">
+		SELECT MB.MBID, MB.BID, M.MID, MB.IDATE, MB.ISTATUS, MB.MLEVEL, M.MNAME 
+		FROM MEMBER_BAND MB
+		JOIN MEMBER M ON (M.MID = MB.MID)
+		WHERE BID = #{bid} AND ISTATUS = 'S'
+		
 	</select>
 	
 </mapper>

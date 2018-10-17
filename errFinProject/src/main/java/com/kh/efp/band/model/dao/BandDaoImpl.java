@@ -211,5 +211,26 @@ public class BandDaoImpl implements BandDao{
 	@Override
 	public int selectMlevel(SqlSessionTemplate sqlSession, Member_Band mb) {
 		return sqlSession.selectOne("Band.selectMlevel", mb);
+	}
+
+	@Override
+	public String selectBstatus(SqlSessionTemplate sqlSession, int bid) {
+		
+		return sqlSession.selectOne("Band.selectBstatus", bid);
+	}
+
+	@Override
+	public void insertMember_Band(SqlSessionTemplate sqlSession, Member_Band mb) {
+		sqlSession.insert("Band.insertMember_Band", mb);
+	}
+
+	@Override
+	public ArrayList<Member_Band> insertMemberList(SqlSessionTemplate sqlSession, int bid) {
+		
+		ArrayList<Member_Band> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("Band.insertMemberList", bid);
+		
+		return list;
 	}	
 }

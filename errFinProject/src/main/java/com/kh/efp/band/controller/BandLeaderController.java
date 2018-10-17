@@ -69,6 +69,14 @@ public class BandLeaderController {
 		// 밴드 상세보기 왼쪽 프로필 채우기
 		bandLeftSideBar(bid, mid, model);
 		
+		Member_Band mb = new Member_Band();
+		
+		mb.setBid(bid);
+		
+		ArrayList<Member_Band> mbList = bs.selectMember_BandList(mb);
+		
+		model.addAttribute("list", mbList);
+		
 		return "band/bandLeader";
 	}
 	
@@ -539,5 +547,45 @@ public class BandLeaderController {
 		
 		return "redirect:/bandLeader.bd?bid=" + bid;
 	}
+	
+	@RequestMapping("insertMemberList.bd")
+	public String insertMemberList(@RequestParam int bid, HttpServletRequest request, Model model){
+		
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
+		
+		bandLeftSideBar(bid, mid, model);
+		
+		ArrayList<Member_Band> list = bs.insertMemberList(bid);
+		
+		for(int i=0; i< list.size(); i++){
+			System.out.println(i + " : " + list.get(i).toString());
+		}
+		
+		model.addAttribute("list", list);
+		
+		return "band/bandInsertMember";
+	}
+	
+	
+	@RequestMapping("updateMemberStatus.bd")
+	public String updateMemberStatus(@RequestParam int bid, HttpServletRequest request, Model model){
+		
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
+		
+		/*bandLeftSideBar(bid, mid, model);
+		
+		ArrayList<Member_Band> list = bs.insertMemberList(bid);
+		
+		for(int i=0; i< list.size(); i++){
+			System.out.println(i + " : " + list.get(i).toString());
+		}
+		
+		model.addAttribute("list", list);*/
+		
+		System.out.println("mid : " + mid);
+		
+		return "band/bandInsertMember";
+	}
+	
 	
 }
