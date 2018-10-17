@@ -126,6 +126,7 @@
 	</select>
 	
 		<!-- 댓글 목록을 가져오는 메소드 -->
+
 	 <select id = "selectCommentList" parameterType = "Board" resultMap = "BoarddResultSet">
 		SELECT *
 		FROM BOARDS
