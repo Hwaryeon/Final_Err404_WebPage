@@ -42,7 +42,7 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.read(bno);
 	}
 
-	//03.게시글 수정
+/*	//03.게시글 수정
 	@Override
 	public void update(Board vo) throws Exception {
 		// TODO Auto-generated method stub
@@ -55,6 +55,21 @@ public class BoardServiceImpl implements BoardService{
 	public void delete(int bno) throws Exception {
 		// TODO Auto-generated method stub
 		boardDao.delete(bno);
+	}*/
+	
+	
+	// 게시글 수정
+	@Override
+	public int updateBoard(Board board) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	//게시글 삭제
+	@Override
+	public int deleteBoard(int bno) throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	//05.게시글 전체 목록
@@ -64,12 +79,12 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.listAll(pbid);
 	}
 	
-	//06.수정화면
+/*	//06.수정화면
 	@Override
 	public List<Board> updatePage() throws Exception{
 		return boardDao.updatePage();
 		
-	}
+	}*/
 
 	//06.게시글 조회수 증가
 	@Override
@@ -98,6 +113,14 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return boardDao.selectBoard(board);
 	}
+
+	@Override
+	public int updatePage() throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
  
 
 }
