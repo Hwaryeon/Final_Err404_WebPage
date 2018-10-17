@@ -168,6 +168,12 @@
 							</h4>
 							<hr>
                         </li>
+                        <li>
+                            <h4 class="list-title">
+								<a data-toggle="modal" data-target="#myModal2">초대코드로 가입하기</a>
+							</h4>
+							<hr>
+                        </li>
 
                     </ul>
                     <a id = "dm" data-toggle="modal" data-target="#myModal">회원 탈퇴하기</a>
@@ -175,6 +181,31 @@
             </div>
 
         </div>
+        
+        <div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content" style = "width : 350px;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">초대코드로 가입하기</h4>
+        </div>
+        <form action = "moveToInviteCode.mb" method = "post">
+        <div class="modal-body" align = "center">
+          <p><br><br>
+
+			친구가 불러준 숫자와 영단어를 입력한 후<br>
+			초대장 확인을 클릭하세요.</p><br><br>
+			
+			<input type = 'text' id = 'inviteCode' class = 'form-control' name = 'inviteCode'/><br><br>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">취소하기</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" type = "submit">확인하기</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
         
         <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-sm">

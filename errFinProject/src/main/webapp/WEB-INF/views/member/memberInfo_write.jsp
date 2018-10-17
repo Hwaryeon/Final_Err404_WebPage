@@ -61,7 +61,7 @@
 				[이전] &nbsp;
 			</c:if>
 			<c:if test = "${ pi.currentPage > 1 }">
-				<c:url var='bListBack' value = "showMemberInfo_update.me">
+				<c:url var='bListBack' value = "showMemberInfo_write.mb">
 					<c:param name = "requestCurrentPage" value="${ pi.currentPage - 1 }"/>
 					<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
 				</c:url>
@@ -72,7 +72,7 @@
 					<font color = "red" size = "4"><b>${ p }</b></font>
 				</c:if>
 				<c:if test = "${ p ne pi.currentPage }">
-					<c:url var="bListCheck" value = "showMemberInfo_update.me">
+					<c:url var="bListCheck" value = "showMemberInfo_write.mb">
 						<c:param name="requestCurrentPage" value = "${ p }"/>
 						<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
 					</c:url>
@@ -83,7 +83,7 @@
 				&nbsp; [다음]
 			</c:if>
 			<c:if test = "${ pi.currentPage < pi.maxPage }">
-				<c:url var= "bListNext" value = "showMemberInfo_update.me">
+				<c:url var= "bListNext" value = "showMemberInfo_write.mb">
 					<c:param name = "requestCurrentPage" value = "${ pi.currentPage + 1 }"/>
 					<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
 				</c:url>
