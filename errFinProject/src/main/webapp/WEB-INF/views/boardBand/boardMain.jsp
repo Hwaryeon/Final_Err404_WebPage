@@ -79,9 +79,10 @@
                   </h4>
                   <h4
                      style="margin-top: 14px; padding-top: 13px; border-top: 1px solid #e1e1e1;">
-                     <a href="#"
+                     <a href="bandLeader.bd?bid=${ Band.bid }"
                         style="font-size: 12px; font-weight: 400; color: #666; text-decoration: none;">*
                         밴드 설정</a>
+                        
                   </h4></li>
             </ul>
             <div class="clear"></div>

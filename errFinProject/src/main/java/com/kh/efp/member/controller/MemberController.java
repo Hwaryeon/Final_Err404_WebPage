@@ -156,7 +156,7 @@ public class MemberController {
 	      
 				model.addAttribute("myBandList", mps.bandList(mid));
 				model.addAttribute("popContents", mps.popContent());
-				model.addAttribute("rcmContents", mps.recommendContent());
+				model.addAttribute("rcmContents", mps.recommendContent(mid));
 	
 				System.out.println(loginUser);
 	
@@ -489,7 +489,7 @@ public class MemberController {
 			if(mid > 0) {
 				model.addAttribute("myBandList", mps.bandList(mid));
 				model.addAttribute("popContents", mps.popContent());
-				model.addAttribute("rcmContents", mps.recommendContent());
+				model.addAttribute("rcmContents", mps.recommendContent(mid));
 	
 				return "main/main";
 			}

@@ -78,9 +78,9 @@ public class mainDaoImpl implements mainDao {
 	}
 
 	@Override
-	public List<Object> recommendContent(SqlSessionTemplate sqlSession) {
+	public List<Object> recommendContent(SqlSessionTemplate sqlSession, int mid) {
 		List<Object> recommendContent = new ArrayList<Object>();
-		recommendContent = sqlSession.selectList("Main.selectRcmContent");
+		recommendContent = sqlSession.selectList("Main.selectRcmContent", mid);
 		//System.out.println("popContent (first) : " + popContent);
 		
 		List<Object> finalContent = new ArrayList<Object>();

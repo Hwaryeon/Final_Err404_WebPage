@@ -79,6 +79,7 @@
               <span class="star"></span></small></label>
               <input type="text" name="bandName" id="bandName" value="${bname}" class="required requiredField"
               style="line-height: 54px;border-bottom: 1px solid #ccc;font-size: 30px;font-weight: 400;color: #c5c0c0;background: white;">
+              <input type="hidden" id="bid" name="bid" value="${ bid }">
             </p>
                <div class="box-content widget fullwidth">
                 <h4 class="widget-title"></h4>

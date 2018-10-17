@@ -21,5 +21,5 @@ public interface mainDao {
 
 	int insertProfile(SqlSessionTemplate sqlSession, Profile pf);
 	
-	List<Object> recommendContent(SqlSessionTemplate sqlSession);
+	List<Object> recommendContent(SqlSessionTemplate sqlSession, int mid);
 }

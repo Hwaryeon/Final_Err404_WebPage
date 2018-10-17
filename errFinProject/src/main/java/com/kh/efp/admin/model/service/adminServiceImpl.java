@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.efp.admin.model.dao.adminDao;
+import com.kh.efp.member_band.model.vo.PageInfo;
 
 @Service
 public class adminServiceImpl implements adminService {
@@ -15,42 +16,54 @@ public class adminServiceImpl implements adminService {
 	@Autowired private adminDao ad;
 
 	@Override
-	public List<Object> memberAllList(String alignment) {
-		return ad.memberAllList(sqlSession, alignment);
+	public int getlistCount(int type) {
+		int listCount = ad.getListCount(sqlSession, type);
+		return listCount;
 	}
 	
 	@Override
-	public List<Object> bandAllList(String alignment) {
-		return ad.bandAllList(sqlSession, alignment);
+	public int getSearchlistCount(int type, String keyword) {
+		int listCount = ad.getSearchListCount(sqlSession, type, keyword);
+		return listCount;
+	}
+	
+	@Override
+	public List<Object> memberAllList(PageInfo pi, String alignment) {
+		return ad.memberAllList(sqlSession, pi, alignment);
+	}
+	
+	@Override
+	public List<Object> bandAllList(PageInfo pi, String alignment) {
+		return ad.bandAllList(sqlSession, pi, alignment);
 	}
 
 	@Override
-	public List<Object> memberSearchList(String keyword) {
-		return ad.memberSearchList(sqlSession, keyword); 
+	public List<Object> memberSearchList(PageInfo pi, String keyword) {
+		return ad.memberSearchList(sqlSession, pi, keyword); 
 	}
 
 	@Override
-	public List<Object> bandSearchList(String keyword, String keywordValue) { 
-		return ad.bandSearchList(sqlSession, keyword, keywordValue);
+	public List<Object> bandSearchList(PageInfo pi, String keyword, String keywordValue) { 
+		return ad.bandSearchList(sqlSession, pi, keyword, keywordValue);
 	} 
 
 	@Override
-	public List<Object> reportMemberList() {
-		return ad.reportMemberList(sqlSession);
+	public List<Object> reportMemberList(PageInfo pi) {
+		return ad.reportMemberList(sqlSession, pi);
 	}
 
 	@Override
-	public List<Object> reportBandList() {
-		return ad.reportBandList(sqlSession);
+	public List<Object> reportBandList(PageInfo pi) {
+		return ad.reportBandList(sqlSession, pi);
 	}
 
 	@Override
-	public List<Object> banMemberList(String alignment) {
-		return ad.banMemberList(sqlSession, alignment);
+	public List<Object> banMemberList(PageInfo pi, String alignment) {
+		return ad.banMemberList(sqlSession, pi, alignment);
 	}
 
 	@Override
-	public List<Object> banBandList(String alignment) {
-		return ad.banBandList(sqlSession, alignment);
+	public List<Object> banBandList(PageInfo pi, String alignment) {
+		return ad.banBandList(sqlSession, pi, alignment);
 	}
 }

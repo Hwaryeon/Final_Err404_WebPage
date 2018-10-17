@@ -2,6 +2,8 @@ package com.kh.efp.newPost.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -200,15 +202,14 @@ public class newPostController {
 	}
 	
 	@RequestMapping("reportPost.np")
-	public String insertReport(@RequestParam int boardid, int bid, int mid, String radioVal , Model model){
+	public String insertReport(@RequestParam int boardid, int bid, int mid, String radioVal , HttpServletRequest request, Model model){
+		
+		int mid2 = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
 		Report re = new Report();
 		
-		//임시로 지정
-		int id = 1;
-		
 		re.setRcontent(radioVal);
-		re.setMid(id);
+		re.setMid(mid2);
 		re.setRlevel("C");
 		re.setBoardid(boardid);
 		re.setBid(bid);
@@ -221,15 +222,9 @@ public class newPostController {
 	}
 	
 	@RequestMapping("insertNewPost.np")
-	public String insertNewPost(@RequestParam int boardid, int bid, String comment , Model model){
+	public String insertNewPost(@RequestParam int boardid, int bid, String comment , HttpServletRequest request, Model model){
 		
-		/*System.out.println("boardid :" +boardid);
-		System.out.println("bid : " + bid);
-		System.out.println("comment : " +comment);*/
-		
-		
-		//임시로 설정
-		int mid = 1;
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();		
 		
 		Boards b = new Boards();
 		
@@ -255,12 +250,11 @@ public class newPostController {
 	}
 	
 	@RequestMapping("updateBoard.np")
-	public String updateBoard(@RequestParam int boardid, String comment , Model model){
+	public String updateBoard(@RequestParam int boardid, String comment , HttpServletRequest request, Model model){
 		
 		
 		
-		//임시로 설정
-		int mid = 1;
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
 		Boards b = new Boards();
 

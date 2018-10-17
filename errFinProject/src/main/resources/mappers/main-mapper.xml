@@ -44,6 +44,7 @@
 			  JOIN MEMBER_BAND MB ON (M.MID = MB.MID)
               JOIN PROFILE P ON (MB.BID = P.BID)
 			  WHERE M.MID = #{mid}) MY ON (MY.BID = B.BID)
+		WHERE BSTATUS = 'Y'
 	</select>
 	
 	<select id="selectPopContent" resultMap="PopContent" parameterType="java.util.ArrayList" resultType="java.util.ArrayList">
@@ -53,6 +54,7 @@
 		        SELECT COUNT(BCONTENT) AS REF_COUNT, REF_BID
 		        FROM BOARDS
 		        WHERE REF_STATUS = 'COMMENT'
+		        AND BSTATUS = 'Y'
 		        GROUP BY REF_BID
 		        ORDER BY REF_COUNT DESC) C
 		    WHERE ROWNUM BETWEEN 1 AND 5) R
@@ -67,6 +69,10 @@
 		FROM BAND B
 		JOIN PROFILE P ON (P.BID = B.BID)
 		JOIN CATEGORY C ON (B.CID = C.CID)
+		WHERE BSTATUS = 'Y'
+		and b.bid NOT IN (select bid
+		                  from member_band
+		                  WHERE MID = #{mid})
 	</select>
 	
 	<insert id="insertBand" parameterType="Band">
