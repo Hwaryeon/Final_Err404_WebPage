@@ -132,9 +132,37 @@
 							</tr>
 						</c:forEach>
 					</table>
-
+						<!-- 페이징 영역 -->
 					<div class="paging-area">
-						<br>이곳은 페이징 영역
+						<c:if test="${ pi.currentPage <= 1 }">
+							[이전] &nbsp;
+						</c:if>
+						<c:if test="${ pi.currentPage > 1 }">
+							<c:url var='mListBack' value="MemberSelect.ad">
+								<c:param name="requestCurrentPage" value="${ pi.currentPage -1 }"/>
+							</c:url>
+							<a href="${ mListBack }">[이전]</a> &nbsp;
+						</c:if>
+						<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+							<c:if test="${ p eq pi.currentPage }">
+								<font color="red" size="4"><b>${ p }</b></font>
+							</c:if>
+							<c:if test="${ p ne pi.currentPage }">
+								<c:url var="mListCheck" value="MemberSelect.ad">
+									<c:param name="requestCurrentPage" value="${ p }"/>
+								</c:url>
+								<a href="${ mListCheck }">${ p }</a>
+							</c:if>
+						</c:forEach>
+						<c:if test="${ pi.currentPage >= pi.maxPage }">
+							&nbsp; [다음]
+						</c:if>
+						<c:if test="${ pi.currentPage < pi.maxPage }">
+							<c:url var="mListNext" value="MemberSelect.ad">
+								<c:param name="requestCurrentPage" value="${ pi.currentPage + 1 }"/>
+							</c:url>
+							<a href="${ mListNext }"> [다음]</a>
+						</c:if>
 					</div>
 				</div>
 			</div>
