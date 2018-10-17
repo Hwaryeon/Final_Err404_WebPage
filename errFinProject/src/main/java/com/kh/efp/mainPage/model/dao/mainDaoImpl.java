@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.mainPage.model.vo.MyBandList;
+import com.kh.efp.mainPage.model.vo.RecommendContents;
 import com.kh.efp.member.model.vo.Profile;
 
 @Repository
@@ -18,9 +19,41 @@ public class mainDaoImpl implements mainDao {
 		List<Object> bandList = new ArrayList<Object>();
 		//System.out.println("Dao mid : " + mid);
 		bandList = sqlSession.selectList("Main.selectMyBand", mid);
-		System.out.println("밴드리스트 : " + bandList);
+		//System.out.println("밴드리스트 : " + bandList);
 		
-		return bandList;
+		List<Object> resultList = new ArrayList<Object>();
+		//글자수 세기
+		MyBandList list = new MyBandList();
+		for(int i=0;i<bandList.size();i++)
+		{
+			list = (MyBandList)bandList.get(i);
+			String bandtitle = list.getBname();
+			int length = 0;
+			double txtByte = 0;
+			for(int j=0;j<bandtitle.length();j++)
+			{
+				if(bandtitle.charAt(j) >= 'a' && bandtitle.charAt(j) <= 'z')
+					txtByte++;
+				else if(bandtitle.charAt(j) >= 'A' && bandtitle.charAt(j) <= 'Z')
+					txtByte += 0.7;
+				else if(bandtitle.charAt(j) >= '\uAC00' && bandtitle.charAt(j) <= '\uD7A3')
+					txtByte += 2;
+				else if(bandtitle.charAt(j) >= '0' && bandtitle.charAt(j) <= '9')
+					txtByte += 1.06;
+				else
+					txtByte++;
+				
+				if(txtByte < 17 && txtByte >= 15)
+					length = j;
+			}
+			//txtByte = en + ko + etc;
+			//length = bandtitle.length()-1;
+			list.setChar_count((int)txtByte);
+			list.setLength(length);
+			System.out.println("band title : " + bandtitle + " | Byte : " + txtByte);
+			resultList.add(list);
+		}
+		return resultList;
 	}
 
 	@Override

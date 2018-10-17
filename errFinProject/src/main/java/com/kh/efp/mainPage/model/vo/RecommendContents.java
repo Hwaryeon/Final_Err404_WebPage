@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class RecommendContents implements java.io.Serializable {
+	private int bid;
 	private String bname;
 	private String cname;
 	private String edit_name;
@@ -11,13 +12,22 @@ public class RecommendContents implements java.io.Serializable {
 	
 	public RecommendContents(){}
 
-	public RecommendContents(String bname, String cname, String edit_name, String bintro) {
+	public RecommendContents(int bid, String bname, String cname, String edit_name, String bintro) {
+		this.bid = bid;
 		this.bname = bname;
 		this.cname = cname;
 		this.edit_name = edit_name;
 		this.bintro = bintro;
 	}
-
+	
+	public int getBid(){
+		return bid;
+	}
+	
+	public void setBid(int bid){
+		this.bid = bid;
+	}
+	
 	public String getBname() {
 		return bname;
 	}
@@ -52,7 +62,7 @@ public class RecommendContents implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "RecommendContents [bname=" + bname + ", cname=" + cname + ", edit_name=" + edit_name + ", bintro=" + bintro + "]";
+		return "RecommendContents [bid=" + ", bname=" + bname + ", cname=" + cname + ", edit_name=" + edit_name + ", bintro=" + bintro + "]";
 	}
 	
 	

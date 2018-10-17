@@ -53,15 +53,20 @@
 	padding-top: 0px;
 }
 
+.band-profile:hover, .band-name:hover {
+	cursor:pointer;
+}
+
 .band-profile>img {
 	width: 100%;
 	height: 100%;
 }
 
 .band-nametxt {
-	font-size: 25px;
+	font-size: 20px;
 	margin-top: 1em;
 	text-align: center;
+	overflow:hidden;
 }
 
 .band-membertxt {
@@ -282,13 +287,13 @@ ul{
 				<div class="myband-container">
 					<ul>
 						<li class="myband-list">
-							<div class="band-profile">
+							<div class="band-profile" onclick="location.href='newBand.mp'">
 								<div style="height: 65px"></div>
-								<div id="plus-icon" onclick="location.href='newBand.mp'">
+								<div id="plus-icon">
 									<p>+</p>
 								</div>
 							</div>
-							<div class="band-name">
+							<div class="band-name" onclick="location.href='newBand.mp'">
 								<p class="band-nametxt">밴드만들기</p>
 								<span class="band-membertxt"></span>
 							</div>
@@ -297,7 +302,7 @@ ul{
 							<li class="myband-list" onclick = 'showBand(${MyBandList.bid});'>
 								<div class="band-profile">
 								
-									<c:if test="${ MyBandList.edit_name == 'cover1.jpeg' || MyBandList.edit_name == 'cover2.jpg'
+									<c:if test="${ MyBandList.edit_name == 'cover1.jpg' || MyBandList.edit_name == 'cover2.jpg'
 									|| MyBandList.edit_name == 'cover3.jpg' || MyBandList.edit_name == 'cover4.jpg'
 									|| MyBandList.edit_name == 'cover5.jpg' || MyBandList.edit_name == 'cover6.jpg'
 									|| MyBandList.edit_name == 'cover7.jpg' }">
@@ -305,7 +310,7 @@ ul{
 										<img src="resources/images/cover/${ MyBandList.edit_name }">
 									</c:if>
 									
-									<c:if test="${ !(MyBandList.edit_name == 'cover1.jpeg' || MyBandList.edit_name == 'cover2.jpg'
+									<c:if test="${ !(MyBandList.edit_name == 'cover1.jpg' || MyBandList.edit_name == 'cover2.jpg'
 									|| MyBandList.edit_name == 'cover3.jpg' || MyBandList.edit_name == 'cover4.jpg'
 									|| MyBandList.edit_name == 'cover5.jpg' || MyBandList.edit_name == 'cover6.jpg'
 									|| MyBandList.edit_name == 'cover7.jpg') }">
@@ -316,15 +321,15 @@ ul{
 								</div>
 								<div class="band-name">
 									<p class="band-nametxt" style="height:20px">
-										<%-- <c:choose>
-											<c:when test="${ fn:length(MyBandList.bname) > 7 }">
-												${ fn:substring(MyBandList.bname, 0, 7) }..
+										<c:choose>
+											<c:when test="${ MyBandList.char_count > 15  }">
+												<%-- <c:set var="length" value="${ fn:length(MyBandList.bname) }"/> --%>
+												${ fn:substring(MyBandList.bname, 0 , MyBandList.length)}..
 											</c:when>
 											<c:otherwise>
 												${ MyBandList.bname }
 											</c:otherwise>
-										</c:choose> --%>
-										${MyBandList.bname}
+										</c:choose>
 									</p>
 									<span class="band-membertxt">멤버 : ${ MyBandList.memberCount }</span>
 								</div>
@@ -425,7 +430,7 @@ ul{
 					<ul>
 						<c:forEach var="rcmContents" items="${ rcmContents }">
 							<li class="recommend-list">
-								<div class="recommend-profile">
+								<div class="recommend-profile" onclick="location.href='list.do?bid=${rcmContents.bid}'">
 									<img src="${contextPath}/resources/upload_images/${rcmContents.edit_name}">
 								</div>
 								<div class="recommend-content">
@@ -440,7 +445,28 @@ ul{
 											</c:otherwise>
 										</c:choose>
 									</p>
-									<button><b>${rcmContents.cname}</b>밴드 더 보기</button>
+									<c:choose>
+										<c:when test="${ rcmContents.cname eq 'C++' }">
+											<button onclick="location.href='categoryDetail.category?kind=cpp'">
+												<b>${rcmContents.cname}</b>밴드 더 보기
+											</button>
+										</c:when>
+										<c:when test="${ rcmContents.cname eq 'C#' }">
+											<button onclick="location.href='categoryDetail.category?kind=csharp'">
+												<b>${rcmContents.cname}</b>밴드 더 보기
+											</button>
+										</c:when>
+										<c:otherwise>
+											<button onclick="location.href='categoryDetail.category?kind=${ rcmContents.cname }'">
+												<b>${rcmContents.cname}</b>밴드 더 보기
+											</button>
+										</c:otherwise>
+									</c:choose>
+										
+									
+										
+									
+									
 								</div>
 							</li>
 						</c:forEach>

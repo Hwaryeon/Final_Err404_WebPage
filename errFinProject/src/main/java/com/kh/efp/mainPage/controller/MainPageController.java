@@ -80,17 +80,11 @@ public class MainPageController {
 			ext=originFileName.substring(originFileName.lastIndexOf("."));
 			changeName=CommonUtils.getRandomString();
 		} else {
-			if(coverType.equals("cover1") ){
-				originFileName = coverType + ".jpeg";
-				changeName = coverType;
-				ext = ".jpeg";
-				filePath="C:/Users/user/git/FinalProject_Err/errFinProject/src/main/webapp/resources/images/cover/";
-			}else{
-				originFileName = coverType + ".jpg";
-				changeName = coverType;
-				ext = ".jpg";
-				filePath="C:/Users/user/git/FinalProject_Err/errFinProject/src/main/webapp/resources/images/cover/";
-			}
+			originFileName = coverType + ".jpg";
+			changeName = coverType;
+			ext = ".jpg";
+			filePath="C:/Users/user/git/FinalProject_Err/errFinProject/src/main/webapp/resources/images/cover/";
+			
 		}
 		
 		
@@ -143,7 +137,8 @@ public class MainPageController {
 				model.addAttribute("loginUser", loginUser);
 				model.addAttribute("myBandList", mps.bandList(mid));
 				model.addAttribute("popContents", mps.popContent());
-				return "main/main";
+				model.addAttribute("rcmContents", mps.recommendContent(mid));
+				return "redirect:/loginUserMain.me";
 			}
 		} catch (Exception e) {
 			new File(filePath + changeName + ext).delete();
