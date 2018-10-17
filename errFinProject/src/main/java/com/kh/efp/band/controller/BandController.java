@@ -1,34 +1,27 @@
 package com.kh.efp.band.controller;
 
 
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.efp.band.model.service.BandService;
+import com.kh.efp.band.model.vo.Band;
+import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
 import com.kh.efp.commons.DayWeek;
-import com.kh.efp.member.model.exception.LoginException;
-import com.kh.efp.member.model.service.MemberService;
 import com.kh.efp.member.model.vo.Member;
 
 
@@ -160,6 +153,33 @@ public class BandController {
 		
 		
 		
+	}
+	
+	@RequestMapping("Member_BandInsert.bd")
+	public String Member_BandInsert(@RequestParam int bid, HttpServletRequest request,
+			HttpServletResponse response) throws Exception{
+		
+		System.out.println("Member_BandInsert.bd 호출");
+		System.out.println("bid : " + bid);
+		
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
+		
+		String b = bs.selectBstatus(bid);
+		
+		Member_Band mb = new Member_Band();
+		
+		mb.setBid(bid);
+		mb.setMid(mid);
+		
+		if(b.equals("PUB")){
+			mb.setIstatus("Y");
+		}else if(b.equals("PTD")){
+			mb.setIstatus("S");
+		}
+		
+		bs.insertMember_Band(mb);
+
+		return "redirect:/bandLeader.bd?bid=" + bid;
 	}
 	
 

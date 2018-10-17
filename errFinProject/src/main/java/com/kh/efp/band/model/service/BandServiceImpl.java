@@ -205,6 +205,21 @@ public class BandServiceImpl implements BandService {
 		return bd.selectMlevel(sqlSession, mb);
 	}
 
+	@Override
+	public String selectBstatus(int bid) {
+		return bd.selectBstatus(sqlSession, bid);
+	}
+
+	@Override
+	public void insertMember_Band(Member_Band mb) {
+		bd.insertMember_Band(sqlSession, mb);
+	}
+
+	@Override
+	public ArrayList<Member_Band> insertMemberList(int bid) {
+		return bd.insertMemberList(sqlSession, bid);
+	}
+
 
 
 //	@Override

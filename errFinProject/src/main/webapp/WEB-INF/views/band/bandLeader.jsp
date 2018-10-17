@@ -111,6 +111,35 @@
                         <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
                         			멤버 ${memberCount}<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
                         			초대코드 </a></h4>
+                        			
+                        <div> 
+                        
+                        <c:set var="loop" value="false"/>
+                        <c:set var="mid" value = "${ sessionScope.loginUser.mid }"/>
+                        <c:forEach var="list" items="${list }" >
+                        	<c:if test="${ not loop }">
+                        	
+	                        	<c:if test="${list.mid == mid }">
+	                        		<c:set var="loop" value="true"/>
+	                        
+	                        	</c:if>
+                        	
+                        	</c:if>
+                        
+                        </c:forEach>
+                        
+                        <c:if test="${ not loop }">
+	                        <form action="Member_BandInsert.bd" method="post" class="mrgn-bottom-0">
+	                        
+	                        	<input type="hidden" name="bid" value="${ bid }">
+	                        
+	                        	<button class="button vote" >가입하기</button>
+	                        </form>
+                        </c:if>
+                        
+                        
+                        
+                        </div>
                         <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
                         <a href="bandLeader.bd?bid=${ bid }" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
                     </li>
@@ -163,6 +192,11 @@
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  멤버 탈퇴,차단 설정
                   		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandMemberManagement.bd?bid=${ bid }">변경</a></h4>
+                  </li>
+                   <li>
+                    <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
+                  		  가입 신청 리스트
+                  		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="insertMemberList.bd?bid=${ bid }">변경</a></h4>
                   </li>
                 </ul>
               </div>
