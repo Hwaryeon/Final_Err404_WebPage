@@ -28,9 +28,9 @@ public class BandDaoImpl implements BandDao{
 	}
 
 	@Override
-	public List<Object> scehduleList(SqlSessionTemplate sqlSession) {
+	public List<Object> scehduleList(SqlSessionTemplate sqlSession, int bid) {
 		
-		List<Object> objectList = new ArrayList<Object>(sqlSession.selectList("Scehdule.scehduleList"));
+		List<Object> objectList = new ArrayList<Object>(sqlSession.selectList("Scehdule.scehduleList", bid));
 		
 		
 		return objectList;
@@ -210,7 +210,19 @@ public class BandDaoImpl implements BandDao{
 
 	@Override
 	public int selectMlevel(SqlSessionTemplate sqlSession, Member_Band mb) {
-		return sqlSession.selectOne("Band.selectMlevel", mb);
+
+		
+		int result = 0;
+		
+		
+		
+		if(sqlSession.selectOne("Band.selectMlevel", mb) != null){
+			result = sqlSession.selectOne("Band.selectMlevel", mb);
+		}
+		
+		
+		return result;
+
 	}
 
 	@Override
@@ -232,5 +244,27 @@ public class BandDaoImpl implements BandDao{
 		list = (ArrayList)sqlSession.selectList("Band.insertMemberList", bid);
 		
 		return list;
+
+	}
+
+	@Override
+	public void updateMemberStatus(SqlSessionTemplate sqlSession, int mbid) {
+		sqlSession.update("Band.updateMemberStatus", mbid);
+	}
+
+	@Override
+	public void refuseMemberStatus(SqlSessionTemplate sqlSession, int mbid) {
+		sqlSession.update("Band.refuseMemberStatus", mbid);
+	}
+
+	@Override
+	public ArrayList<BanMemberList> searchBanMemberList(SqlSessionTemplate sqlSession, Member_Band mb) {
+		
+		ArrayList<BanMemberList> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("Band.searchBanMemberList", mb);
+		
+		return list;
+
 	}	
 }

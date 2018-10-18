@@ -1,29 +1,24 @@
+<!DOCTYPE>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
+    pageEncoding="UTF-8" import="com.kh.efp.band.model.vo.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import= "java.util.*"  %>
+<%@ page import= "java.text.*"  %>
 <html>
 <head>
 <meta charset="utf-8">
 <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content=" width=device-width, initial-scale=1">
-<title>ERR404</title>
-<!-- CSS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<title>Weekend Magazine</title>
+<link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal.css">
+  <link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal-default-theme.css">
 <link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
-<link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
-<link href="${ contextPath }/resources/style.css" rel="stylesheet">
-<link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
-<link href="${ contextPath }/resources/css/sss.css" rel="stylesheet">
-<!-- Skin -->
-<link href="${ contextPath }/resources/skins/light-pink-blue.css" rel="stylesheet">
-
+    <link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
+    <link href="${ contextPath }/resources/css/light-pink-blue.css" rel="stylesheet">
 </head>
-<style>
-#categort-posts-widget-2 {
-	background-color: transparent;
-}
-.
-</style>
 <body
 	class="home page page-id-4 page-template page-template-template_home-php">
 	<!-- TOP NAV -->
@@ -122,91 +117,92 @@
 
 		<div class="left-sidebar col-md-3" role="complementary">
 
-			<div id="categort-posts-widget-2"
-				class="widget fullwidth categort-posts">
-				<h1 class="widget-title"></h1>
-				<ul class="tvshows">
-					<li><a href="#"> <!-- <span class="comment-count">11</span> -->
-							<img src="http://placehold.it/209x128" alt="">
-					</a>
-						<h2
-							style="color: #222; font-size: 21px; margin-bottom: 15px; font-weight: 600; margin-top: 20px;">밴드명</h2>
-						<h4
-							style="display: inline-block; font-size: 13px; font-weight: 400; color: #333;">
-							멤버 4<a href="#"
-								style="position: relative; padding-left: 12px; color: #fdb00d !important; font-size: 13px;">
-								초대코드 </a>
-						</h4>
-						<h4
-							style="margin-top: 14px; padding-top: 13px; border-top: 1px solid #e1e1e1;">
-							<a href="#"
-								style="font-size: 12px; font-weight: 400; color: #666; text-decoration: none;">*
-								밴드 설정</a>
-						</h4></li>
-				</ul>
-				<div class="clear"></div>
-			</div>
-
-		</div>
+			<div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title"></h1>
+                <ul class="tvshows">
+                    <li>
+                         <a href="#">
+                            
+                             <c:if test="${ pf.editName == 'cover1.jpeg' || pf.editName == 'cover2.jpg'
+									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
+									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
+									|| pf.editName == 'cover7.jpg' }">
+								
+										<img src="${ contextPath }/resources/images/cover/${ pf.editName }">
+									</c:if>
+									
+									<c:if test="${ !(pf.editName == 'cover1.jpeg' || pf.editName == 'cover2.jpg'
+									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
+									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
+									|| pf.editName == 'cover7.jpg') }">
+								
+										<img src="${ contextPath }/resources/upload_images/${ pf.editName }">
+									</c:if>
+                        </a>
+                        <h2 style="color:#222; font-size:21px; margin-bottom:15px;font-weight:600;margin-top:20px;">${bname }</h2>
+                        <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
+                        			멤버 ${memberCount}<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
+                        			초대코드 </a></h4>
+                        <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
+                        <a href="bandLeader.bd?bid=${ bid }" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">
+                        <c:if test="${ mlevel != 0 }">
+                        	* 밴드 설정
+                        </c:if>
+                        </a></h4>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            
+        </div>
 
 		<div class="main col-md-6 col-xs-12">
 
-
-
-			<div id="search-3" class="widget fullwidth widget_search">
-				<form class="search" role="search" method="get" action="#">
-					<input type="search" placeholder="Search &hellip;" value=""
-						name="s" title="Search for:">
-				</form>
+			<div class="widget fullwidth post-single" style="margin-bottom:1px;">
+				<h4 class="widget-title" style="font-size:20px;">비공개 밴드 </h4>
 			</div>
-
-			<div class="widget clearfix">
-				<div id="respond" class="comment-respond">
-					<h3 id="reply-title" class="comment-reply-title">
-						글 수정<small><a rel="nofollow"
-							id="cancel-comment-reply-link" href="" style="display: none;">Cancel
-								reply</a></small>
-					</h3>
-					<form action="#" method="post" id="commentform"
-						class="comment-form">
-						<p class="comment-notes">
-							게시글을 수정하실 수 있습니다.<span class="required">*</span>
-						</p>
-						<p class="comment-form-comment">
-							<label for="comment"></label>
-							<textarea id="comment" name="comment" cols="45" rows="8"
-								aria-required="true"></textarea>
-						</p>
-						<p class="form-allowed-tags">
-							You may use these <abbr title="HyperText Markup Language">HTML</abbr>
-							tags and attributes:
-							<code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt;
-								&lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt;
-								&lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt;
-								&lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code>
-						</p>
-						<p class="form-submit">
-							<span > <input name="submit"
-								type="submit" id="submit" value="        취소        "></span> 
-							<span style="float: right"> <input name="submit"
-								type="submit" id="submit" value="        게시        "></span> 
+            <div class="widget team-member">
+              <h4 class="page-title">멤버만 게시글을 볼 수 있습니다.</h4>
+              <!-- <h6>밴드에서 탈퇴하려면,</h4> -->
+              <p>해당 밴드에 가입 신청해보세요!</p>
+				<div class="row survey" style="margin-top:20px;">
+							<div class="col-md-6" style="margin-left:220px; width: 150px;">
 								
-								<input type="hidden" name="comment_parent" id="comment_parent"
-								value="0">
+							<form action="Member_BandInsert.bd" method="post" class="mrgn-bottom-0">
+	                        
+	                        	<input type="hidden" name="bid" value="${ bid }">
+	                        
+	                        	<button class="button vote" >가입하기</button>
+	                        </form>
 								
-						</p>
-					</form>
-				</div>
-				<!-- #respond -->
-			</div>
-
-
-
-
-
-
-
+							</div>
+							<!-- <div class="col-md-6">
+								<button class="button" id="cancle">취소</button>
+							</div> -->
+						</div>
+            </div>
 		</div>
+		
+		<input type="hidden" id="bid" name="bid" value="${ bid }" >
+							
+		<script>
+			$('#bandSecessionFail').click(function(){
+				
+				var bid = document.getElementById('bid').value;
+				
+				location.href="bandLeader.bd?bid=" + bid;
+			});
+			
+			$('#cancle').click(function(){
+				
+				var bid = document.getElementById('bid').value;
+				
+				location.href="bandLeader.bd?bid=" + bid;
+			});
+		
+		
+		</script>
+		
+		
 
 		<div class="right-sidebar col-md-3" role="complementary">
 
@@ -289,11 +285,18 @@
 			</div>
 
 
-
-
+			<div id="ads250_250-widget-2"
+				class="widget fullwidth ads250_250-widget">
+				<h1 class="widget-title">Advertisement</h1>
+				<div class="ads250-250">
+					<div class="ad-cell">
+						<a href="#"><img src="img/ad-210x190.png" class="fullwidth"
+							alt=""></a>
+					</div>
+				</div>
+			</div>
 
 		</div>
-
 
 	</div>
 
@@ -339,9 +342,9 @@
 			</div>
 		</div>
 	</div>
-	<script src="${ contextPath }/resources/js/jquery.min.js"></script>
-	<script src="${ contextPath }/resources/js/bootstrap.min.js"></script>
-	<script src="${ contextPath }/resources/js/jquery.bxslider.min.js"></script>
-	<script src="${ contextPath }/resources/js/custom.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.bxslider.min.js"></script>
+	<script src="js/custom.js"></script>
 </body>
 </html>

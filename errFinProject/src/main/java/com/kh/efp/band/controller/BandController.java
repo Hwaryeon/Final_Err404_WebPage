@@ -28,15 +28,24 @@ import com.kh.efp.member.model.vo.Member;
 @Controller
 public class BandController {
 	@Autowired private BandService bs;
+	
+	@Autowired private BandLeaderController blc;
 
 	@RequestMapping("bandCalendarList.bd")
-	public String showBandCalendar(Model model) throws Exception{
+	public String showBandCalendar(HttpServletRequest request, Model model) throws Exception{
 		
 		System.out.println("달력 호출");
 		
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
+		
 		List<Object> list = new ArrayList<Object>();
 		
-		list = bs.scehduleList();
+		//임시로 설정
+		int bid = 1;
+		
+		blc.bandLeftSideBar(bid, mid, model);
+		
+		list = bs.scehduleList(bid);
 		
 		model.addAttribute("sList", list); 
 		
@@ -64,7 +73,9 @@ public class BandController {
 		
 		List<Object> list = new ArrayList<Object>();
 		
-		list = bs.scehduleList();
+		int bid = 1;
+		
+		list = bs.scehduleList(bid);
 		
 		for(int i=0; i<list.size(); i++){
 			String str = ((Scehdule) list.get(i)).getsDate();
@@ -85,17 +96,25 @@ public class BandController {
 	
 	@RequestMapping("addCalendar.bd")
 	public @ResponseBody HashMap<String, Object> addCalendar(
-			@RequestParam String title, String content, String sDate, String eDate){
+			@RequestParam String title, String content, String sDate, String eDate,
+			HttpServletRequest request){
 		
 		System.out.println("title : " + title);
 		System.out.println("content : " + content);
 		System.out.println("sDate : " + sDate);
 		System.out.println("eDate : " + eDate);
 		
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
+		
+		//임시로 설정
+		int bid = 1;
 		
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
 
 		Scehdule s = new Scehdule(sDate, eDate, title, content);
+		
+		s.setBid(bid);
+		s.setMid(mid);
 		
 		int result = bs.insertScehdule(s);
 		
@@ -105,23 +124,6 @@ public class BandController {
 
 		return hmap;
 	}
-	
-	/*@RequestMapping(value="deleteCalendar.bd")
-	public String deleteCalendar(@RequestParam int did, Model model,
-										HttpServletResponse response){
-			
-			
-		
-		System.out.println("일정 삭제 컨트롤러 호출");
-		
-		System.out.println("did :" + did);
-		
-		int result = bs.deleteScehdule(did);
-		
-		return "redirect:/bandCalendarList.bd";
-		
-		
-	}*/
 	
 	@RequestMapping(value="deleteCalendar.bd")
 	public @ResponseBody void deleteCalendar(@RequestParam int did, Model model,
@@ -159,9 +161,7 @@ public class BandController {
 	public String Member_BandInsert(@RequestParam int bid, HttpServletRequest request,
 			HttpServletResponse response) throws Exception{
 		
-		System.out.println("Member_BandInsert.bd 호출");
-		System.out.println("bid : " + bid);
-		
+
 		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
 		String b = bs.selectBstatus(bid);
@@ -177,9 +177,14 @@ public class BandController {
 			mb.setIstatus("S");
 		}
 		
+		System.out.println("mb : " + mb.toString());
+		
 		bs.insertMember_Band(mb);
 
-		return "redirect:/bandLeader.bd?bid=" + bid;
+		String bid2 = bid + "";
+		
+		return "redirect:/list.do?bid=" + bid2;
+
 	}
 	
 

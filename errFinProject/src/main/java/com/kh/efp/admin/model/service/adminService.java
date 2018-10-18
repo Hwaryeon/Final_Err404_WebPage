@@ -24,5 +24,11 @@ public interface adminService {
 	int getlistCount(int type);
 
 	int getSearchlistCount(int i, String keyword);
+
+	int getlistCount2(int i, int mid);
+
+	List<Object> showReportMember(PageInfo pi, int mid);
+	
+	
 	
 }
