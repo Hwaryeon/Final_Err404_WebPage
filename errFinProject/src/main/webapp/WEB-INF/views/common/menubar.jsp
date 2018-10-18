@@ -110,8 +110,8 @@
                       <span class="share-title" style="color:#25afe5;">밴드 찾기</span>
                   </div>
                   <ul class="share-social">
-                  <!-- <li><a href="bandBlock.bd?bid=1">차단</a></li>
-                  <li><a href="bandCalendarList.bd">달력 호출</a></li> -->
+                  <li><a href="bandBlock.bd?bid=1">차단</a></li>
+                  <li><a href="bandCalendarList.bd?bid=1">달력 호출</a></li>
                      <li>
                      	<c:set var='alarm_list' value='1'/>
                      	<c:if test="${empty alarm_list}">

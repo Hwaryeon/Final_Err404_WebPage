@@ -32,22 +32,24 @@ public class BandController {
 	@Autowired private BandLeaderController blc;
 
 	@RequestMapping("bandCalendarList.bd")
-	public String showBandCalendar(HttpServletRequest request, Model model) throws Exception{
+	public String showBandCalendar(@RequestParam int bid, HttpServletRequest request, Model model) throws Exception{
 		
 		System.out.println("달력 호출");
+		System.out.println("bid : " + bid);
 		
 		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
 		List<Object> list = new ArrayList<Object>();
 		
 		//임시로 설정
-		int bid = 1;
+		/*int bid = 1;*/
 		
 		blc.bandLeftSideBar(bid, mid, model);
 		
 		list = bs.scehduleList(bid);
 		
-		model.addAttribute("sList", list); 
+		model.addAttribute("sList", list);
+		model.addAttribute("bid", bid);
 		
 		for(int i=0; i<list.size(); i++){
 			String str = ((Scehdule) list.get(i)).getsDate();
@@ -65,15 +67,15 @@ public class BandController {
 
 	@RequestMapping(value="eventCheck.bd", method=RequestMethod.POST)
 	@ResponseBody 
-	public Object eventCheck(@RequestParam String title, Map<String, Object> map,
+	public Object eventCheck(@RequestParam String title, int bid, Map<String, Object> map,
 										HttpServletResponse response) throws Exception{
-			
-			
+
 		System.out.println("eventCheck 컨트롤러 호출..");
+		System.out.println("eventCheck 컨트롤러 bid :" + bid);
 		
 		List<Object> list = new ArrayList<Object>();
 		
-		int bid = 1;
+		/*int bid = 1;*/
 		
 		list = bs.scehduleList(bid);
 		
@@ -96,18 +98,15 @@ public class BandController {
 	
 	@RequestMapping("addCalendar.bd")
 	public @ResponseBody HashMap<String, Object> addCalendar(
-			@RequestParam String title, String content, String sDate, String eDate,
+			@RequestParam String title, String content, String sDate, String eDate, int bid,
 			HttpServletRequest request){
 		
-		System.out.println("title : " + title);
-		System.out.println("content : " + content);
-		System.out.println("sDate : " + sDate);
-		System.out.println("eDate : " + eDate);
+		System.out.println("addCalendar.bd bid : " + bid);
 		
 		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
 		//임시로 설정
-		int bid = 1;
+		/*int bid = 1;*/
 		
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
 
