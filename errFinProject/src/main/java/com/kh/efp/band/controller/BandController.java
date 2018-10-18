@@ -161,6 +161,7 @@ public class BandController {
 	public String Member_BandInsert(@RequestParam int bid, HttpServletRequest request,
 			HttpServletResponse response) throws Exception{
 		
+
 		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
 		String b = bs.selectBstatus(bid);
@@ -183,6 +184,7 @@ public class BandController {
 		String bid2 = bid + "";
 		
 		return "redirect:/list.do?bid=" + bid2;
+
 	}
 	
 

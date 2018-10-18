@@ -20,4 +20,15 @@ public class AlarmDaoImpl implements AlarmDao{
 		sqlSession.selectOne("updateNews");
 	}
 
+	//모든 알림 제거
+	@Override
+	public int deleteAllAlarm(SqlSessionTemplate sqlSession, int mid) {
+		return sqlSession.delete("Alarm.deleteAllAlarm",mid);
+	}
+
+	@Override
+	public int deleteOneAlarm(SqlSessionTemplate sqlSession, int nid) {
+		return sqlSession.delete("Alarm.deleteOneAlarm",nid);
+	}
+
 }

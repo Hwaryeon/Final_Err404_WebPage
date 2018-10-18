@@ -25,4 +25,17 @@ public class AlarmServiceImpl implements AlarmService{
 	public void UpdateAlarm(){
 		alarmDao.updateNews(sqlSession);
 	}
+
+
+	//모든 알림 제거
+	@Override
+	public int deleteAllAlarm(int mid) {
+		return alarmDao.deleteAllAlarm(sqlSession, mid);
+	}
+
+	//알림 한개 제거
+	@Override
+	public int deleteOneAlarm(int nid) {
+		return alarmDao.deleteOneAlarm(sqlSession, nid);
+	}
 }

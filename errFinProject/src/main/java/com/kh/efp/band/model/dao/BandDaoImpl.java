@@ -210,6 +210,7 @@ public class BandDaoImpl implements BandDao{
 
 	@Override
 	public int selectMlevel(SqlSessionTemplate sqlSession, Member_Band mb) {
+
 		
 		int result = 0;
 		
@@ -243,6 +244,7 @@ public class BandDaoImpl implements BandDao{
 		list = (ArrayList)sqlSession.selectList("Band.insertMemberList", bid);
 		
 		return list;
+
 	}
 
 	@Override
@@ -263,5 +265,6 @@ public class BandDaoImpl implements BandDao{
 		list = (ArrayList)sqlSession.selectList("Band.searchBanMemberList", mb);
 		
 		return list;
+
 	}	
 }

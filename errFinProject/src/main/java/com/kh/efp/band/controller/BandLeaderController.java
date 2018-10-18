@@ -609,6 +609,7 @@ public class BandLeaderController {
 	
 	
 	@RequestMapping("updateMemberStatus.bd")
+
 	public String updateMemberStatus(@RequestParam int bid, int mbid, Model model){
 		
 		bs.updateMemberStatus(mbid);
