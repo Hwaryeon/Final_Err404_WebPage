@@ -36,12 +36,18 @@
 	</resultMap>
 	<resultMap type="ReportList" id="reportMember">
 		<id property="cid" column="CID"/>
+		<result property="mcname" column="MNAME"/>
 		<result property="memail" column="MEMAIL"/>
-		<result property="mcname" column="MCNAME"/>
-		<result property="mname" column="MNAME"/>
+		<result property="times" column="TIMES"/>
+	</resultMap>
+	<resultMap type="ReportList" id="showReportMember">
+		<id property="mname" column="MNAME"/>
 		<result property="bname" column="BNAME"/>
+		<result property="bcontent" column="BCONTENT"/>
+		<result property="rdate" column="RDATE"/>
 		<result property="rcontent" column="RCONTENT"/>
 	</resultMap>
+
 	<resultMap type="ReportList" id="reportBand">
 		<id property="bid" column="BID"/>
 		<result property="bname" column="BNAME"/>
@@ -68,6 +74,7 @@
 		<result property="mname" column="MNAME"/>
 		<result property="banreason" column="BANREASON"/>
 	</resultMap>	
+	
 	
 	<!-- 전체 멤버 갯수 조회 -->
 	<select id="countAllMember" resultType="_int">
@@ -158,38 +165,45 @@
 	</select>
 	<!-- 신고받은 회원 갯수 조회 -->
 	<select id="countReportMember" resultType="_int">
-		SELECT COUNT(CID)
-		FROM (SELECT RE.CID, RE.MEMAIL, RE.MCNAME, RE.MNAME, RE.BNAME, RE.RCONTENT
-		      FROM (SELECT MB.CID, MB.MEMAIL, MB.MCNAME, M.MNAME, MB.BNAME, MB.TIMES, MB.RCONTENT
-		            FROM(SELECT R.CID, M.MEMAIL, M.MNAME AS MCNAME, R.MID, B.BNAME, C.TIMES , R.RCONTENT
-		                 FROM (SELECT CID, COUNT(RID) AS TIMES
-		                       FROM REPORT
-		                       GROUP BY CID) C
-		                 FULL JOIN REPORT R ON (C.CID = R.CID)
-		                 JOIN MEMBER M ON (C.CID = M.MID)
-		                 JOIN BAND B ON (R.BID = B.BID)
-		                 WHERE C.TIMES >= 5) MB
-		            JOIN MEMBER M ON (MB.MID = M.MID))RE
-		      LEFT JOIN BAN BA ON (RE.CID = BA.MID)
-		      WHERE BA.MID IS NULL)
+		SELECT COUNT(ROWNUM)
+		FROM(SELECT ROWNUM, R.CID, M.MNAME, M.MEMAIL, R.TIMES
+		     FROM(SELECT CID, COUNT(RID) AS TIMES
+		          FROM REPORT
+		          GROUP BY CID) R
+		     JOIN MEMBER M ON (R.CID = M.MID)
+		     WHERE M.MSTATUS = 'Y'
+		     ORDER BY R.TIMES DESC)
 	</select>
 	<!-- 신고받은 회원 리스트 조회 -->
 	<select id="selectReportMember" resultMap="reportMember">
-		SELECT RE.CID, RE.MEMAIL, RE.MCNAME, RE.MNAME, RE.BNAME, RE.RCONTENT
-		FROM (SELECT MB.CID, MB.MEMAIL, MB.MCNAME, M.MNAME, MB.BNAME, MB.TIMES, MB.RCONTENT
-		        FROM(SELECT R.CID, M.MEMAIL, M.MNAME AS MCNAME, R.MID, B.BNAME, C.TIMES , R.RCONTENT
-		             FROM (SELECT CID, COUNT(RID) AS TIMES
-		                   FROM REPORT
-		                   GROUP BY CID) C
-		             FULL JOIN REPORT R ON (C.CID = R.CID)
-		             JOIN MEMBER M ON (C.CID = M.MID)
-		             JOIN BAND B ON (R.BID = B.BID)
-		             WHERE C.TIMES >= 5) MB
-		        JOIN MEMBER M ON (MB.MID = M.MID)
-		        WHERE M.MSTATUS = 'Y')RE
-		LEFT JOIN BAN BA ON (RE.CID = BA.MID)
-		WHERE BA.MID IS NULL
-		ORDER BY RE.TIMES DESC
+		SELECT R.CID, M.MNAME, M.MEMAIL, R.TIMES
+		FROM (SELECT CID, COUNT(RID) AS TIMES
+		      FROM REPORT
+		      GROUP BY CID) R
+		JOIN MEMBER M ON (R.CID = M.MID)
+		WHERE M.MSTATUS = 'Y'
+		ORDER BY R.TIMES DESC
+	</select>
+	<!-- 신고받은 회원 상세정보 갯수 조회 -->
+	<select id="countShowReportMember" parameterType="_int" resultType="_int">
+	select count(rownum)
+	from(select rownum, m.mname, b.bname, bo.bcontent, r.rdate, r.rcontent
+	     from report r
+	     join member m on (r.mid = m.mid)
+	     join band b on (b.bid = r.bid)
+	     join boards bo on (bo.boardid = r.boardid)
+	     where r.cid = #{mid}
+	     and m.mstatus = 'Y')
+	</select>
+	<!-- 신고받은 회원 상세정보 조회 -->
+	<select id="showReportMember" parameterType="_int" resultMap="showReportMember">
+		select m.mname, b.bname, bo.bcontent, r.rdate, r.rcontent
+		from report r
+		join member m on (r.mid = m.mid)
+		join band b on (b.bid = r.bid)
+		join boards bo on (bo.boardid = r.boardid) 
+		where m.mstatus = 'Y'
+		and r.cid = #{mid}
 	</select>
 	<!-- 신고받은 밴드 갯수 조회 -->
 	<select id="countReportBand" resultType="_int">
