@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.efp.member_band.model.vo.PageInfo;
 
 @Repository
-public class adminDaoImpl implements adminDao {
+public class adminDaoImpl implements adminDao { 
 	
 	//전체 리스트 조회용 메소드
 	@Override
@@ -41,6 +41,17 @@ public class adminDaoImpl implements adminDao {
 		}
 		return result;
 	}
+	//신고받은 회원 상세 조회용 카운트 메소드
+	@Override
+	public int getListCount2(SqlSessionTemplate sqlSession, int i, int mid) {
+		int result = -99;
+		switch(i)
+		{
+			case 1 : result = sqlSession.selectOne("Admin.countShowReportMember", mid); break;
+		}
+		return result;
+	}
+	
 	@Override
 	public List<Object> memberAllList(SqlSessionTemplate sqlSession, PageInfo pi, String alignment) {
 		List<Object> memberList = new ArrayList<Object>();
@@ -95,6 +106,16 @@ public class adminDaoImpl implements adminDao {
 		reportMemberList = sqlSession.selectList("Admin.selectReportMember", rowBounds);
 		return reportMemberList;
 	}
+	
+	//신고받은 회원 상세보기
+	@Override
+	public List<Object> showReportMember(SqlSessionTemplate sqlSession, PageInfo pi, int mid) {
+		List<Object> showReportMember = new ArrayList<Object>();
+		int offset = (pi.getCurrentPage() -1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		showReportMember = sqlSession.selectList("Admin.showReportMember", mid, rowBounds);
+		return showReportMember;
+	}
 
 	@Override
 	public List<Object> reportBandList(SqlSessionTemplate sqlSession, PageInfo pi) {
@@ -128,5 +149,4 @@ public class adminDaoImpl implements adminDao {
 		
 		return banBandList;
 	}
-
 }

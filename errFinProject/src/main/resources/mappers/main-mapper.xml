@@ -19,14 +19,15 @@
 		<result property="bid" column="BID"/>
 		<result property="bname" column="BNAME"/>
 		<result property="mid" column="MID"/>
-		<result property="mname" column="MNAME"/>
+		<result property="mname" column="MNAME"/> 
 		<result property="edit_name" column="EDIT_NAME"/>
 		<result property="flevel" column="FLEVEL"/>
 		<result property="bcontent" column="BCONTENT"/>
 	</resultMap>
 	
 	<resultMap type="RecommendContent" id="RcmContent">
-		<id property="bname" column="BNAME"/>
+		<id property="bid" column="BID"/>
+		<result property="bname" column="BNAME"/>
 		<result property="cname" column="CNAME"/>
 		<result property="edit_name" column="EDIT_NAME"/>
 		<result property="bintro" column="BINTRO"/>
@@ -66,7 +67,7 @@
 	</select>
 	
 	<select id="selectRcmContent" resultMap="RcmContent" parameterType="java.util.ArrayList" resultType="java.util.ArrayList">
-		SELECT B.BNAME, C.CNAME, P.EDIT_NAME, B.BINTRO
+		SELECT B.BID, B.BNAME, C.CNAME, P.EDIT_NAME, B.BINTRO
 		FROM BAND B
 		JOIN PROFILE P ON (P.BID = B.BID)
 		JOIN CATEGORY C ON (B.CID = C.CID)

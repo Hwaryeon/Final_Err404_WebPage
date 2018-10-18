@@ -18,7 +18,7 @@ import com.kh.efp.newPost.model.vo.Report;
 public class newPostDaoImpl implements newPostDao{
 
 	@Override
-	public ArrayList<Category> selectCategoryList(SqlSessionTemplate sqlSession) {
+	public ArrayList<Category> selectCategoryList(SqlSessionTemplate sqlSession) { 
 	
 		ArrayList<Category> list = null;
 		

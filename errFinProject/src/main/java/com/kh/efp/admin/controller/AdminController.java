@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kh.efp.admin.model.service.adminService;
@@ -20,19 +21,22 @@ import com.kh.efp.member_band.model.vo.PageInfo;
 @Controller
 @SessionAttributes("loginUser")
 public class AdminController {
-	@Autowired private adminService as;
+	@Autowired private adminService as; 
 	
 	//회원조회 페이지 진입
-	@RequestMapping("goMemberSelect.ad")
-	public String goMemberSelect(Model model, HttpServletRequest request){
+	@RequestMapping("MemberSelect.ad")
+	public String goMemberSelect(String requestCurrentPage, Model model, HttpServletRequest request){
 		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
+		
 		String alignment="mid";
+		if(request.getParameter("alignment") != null){
+			alignment = request.getParameter(alignment);
+		}
 		
 		//페이징처리
 		int currentPage = 1;
-		
-		if(request.getParameter("currentPage") != null){
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		if(requestCurrentPage != null){
+			currentPage = Integer.parseInt(requestCurrentPage);
 		}
 		
 		int listCount = as.getlistCount(1);
@@ -51,12 +55,12 @@ public class AdminController {
 		return "admin/memberSelect"; 
 	}
 	//회원조회 페이지 정렬
-	@RequestMapping("MemberSelect.ad")
-	public String MemberSelect(Model model, HttpServletRequest request){
+	/*@RequestMapping("MemberSelect.ad")
+	public String MemberSelect(String requestCurrentPage, Model model, HttpServletRequest request){
 		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
 		String alignment=request.getParameter("alignment");
 		//페이징처리
-		int currentPage = Integer.parseInt(request.getParameter("currentPage"));		
+		int currentPage = Integer.parseInt(requestCurrentPage);		
 		int listCount = as.getlistCount(1);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);		
 		List<Object> list = as.memberAllList(pi, alignment);		
@@ -66,7 +70,7 @@ public class AdminController {
 		model.addAttribute("pi", pi);
 		
 		return "admin/memberSelect"; 
-	}
+	}*/
 	//밴드조회 페이지 진입
 	@RequestMapping("goBandSelect.ad")
 	public String goBandSelect(Model model, HttpServletRequest request){
@@ -176,7 +180,27 @@ public class AdminController {
 		model.addAttribute("loginUser", loginUser);
 		model.addAttribute("reportMember", list);
 		model.addAttribute("pi", pi);
-		return"admin/BlackMemberSelect";
+		return "admin/ReportMember";
+	}
+	//신고받은 회원 상세조회
+	@RequestMapping("showReportMember.ad")
+	public String showReportMember(@RequestParam("mid") int mid, Model model, HttpServletRequest request){
+		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
+		//int mid = (int)request.getSession().getAttribute("mid");
+		//페이징처리
+		int currentPage = 1;
+		if(request.getParameter("currentPage") != null){
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		int listCount = as.getlistCount2(1, mid);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		List<Object> list = as.showReportMember(pi, mid);
+		
+		model.addAttribute("loginUser", loginUser);
+		model.addAttribute("reportMember", list);
+		model.addAttribute("pi", pi);
+		
+		return "admin/BlackMemberSelect";
 	}
 	//신고받은 밴드 조회
 	@RequestMapping("goBBSelect.ad")

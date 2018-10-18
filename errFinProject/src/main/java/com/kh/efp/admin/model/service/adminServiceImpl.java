@@ -10,7 +10,7 @@ import com.kh.efp.admin.model.dao.adminDao;
 import com.kh.efp.member_band.model.vo.PageInfo;
 
 @Service
-public class adminServiceImpl implements adminService {
+public class adminServiceImpl implements adminService { 
 	
 	@Autowired private SqlSessionTemplate sqlSession;
 	@Autowired private adminDao ad;
@@ -24,6 +24,12 @@ public class adminServiceImpl implements adminService {
 	@Override
 	public int getSearchlistCount(int type, String keyword) {
 		int listCount = ad.getSearchListCount(sqlSession, type, keyword);
+		return listCount;
+	}
+	
+	@Override
+	public int getlistCount2(int i, int mid) {
+		int listCount = ad.getListCount2(sqlSession, i, mid);
 		return listCount;
 	}
 	
@@ -53,6 +59,11 @@ public class adminServiceImpl implements adminService {
 	}
 
 	@Override
+	public List<Object> showReportMember(PageInfo pi, int mid) {
+		return ad.showReportMember(sqlSession, pi, mid);
+	}
+	
+	@Override
 	public List<Object> reportBandList(PageInfo pi) {
 		return ad.reportBandList(sqlSession, pi);
 	}
@@ -66,4 +77,6 @@ public class adminServiceImpl implements adminService {
 	public List<Object> banBandList(PageInfo pi, String alignment) {
 		return ad.banBandList(sqlSession, pi, alignment);
 	}
+
+	
 }

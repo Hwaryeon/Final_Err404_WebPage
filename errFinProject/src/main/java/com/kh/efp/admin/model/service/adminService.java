@@ -5,7 +5,7 @@ import java.util.List;
 import com.kh.efp.member_band.model.vo.PageInfo;
 
 public interface adminService {
-	List<Object> memberAllList(PageInfo pi, String alignment);
+	List<Object> memberAllList(PageInfo pi, String alignment); 
 	
 	List<Object> bandAllList(PageInfo pi, String alignment);
 
@@ -24,5 +24,11 @@ public interface adminService {
 	int getlistCount(int type);
 
 	int getSearchlistCount(int i, String keyword);
+
+	int getlistCount2(int i, int mid);
+
+	List<Object> showReportMember(PageInfo pi, int mid);
+	
+	
 	
 }

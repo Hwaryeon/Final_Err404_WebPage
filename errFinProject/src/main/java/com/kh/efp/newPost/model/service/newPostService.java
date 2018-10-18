@@ -14,7 +14,7 @@ public interface newPostService {
 
 	ArrayList<Category> selectCategoryList();
 
-	ArrayList<Band> selectBandList(String memail);
+	ArrayList<Band> selectBandList(String memail); 
 
 	ArrayList<Band> selectAllBandList();
 

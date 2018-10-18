@@ -6,7 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.efp.member_band.model.vo.PageInfo;
 
-public interface adminDao {
+public interface adminDao { 
 	List<Object> memberAllList(SqlSessionTemplate sqlSession, PageInfo pi, String alignment);
 
 	List<Object> bandAllList(SqlSessionTemplate sqlSession, PageInfo pi, String alignment);
@@ -17,6 +17,8 @@ public interface adminDao {
 
 	List<Object> reportMemberList(SqlSessionTemplate sqlSession, PageInfo pi);
 
+	List<Object> showReportMember(SqlSessionTemplate sqlSession, PageInfo pi, int mid); 
+	
 	List<Object> reportBandList(SqlSessionTemplate sqlSession, PageInfo pi);
 
 	List<Object> banMemberList(SqlSessionTemplate sqlSession, PageInfo pi, String alignment);
@@ -25,5 +27,9 @@ public interface adminDao {
 
 	int getListCount(SqlSessionTemplate sqlSession, int type);
 
-	int getSearchListCount(SqlSessionTemplate sqlSession, int type, String keyword); 
+	int getSearchListCount(SqlSessionTemplate sqlSession, int type, String keyword);
+
+	int getListCount2(SqlSessionTemplate sqlSession, int i, int mid);
+
+	
 }

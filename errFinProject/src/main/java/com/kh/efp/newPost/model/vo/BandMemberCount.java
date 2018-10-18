@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class BandMemberCount implements Serializable{
+public class BandMemberCount implements Serializable{ 
 
 	private int bid;
 	private int mcount;

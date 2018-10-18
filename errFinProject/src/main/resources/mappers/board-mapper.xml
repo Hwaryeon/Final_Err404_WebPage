@@ -7,7 +7,7 @@
 <mapper namespace="board">
 	
 	<resultMap type="Board" id="BoarddResultSet">
-		<id property="boardId" column="BOARDID" />
+		<id property="boardId" column="BOARDID" /> 
 		<result property="bId" column="BID" />
 		<result property="mId" column="MID" />
 		<result property="bContent" column="BCONTENT" />
@@ -28,6 +28,16 @@
 		<result property="bstatus" column="BSTATUS" />
 	</resultMap>
 	
+	<resultMap type="Boards" id="BoardsResultSet">
+		<id property="boardid" column="BOARDID" />
+		<result property="bid" column="BID" />
+		<result property="mid" column="MID" />
+		<result property="bcontent" column="BCONTENT" />
+		<result property="bdate" column="BDATE" />
+		<result property="bstatus" column="BSTATUS" />
+		<result property="ref_status" column="REF_STATUS" />
+		<result property="ref_bid" column="REF_BID" />
+	</resultMap>
 
 	<resultMap type="Member" id="memberResultSet">
 		<id property="mid" column="MID" />
@@ -41,6 +51,13 @@
 		<result property="mStatus" column="MSTATUS" />
 		<result property="mNational" column="MNATIONAL" />
 	</resultMap>
+	
+	<resultMap type="MemberProfile" id="MemberProfileResultSet">
+		<id property="mid" column="MID" />
+		<result property="mname" column="MNAME" />
+		<result property="edit_name" column="EDIT_NAME" />
+	</resultMap>
+	
 	
 	<!-- 01.전체목록조회 -->
 	<select id="listAll" parameterType="int" resultMap="BoarddResultSet" >
@@ -76,20 +93,36 @@
 	
 
 	<!-- 05.수정 처리 -->
-	<update id="updateArticle">
-	UPDATE BOARDS SET
-	bContent = #{bContent}
-	WHERE SEQ_BOARDID.NEXTVAL=#{SEQ_BOARDID.NEXTVAL} 
-	</update>
+<!-- 	<update id="updateArticle"> -->
+<!-- 	UPDATE BOARDS SET -->
+<!-- 	bContent = #{bContent} -->
+<!-- 	WHERE SEQ_BOARDID.NEXTVAL=#{SEQ_BOARDID.NEXTVAL}  -->
+<!-- 	</update>
+	 -->
 	
-
+	
+	<update id="updateArticle" parameterType="board">
+		UPDATE BOARDS SET 
+		bContent = #{bContent}
+		<!-- WHERE SEQ_BOARDID.NEXTVAL=#{SEQ_BOARDID.NEXTVAL} -->
+		WHERE BOARDID=#{boardId}
+	</update>
 	
 	
 	<!-- 06.삭제 -->
-	<delete id = "deleteArticle">
-	DELETE FROM
-	WHERE
+<!-- 	<delete id = "deleteArticle"> -->
+<!-- 	DELETE FROM -->
+<!-- 	WHERE -->
+	<!-- </delete> -->
+	
+	<delete id="deleteArticle" parameterType="int">
+		DELETE
+		FROM BOARDS
+		WHERE SEQ_BOARDID.NEXTVAL=#{SEQ_BOARDID.NEXTVAL}
+	
 	</delete>
+	
+	
 	
 	
 	<!-- 멤버 정보를 가져오는 메소드 -->
@@ -129,7 +162,7 @@
 	 <select id = "selectCommentList" parameterType = "Board" resultMap = "BoarddResultSet">
 		SELECT *
 		FROM BOARDS
-		WHERE BID = #{bId} AND BSTATUS = 'Y' AND REF_STATUS = 'COMMENT'
+		WHERE BID = #{bId} AND BSTATUS = 'Y' AND REF_STATUS = 'COMMENT' ORDER BY BDATE
 	</select>
 	
 	<!-- 댓글을 등록하는 메소드 -->
@@ -137,6 +170,12 @@
 		INSERT INTO BOARDS
 		 VALUES(SEQ_BOARDID.NEXTVAL, #{bId}, #{mId}, #{bContent}, SYSDATE, #{bStatus}, #{refStatus}, #{refBid})
 	</insert>
+	
+	
+	
+	
+	
+	
 	
 	<delete id="deleteBoard" parameterType="int">
 		DELETE FROM BOARDS WHERE BOARDID = #{boardId}
@@ -148,4 +187,55 @@
 	</update>
 	
 	
+	<!-- 댓글 -->
+	
+	
+	
+	 <select id = "selectBoardCount" parameterType = "int" resultType = "int">
+		SELECT count(*)
+		FROM BOARDS
+		WHERE BID = #{pbid} AND MID != #{mId} AND BSTATUS = 'Y' AND REF_STATUS = 'CONTENT'
+	</select>
+	
+	<!-- 댓글 갯수 -->
+	 <select id = "selectCommentCount" parameterType = "int" resultType = "int">
+		SELECT count(*)
+		FROM BOARDS
+		WHERE BID = #{pbid} AND BSTATUS = 'Y' AND REF_STATUS = 'COMMENT'
+	</select>
+	
+	
+	<!-- 댓글 목록 -->
+	 <select id = "commentList" parameterType = "int" resultMap = "BoarddResultSet">
+		SELECT *
+		FROM BOARDS
+		WHERE BID = #{pbid} AND BSTATUS = 'Y' AND REF_STATUS = 'COMMENT' 
+	</select>
+	
+	<!-- 댓글을 등록하는 메소드 -->
+	<insert id="insertComment" parameterType="Boards">
+		INSERT INTO BOARDS
+		 VALUES(SEQ_BOARDID.NEXTVAL, #{bid}, #{mid}, #{bcontent}, SYSDATE, #{bstatus}, #{ref_status}, #{ref_bid})
+	</insert>
+	
+	<delete id="deleteComment" parameterType="int">
+		DELETE FROM BOARDS WHERE BOARDID = #{boardid}
+	
+	</delete>
+	
+	<update id="updateComment" parameterType="Boards">
+		UPDATE BOARDS SET BCONTENT = #{bcontent}, BDATE = SYSDATE WHERE BOARDID = #{boardid}
+	</update>
+	
+	<!-- 글에 해당하는 유저 정보를 가져오는 메소드 -->
+	 <select id = "selectMemberProfile" parameterType = "int" resultMap = "MemberProfileResultSet">
+		SELECT * FROM(SELECT M.MID, M.MNAME, P.EDIT_NAME
+		FROM MEMBER M
+		JOIN PROFILE P ON(P.MID = M.MID)
+		WHERE M.MID = #{mid}
+        ORDER BY FDATE DESC
+        ) WHERE ROWNUM = 1
+	</select>
+	
+
 </mapper>

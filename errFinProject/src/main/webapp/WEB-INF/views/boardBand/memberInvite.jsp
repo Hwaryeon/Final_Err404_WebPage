@@ -180,16 +180,44 @@
 
 					<br>
 					<br>
+					
+					<script type="text/javascript">
+						    function btnChodae()
+						    {
+						      // 번호를 저장할 배열
+						        var code = new Array(6);
+						        var count = 0;
+						        var mFlag = true;
+						        while(count < 6)
+						        {
+						           var number;
+						           // 랜덤번호 추출
+						           number = parseInt(Math.random()*45)+1
+						           for(var i=0; i<count; i++)
+						              if(code[i] == number) mFlag = false;
+						           if(mFlag)
+						           {
+						        	   code[count] = number;
+						                count++;
+						           }
+						           mFlag = true;
+						       } 
+				
+						    return(code[0]+' '+code[1]+' '+code[2]+' '+code[3]+' '+code[4]+' '+code[5]);
+						    }
+						
+						</script>
+											
+					
+					
 					<!-- 초대코드입력 -->
 					<form id="contactForm">
 						<p class="name clearfix">
-							<input type="text" name="contactName" id="contactName" value=""
+							<input type="text" name="code" id="contactName" 
 								class="required requiredField">
 						</p>
-						<p class="email clearfix">
-							<input type="text" name="email" id="email" value=""
-								class="required requiredField">
-						</p>
+						<input style ="width:118px; height : 35px" onclick="code.value=btnChodae()" type="button" value="코드생성" height="50" width="200">
+						
 						<p class="textarea clearfix">
 							<br>
 							<br>

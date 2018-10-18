@@ -2,6 +2,7 @@ package com.kh.efp.member_band.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.member_band.model.vo.BandList;
 import com.kh.efp.member_band.model.vo.BoardList;
 import com.kh.efp.member_band.model.vo.PageInfo;
@@ -15,5 +16,7 @@ public interface MemberBandService {
 	ArrayList<BandList> selectBandList(int imid);
 
 	int updateiStatus(BandList bl);
+
+	Band selectBandinviteCode(String inviteCode);
 
 }

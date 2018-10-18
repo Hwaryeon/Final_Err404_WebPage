@@ -135,7 +135,7 @@
 						<div class="widget-content">
 							<ul class="category-posts">
 								<li>
-									<a href="#"><img id="changeCover" src="${ contextPath }/resources/images/cover/cover1.jpeg" width="270" alt="" style="width: 300px; height: 225px;"></a>
+									<a href="#"><img id="changeCover" src="${ contextPath }/resources/images/cover/cover1.jpg" width="270" alt="" style="width: 300px; height: 225px;"></a>
 								</li>
 								<li></li>
 								<li>
@@ -147,7 +147,7 @@
 										onclick="changeImage()"> <!-- width="270"  -->
 										<input type="file" id="bandImage" name="bandImage" class="imageUpload" multiple onchange="loadImg(this)" style="width: 120px; height: 90px;">
 									</span>
-										<img src="${ contextPath }/resources/images/cover/cover1.jpeg" width="270" alt="" style="width: 120px; height: 90px;"
+										<img src="${ contextPath }/resources/images/cover/cover1.jpg" width="270" alt="" style="width: 120px; height: 90px;"
 										id="cover1" onclick="damaY('cover1')" 
 										>
 										<img src="${ contextPath }/resources/images/cover/cover2.jpg" width="270" alt="" style="width: 120px; height: 90px;"
@@ -261,44 +261,22 @@
 			var str = 'cover';
 			str += i;
 			var dama = document.getElementById(str);
-			 
-			 if(i == 1){
-				 dama.src="/efp/resources/images/cover/" + str + ".jpeg";
-			 }else{
-				 dama.src="/efp/resources/images/cover/" + str + ".jpg";
-			 }
+			dama.src="/efp/resources/images/cover/" + str + ".jpg";
 			
 		}
 		
 		
-			var dama = document.getElementById(value);
+		var dama = document.getElementById(value);
 			
-			var test = document.getElementById('changeCover');
+		var test = document.getElementById('changeCover');
 			
-			
-			
-		if(value == 'cover1'){
-			
-			if(dama.src.match("cover1.jpeg")){
-				dama.src="/efp/resources/images/cover/check.jpg";
-				test.src="/efp/resources/images/cover/cover2.jpg";
-			}else{
-				dama.src="/efp/resources/images/cover/cover1.jpeg";
-				test.src="/efp/resources/images/cover/cover1.jpeg";
-			}
+		if(dama.src.match(value + ".jpg")){
+			dama.src="/efp/resources/images/cover/check.jpg";
+			test.src="/efp/resources/images/cover/" + value + ".jpg";
 		}else{
-			if(dama.src.match(value + ".jpg")){
-				dama.src="/efp/resources/images/cover/check.jpg";
-				test.src="/efp/resources/images/cover/" + value + ".jpg";
-			}else{
-				dama.src="/efp/resources/images/cover/" + value + ".jpg";
-				test.src="/efp/resources/images/cover/cover1.jpeg";
-			}
-			
-			
+			dama.src="/efp/resources/images/cover/" + value + ".jpg";
+			test.src="/efp/resources/images/cover/cover1.jpg";
 		}
-		
-		
 	}
 	
 	

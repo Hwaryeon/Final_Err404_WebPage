@@ -22,6 +22,16 @@
 		<result property="bDate" column="BDATE" />
 	</resultMap>
 	
+	<resultMap type="Band" id="BandResultSet">
+		<id property="bid" column="BID" />
+		<result property="bname" column="BNAME" />
+		<result property="bopen_status" column="BOPEN_STATUS" />
+		<result property="bintro" column="BINTRO" />
+		<result property="cid" column="CID" />
+		<result property="binvite_code" column="BINVITE_CODE" />
+		<result property="bstatus" column="BSTATUS" />
+	</resultMap>
+	
 	<!-- 내가 쓴 글 갯수 조회 -->
 	<select id="selectUserBoardList" parameterType = "int" resultType = "_int">
 		SELECT COUNT(*)
@@ -57,6 +67,13 @@
 		UPDATE MEMBER_BAND SET ISTATUS = 'N'
 		WHERE MID = #{mid} AND BID = #{bid}
 	</update>
+	
+	<select id = "selectBandInviteCode" parameterType = "String" resultMap = "BandResultSet">
+		SELECT * FROM BAND
+		WHERE BSTATUS = 'Y' AND BINVITE_CODE = #{inviteCode}
+	</select>
+	
+	
 	
 </mapper>
 

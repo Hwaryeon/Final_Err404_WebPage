@@ -68,9 +68,25 @@
     	border-bottom: white solid;
 	}
 	
+	.delete_alarm{
+		color: white; 
+		background-color: #2d2d2d;
+		width: 300px; 
+		font-size:10px;
+		line-height: 10px; 
+	    padding: 10px;
+    	text-align:center;
+	}
+	
+	.delete_alarm:hover{
+		cursor:pointer;
+		color:gray;
+	}
+	
 	.alarm_content{
 		overflow:auto;
-		height:400px;
+		height:300px;
+		background-color: #2d2d2d;
 	}
 	
 	.band_line{
@@ -78,9 +94,16 @@
     	margin-bottom: 5px;
 	}
   	
-  	.alarm_type{
+  	.alarm_empty{
+  		background-color: #2d2d2d;
+  		color:white;
+  		width: 300px;
+  		text-align:center;
+  		padding: 50px; 
   	}
-  	
+  	.chatbutton:hover{
+  		cursor:pointer;
+  	}
 </style>
 <body>
 <div class="fullwidth bg-pink" style="min-height:84px; height:84px;">
@@ -103,46 +126,36 @@
         <div class="col-md-6 col-xs-12" style="width:525px;">
                      <div class="post widget" style="float:unset; padding-left:138px;">
               <div class="post-social" id="postsocial" style="border-top:0px; padding-top:0px;">
-                  <div class="share-container" style="width:75px;">
-                      <span class="share-title" style="color:#25afe5;"><a href="newPost.np" style="color:#25afe5;">새글 피드</a><a>   |</a></span>
-                  </div>
-                  <div class="share-container"style="width:75px;">
-                      <span class="share-title" style="color:#25afe5;">밴드 찾기</span>
-                  </div>
+
                   <ul class="share-social">
+
+          /*
                   <li><a href="bandBlock.bd?bid=1">차단</a></li>
                   <li><a href="bandCalendarList.bd?bid=1">달력 호출</a></li>
+                */
+                     
+                  	<li><a href="newPost.np" style="color:#25afe5; width: 62px; height:25px; line-height: inherit; font-weight: bold; border:0px;">새글 피드</a></li>
+                  	<li><a href='codeFactoryMain.codeFac' style='border:0px;'><img src='${ contextPath }/resources/images/codePactory.png' width=25px; height=25px; class='menu_tooltip' title='코드 팩토리'/></a></li>
+                  	<li><a href='sampleForward.sample' style='border:0px;'><img src='${ contextPath }/resources/images/sampledata.png' width=25px; height=25px; class='menu_tooltip' title='샘플데이터 생성기'/></a></li>
+
+
                      <li>
-                     	<c:set var='alarm_list' value='1'/>
-                     	<c:if test="${empty alarm_list}">
-	                     	<img src="${ contextPath }/resources/images/al.png " class='alarm_img' alt="" width=25px; height=25px;>
-                     	</c:if>
-                     	<c:if test="${!empty alarm_list }">
-                     		<img src="${ contextPath }/resources/images/al2.png " class='alarm_img' alt="" width=25px; height=25px;>
-                     	</c:if>
+                     	<img src="${ contextPath }/resources/images/alarm/alarm.png" title='새소식' class='alarm_img menu_tooltip' alt="" width=25px; height=25px;>
                      	<ul class='alarm' style='display:none;'>
                      		<li class='alarm_title'>새소식</li>
                      		<li>
-		                     	<ul class='alarm_content'>
-		                     		<c:forEach var='i' begin="0" end="4">
-			                     		<li class='alarm_band' style='margin-right:0px;' onclick='location.href="#${i}"'>
-			                     			<h3 class='alarm_band_name'>몬헌꿀잼 밴드 : ${i}</h3>
-			                     			이것저것 작성합니다. 일단 글이긴한데 게시글알람이나 댓글알람이 길어지면 이거 어떻게 나오게 해야할까요 ?
-			                     			당연히 짤라야죠 슈바라아알
-			                     			<hr class='band_line'>
-			                     			<label class='alarm_type'>게시글</label>
-			                     		</li>
-		                     		</c:forEach>
+		                     	<ul id='alarm_content' class='alarm_content'>
 		                     	</ul>
                      		</li>
+                     		<li id='delete_alarm' class='delete_alarm'>모든 알림 지우기</li>
                      	</ul>
                      </li>
-                     <li><a onclick="chatting();" style="border:0px;"><img src="${ contextPath }/resources/images/message.png " alt="" width=25px; height=25px;></a></li>
+                     <li><a onclick="chatting();" style="border:0px;"><img src="${ contextPath }/resources/images/message.png " class='menu_tooltip chatbutton' title='채팅' alt="" width=25px; height=25px;></a></li>
                      <li><a href="<c:url value = "showMemberInfo_update.me">
 									<c:param name = "mid" value = "${ sessionScope.loginUser.mid }"/>
 								  </c:url>"  
-							style="border:0px;"><img src="${ contextPath }/resources/images/profile.png " alt="" width=25px; height=25px;></a></li>
-					<li><a href = "logout.me" style="border:0px;"><img src="${ contextPath }/resources/images/logout.png " alt="" width=25px; height=25px;></a></li>
+							style="border:0px;"><img src="${ contextPath }/resources/images/profile.png " class='menu_tooltip' title='마이페이지' alt="" width=25px; height=25px;></a></li>
+					<li><a href = "logout.me" style="border:0px;"><img src="${ contextPath }/resources/images/logout.png " class='menu_tooltip' title='로그아웃' alt="" width=25px; height=25px;></a></li>
 				</ul>
               </div>
             </div>
@@ -151,14 +164,119 @@
     </div>
     <h1 style="font-size:0.001px;">.</h1>
     <script>
+    //페이지 로드시 소식이 있는지 확인
+    $(window).on('load',function(){
+    	$.ajax({
+			url:'OnloadAlarm.alarm',
+			data:{},
+			success:function(data){
+				if(data == 1)
+					$('.alarm_img').attr('src','${ contextPath }/resources/images/alarm/new_alarm.gif');
+			},
+			error:function(error){
+				alert('onload 알림 에러 설마 뜨진 않겠죠?');
+			}
+    	});
+    });
+
+    $( ".menu_tooltip" ).tooltip({
+        show: {
+          effect: null,
+          position: {
+              my: "left top",
+              at: "left bottom"
+            },
+          open: function( event, ui ) {
+              ui.tooltip.animate({ top: ui.tooltip.position().top + 10 }, "fast" );
+            }
+        }
+     });
     
-
+    function deleteOneAlarm(boardId, nid){
+    	$.ajax({
+    		url:'deleteOneAlarm.alarm',
+    		data:{
+    			nid:nid
+    		},
+    		success:function(data){
+    			if(data == 1)
+    				location.href='${contextpath}'+boardId;
+    			else
+    				alert('해당 게시판으로 가기 실패');
+    		},
+    		error:function(error){
+    			
+    		}
+    	})
+    }
+    
     $(function(){
-
-    	
     	//알람 보이기
     	$('.alarm_img').click(function(){
-    		$('.alarm').show();
+    		
+    		$.ajax({
+    			url:'NewAlarm.alarm',
+    			data:{
+    			},
+    			success:function(data){
+    				$('.alarm_img').attr('src','${ contextPath }/resources/images/alarm/alarm.png');
+    				
+    				var dataValue = JSON.parse(data);
+    				$('.alarm_band').remove();
+    				$('.alarm_empty').remove();
+                  	if(dataValue.length == 0){
+                  		$("#alarm_content").append("<li class='alarm_empty' style='margin-right:0px; height:100px;'>"+
+                  		"<h3>새로운 소식이 없습니다.</h3></li>");
+                  		$('.alarm').show();
+                  		return false;
+                  	}
+                  	$.each(dataValue, function(key, value){
+                  		var content = value.bContent;
+                  		if(content.length > 100){
+                  			content = content.substr(0,100) + '...';
+                  		}
+                  		var type = value.nType;
+                  		switch(type){
+                  			case 'CONTENT' : type='게시글'; break;
+                  			case 'COMMENT' : type='댓글'; break;
+                  		}
+                  		$('#alarm_content').append("<li class='alarm_band' style='margin-right:0px;' onclick='deleteOneAlarm("+value.boardId+','+value.nid+")'>"+
+             			"<h3 class='alarm_band_name'>" + value.bName + "</h3>"+ 
+             				content +             			
+             			"<hr class='band_line'>"+
+             			"<label class='alarm_type'>"+ type +"</label></li>");
+                  	});
+                  	
+		    		$('.alarm').show();
+    			},
+    			error:function(error){
+    			}
+    		});
+    		
+    	});
+    	
+    	$('#delete_alarm').click(function(){
+    		if($('.alarm_band').length == 0){
+    			alert('현재 새소식이 없습니다.');
+	    		return false;
+    		}
+    		$.ajax({
+    			url:'AllDeleteAlarm.alarm',
+    			data:{
+    				
+    			},
+    			success:function(data){
+    				if(data == 0){
+    					alert('모두 제거 실패');
+    				}else{
+    					$('.alarm').hide();
+    					alert('모든 알림 제거 완료');
+    				}
+    			},
+    			error:function(error){
+    				
+    			}
+    		});
     	});
     	
     	//다른쪽 눌렀을때 숨김
@@ -194,9 +312,6 @@
     
     
     $(document).ready(function(){
-    	
-
-    	
     	
         $("#searchBox").keypress(function (e) {
         	if (window.event.keyCode == 13) {	//엔터를 눌렀을때

@@ -12,7 +12,7 @@ public interface mainDao {
 	List<Object> bandList(SqlSessionTemplate sqlSession, int mid);
 
 	List<Object> popContent(SqlSessionTemplate sqlSession);
-
+ 
 	int insertBand(SqlSessionTemplate sqlSession, Band b);
 
 	int selectBand(SqlSessionTemplate sqlSession, String bname);
