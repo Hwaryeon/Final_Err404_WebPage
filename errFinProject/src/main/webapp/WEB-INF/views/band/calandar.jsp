@@ -198,11 +198,16 @@
 	    });
 	 
 	 var title = 'test';
+	 
+	 var bid = $('#bid').val();
 	    
 	    $.ajax({
 			url:"eventCheck.bd",
 			type:"post",
-			data:{title:title},
+			data:{title:title,
+				bid:bid
+			},
+			
 			success:function(data){
 				
 				var result = data.eList;
@@ -227,10 +232,15 @@
 	 
 	 var title = 'test';
 	 
+	 var bid = $('#bid').val();
+	 
 	 $.ajax({
 			url:"eventCheck.bd",
 			type:"post",
-			data:{title:title},
+			data:{title:title,
+				bid:bid
+			},
+			
 			success:function(data){
 				
 				$('#scheduleArea').empty();
@@ -343,17 +353,14 @@
 	 	console.log('addScehdule 호출됨');
 	 
      	var eventNum;
-/*      	var sDateFormat = moment(start, 'YYYY-MM-DD');
-     	var eDateFormat = moment(end, 'YYYY-MM-DD');
+
+     	var bid = $('#bid').val();
      	
-     	var sDate = sDateFormat.format('YYYY-MM-DD');
-     	var eDate = eDateFormat.format('YYYY-MM-DD');
- */     	
      	  $.ajax({
 				url:"addCalendar.bd",
 				type:"post",
 				async: false,
-				data:{title:title, content:content, sDate:start, eDate:end},
+				data:{title:title, content:content, sDate:start, eDate:end, bid:bid},
 				success:function(data){
 					console.log(data.next);
 					
@@ -404,6 +411,11 @@
 
   $(document).ready(function() {
 	paintScehdule();
+	
+ 	var bid = $('#bid').val();
+	 
+	 console.log("bidTest : " + bid);
+	
 
   });
   
@@ -510,7 +522,7 @@
             
         </div>
         
-   
+   		<input type="hidden" id="bid" name="bid" value="${bid }">
         
         <script>
 			$(function(){
@@ -691,8 +703,6 @@
 			start = document.getElementById('modalStart').value;
 			end = document.getElementById('modalEnd').value;
 			
-			console.log("start : " + start);
-			console.log("end : " + end);
 			
 			addScehdule(title, content, start, end);
 			
