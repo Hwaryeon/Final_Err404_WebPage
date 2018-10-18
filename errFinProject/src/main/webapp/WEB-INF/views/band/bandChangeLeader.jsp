@@ -158,6 +158,7 @@
 			
 			<div id="search-3" class="widget fullwidth widget_search" style="margin-bottom:1px;">
                 <form class="search" role="search" method="get" action="searchBandLeader.bd">
+                	<input type="hidden" name="bid" value="${bid }">
                     <input type="search" placeholder="Search &hellip;" value="" name="s" title="Search for:">
                 </form>
             </div>

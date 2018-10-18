@@ -153,7 +153,7 @@
 		<div class="main col-md-6 col-xs-12">
 
 			<div class="widget fullwidth post-single" style="margin-bottom:1px;">
-				<h4 class="widget-title" style="font-size:20px;">리더 위임 </h4>
+				<h4 class="widget-title" style="font-size:20px;">가입 신청 리스트 </h4>
 			</div>
 			
 			<!-- <div id="search-3" class="widget fullwidth widget_search" style="margin-bottom:1px;">

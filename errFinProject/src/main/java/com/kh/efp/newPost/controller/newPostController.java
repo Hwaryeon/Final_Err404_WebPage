@@ -30,11 +30,14 @@ public class newPostController {
 	@Autowired private BandService bs;
 	
 	@RequestMapping("newPost.np")
-	public String showMemberInfoList(Model model){
+	public String showMemberInfoList(HttpServletRequest request, Model model){
+		
+		
+		
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
 		//회원 아이디 임시로
-		String memail = "loulqi152@yahoo.co.kr";
-		int mid = 1;
+		String memail = ((Member)request.getSession().getAttribute("loginUser")).getmEmail();
 		
 		ArrayList<Category> cList = ns.selectCategoryList();
 		

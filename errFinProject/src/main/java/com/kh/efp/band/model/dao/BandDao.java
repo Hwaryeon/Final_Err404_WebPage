@@ -17,7 +17,7 @@ public interface BandDao {
 
 	void insertScehdule(SqlSessionTemplate sqlSession, Scehdule s);
 
-	List<Object> scehduleList(SqlSessionTemplate sqlSession);
+	List<Object> scehduleList(SqlSessionTemplate sqlSession, int bid);
 
 	void deleteScehdule(SqlSessionTemplate sqlSession, int did);
 
@@ -80,6 +80,8 @@ public interface BandDao {
 	void updateMemberStatus(SqlSessionTemplate sqlSession, int mbid);
 
 	void refuseMemberStatus(SqlSessionTemplate sqlSession, int mbid);
+
+	ArrayList<BanMemberList> searchBanMemberList(SqlSessionTemplate sqlSession, Member_Band mb);
 
 
 

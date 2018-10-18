@@ -16,13 +16,15 @@
 	<!-- 일정 등록용 메소드 -->
 	<insert id="insertScehdule" parameterType="Scehdule">
 		INSERT INTO SCEHDULE
-		VALUES(SEQ_DID.NEXTVAL, NULL, NULL, #{sDate}, #{eDate}, #{title}, #{content})
+		VALUES(SEQ_DID.NEXTVAL, #{bid}, #{mid}, #{sDate}, #{eDate}, #{title}, #{content})
 	</insert>
 	
 	<!-- 일정 리스트 조회용 메소드 -->
-	<select id="scehduleList" resultMap="ScehduleResultSet" parameterType="Scehdule">
+	<select id="scehduleList" resultMap="ScehduleResultSet" parameterType="int">
 		SELECT *
-		FROM SCEHDULE ORDER BY SDATE
+		FROM SCEHDULE 
+		WHERE BID = #{bid}
+		ORDER BY SDATE
 	</select>
 	
 	<!-- 일정 삭제용 메소드 -->

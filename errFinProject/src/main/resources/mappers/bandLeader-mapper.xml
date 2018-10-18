@@ -238,6 +238,19 @@
 		UPDATE MEMBER_BAND SET ISTATUS='N' WHERE MBID = #{mbid}
 	</update>
 	
+	<!-- 밴드에 차단된 멤버 검색 목록 메소드 -->
+	<select id = "searchBanMemberList" parameterType = "Member_Band" resultMap = "BanMemberListResultSet">
+		SELECT b.BANID, M.MID, M.MNAME 
+		FROM MEMBER m
+		JOIN BAN b ON (b.MID = m.MID)
+		WHERE BID = #{bid}
+        
+        <if test="mname != null">
+			AND M.MNAME LIKE '%'|| #{mname} ||'%'
+		</if>
+	</select>
+	
+	
 </mapper>
 
 
