@@ -60,16 +60,24 @@ public class BoardServiceImpl implements BoardService{
 	
 	// 게시글 수정
 	@Override
-	public int updateBoard(Board board) throws Exception {
+	public void updateBoard(Board board) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		boardDao.updateBoard(board);
 	}
+	
+
+	@Override
+	public void updateHit(int bno) throws Exception {
+		// TODO Auto-generated method stub
+		boardDao.updateHit(bno);
+	}
+
 	
 	//게시글 삭제
 	@Override
-	public int deleteBoard(int bno) throws Exception {
+	public void deleteBoard(int bno) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		boardDao.deleteBoard(bno);
 	}
 
 	//05.게시글 전체 목록

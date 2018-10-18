@@ -71,6 +71,12 @@ public interface BandDao {
 
 	int selectMlevel(SqlSessionTemplate sqlSession, Member_Band mb);
 
+	String selectBstatus(SqlSessionTemplate sqlSession, int bid);
+
+	void insertMember_Band(SqlSessionTemplate sqlSession, Member_Band mb);
+
+	ArrayList<Member_Band> insertMemberList(SqlSessionTemplate sqlSession, int bid);
+
 
 
 

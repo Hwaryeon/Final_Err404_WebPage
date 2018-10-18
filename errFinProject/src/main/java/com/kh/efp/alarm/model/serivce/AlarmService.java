@@ -8,4 +8,8 @@ public interface AlarmService {
 
 	ArrayList<Alarm> selectListAlarm(int mid);
 
+	int deleteAllAlarm(int mid);
+
+	int deleteOneAlarm(int nid);
+
 }

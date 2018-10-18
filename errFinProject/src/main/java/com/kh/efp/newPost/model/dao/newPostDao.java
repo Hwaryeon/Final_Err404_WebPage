@@ -14,7 +14,7 @@ import com.kh.efp.newPost.model.vo.Report;
 
 public interface newPostDao {
 
-	ArrayList<Category> selectCategoryList(SqlSessionTemplate sqlSession);
+	ArrayList<Category> selectCategoryList(SqlSessionTemplate sqlSession); 
 
 	ArrayList<Band> selectBandList(SqlSessionTemplate sqlSession, String memail);
 

@@ -70,6 +70,12 @@ public interface BandService {
 
 	int selectMlevel(Member_Band mb);
 
+	String selectBstatus(int bid);
+
+	void insertMember_Band(Member_Band mb);
+
+	ArrayList<Member_Band> insertMemberList(int bid);
+
 	
 
 

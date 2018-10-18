@@ -7,7 +7,7 @@
 <mapper namespace="board">
 	
 	<resultMap type="Board" id="BoarddResultSet">
-		<id property="boardId" column="BOARDID" />
+		<id property="boardId" column="BOARDID" /> 
 		<result property="bId" column="BID" />
 		<result property="mId" column="MID" />
 		<result property="bContent" column="BCONTENT" />
@@ -76,20 +76,36 @@
 	
 
 	<!-- 05.수정 처리 -->
-	<update id="updateArticle">
-	UPDATE BOARDS SET
-	bContent = #{bContent}
-	WHERE SEQ_BOARDID.NEXTVAL=#{SEQ_BOARDID.NEXTVAL} 
-	</update>
+<!-- 	<update id="updateArticle"> -->
+<!-- 	UPDATE BOARDS SET -->
+<!-- 	bContent = #{bContent} -->
+<!-- 	WHERE SEQ_BOARDID.NEXTVAL=#{SEQ_BOARDID.NEXTVAL}  -->
+<!-- 	</update>
+	 -->
 	
-
+	
+	<update id="updateArticle" parameterType="board">
+		UPDATE BOARDS SET 
+		bContent = #{bContent}
+		<!-- WHERE SEQ_BOARDID.NEXTVAL=#{SEQ_BOARDID.NEXTVAL} -->
+		WHERER BOARDID=#{boardId}
+	</update>
 	
 	
 	<!-- 06.삭제 -->
-	<delete id = "deleteArticle">
-	DELETE FROM
-	WHERE
+<!-- 	<delete id = "deleteArticle"> -->
+<!-- 	DELETE FROM -->
+<!-- 	WHERE -->
+	<!-- </delete> -->
+	
+	<delete id="deleteArticle" parameterType="int">
+		DELETE
+		FROM BOARDS
+		WHERE SEQ_BOARDID.NEXTVAL=#{SEQ_BOARDID.NEXTVAL}
+	
 	</delete>
+	
+	
 	
 	
 	<!-- 멤버 정보를 가져오는 메소드 -->

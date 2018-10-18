@@ -20,7 +20,7 @@ import com.kh.efp.member_band.model.vo.PageInfo;
 @Controller
 @SessionAttributes("loginUser")
 public class AdminController {
-	@Autowired private adminService as;
+	@Autowired private adminService as; 
 	
 	//회원조회 페이지 진입
 	@RequestMapping("goMemberSelect.ad")

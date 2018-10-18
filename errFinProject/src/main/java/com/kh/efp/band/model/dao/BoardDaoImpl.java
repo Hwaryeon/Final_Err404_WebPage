@@ -29,16 +29,15 @@ public class BoardDaoImpl implements BoardDao {
 		return SqlSession.selectOne("board.view",bno);
 	}
 
-	@Override
+/*	@Override
 	public void update(Board vo) throws Exception {
 		// TODO Auto-generated method stub
 		SqlSession.update("board.updateArticle",vo);
 	}
-
+*/
 	@Override
 	public void delete(int bno) throws Exception {
-		// TODO Auto-generated method stub
-		SqlSession.delete("board.deleteArticle",bno);
+		
 	}
 
 	@Override
@@ -62,6 +61,33 @@ public class BoardDaoImpl implements BoardDao {
 	public Board selectBoard(Board board)throws Exception {
 		// TODO Auto-generated method stub
 		return SqlSession.selectOne("board.selectBoard", board);
+	}
+
+	@Override
+	public void updateBoard(Board board) throws Exception {
+		// TODO Auto-generated method stub
+		SqlSession.update("board.updateArticle",board);
+	}
+
+
+
+	@Override
+	public void deleteBoard(int bno) throws Exception {
+		// TODO Auto-generated method stub
+		SqlSession.delete("board.deleteArticle",bno);
+		
+	}
+
+	@Override
+	public void update(Board vo) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateHit(int bno) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

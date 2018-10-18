@@ -662,7 +662,8 @@
                   <p class="comment-notes">Your email address will not be published. Required fields are marked 
                   <span class="required">*</span></p>            
                    <p class="comment-form-author" style="width:100%;">
-                  <label for="author">일정 제목 <span class="required">*</span></label> <input id="sTitle" name="sTitle" type="text" value="" size="15" aria-required="true"></p>
+                  <label for="author">일정 제목 <span class="required">*</span></label> 
+                  <input id="sTitle" name="sTitle" type="text" value="" size="15" aria-required="true"></p>
                   <p class="comment-form-comment"><label for="comment">일정 내용</label> 
                   <textarea id="sContent" name="sContent" cols="45" rows="8" aria-required="true"></textarea></p>   
                   <p class="form-submit">

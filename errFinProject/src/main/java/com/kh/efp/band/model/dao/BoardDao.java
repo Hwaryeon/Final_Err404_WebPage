@@ -20,6 +20,8 @@ public interface BoardDao {
 	//07.수정화면
 	public List<Board> updatePage() throws Exception;
 	public Board selectBoard(Board board) throws Exception;
-
+	public void updateBoard(Board board)throws Exception;
+	public void updateHit(int bno)throws Exception;
+	public void deleteBoard(int bno)throws Exception;
 
 }

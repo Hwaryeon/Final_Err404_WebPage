@@ -12,4 +12,8 @@ public interface AlarmDao {
 
 	void updateNews(SqlSessionTemplate sqlSession);
 
+	int deleteAllAlarm(SqlSessionTemplate sqlSession, int mid);
+
+	int deleteOneAlarm(SqlSessionTemplate sqlSession, int nid);
+
 }

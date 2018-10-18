@@ -6,7 +6,7 @@ public class AdmMemberList {
 	private int no;
 	private int mid;
 	private String mEmail;
-	private String mName;
+	private String mName; 
 	private String mPhone;
 	private String mNational;
 	private Date mDate;
