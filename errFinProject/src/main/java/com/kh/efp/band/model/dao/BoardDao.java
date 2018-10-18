@@ -3,6 +3,8 @@ package com.kh.efp.band.model.dao;
 import java.util.List;
 
 import com.kh.efp.band.model.vo.Board;
+import com.kh.efp.newPost.model.vo.Boards;
+import com.kh.efp.newPost.model.vo.MemberProfile;
 
 public interface BoardDao {
 	//01.게시글 작성
@@ -23,5 +25,12 @@ public interface BoardDao {
 	public void updateBoard(Board board)throws Exception;
 	public void updateHit(int bno)throws Exception;
 	public void deleteBoard(int bno)throws Exception;
+	public int selectBoardCount(int pbid)throws Exception;
+	public int selectCommentCount(int pbid)throws Exception;
+	public List<Board> commentList(int pbid)throws Exception;
+	public void insertComment(Boards b);
+	public void deleteComment(int boardid);
+	public void updateComment(Boards b);
+	public MemberProfile selectMemberProfile(int mId);
 
 }
