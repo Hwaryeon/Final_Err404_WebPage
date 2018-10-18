@@ -25,17 +25,38 @@
 	   
 	   
       $("#btnUpdate").click(function(){
-         var bContent = $("#bContent").val();
-         if(bContent==""){
-            alert("내용을 입력하세요");
-            document.form1.bContent.focus();
-            return;
-         }
+    	  var mId = "${row.mId}"
+    	   		var boardId = "${row.boardId}"
+    	   		var bContent = "${row.bContent}"
+    	   		var bId = "${row.bId}"
+    	   		console.log(mId);
+    	   		console.log(boardId);
+    	   		console.log(bContent);
+    	   		alert(bId);
+    	   		
+    	   		
+    	   		location.href="updateBoard.do?mId=" + mId + "&boardId=" + boardId +"&bContent=" + bContent +"&bId=" + bId;
+         
 
-         document.form1.action="updateBoard.do";
-         document.form1.submit();
+    /*      document.form1.action="updateBoard.do";
+         document.form1.submit(); */
       });
    });
+   
+   
+/* 	function update(){
+   		var mId = "${row.mId}"
+   		var boardId = "${row.boardId}"
+   		var bContent = "${row.bContent}"
+   		var bId = "${row.bId}"
+   		console.log(mId);
+   		console.log(boardId);
+   		console.log(bContent);
+   		alert(bId);
+   		
+   		
+   		location.href="updatePage.do?mId=" + mId + "&boardId=" + boardId +"&bContent=" + bContent +"&bId=" + bId;
+   	} */
    
 </script>
 
@@ -88,19 +109,7 @@
       </div>
       
 	
-	  <script>
-               	function update(){
-               		var mId = "${row.mId}"
-               		var boardId = "${row.boardId}"
-               		var bContent = "${row.bContent}"
-               		console.log(mId);
-               		console.log(boardId);
-               		console.log(bContent);
-               		
-               		
-               		location.href="updatePage.do?mId=" + mId + "&boardId=" + boardId +"&bContent=" + bContent;
-               	}
-               </script>
+	 
                
 		
       <div class="main col-md-6 col-xs-12">
@@ -121,8 +130,9 @@
                      id="cancel-comment-reply-link" href="" style="display: none;">Cancel
                         reply</a></small>
                </h3>
-               <form name="form1" action="insert.do" method="post" >
+               <form name="form1" action="updateBoard.do" method="post" >
                   <input type="hidden" id="boardId" name="boardId" value="${board.boardId }"> 
+                  <input type="hidden" id="bId" name="bId" value="${board.bId }">
                   <p class="comment-notes">
                      멤버들에게 전할 소식을 남겨주세요~ <span class="required">*</span>
                   </p>

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.kh.efp.band.model.dao.BoardDao;
 import com.kh.efp.band.model.vo.Board;
+import com.kh.efp.newPost.model.vo.Boards;
+import com.kh.efp.newPost.model.vo.MemberProfile;
  
 @Service
 public class BoardServiceImpl implements BoardService{
@@ -80,12 +82,6 @@ public class BoardServiceImpl implements BoardService{
 		boardDao.deleteBoard(bno);
 	}
 
-	//05.게시글 전체 목록
-	@Override
-	public List<Board> listAll(int pbid) throws Exception {
-		// TODO Auto-generated method stub
-		return boardDao.listAll(pbid);
-	}
 	
 /*	//06.수정화면
 	@Override
@@ -126,6 +122,61 @@ public class BoardServiceImpl implements BoardService{
 	public int updatePage() throws Exception {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+/////////////////////////////////////////
+	
+	
+	@Override
+	public int selectBoardCount(int pbid) throws Exception {
+		// TODO Auto-generated method stub
+		
+		return boardDao.selectBoardCount(pbid);
+	}
+	
+	//05.게시글 전체 목록
+		@Override
+		public List<Board> listAll(int pbid) throws Exception {
+			// TODO Auto-generated method stub
+			return boardDao.listAll(pbid);
+		}
+		
+
+	@Override
+	public int selectCommentCount(int pbid) throws Exception {
+		// TODO Auto-generated method stub
+		return boardDao.selectCommentCount(pbid);
+	}
+
+	@Override
+	public List<Board> commentList(int pbid) throws Exception {
+		// TODO Auto-generated method stub
+		return boardDao.commentList(pbid);
+	}
+
+	@Override
+	public void insertComment(Boards b) {
+		// TODO Auto-generated method stub
+		boardDao.insertComment(b);
+		
+	}
+
+	@Override
+	public void deleteComment(int boardid) {
+		// TODO Auto-generated method stub
+		boardDao.deleteComment(boardid);
+	}
+
+	@Override
+	public void updateComment(Boards b) {
+		// TODO Auto-generated method stub
+		boardDao.updateComment(b);
+		
+	}
+
+	@Override
+	public MemberProfile selectMemberProfile(int mId) {
+		// TODO Auto-generated method stub
+		return boardDao.selectMemberProfile(mId);
 	}
 
 	
