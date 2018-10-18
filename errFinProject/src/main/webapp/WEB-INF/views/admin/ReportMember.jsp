@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content=" width=device-width, initial-scale=1">
-<title>관리자 | 신고받은 회원 상세 조회</title>
+<title>관리자 | 신고받은 회원 조회</title>
 <!-- CSS --> 
 <jsp:include page="../admin/adminMenubar.jsp" />
 <link href="resources/css/bootstrap.min.css" rel="stylesheet">
@@ -102,7 +102,7 @@
 			</div>
 			<div class="main col-md-6 col-xs-12">
 				<div class="admin-container">
-					<h1 style="height: 50px; padding-left: 20px; padding-top: 10px;">신고받은 회원 상세 조회</h1>
+					<h1 style="height: 50px; padding-left: 20px; padding-top: 10px;">신고받은 회원 조회</h1>
 					<!-- <div class="search-area">
 						정렬방법  : 
 						<select style="margin-left:2%; font-size:15px; height:25px;">
@@ -115,19 +115,25 @@
 					</div> -->
 					<table class="admin-table">
 						<tr style="background-color:lightblue">
-							<td>신고자</td>
-							<td>신고받은 밴드</td>
-							<td>신고 글</td>
-							<td>신고받은 날짜</td>
-							<td>신고 사유</td>
+							<td>회원번호</td>
+							<td>닉네임</td>
+							<td>이메일</td>
+							<td>신고횟수</td>
+							<td>차단하기</td>
 						</tr>
 						<c:forEach var="reportMember" items="${ reportMember }">
 							<tr>
-								<td>${ reportMember.mname }</td>
-								<td>${ reportMember.bname }</td>
-								<td>${ reportMember.bcontent }</td>
-								<td>${ reportMember.rdate }</td>
-								<td>${ reportMember.rcontent }</td>
+								<td>${ reportMember.cid }</td>
+								<td>${ reportMember.mcname }</td>
+								<td>${ reportMember.memail }</td>
+								<td>${ reportMember.times }</td>
+								<td>
+									<c:if test="${ reportMember.times >= 5 }">
+										<button onclick="location.href='showReportMember.ad?mid=${reportMember.cid}'">
+											상세보기
+										</button>
+									</c:if>
+								</td>
 						</c:forEach>
 					</table>
 
@@ -163,6 +169,33 @@
 							<a href="${ mListNext }"> [다음]</a>
 						</c:if>
 					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer">
+			<div class="footer-top">
+				<div class="container">
+					<div class="pull-left">
+						<div id="text-6">
+							<div class="textwidget">
+								<a href="#">Weekend Magazine</a> &copy; 2015 All rights reserved
+							</div>
+						</div>
+					</div>
+					<div class="pull-right hidden-xs">
+						<div id="text-7">
+							<div class="textwidget">
+								Theme by <a title="Email me now" href="#">JKthemes</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-bottom hidden-xs">
+				<div class="container">
+					<div id="nav_menu-2"></div>
+					<a class="footer-nav-scroll pull-right"></a>
 				</div>
 			</div>
 		</div>

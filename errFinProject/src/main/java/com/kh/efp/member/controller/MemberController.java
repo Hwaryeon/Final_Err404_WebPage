@@ -165,7 +165,7 @@ public class MemberController {
 				return "main/main";
 			}
 			else {
-				return "redirect:/goMemberSelect.ad";
+				return "redirect:/MemberSelect.ad";
 			}
 
 		} catch (LoginException e) {
