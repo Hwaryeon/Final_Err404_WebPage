@@ -39,9 +39,9 @@ public class BandServiceImpl implements BandService {
 	}
 
 	@Override
-	public List<Object> scehduleList() {
+	public List<Object> scehduleList(int bid) {
 		
-		return bd.scehduleList(sqlSession);
+		return bd.scehduleList(sqlSession, bid);
 	}
 
 	@Override
@@ -218,6 +218,21 @@ public class BandServiceImpl implements BandService {
 	@Override
 	public ArrayList<Member_Band> insertMemberList(int bid) {
 		return bd.insertMemberList(sqlSession, bid);
+	}
+
+	@Override
+	public void updateMemberStatus(int mbid) {
+		bd.updateMemberStatus(sqlSession, mbid);
+	}
+
+	@Override
+	public void refuseMemberStatus(int mbid) {
+		bd.refuseMemberStatus(sqlSession, mbid);
+	}
+
+	@Override
+	public ArrayList<BanMemberList> searchBanMemberList(Member_Band mb) {
+		return bd.searchBanMemberList(sqlSession, mb);
 	}
 
 

@@ -153,7 +153,7 @@
 		<div class="main col-md-6 col-xs-12">
 
 			<div class="widget fullwidth post-single" style="margin-bottom:1px;">
-				<h4 class="widget-title" style="font-size:20px;">리더 위임 </h4>
+				<h4 class="widget-title" style="font-size:20px;">가입 신청 리스트 </h4>
 			</div>
 			
 			<!-- <div id="search-3" class="widget fullwidth widget_search" style="margin-bottom:1px;">
@@ -359,19 +359,30 @@
   <br>
   <input type="hidden" id="mbid" value=""/> 
   <input type="hidden" id="bid" name="bid" value="${ bid }" >
-  <button data-remodal-action="cancel" class="remodal-cancel">취소</button>
+  <button id="refuseBandLeaderBu" data-remodal-action="cancel" class="remodal-cancel">취소</button>
   <button id="changeBandLeaderBu" data-remodal-action="confirm" class="remodal-confirm">확인</button>
 </div>
 
 <script>
 
 $('#changeBandLeaderBu').click(function(){
-	/* console.log("id : " + document.getElementById('mbid').value);
+	console.log("id : " + document.getElementById('mbid').value);
 	
-	var mbid = document.getElementById('mbid').value; */
+	var mbid = document.getElementById('mbid').value; 
 	var bid = document.getElementById('bid').value;
 	
-	location.href="updateMemberStatus.bd?bid=" + bid;
+	location.href="updateMemberStatus.bd?bid=" + bid + "&mbid=" + mbid;
+	
+});
+
+$('#refuseBandLeaderBu').click(function(){
+	
+	console.log("id : " + document.getElementById('mbid').value);
+	
+	var mbid = document.getElementById('mbid').value; 
+	var bid = document.getElementById('bid').value;
+	
+	location.href="refuseMemberStatus.bd?bid=" + bid + "&mbid=" + mbid;
 	
 });
 
