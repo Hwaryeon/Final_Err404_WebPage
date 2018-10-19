@@ -126,10 +126,17 @@
         <div class="col-md-6 col-xs-12" style="width:525px;">
                      <div class="post widget" style="float:unset; padding-left:138px;">
               <div class="post-social" id="postsocial" style="border-top:0px; padding-top:0px;">
+
                   <ul class="share-social">
+
+<!--                   <li><a href="bandBlock.bd?bid=1">차단</a></li>
+                  <li><a href="bandCalendarList.bd?bid=1">달력 호출</a></li> -->
+                     
                   	<li><a href="newPost.np" style="color:#25afe5; width: 62px; height:25px; line-height: inherit; font-weight: bold; border:0px;">새글 피드</a></li>
                   	<li><a href='codeFactoryMain.codeFac' style='border:0px;'><img src='${ contextPath }/resources/images/codePactory.png' width=25px; height=25px; class='menu_tooltip' title='코드 팩토리'/></a></li>
                   	<li><a href='sampleForward.sample' style='border:0px;'><img src='${ contextPath }/resources/images/sampledata.png' width=25px; height=25px; class='menu_tooltip' title='샘플데이터 생성기'/></a></li>
+
+
                      <li>
                      	<img src="${ contextPath }/resources/images/alarm/alarm.png" title='새소식' class='alarm_img menu_tooltip' alt="" width=25px; height=25px;>
                      	<ul class='alarm' style='display:none;'>
@@ -183,7 +190,7 @@
         }
      });
     
-    function deleteOneAlarm(boardId, nid){
+    function deleteOneAlarm(bid, nid){
     	$.ajax({
     		url:'deleteOneAlarm.alarm',
     		data:{
@@ -191,7 +198,7 @@
     		},
     		success:function(data){
     			if(data == 1)
-    				location.href='${contextpath}'+boardId;
+    				location.href='list.do?bid='+bid;
     			else
     				alert('해당 게시판으로 가기 실패');
     		},
@@ -231,11 +238,11 @@
                   			case 'CONTENT' : type='게시글'; break;
                   			case 'COMMENT' : type='댓글'; break;
                   		}
-                  		$('#alarm_content').append("<li class='alarm_band' style='margin-right:0px;' onclick='deleteOneAlarm("+value.boardId+','+value.nid+")'>"+
+                  		$('#alarm_content').append("<li class='alarm_band' style='margin-right:0px;' onclick='deleteOneAlarm("+value.bid+','+value.nid+")'>"+
              			"<h3 class='alarm_band_name'>" + value.bName + "</h3>"+ 
              				content +             			
              			"<hr class='band_line'>"+
-             			"<label class='alarm_type'>"+ type +"</label></li>");
+             			"<label class='alarm_type'> - "+type+" - \t작성일 : "+ value.alarm_Date +"<br>작성자 : "+ value.mName +"</label></li>");
                   	});
                   	
 		    		$('.alarm').show();

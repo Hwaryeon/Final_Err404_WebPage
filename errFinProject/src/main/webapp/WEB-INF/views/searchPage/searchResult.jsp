@@ -135,7 +135,7 @@
 	          			</div>
 	          		</c:if>
 	          		<c:if test='${!empty contents[i]}'>
-	          			<a href='${contents[i].boardId}'>
+	          			<a href='list.do?bid=${contents[i].bid}'>
 				          <div class="col-md-3 col-xs-3">
 				            <div class="widget team-member contents-list" style='height: 360px;'>
 				              <img class='contentImg' src="${contextPath}/resources/upload_images/${contents[i].a_edit_Name}">
@@ -186,7 +186,7 @@
         </c:if>
         <c:if test='${fn:length(band) != 0}'>
 		 <c:forEach var='b' begin='0' end='${fn:length(band)>5 ? 4 : fn:length(band)-1}' step='1' >
-		 	<a href='${band[b].bid}'>
+		 	<a href='list.do?bid=${band[b].bid}'>
 	          <div class="col-md-10 col-xs-10">
 	            <div class="widget band-list" style='background: linear-gradient(to left, #e6e6e6, #ffffff);'>
 	              <div class="media">
@@ -269,7 +269,7 @@
                	if(bIntroCut.length > 70){		//문자열 길이 70이상이면 자르기
                		bIntroCut = bIntroCut.substr(0,70);
                	}
-	               	$("#band_List").append("<a href='"+value.bid+"'><div class='col-md-10 col-xs-10'>"+
+	               	$("#band_List").append("<a href='list.do?bid="+value.bid+"'><div class='col-md-10 col-xs-10'>"+
 	                         "<div class='widget band-list' style='background: linear-gradient(to left, #e6e6e6, #ffffff);'>"+
 	                        "<div class='media'>"+
 	                       "<div class='media-left media-middle'>"+

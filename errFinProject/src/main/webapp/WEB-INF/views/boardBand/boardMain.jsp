@@ -188,6 +188,7 @@
                            <input type="hidden" id="boardid" name="boardid" value="${row.boardId}">
                            <input type="hidden" id="bcontent" name="bcontent" value="${row.bContent}">
                            <input type="hidden" id="mid" name="mid" value="${row.mId}">
+                           <input type="hidden" id ="bid" name ="bid" value ="${row.bId}">
                            <a>
                            
                            
@@ -232,7 +233,9 @@
                		
                		var mId = $(this).parent().parent().children("input").eq(2).val();
                		
-               		location.href="updatePage.do?mId=" + mId + "&boardId=" + bo +"&bContent=" + bcontent;
+               		var bId = $(this).parent().parent().children("input").eq(3).val();
+               		console.log(bId);
+               		location.href="updatePage.do?mId=" + mId + "&boardId=" + bo +"&bContent=" + bcontent + "&bId=" + bId;
                		
                	});
                	
@@ -308,65 +311,165 @@
             
                
             <!-- 댓글창 -->
-            <div class="box-content widget fullwidth" id="comments">
-               <h4 class="comment-title">2 Comments</h4>
-               <ol class="commentlist">
-
-                  <ul class="children">
-                     <li class="comment">
-                        <div class="comment-body">
-
-                           <div class="line"></div>
-                           <div class="comment-vcard">
-                              <img width="60" height="60" alt=""
-                                 src="http://placehold.it/70x70" class="avatar"> <span
-                                 class="author-tag"></span>
-                           </div>
-
-                           <div class="comment_detail">
-
-                              <div class="comment-header">
-
-                                 <span class="author">이름임</span> <span class="date"> <a
-                                    href="#">2:14 AM 22 feb 2013</a>
-                                 </span>
-
-
-                              </div>
-                              <!--comment-header-->
-                              <p>댓그으ㅡ으으으으ㅡ으으으으으으으으을</p>
-                           </div>
-                           <!--.comment_detail-->
-
-                        </div>
-                        <!--.comment-body-->
-                     </li>
-                  </ul>
-
-               </ol>
+               
+            <div class="box-content widget fullwidth" id="comments" style="margin-bottom:10px;">
+              <h4 class="comment-title">
+						
+						<c:set var="count" value="0"/>
+						<c:forEach var="commentList" items="${commentList}">
+						
+							<c:if test="${ commentList.refBId eq row.boardId  }">
+						
+								<c:set var="count" value="${count + 1 }"/>
+							
+							</c:if>
+						</c:forEach>
+					댓글 ${count }
+				</h4>
+              
+              
+              <ol class="commentlist">
+                <c:forEach var="commentList" items="${commentList}">
+                
+                
+                	<c:if test="${ commentList.refBId eq row.boardId  }">
+                	 <c:set var="comCount" value="${comCount + 1 }"/>
+                	 <li class="comment parent">
+                    <div class="comment-body">
+            
+                    <div class="line"></div>
+                    <div class="comment-vcard">
+                    
+                    	<c:set var="profileLoop" value="false"/>
+                         <c:forEach var="mName2" items="${ mList2 }">
+                            <c:if test="${not profileLoop }">
+	                            	<c:if test="${ mName2.mid == commentList.mid }" >
+	                            
+	                          		  <img width="60" height="60" alt="" src="${ contextPath }/resources/upload_images/${mName2.edit_name }" class="avatar"> 
+	                          		  <c:set var="profileLoop" value="true"/> 
+	                          	  </c:if>
+                          	  </c:if>
+                            </c:forEach>
+                    </div> --
+                    
+                    <div class="comment_detail">
+                        
+                        <div class="comment-header">
+                            
+                            <span class="author">
+                            
+                             	<c:set var="doneLoop" value="false"/>
+                            	<c:forEach var="mName2" items="${ mList2 }">
+                            
+                            	<c:if test="${not doneLoop }">
+	                            	<c:if test="${ mName2.mid == commentList.mid }" >
+	                            
+		                          		  <span class="author">${ mName2.mname }</span> 
+		                          		  <c:set var="doneLoop" value="true"/>
+		                          	  </c:if>
+	                          	  </c:if>
+	                            </c:forEach>
+                             
+                           </span> 
+                            
+                            <span class="date">
+                                <a href="#">${ commentList.bDate }</a>
+                            </span>
+                            
+                            <%-- <span class="reply">
+                            	<!-- 신고댓글 번호 -->
+                            	<input type="hidden" value="${ commentList.boardId }">
+                            	
+                            	<!-- 신고댓글 밴드 번호 -->
+                            	<input type="hidden" value="${commentList.bId }">
+                            	
+                            	<!-- 신고댓글 유저 번호 -->
+                            	<input type="hidden" value="${commentList.mId }">
+                            	
+                            	<!-- 신고댓글 유저 이름 -->
+                            	<c:set var="doneLoop" value="false"/>
+                            	<c:forEach var="m" items="${ mList2 }">
+                            
+                            		<c:if test="${not doneLoop }">
+		                            	<c:if test="${ m.mid == commentList.mid }" >
+		                            		<input type="hidden" value="${ m.mname }">
+		                            		<c:set var="doneLoop" value="true"/>
+		                          	  	</c:if>
+	                          	  	</c:if>
+                          	  	</c:forEach>
+                            	
+								<!-- 신고댓글 내용 -->                            	
+                            	<input type="hidden" value="${commentList.bcontent }">
+                            
+                          		 <input type="hidden" value="${comCount}">
+                            
+                                <a class="comment-reply-link reportBoard" style="cursor:pointer;">신고</a>
+                                
+                                <c:if test="${commentList.mid == userId}">
+                                
+	                                <a class="comment-reply-link updateBoard" style="cursor:pointer; margin-right:5px; margin-left:5px;">수정</a>
+	                                <a class="comment-reply-link deleteBoard" style="cursor:pointer;">삭제</a>
+                               </c:if>
+                            </span> --%>
+            
+                        </div><!--comment-header-->
+                        
+                        <p>${commentList.bContent }</p>
+                        
+                    </div><!--.comment_detail-->
+                    
+                    </div><!--.comment-body-->
+                </li><!--Parent li-->
+                <%-- <div class="widget clearfix" id="updateBoardArea${commentList.boardid}"> --%>
+                <div class="widget clearfix" id="updateBoardArea${comCount}" style="display:none;">
+              <div id="respond" class="comment-respond">
+                <h3 id="reply-title" class="comment-reply-title" style="border-bottom:0px; float:left; margin-right:20px;">댓글 수정 <small><a rel="nofollow" id="cancel-comment-reply-link" href="" style="display:none;">Cancel reply</a></small></h3>
+                <form action="updateBoard.np" method="post" id="commentform" class="comment-form" style="float:left;">
+                  <p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="text" value="" size="30"></p>
+                  <p class="comment-form-comment" style="float:left; width:93%; margin-right: 10px;">
+                            	
+                  <input name="boardid" type="hidden" value="${ commentList.boardId }">
+                  
+                  <textarea id="comment" name="comment" cols="45" rows="1" aria-required="true" style="min-height:1px; resize: none;" onclick="this.value=''">${commentList.bContent }</textarea></p>       
+                  <p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr>
+                  tags and attributes:  <code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code></p>
+                  <p class="form-submit" style="float:left; width:10px;">
+                  <input name="submit" type="submit" id="submit" value="Post Comment">
+                  <input type="hidden" name="comment_parent" id="comment_parent" value="0">
+                  </p>
+                </form>
+              </div><!-- #respond -->
             </div>
+                </c:if>
+                </c:forEach>
+                
+                
+              </ol>
+              <div class="widget clearfix">
+              <div id="respond" class="comment-respond">
+                <h3 id="reply-title" class="comment-reply-title" style="border-bottom:0px; float:left; margin-right:20px;">댓글쓰기 <small><a rel="nofollow" id="cancel-comment-reply-link" href="" style="display:none;">Cancel reply</a></small></h3>
+                <form action="insertComment.do" method="post" id="commentform" class="comment-form" style="float:left;">
+                  <p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="text" value="" size="30"></p>
+                  <p class="comment-form-comment" style="float:left; width:93%; margin-right: 10px;">
+                            	
+                  <input name="boardid" type="hidden" value="${ row.boardId }">
+                            	
+                  <input name="bid" type="hidden" value="${row.bId }">
 
 
-
-
-            <div id="widget-feedburner-2"
-               class="widget fullwidth widget-feedburner">
-               <h1 class="widget-title">댓글쓰기</h1>
-               <div class="widget-feedburner-counter subscribe">
-                  <form action="#" method="post">
-                     <input class="feedburner-email input-subscribe" type="text"
-                        name="comment" value="댓글을 남겨주세요."
-                        onfocus="if (this.value == '댓글을 남겨주세요.') {this.value = '';}"
-                        onblur="if (this.value == '') {this.value = '댓글을 남겨주세요.';}">
-                     <input class="feedburner-subscribe input-button" type="submit"
-                        name="submit" value="보내기">
-                  </form>
-               </div>
-
-
-
-
+                  <textarea id="comment" name="comment" cols="55" rows="1" aria-required="true" style="min-height:1px; resize: none;" onclick="this.value=''">댓글을 입력해주세요</textarea></p>       
+                  <p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr>
+                  tags and attributes:  <code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code></p>
+                  <p class="form-submit" style="float:left; width:10px;">
+                  <input name="submit" type="submit" id="submit" value="댓글 등록" style="background-color: #5497e7;">
+                  <input type="hidden" name="comment_parent" id="comment_parent" value="0">
+                  </p>
+                </form>
+              </div><!-- #respond -->
             </div>
+            </div>
+            
+            
                
             </div>
          
@@ -582,6 +685,26 @@
    <jsp:include page="../common/footer.jsp" />
    
 	<script>
+
+	$('.updateComment').click(function(){
+		 
+		var count = $(this).parents().children("input").eq(5).val();
+		 
+		var str = 'updateBoardArea' + count;
+		 
+		var con = document.getElementById(str);
+		 
+		if(con.style.display=='none'){
+	        con.style.display = 'block';
+	    }else{
+	        con.style.display = 'none';
+	    }
+
+
+		 
+		 
+	});
+	
 	
 	$(function() {
 		$("#userImage").hide(); 

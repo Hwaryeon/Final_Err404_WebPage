@@ -28,6 +28,12 @@ public class adminServiceImpl implements adminService {
 	}
 	
 	@Override
+	public int getlistCount2(int i, int mid) {
+		int listCount = ad.getListCount2(sqlSession, i, mid);
+		return listCount;
+	}
+	
+	@Override
 	public List<Object> memberAllList(PageInfo pi, String alignment) {
 		return ad.memberAllList(sqlSession, pi, alignment);
 	}
@@ -53,6 +59,11 @@ public class adminServiceImpl implements adminService {
 	}
 
 	@Override
+	public List<Object> showReportMember(PageInfo pi, int mid) {
+		return ad.showReportMember(sqlSession, pi, mid);
+	}
+	
+	@Override
 	public List<Object> reportBandList(PageInfo pi) {
 		return ad.reportBandList(sqlSession, pi);
 	}
@@ -66,4 +77,6 @@ public class adminServiceImpl implements adminService {
 	public List<Object> banBandList(PageInfo pi, String alignment) {
 		return ad.banBandList(sqlSession, pi, alignment);
 	}
+
+	
 }

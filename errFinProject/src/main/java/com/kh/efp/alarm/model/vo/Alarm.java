@@ -11,10 +11,13 @@ public class Alarm implements java.io.Serializable{
 	private String mName;
 	private int boardId;
 	private int nid;
+	private int bid;
 	
 	public Alarm() {}
 
-	public Alarm(String nType, Date alarm_Date, String bContent, String bName, String mName, int boardId, int nid) {
+
+	public Alarm(String nType, Date alarm_Date, String bContent, String bName, String mName, int boardId, int nid,
+			int bid) {
 		super();
 		this.nType = nType;
 		this.alarm_Date = alarm_Date;
@@ -23,7 +26,19 @@ public class Alarm implements java.io.Serializable{
 		this.mName = mName;
 		this.boardId = boardId;
 		this.nid = nid;
+		this.bid = bid;
 	}
+
+
+	public int getBid() {
+		return bid;
+	}
+
+
+	public void setBid(int bid) {
+		this.bid = bid;
+	}
+
 
 	public String getnType() {
 		return nType;
@@ -88,8 +103,10 @@ public class Alarm implements java.io.Serializable{
 	@Override
 	public String toString() {
 		return "Alarm [nType=" + nType + ", alarm_Date=" + alarm_Date + ", bContent=" + bContent + ", bName=" + bName
-				+ ", mName=" + mName + ", bid=" + boardId + "]";
+				+ ", mName=" + mName + ", boardId=" + boardId + ", nid=" + nid + ", bid=" + bid + "]";
 	}
+
+
 
 	
 }

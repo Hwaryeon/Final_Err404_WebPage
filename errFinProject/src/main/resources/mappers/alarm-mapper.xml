@@ -12,12 +12,13 @@
 		<result property="mName" column="MNAME" />
 		<result property="boardId" column="BOARDID" />
 		<result property="nid" column="NID" />
+		<result property="bid" column="BID" />
 	</resultMap>
 	
 	<!-- 알람리스트 불러오기 -->
 	<select id="selectListAlarm" resultMap="AlarmResultSet">
-		SELECT N.NTYPE, N.ALARM_DATE, BD.BCONTENT, B.BNAME, M.MNAME, N.BOARDID, N.NID
-		FROM NEWS N 
+		SELECT N.NTYPE, N.ALARM_DATE, BD.BCONTENT, B.BNAME, M.MNAME, N.BOARDID, N.NID, N.BID
+		FROM NEWS N
 		JOIN BOARDS BD ON(N.BOARDID = BD.BOARDID)
 		JOIN BAND B ON(N.BID = B.BID)
 		JOIN MEMBER M ON(N.MID = M.MID)

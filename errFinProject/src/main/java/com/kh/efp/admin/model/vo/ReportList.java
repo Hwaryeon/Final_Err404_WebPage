@@ -14,11 +14,12 @@ public class ReportList implements java.io.Serializable{
 	private String mbname; //신고된 밴드 밴드장 이름
 	private int times; //신고당한횟수
 	private String rcontent; //신고사유
+	private String bcontent; //신고당한 게시글
 	
 	public ReportList(){}
 	
 	public ReportList(int cid, String memail, String mcname, String mname, int bid, String bname, Date rdate,
-			String bopen_status, String mbname, int times, String rcontent) {
+			String bopen_status, String mbname, int times, String rcontent, String bcontent) {
 		this.cid = cid;
 		this.memail = memail;
 		this.mcname = mcname;
@@ -30,6 +31,15 @@ public class ReportList implements java.io.Serializable{
 		this.mbname = mbname;
 		this.times = times;
 		this.rcontent = rcontent;
+		this.bcontent = bcontent;
+	}
+	
+	public String getBcontent() {
+		return bcontent;
+	}
+
+	public void setBcontent(String bcontent) {
+		this.bcontent = bcontent;
 	}
 
 	public int getBid() {
@@ -124,6 +134,8 @@ public class ReportList implements java.io.Serializable{
 	public String toString() {
 		return "ReportList [cid=" + cid + ", memail=" + memail + ", mcname=" + mcname + ", mname=" + mname + ", bid="
 				+ bid + ", bname=" + bname + ", rdate=" + rdate + ", bopen_status=" + bopen_status + ", mbname="
-				+ mbname + ", times=" + times + ", rcontent=" + rcontent + "]";
+				+ mbname + ", times=" + times + ", rcontent=" + rcontent + ", bcontent=" + bcontent + "]";
 	}
+
+	
 }

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.efp.band.model.vo.Board;
+import com.kh.efp.newPost.model.vo.Boards;
+import com.kh.efp.newPost.model.vo.MemberProfile;
 
 
 @Repository
@@ -88,6 +90,49 @@ public class BoardDaoImpl implements BoardDao {
 	public void updateHit(int bno) throws Exception {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public int selectBoardCount(int pbid) throws Exception {
+		// TODO Auto-generated method stub
+		return SqlSession.selectOne("board.selectBoardCount",pbid);
+	}
+
+	@Override
+	public int selectCommentCount(int pbid) throws Exception {
+		// TODO Auto-generated method stub
+		return SqlSession.selectOne("board.selectCommentCount",pbid);
+	}
+
+	@Override
+	public List<Board> commentList(int pbid) throws Exception {
+		// TODO Auto-generated method stub
+		return SqlSession.selectList("board.commentList",pbid);
+	}
+
+	@Override
+	public void insertComment(Boards b) {
+		// TODO Auto-generated method stub
+		SqlSession.insert("board.insertComment", b);
+		
+	}
+
+	@Override
+	public void deleteComment(int boardid) {
+		// TODO Auto-generated method stub
+		SqlSession.delete("board.deleteBoard", boardid);
+	}
+
+	@Override
+	public void updateComment(Boards b) {
+		// TODO Auto-generated method stub
+		SqlSession.update("board.updateBoard", b);
+	}
+
+	@Override
+	public MemberProfile selectMemberProfile(int mId) {
+		// TODO Auto-generated method stub
+		return SqlSession.selectOne("board.selectMemberProfile",mId);
 	}
 	
 	
