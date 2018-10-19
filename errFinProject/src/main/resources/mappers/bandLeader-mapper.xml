@@ -48,6 +48,26 @@
 		<result property="banreason" column="BANREASON" />
 	</resultMap>
 	
+	<resultMap type="Boards" id="BoardsResultSet">
+		<id property="boardid" column="BOARDID" />
+		<result property="bid" column="BID" />
+		<result property="mid" column="MID" />
+		<result property="bcontent" column="BCONTENT" />
+		<result property="bdate" column="BDATE" />
+		<result property="bstatus" column="BSTATUS" />
+		<result property="ref_status" column="REF_STATUS" />
+		<result property="ref_bid" column="REF_BID" />
+	</resultMap>
+	
+	<resultMap type="Attfile" id="AttfileResultSet">
+		<id property="fid" column="FID" />
+		<result property="boardId" column="BOARDID" />
+		<result property="forigin_name" column="FORIGIN_NAME" />
+		<result property="edit_name" column="EDIT_NAME" />
+		<result property="file_src" column="FILE_SRC" />
+		<result property="fdate" column="FDATE" />
+		<result property="flevel" column="FLEVEL" />
+	</resultMap>
 	
 	<!-- 밴드 오픈설정 변경 메소드 -->
 	<update id = "updateBandOpenStatus" parameterType = "Band">
@@ -260,6 +280,20 @@
 		</if>
 	</select>
 	
+	<select id = "selectBoardDetail" parameterType = "int" resultMap = "BoardsResultSet">
+		SELECT * FROM BOARDS WHERE BOARDID = #{boardid}
+	</select>
+	
+	<select id = "selectRefList" parameterType = "int" resultMap = "BoardsResultSet">
+		SELECT * FROM BOARDS WHERE REF_BID=#{boardid} AND BSTATUS='Y'
+	</select>
+	
+	
+	<select id = "selectAttFile" parameterType = "int" resultMap = "AttfileResultSet">
+		SELECT FID, BOARDID, FORIGIN_NAME, EDIT_NAME, FILE_SRC, FDATE, FLEVEL FROM 
+		(SELECT ROWNUM, FID, BOARDID, FORIGIN_NAME, EDIT_NAME, FILE_SRC, FDATE, FLEVEL FROM ATTFILE WHERE BOARDID = #{boardid} 
+		ORDER BY FDATE DESC) WHERE ROWNUM = 1
+	</select>
 	
 </mapper>
 

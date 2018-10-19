@@ -19,17 +19,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.efp.band.model.service.BandService;
+import com.kh.efp.band.model.vo.Attfile;
 import com.kh.efp.band.model.vo.Band;
+import com.kh.efp.band.model.vo.Board;
 import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
 import com.kh.efp.commons.DayWeek;
 import com.kh.efp.member.model.vo.Member;
+import com.kh.efp.newPost.model.service.newPostService;
+import com.kh.efp.newPost.model.vo.Boards;
+import com.kh.efp.newPost.model.vo.MemberProfile;
 
 
 @Controller
 public class BandController {
 	@Autowired private BandService bs;
-	
+	@Autowired private newPostService ns; 
 	@Autowired private BandLeaderController blc;
 
 	@RequestMapping("bandCalendarList.bd")
@@ -187,6 +192,44 @@ public class BandController {
 		return "redirect:/list.do?bid=" + bid2;
 	}
 	
+	
+	@RequestMapping("bandBoardDetail.bd")
+	public String bandBoardDetail(@RequestParam int boardid, HttpServletRequest request,
+			HttpServletResponse response, Model model) throws Exception{
+		
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
+		
+		Boards b = bs.selectBoardDetail(boardid);
+		
+		int bid = b.getBid();
+		
+		blc.bandLeftSideBar(bid, mid, model);
+		
+		ArrayList<Boards> list = bs.selectRefList(boardid);
+		
+		for(int i=0; i<list.size(); i++){
+			System.out.println(i + " : " + list.get(i).toString());
+		}
+		
+		ArrayList<MemberProfile> mList = new ArrayList<MemberProfile>();
+		
+		for(int i=0; i<list.size(); i++){
+			mList.add(ns.selectMemberProfile(list.get(i).getMid()));
+			
+		}
+		
+		Attfile a = bs.selectAttFile(boardid);
+		
+		System.out.println("a : " + a);
+		
+		model.addAttribute("boards", b);
+		model.addAttribute("commentList", list);
+		model.addAttribute("count", list.size());
+		model.addAttribute("mList", mList);
+		model.addAttribute("att", a);
+		
+		return "band/bandBoardDetail";
+	}
 
 }
 

@@ -10,6 +10,7 @@
 		<typeAlias type="com.kh.efp.band.model.vo.Member_Band" alias = "Member_Band"/>
 		<typeAlias type="com.kh.efp.band.model.vo.Band" alias = "Band"/>
 		<typeAlias type="com.kh.efp.band.model.vo.Ban" alias = "Ban2"/>
+		<typeAlias type="com.kh.efp.band.model.vo.Attfile" alias = "Attfile"/>
 		<typeAlias type="com.kh.efp.band.model.vo.BanMemberList" alias = "BanMemberList"/>
 		<typeAlias type="com.kh.efp.newPost.model.vo.Category" alias = "Category"/>
 		<typeAlias type="com.kh.efp.newPost.model.vo.BandProfile" alias = "BandProfile"/>
@@ -33,6 +34,7 @@
 		<typeAlias type="com.kh.efp.admin.model.vo.ReportList" alias="ReportList"/>
 		<typeAlias type="com.kh.efp.admin.model.vo.BanList" alias="BanList"/>
 		<typeAlias type="com.kh.efp.alarm.model.vo.Alarm" alias="Alarm"/>
+		
 	</typeAliases>
 
 	<mappers>
