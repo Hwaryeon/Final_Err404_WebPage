@@ -80,6 +80,23 @@
               <input type="text" name="bandName" id="bandName" value="${bname}" class="required requiredField"
               style="line-height: 54px;border-bottom: 1px solid #ccc;font-size: 30px;font-weight: 400;color: #c5c0c0;background: white;">
               <input type="hidden" id="bid" name="bid" value="${ bid }">
+              
+              <c:if test="${ pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
+									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
+									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
+									|| pf.editName == 'cover7.jpg' }">
+										<input type="hidden" id="coverType" name="coverType" value="${pf.editName }" >
+									</c:if>
+									
+									<c:if test="${ !(pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
+									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
+									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
+									|| pf.editName == 'cover7.jpg') }">
+								
+										<input type="hidden" id="coverType" name="coverType" value="Y" >
+									</c:if>
+              
+              
             </p>
                <div class="box-content widget fullwidth">
                 <h4 class="widget-title"></h4>
@@ -92,7 +109,26 @@
                             	</c:if>
                             	
                             	<c:if test="${!empty pf.editName  }" >
-                            		<img id="ProfileImg" src="${ contextPath }/resources/upload_images/${pf.editName }" width="270" alt="" style="width:300px;height:225px;">
+                            		<%-- <img id="ProfileImg" src="${ contextPath }/resources/upload_images/${pf.editName }" width="270" alt="" style="width:300px;height:225px;"> --%>
+                            	
+                            	
+                            		<c:if test="${ pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
+									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
+									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
+									|| pf.editName == 'cover7.jpg' }">
+										<img id="ProfileImg" src="${ contextPath }/resources/images/cover/${pf.editName }" width="270" alt="" style="width:300px;height:225px;">
+									</c:if>
+									
+									<c:if test="${ !(pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
+									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
+									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
+									|| pf.editName == 'cover7.jpg') }">
+								
+										<img id="ProfileImg" src="${ contextPath }/resources/upload_images/${pf.editName }" width="270" alt="" style="width:300px;height:225px;">
+									</c:if>
+                            	
+                            	
+                            	
                             	</c:if>
                             </a>
                             
@@ -103,9 +139,9 @@
                         
                         </li>
                             <input type="file" id="bandProfile" name="bandProfile" multiple onchange="loadImg(this)">
-                        <li>
+                       <!--  <li>
                             <span class="changeCover _coverImageUploader js-fileapi-wrapper" style="float:left;margin-right:3px;"><span></span> 
-                            <!-- <input type="file" class="imageUpload" title="추가" accept="image/*" name="attachment" style="width:120px;height:90px;"> -->
+                            <input type="file" class="imageUpload" title="추가" accept="image/*" name="attachment" style="width:120px;height:90px;">
                             <td style="vertical-align: middle;"><a class="button-navy button-link" onclick = "changeImage()">추가</a></td>
                             </span>
                             <a href="#">
@@ -117,28 +153,56 @@
                             <a href="#">
                                 <img src="http://placehold.it/225x128" width="270" alt="" style="width:120px;height:90px;">
                             </a>
-                        </li>
+                        </li> -->
+                        
                         
                         <li>
-                            <a href="#">
-                                <img src="http://placehold.it/225x128" width="270" alt="" style="width:120px;height:90px;">
-                            </a>
-                            <a href="#">
-                                <img src="http://placehold.it/225x128" width="270" alt="" style="width:120px;height:90px;">
-                            </a>
-                            <a href="#">
-                                <img src="http://placehold.it/225x128" width="270" alt="" style="width:120px;height:90px;">
-                            </a>
-                            <a href="#">
-                                <img src="http://placehold.it/225x128" width="270" alt="" style="width:120px;height:90px;">
-                            </a>
-                        </li>
+									<span id="changeCover"  class="changeCover _coverImageUploader js-fileapi-wrapper" style="float: left; margin-right: 3px;">
+										<span>
+											
+										</span>
+										<img id = "contentImg" src="${ contextPath }/resources/images/addImg.png" alt="" style="width:120px; height:90px; margin-top:-20px;"
+										onclick="changeImage()"> <!-- width="270"  -->
+										<input type="file" id="bandImage" name="bandImage" class="imageUpload" multiple onchange="loadImg(this)" style="width: 120px; height: 90px;">
+									</span>
+										<img src="${ contextPath }/resources/images/cover/cover1.jpg" width="270" alt="" style="width: 120px; height: 90px;"
+										id="cover1" onclick="damaY('cover1')" 
+										>
+										<img src="${ contextPath }/resources/images/cover/cover2.jpg" width="270" alt="" style="width: 120px; height: 90px;"
+										id="cover2" onclick="damaY('cover2')"
+										
+										>
+										<img src="${ contextPath }/resources/images/cover/cover3.jpg" width="270" alt="" style="width: 120px; height: 90px;"
+										id="cover3" onclick="damaY('cover3')"
+										>
+								</li>
+                        
+                        
+                        <li>
+										<img src="${ contextPath }/resources/images/cover/cover4.jpg" width="270" alt="" style="width: 120px; height: 90px;"
+										id="cover4" onclick="damaY('cover4')"
+										>
+										<img src="${ contextPath }/resources/images/cover/cover5.jpg" width="270" alt="" style="width: 120px; height: 90px;"
+										id="cover5" onclick="damaY('cover5')"
+										>
+										<img src="${ contextPath }/resources/images/cover/cover6.jpg" width="270" alt="" style="width: 120px; height: 90px;"
+										id="cover6" onclick="damaY('cover6')"
+										>
+										<img src="${ contextPath }/resources/images/cover/cover7.jpg" width="270" alt="" style="width: 120px; height: 90px;"
+										id="cover7" onclick="damaY('cover7')"
+										>
+								</li>
                         
                     </ul>
                 </div>
             </div>
             
             <script>
+            $(function() {
+        		$("#bandImage").hide();
+        		$("#bandStatus").hide();
+        	});
+            
             $(function() {
     			$("#bandProfile").hide(); 
     			nameResult = -99;
@@ -158,10 +222,38 @@
     					$("#ProfileImg").attr("src", e.target.result);
     				}
     				reader.readAsDataURL(value.files[0])
+    				document.getElementById('coverType').value = 'Y';
     			}
     			
     		}
             
+    		function damaY(value){
+    			
+    			console.log("value : " + value);
+    			
+    			document.getElementById('coverType').value = value;
+    			
+    			 for(var i=1; i<8; i++){
+    				var str = 'cover';
+    				str += i;
+    				var dama = document.getElementById(str);
+    				dama.src="/efp/resources/images/cover/" + str + ".jpg";
+    				
+    			}
+    			
+    			
+    			var dama = document.getElementById(value);
+    				
+    			var test = document.getElementById('ProfileImg');
+    				
+    			if(dama.src.match(value + ".jpg")){
+    				dama.src="/efp/resources/images/cover/check.jpg";
+    				test.src="/efp/resources/images/cover/" + value + ".jpg";
+    			}else{
+    				dama.src="/efp/resources/images/cover/" + value + ".jpg";
+    				test.src="/efp/resources/images/cover/cover1.jpg";
+    			}
+    		}
             
             </script>
             

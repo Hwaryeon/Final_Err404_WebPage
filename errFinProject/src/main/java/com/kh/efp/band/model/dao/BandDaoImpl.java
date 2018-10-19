@@ -266,5 +266,14 @@ public class BandDaoImpl implements BandDao{
 		
 		return list;
 
+	}
+
+	@Override
+	public ArrayList<Member_Band> selectMember_BandList2(SqlSessionTemplate sqlSession, Member_Band mb) {
+		ArrayList<Member_Band> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("Band.selectMember_BandList2", mb);
+		
+		return list;
 	}	
 }

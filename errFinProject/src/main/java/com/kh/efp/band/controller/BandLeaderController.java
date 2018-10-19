@@ -73,7 +73,7 @@ public class BandLeaderController {
 		
 		mb.setBid(bid);
 		
-		ArrayList<Member_Band> mbList = bs.selectMember_BandList(mb);
+		ArrayList<Member_Band> mbList = bs.selectMember_BandList2(mb);
 		
 		model.addAttribute("list", mbList);
 		
@@ -392,7 +392,8 @@ public class BandLeaderController {
 	
 	@RequestMapping("updateBandModify.bd")
 	public String updateBandModify(HttpServletRequest request,
-			@RequestParam(name="bandProfile", required=false)MultipartFile photo, int bid, String bandName, HttpServletResponse response){
+			@RequestParam(name="bandProfile", required=false)MultipartFile photo, int bid, String coverType, String bandName,
+			HttpServletResponse response){
 		
 		
 		System.out.println("bid : " + bid);
@@ -404,25 +405,34 @@ public class BandLeaderController {
 		
 		bs.updateBandName(b);
 		
-		if(photo.getSize() != 0){
+		String root = "";
+		String filePath = "";
+		String originFileName = "";
+		String ext = "";
+		String changeName = "";
+		
+		if(coverType.equals("Y")){
+			
+			
+			if(photo.getSize() != 0){
+			
+				root=request.getSession().getServletContext().getRealPath("resources");
+				filePath=root + "/upload_images/";
+				/*filePath = root + "\\upload_images";*/
+				originFileName= photo.getOriginalFilename();
+				ext=originFileName.substring(originFileName.lastIndexOf("."));
+				changeName=CommonUtils.getRandomString();
+			}
+		} else {
+			originFileName = coverType + ".jpg";
+			changeName = coverType;
+			ext = ".jpg";
+			filePath="C:/Users/user/git/FinalProject_Err/errFinProject/src/main/webapp/resources/images/cover/";
+			
+		}
 		
 			Profile pf = new Profile();
 			
-			String root = "";
-			String filePath = "";
-			String originFileName = "";
-			String ext = "";
-			String changeName = "";
-			
-			
-			root = request.getSession().getServletContext().getRealPath("resources");
-	
-			filePath = root + "\\upload_images";
-	
-			originFileName = photo.getOriginalFilename();
-			ext = originFileName.substring(originFileName.lastIndexOf("."));
-	
-			changeName = CommonUtils.getRandomString();
 			
 			pf.setFileSrc(filePath);
 			pf.setOriginName(originFileName);
@@ -436,8 +446,13 @@ public class BandLeaderController {
 				if(!photo.isEmpty()){
 					photo.transferTo(new File(filePath + "\\" + changeName + ext));
 				}
-				int result = bs.insertBandModify(pf);
-	
+
+				int result = 0;
+				
+				if(photo.getSize() != 0){
+					result = bs.insertBandModify(pf);
+				}
+				
 				if(result == 0){
 					return "common/errorPage";
 				}else{
@@ -448,7 +463,7 @@ public class BandLeaderController {
 				e.printStackTrace();
 			}
 		
-		}
+		
 		
 		return "redirect:/bandLeader.bd?bid=" + bid;
 	}

@@ -174,6 +174,8 @@ public class BandController {
 			mb.setIstatus("Y");
 		}else if(b.equals("PTD")){
 			mb.setIstatus("S");
+		}else if(b.equals("PRV")){
+			mb.setIstatus("S");
 		}
 		
 		System.out.println("mb : " + mb.toString());
