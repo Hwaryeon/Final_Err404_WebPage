@@ -17,100 +17,12 @@
     <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/light-pink-blue.css" rel="stylesheet">
+    <script src="resources/js/MemberChattingFn.js"></script>
 </head>
 <body
 	class="home page page-id-4 page-template page-template-template_home-php">
 	<!-- TOP NAV -->
-	<div class="navbar navbar-default top-nav-bar" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".topmenu">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-			</div>
-			<div class="navbar-collapse collapse topmenu">
-				<div class="menu-header-templates-menu-container">
-					<ul class="nav navbar-nav">
-						<li><a href="about.html">About</a></li>
-						<li><a href="article.html">Article</a></li>
-						<li><a href="article-review.html">Article Review</a></li>
-						<li><a href="archives.html">Archives</a></li>
-						<li><a href="category.html">Category</a></li>
-						<li><a href="fullwidth.html">Full Width</a></li>
-						<li><a href="shortcodes.html">Shortcodes</a></li>
-						<li><a href="404.html">404</a></li>
-						<li><a href="contact.html">Contact</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- LOGO AREA -->
-	<div class="fullwidth bg-pink">
-		<div class="container">
-			<div class="col-md-6 col-xs-12">
-				<div class="logo">
-					<h1>
-						<a href="index.html" title="Weekend Magazine">Weekend Magazine</a>
-					</h1>
-				</div>
-			</div>
-			<div class="col-md-6 col-xs-12">
-				<div id="ads120_60-widget-2" class="ads120-60 ads-one">
-					<div class="ad-cell">
-						<a href="#" target="_blank"> <img src="img/ad-468x60.png "
-							alt="">
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- MAIN NAV -->
-	<div class="fullwidth navbar navbar-default main-nav-bar"
-		role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".mainmenu">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-			</div>
-			<div class="navbar-collapse collapse mainmenu">
-				<div class="menu-primary-navigation-container">
-					<ul id="menu-primary-navigation" class="nav navbar-nav">
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-expanded="false">Home
-								<span class="caret"></span>
-						</a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a href="index.html">Home</a></li>
-								<li><a href="index2.html">Home 2</a></li>
-								<li><a href="index3.html">Home Dark 1</a></li>
-								<li><a href="index4.html">Home Dark 2</a></li>
-								<li><a href="index5.html">Home Light 1</a></li>
-								<li><a href="index6.html">Home Light 2</a></li>
-							</ul></li>
-						<li><a href="#">News</a></li>
-						<li><a href="#">Economy</a></li>
-						<li><a href="#">Sports</a></li>
-						<li><a href="#">Shows</a></li>
-						<li><a href="#">Culture &#038; Art</a></li>
-						<li><a href="#">Gossips</a></li>
-						<li><a href="#">Fashion</a></li>
-						<li><a href="#">Health &#038; Body</a></li>
-						<li><a href="#">Technology</a></li>
-						<li><a href="#">Science</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
+	<jsp:include page="../common/menubar.jsp" />
 
 	<div class="container">
 
@@ -187,10 +99,10 @@
                         
                      </a>
                         <ul class="dropdown-menu" role="menu">
-                           <li><a href="index2.html">   <img alt="" src="${ contextPath }/resources/images/chat2.png?id=${row.boardId}"
+                           <li><a onclick = "doChatting(${b.mid});">   <img alt="" src="${ contextPath }/resources/images/chat2.png?id=${row.boardId}"
                         class="avatar avatar-75 photo avatar-default" >채팅하기</a></li>
                         
-                           <li><a href="index2.html">   <img alt="" src="${ contextPath }/resources/images/chatInvite.png?id=${row.boardId}"
+                           <li><a onclick = "inviteChatting(${b.mid});">   <img alt="" src="${ contextPath }/resources/images/chatInvite.png?id=${row.boardId}"
                         class="avatar avatar-75 photo avatar-default" >채팅초대</a></li>
                           
                         </ul></li>
@@ -369,48 +281,7 @@
 
 	</div>
 
-	<div class="footer">
-		<div class="footer-top">
-			<div class="container">
-				<div class="pull-left">
-					<div id="text-6">
-						<div class="textwidget">
-							<a href="#">Weekend Magazine</a> &copy; 2015 All rights reserved
-						</div>
-					</div>
-				</div>
-				<div class="pull-right hidden-xs">
-					<div id="text-7">
-						<div class="textwidget">
-							Theme by <a title="Email me now" href="#">JKthemes</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="footer-bottom hidden-xs">
-			<div class="container">
-				<div id="nav_menu-2">
-					<div class="menu-footer-menu-container">
-						<ul id="menu-footer-menu" class="menu">
-							<li><a href="#">Home</a></li>
-							<li><a href="#">News</a></li>
-							<li><a href="#">Economy</a></li>
-							<li><a href="#">Sports</a></li>
-							<li><a href="#">Shows</a></li>
-							<li><a href="#">Culture &#038; Art</a></li>
-							<li><a href="#">Gossips</a></li>
-							<li><a href="#">Fashion</a></li>
-							<li><a href="#">Health &#038; Body</a></li>
-							<li><a href="#">Technology</a></li>
-							<li><a href="#">Science</a></li>
-						</ul>
-					</div>
-				</div>
-				<a class="footer-nav-scroll pull-right"></a>
-			</div>
-		</div>
-	</div>
+	<jsp:include page="../common/footer.jsp" />
 	<script src="${ contextPath }/resources/js/jquery.min.js"></script>
 	<script src="${ contextPath }/resources/js/bootstrap.min.js"></script>
 	<%--
@@ -484,6 +355,32 @@ $('#deleteBandMember').click(function(){
 	location.href="deleteBandMember.bd?mbid=" + mbid + "&mid=" + mid + "&radioVal=" + radioVal;
 	
 });
+
+function doChatting(mid){
+	$.ajax({
+		url : 'http://127.0.0.1:3000/startChat',
+		data : {mid : ${sessionScope.loginUser.mid}, target : mid},
+		type : 'post',
+		success : function(data){
+			var link = "http://127.0.0.1:3000/chat/" + ${sessionScope.loginUser.mid} + "/room/" + data;
+	    	/* var url = "http://192.168.20.248:3000/" + ${sessionScope.loginUser.mid}; */
+
+			var settings = "width=400, height=622, toolbar=no, menubar=no, scrollbars=no, resizable=no";
+			
+			window.open(link, 'test window', settings);
+	    }
+		
+	})
+}
+
+function inviteChatting(mid){
+			var link = "http://127.0.0.1:3000/inviteChat/${sessionScope.loginUser.mid}/" + mid;
+	    	/* var url = "http://192.168.20.248:3000/" + ${sessionScope.loginUser.mid}; */
+
+			var settings = "width=400, height=622, toolbar=no, menubar=no, scrollbars=no, resizable=no";
+			
+			window.open(link, 'test window', settings);
+}
 
 </script>
 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="Alarm">
+	<resultMap type="Alarm" id="AlarmResultSet">
+		<result property="nType" column="NTYPE" />
+		<result property="alarm_Date" column="ALARM_DATE" />
+		<result property="bContent" column="BCONTENT" />
+		<result property="bName" column="BNAME" />
+		<result property="mName" column="MNAME" />
+		<result property="boardId" column="BOARDID" />
+		<result property="nid" column="NID" />
+	</resultMap>
+	
+	<!-- 알람리스트 불러오기 -->
+	<select id="selectListAlarm" resultMap="AlarmResultSet">
+		SELECT N.NTYPE, N.ALARM_DATE, BD.BCONTENT, B.BNAME, M.MNAME, N.BOARDID, N.NID
+		FROM NEWS N 
+		JOIN BOARDS BD ON(N.BOARDID = BD.BOARDID)
+		JOIN BAND B ON(N.BID = B.BID)
+		JOIN MEMBER M ON(N.MID = M.MID)
+		WHERE N.RECEIVER = #{mid}
+	</select>
+	
+	<select id="updateNews" statementType="CALLABLE">
+		{
+            CALL UPDATENEWS()
+        }
+	</select>
+	
+	<delete id="deleteAllAlarm">
+		DELETE FROM NEWS WHERE RECEIVER = #{mid}
+	</delete>
+	
+	<delete id="deleteOneAlarm">
+		DELETE FROM NEWS WHERE NID = #{nid}
+	</delete>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -16,7 +16,7 @@ public interface BandService {
 
 	int insertScehdule(Scehdule s);
 
-	List<Object> scehduleList();
+	List<Object> scehduleList(int bid);
 
 	int deleteScehdule(int did);
 
@@ -69,6 +69,20 @@ public interface BandService {
 	Band selectBand(int pbid);
 
 	int selectMlevel(Member_Band mb);
+
+	String selectBstatus(int bid);
+
+	void insertMember_Band(Member_Band mb);
+
+	ArrayList<Member_Band> insertMemberList(int bid);
+
+	void updateMemberStatus(int mbid);
+
+	void refuseMemberStatus(int mbid);
+
+	ArrayList<BanMemberList> searchBanMemberList(Member_Band mb);
+
+	ArrayList<Member_Band> selectMember_BandList2(Member_Band mb);
 
 	
 

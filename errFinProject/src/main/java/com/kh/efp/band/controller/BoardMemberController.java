@@ -34,20 +34,21 @@ public class BoardMemberController {
     
 	// 01. 회원 목록
 	@RequestMapping("boardMember.do")
-	public String BoardMemberList(Model model){
+	public String BoardMemberList(Model model, String bid){
 		System.out.println("bandMemberManagement.bd 호출");
 		
 		//임시로 지정
-		int bid = 1;
+		int pbid = Integer.parseInt(bid);
+		//int pbid = 1;
 	
 		
 		Member_Band mb = new Member_Band();
 		
-		mb.setBid(bid);
+		mb.setBid(pbid);
 		
 		ArrayList<Member_Band> mbList = bs.selectMember_BandList(mb);
 		
-		ArrayList<BanMemberList> banList = bs.selectBanMemberList(bid);
+		ArrayList<BanMemberList> banList = bs.selectBanMemberList(pbid);
 		
 		model.addAttribute("list", mbList);
 		model.addAttribute("banList", banList);

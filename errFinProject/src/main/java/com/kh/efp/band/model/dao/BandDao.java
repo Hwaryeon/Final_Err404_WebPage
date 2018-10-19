@@ -17,7 +17,7 @@ public interface BandDao {
 
 	void insertScehdule(SqlSessionTemplate sqlSession, Scehdule s);
 
-	List<Object> scehduleList(SqlSessionTemplate sqlSession);
+	List<Object> scehduleList(SqlSessionTemplate sqlSession, int bid);
 
 	void deleteScehdule(SqlSessionTemplate sqlSession, int did);
 
@@ -70,6 +70,21 @@ public interface BandDao {
 	Band selectBand(SqlSessionTemplate sqlSession, int pbid);
 
 	int selectMlevel(SqlSessionTemplate sqlSession, Member_Band mb);
+
+	String selectBstatus(SqlSessionTemplate sqlSession, int bid);
+
+	void insertMember_Band(SqlSessionTemplate sqlSession, Member_Band mb);
+
+	ArrayList<Member_Band> insertMemberList(SqlSessionTemplate sqlSession, int bid);
+
+
+	void updateMemberStatus(SqlSessionTemplate sqlSession, int mbid);
+
+	void refuseMemberStatus(SqlSessionTemplate sqlSession, int mbid);
+
+	ArrayList<BanMemberList> searchBanMemberList(SqlSessionTemplate sqlSession, Member_Band mb);
+
+	ArrayList<Member_Band> selectMember_BandList2(SqlSessionTemplate sqlSession, Member_Band mb);
 
 
 

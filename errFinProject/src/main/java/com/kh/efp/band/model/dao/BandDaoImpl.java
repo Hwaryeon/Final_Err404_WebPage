@@ -28,9 +28,9 @@ public class BandDaoImpl implements BandDao{
 	}
 
 	@Override
-	public List<Object> scehduleList(SqlSessionTemplate sqlSession) {
+	public List<Object> scehduleList(SqlSessionTemplate sqlSession, int bid) {
 		
-		List<Object> objectList = new ArrayList<Object>(sqlSession.selectList("Scehdule.scehduleList"));
+		List<Object> objectList = new ArrayList<Object>(sqlSession.selectList("Scehdule.scehduleList", bid));
 		
 		
 		return objectList;
@@ -210,6 +210,70 @@ public class BandDaoImpl implements BandDao{
 
 	@Override
 	public int selectMlevel(SqlSessionTemplate sqlSession, Member_Band mb) {
-		return sqlSession.selectOne("Band.selectMlevel", mb);
+
+		
+		int result = 0;
+		
+		
+		
+		if(sqlSession.selectOne("Band.selectMlevel", mb) != null){
+			result = sqlSession.selectOne("Band.selectMlevel", mb);
+		}
+		
+		
+		return result;
+
+	}
+
+	@Override
+	public String selectBstatus(SqlSessionTemplate sqlSession, int bid) {
+		
+		return sqlSession.selectOne("Band.selectBstatus", bid);
+	}
+
+	@Override
+	public void insertMember_Band(SqlSessionTemplate sqlSession, Member_Band mb) {
+		sqlSession.insert("Band.insertMember_Band", mb);
+	}
+
+	@Override
+	public ArrayList<Member_Band> insertMemberList(SqlSessionTemplate sqlSession, int bid) {
+		
+		ArrayList<Member_Band> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("Band.insertMemberList", bid);
+		
+		return list;
+
+	}
+
+	@Override
+	public void updateMemberStatus(SqlSessionTemplate sqlSession, int mbid) {
+		sqlSession.update("Band.updateMemberStatus", mbid);
+	}
+
+	@Override
+	public void refuseMemberStatus(SqlSessionTemplate sqlSession, int mbid) {
+		sqlSession.update("Band.refuseMemberStatus", mbid);
+	}
+
+	@Override
+	public ArrayList<BanMemberList> searchBanMemberList(SqlSessionTemplate sqlSession, Member_Band mb) {
+		
+		ArrayList<BanMemberList> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("Band.searchBanMemberList", mb);
+		
+		return list;
+
+	}
+
+	@Override
+	public ArrayList<Member_Band> selectMember_BandList2(SqlSessionTemplate sqlSession, Member_Band mb) {
+		ArrayList<Member_Band> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("Band.selectMember_BandList2", mb);
+		
+		return list;
 	}	
 }

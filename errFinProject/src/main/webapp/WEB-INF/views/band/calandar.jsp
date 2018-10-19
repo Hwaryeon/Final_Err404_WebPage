@@ -198,11 +198,16 @@
 	    });
 	 
 	 var title = 'test';
+	 
+	 var bid = $('#bid').val();
 	    
 	    $.ajax({
 			url:"eventCheck.bd",
 			type:"post",
-			data:{title:title},
+			data:{title:title,
+				bid:bid
+			},
+			
 			success:function(data){
 				
 				var result = data.eList;
@@ -227,10 +232,15 @@
 	 
 	 var title = 'test';
 	 
+	 var bid = $('#bid').val();
+	 
 	 $.ajax({
 			url:"eventCheck.bd",
 			type:"post",
-			data:{title:title},
+			data:{title:title,
+				bid:bid
+			},
+			
 			success:function(data){
 				
 				$('#scheduleArea').empty();
@@ -343,17 +353,14 @@
 	 	console.log('addScehdule 호출됨');
 	 
      	var eventNum;
-/*      	var sDateFormat = moment(start, 'YYYY-MM-DD');
-     	var eDateFormat = moment(end, 'YYYY-MM-DD');
+
+     	var bid = $('#bid').val();
      	
-     	var sDate = sDateFormat.format('YYYY-MM-DD');
-     	var eDate = eDateFormat.format('YYYY-MM-DD');
- */     	
      	  $.ajax({
 				url:"addCalendar.bd",
 				type:"post",
 				async: false,
-				data:{title:title, content:content, sDate:start, eDate:end},
+				data:{title:title, content:content, sDate:start, eDate:end, bid:bid},
 				success:function(data){
 					console.log(data.next);
 					
@@ -404,6 +411,11 @@
 
   $(document).ready(function() {
 	paintScehdule();
+	
+ 	var bid = $('#bid').val();
+	 
+	 console.log("bidTest : " + bid);
+	
 
   });
   
@@ -440,7 +452,7 @@
                     <li>
                          <a href="#">
                             
-                             <c:if test="${ pf.editName == 'cover1.jpeg' || pf.editName == 'cover2.jpg'
+                             <c:if test="${ pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
 									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
 									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
 									|| pf.editName == 'cover7.jpg' }">
@@ -448,7 +460,7 @@
 										<img src="${ contextPath }/resources/images/cover/${ pf.editName }">
 									</c:if>
 									
-									<c:if test="${ !(pf.editName == 'cover1.jpeg' || pf.editName == 'cover2.jpg'
+									<c:if test="${ !(pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
 									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
 									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
 									|| pf.editName == 'cover7.jpg') }">
@@ -510,7 +522,7 @@
             
         </div>
         
-   
+   		<input type="hidden" id="bid" name="bid" value="${bid }">
         
         <script>
 			$(function(){
@@ -662,7 +674,8 @@
                   <p class="comment-notes">Your email address will not be published. Required fields are marked 
                   <span class="required">*</span></p>            
                    <p class="comment-form-author" style="width:100%;">
-                  <label for="author">일정 제목 <span class="required">*</span></label> <input id="sTitle" name="sTitle" type="text" value="" size="15" aria-required="true"></p>
+                  <label for="author">일정 제목 <span class="required">*</span></label> 
+                  <input id="sTitle" name="sTitle" type="text" value="" size="15" aria-required="true"></p>
                   <p class="comment-form-comment"><label for="comment">일정 내용</label> 
                   <textarea id="sContent" name="sContent" cols="45" rows="8" aria-required="true"></textarea></p>   
                   <p class="form-submit">
@@ -690,8 +703,6 @@
 			start = document.getElementById('modalStart').value;
 			end = document.getElementById('modalEnd').value;
 			
-			console.log("start : " + start);
-			console.log("end : " + end);
 			
 			addScehdule(title, content, start, end);
 			
