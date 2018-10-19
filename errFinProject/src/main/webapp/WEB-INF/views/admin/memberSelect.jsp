@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta charset="utf-8">
-<!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content=" width=device-width, initial-scale=1">
 <title>관리자 | 회원조회</title>
 <!-- CSS --> 
@@ -17,10 +16,8 @@
 <link href="resources/css/light-pink-blue.css" rel="stylesheet"> 
 <style>
 .menu-list {
-	/* width:200px; */
 	height: 50px;
 	padding-left: 10px;
-	/* text-align:center; */
 	font-size: 15px;
 	padding-top: 20px;
 	color:black;
@@ -30,8 +27,6 @@
 .admin-container {
 	width: 800px;
 	margin-bottom: 20%;
-	/* background-color: lightgray; */
-	/* font-color: white; */
 }
 
 .admin-table {
@@ -75,9 +70,9 @@
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".topmenu">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
+					<span class="sr-only">Toggle navigation</span> 
+					<span class="icon-bar"></span> <span class="icon-bar"></span> 
+					<span class="icon-bar"></span>
 				</button>
 			</div>
 		</div>
@@ -88,32 +83,20 @@
 			<div class="left-sidebar col-md-3" role="complementary">
 				<div class="menu-container">
 					<ul>
-						<li class="menu-list" onclick="location.href='goMemberSelect.ad'">회원조회</li>
-						<li class="menu-list" onclick="location.href='goBandSelect.ad'">밴드조회</li>
+						<li class="menu-list" onclick="location.href='MemberSelect.ad'">회원조회</li>
+						<li class="menu-list" onclick="location.href='BandSelect.ad'">밴드조회</li>
 						<li class="menu-list" onclick="location.href='goMemberSearch.ad'">회원검색</li>
 						<li class="menu-list" onclick="location.href='goBandSearch.ad'">밴드검색</li>
-						<li class="menu-list" onclick="location.href='goBMSelect.ad'">신고받은 회원 조회</li>
-						<li class="menu-list" onclick="location.href='goBBSelect.ad'">신고받은 밴드 조회</li>
-						<li class="menu-list" onclick="location.href='goBlackMember.ad'">블랙리스트 회원 조회</li>
-						<li class="menu-list" onclick="location.href='goBlackBand.ad'">블랙리스트 밴드 조회</li>
+						<li class="menu-list" onclick="location.href='ReportMemberSelect.ad'">신고받은 회원 조회</li>
+						<li class="menu-list" onclick="location.href='ReportBandSelect.ad'">신고받은 밴드 조회</li>
+						<li class="menu-list" onclick="location.href='BlackMember.ad'">블랙리스트 회원 조회</li>
+						<li class="menu-list" onclick="location.href='BlackBand.ad'">블랙리스트 밴드 조회</li>
 					</ul>
 				</div>
 			</div>
 			<div class="main col-md-6 col-xs-12">
 				<div class="admin-container">
 					<h1 style="height: 50px; padding-left: 20px; padding-top: 10px;">회원조회</h1>
-					<form action="MemberSelect.ad">
-						<div class="search-area">
-							정렬방법  : 
-							<select name="alignment" style="margin-left:2%; font-size:15px; height:25px;">
-								<option value="mid">-------</option>
-								<option value="mtype">플랫폼타입</option>
-								<option value="mdate">가입일</option>
-								<option value="mname">닉네임</option>
-							</select>
-							<button>정렬</button>
-						</div>
-					</form>
 					<table class="admin-table">
 						<tr style="background-color:lightblue">
 							<td>회원번호</td>
@@ -171,37 +154,6 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="footer">
-			<div class="footer-top">
-				<div class="container">
-					<div class="pull-left">
-						<div id="text-6">
-							<div class="textwidget">
-								<a href="#">Weekend Magazine</a> &copy; 2015 All rights reserved
-							</div>
-						</div>
-					</div>
-					<div class="pull-right hidden-xs">
-						<div id="text-7">
-							<div class="textwidget">
-								Theme by <a title="Email me now" href="#">JKthemes</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="footer-bottom hidden-xs">
-				<div class="container">
-					<div id="nav_menu-2"></div>
-					<a class="footer-nav-scroll pull-right"></a>
-				</div>
-			</div>
-		</div>
 	</div>
-	<script src="../../resources/js/jquery.min.js"></script>
-	<script src="../../resources/js/bootstrap.min.js"></script>
-	<script src="../../resources/js/jquery.bxslider.min.js"></script>
-	<script src="../../resources/js/custom.js"></script>
 </body>
 </html>

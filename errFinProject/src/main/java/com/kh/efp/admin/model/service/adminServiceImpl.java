@@ -34,13 +34,13 @@ public class adminServiceImpl implements adminService {
 	}
 	
 	@Override
-	public List<Object> memberAllList(PageInfo pi, String alignment) {
-		return ad.memberAllList(sqlSession, pi, alignment);
+	public List<Object> memberAllList(PageInfo pi) {
+		return ad.memberAllList(sqlSession, pi);
 	}
 	
 	@Override
-	public List<Object> bandAllList(PageInfo pi, String alignment) {
-		return ad.bandAllList(sqlSession, pi, alignment);
+	public List<Object> bandAllList(PageInfo pi) {
+		return ad.bandAllList(sqlSession, pi);
 	}
 
 	@Override
@@ -64,19 +64,49 @@ public class adminServiceImpl implements adminService {
 	}
 	
 	@Override
+	public int insertBlackMember(int cid, String banReason) {
+		int result = -99;
+		result = ad.insertBlackMember(sqlSession, cid, banReason);
+		ad.updateMember(sqlSession, cid);
+		ad.updateMemberBand(sqlSession, cid);
+		
+		return result;
+	}
+	
+	@Override
 	public List<Object> reportBandList(PageInfo pi) {
 		return ad.reportBandList(sqlSession, pi);
 	}
 
 	@Override
-	public List<Object> banMemberList(PageInfo pi, String alignment) {
-		return ad.banMemberList(sqlSession, pi, alignment);
+	public List<Object> showReportBand(PageInfo pi, int bid) {
+		return ad.showReportBand(sqlSession, pi, bid);
+	}
+	
+	@Override
+	public int insertBlackBand(int bid, String banReason) {
+		int result = -99;
+		result = ad.insertBlackBand(sqlSession, bid, banReason);
+		ad.updateBand(sqlSession, bid);
+		
+		return result;
+	}
+	
+	@Override
+	public List<Object> banMemberList(PageInfo pi) {
+		return ad.banMemberList(sqlSession, pi);
 	}
 
 	@Override
-	public List<Object> banBandList(PageInfo pi, String alignment) {
-		return ad.banBandList(sqlSession, pi, alignment);
+	public List<Object> banBandList(PageInfo pi) {
+		return ad.banBandList(sqlSession, pi);
 	}
+
+	
+
+	
+
+	
 
 	
 }
