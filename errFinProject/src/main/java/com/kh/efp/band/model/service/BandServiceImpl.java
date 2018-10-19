@@ -235,6 +235,11 @@ public class BandServiceImpl implements BandService {
 		return bd.searchBanMemberList(sqlSession, mb);
 	}
 
+	@Override
+	public ArrayList<Member_Band> selectMember_BandList2(Member_Band mb) {
+		return bd.selectMember_BandList2(sqlSession, mb);
+	}
+
 
 
 //	@Override

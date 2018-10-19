@@ -64,6 +64,16 @@
 		
 	</select>
 	
+	<!-- 밴드가입한 회원 + 가입 신청 목록 메소드 -->
+	<select id = "selectMember_BandList2" parameterType = "Member_Band" resultMap = "Member_BandResultSet">
+		SELECT MB.MBID, MB.BID, M.MID, MB.IDATE, MB.ISTATUS, MB.MLEVEL, M.MNAME 
+		FROM MEMBER_BAND MB
+		JOIN MEMBER M ON (M.MID = MB.MID)
+		WHERE BID = #{bid} AND NOT ISTATUS = 'N'
+		
+	</select>
+	
+	
 	<!-- 밴드에 차단 당한 회원 목록 메소드 -->
 	<select id = "selectBanMemberList" parameterType = "int" resultMap = "BanMemberListResultSet">
 		SELECT b.BANID, M.MID, M.MNAME 
