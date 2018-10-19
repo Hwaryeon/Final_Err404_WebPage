@@ -83,10 +83,10 @@
     </div>
     
     <div class="container">
-        <div class="main col-xs-push-4 col-md-12 col-xs-12" style="width : 100%; margin-bottom: 20px;">
-            <div class="widget" style="width : 45%; text-align: center; margin: auto;">
+        <div class="main col-xs-push-3 col-md-12 col-xs-12" style="width : 100%; margin-bottom: 20px;">
+            <div class="widget" style="width : 54%; text-align: center; margin: auto;">
 
-                <div style="width:400px; height:700px; display: inline-block;">
+                <div style="width:550px; height:700px; display: inline-block;">
                     <div style="height : 140px; border : 1px solid black; margin-bottom: 50px;">
                         이미지? 공백?
                     </div>

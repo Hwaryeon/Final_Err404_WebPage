@@ -352,7 +352,7 @@
     	var url = "http://127.0.0.1:3000/chat/" + ${sessionScope.loginUser.mid};
     	/* var url = "http://192.168.20.248:3000/" + ${sessionScope.loginUser.mid}; */
 
-		var settings = "width=400, height=622, toolbar=no, menubar=no, scrollbars=no, resizable=no";
+		var settings = "width=400, height=602, toolbar=no, menubar=no, scrollbars=no, resizable=no";
 		
 		window.open(url, 'test window', settings);
     }

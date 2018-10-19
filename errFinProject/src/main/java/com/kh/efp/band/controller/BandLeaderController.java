@@ -3,15 +3,22 @@ package com.kh.efp.band.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.efp.band.model.service.BandService;
@@ -22,6 +29,7 @@ import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.commons.CommonUtils;
 import com.kh.efp.member.model.vo.Member;
 import com.kh.efp.member.model.vo.Profile;
+import com.kh.efp.member.model.vo.loginUser;
 import com.kh.efp.newPost.model.service.newPostService;
 import com.kh.efp.newPost.model.vo.Category;
 
@@ -610,9 +618,28 @@ public class BandLeaderController {
 	
 	@RequestMapping("updateMemberStatus.bd")
 
-	public String updateMemberStatus(@RequestParam int bid, int mbid, Model model){
+	public String updateMemberStatus(@RequestParam int bid, int mbid, Model model, HttpServletRequest request){
 		
 		bs.updateMemberStatus(mbid);
+		
+		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
+		
+		//다른서버로 채팅 요청하기
+		// RestTemplate 에 MessageConverter 세팅
+	    List<HttpMessageConverter<?>> converters = new ArrayList<HttpMessageConverter<?>>();
+	    converters.add(new FormHttpMessageConverter());
+	    converters.add(new StringHttpMessageConverter());
+	 
+	    RestTemplate restTemplate = new RestTemplate();
+	    restTemplate.setMessageConverters(converters);
+	 
+	    // parameter 세팅
+	    MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
+	    map.add("bid", String.valueOf(bid));
+	    map.add("mid", String.valueOf(loginUser.getMid()));
+	 
+	    // REST API 호출
+	    String result2 = restTemplate.postForObject("http://127.0.0.1:3000/insertMember", map, String.class);
 		
 		return "redirect:/insertMemberList.bd?bid=" + bid;
 	}
