@@ -53,6 +53,7 @@
 </style>
 <body
    class="home page page-id-4 page-template page-template-template_home-php">
+
    
    
    <div class="recent-widget" id="tabbed-widget" style="background:#f6f6f6;">
@@ -110,6 +111,7 @@
 			});		
 		</script>
 		
+
    <div class="container">
 
       <div class="left-sidebar col-md-3" role="complementary" >
@@ -224,7 +226,6 @@
          
          <%-- <c:forEach items="${boardMain }" var="row"> --%>
 	 <c:forEach items="${boardList }" var="row">
-
       <div class="post widget" style="margin-bottom:34px;">
       
       
@@ -262,9 +263,9 @@
                         class="avatar avatar-75 photo avatar-default" >
                         <button type="button" id="btnUpdate" class="btnUpdate" onclick=update()>수정</button></a></li>
                         
-                           <li><a href="index2.html">   <img alt="" src="${ contextPath }/resources/images/dropDelete.png"
+                           <li><a onclick='deleteContent(${row.boardId})'><img alt="" src="${ contextPath }/resources/images/dropDelete.png"
                         class="avatar avatar-75 photo avatar-default" >&nbsp&nbsp&nbsp&nbsp&nbsp삭제하기</a></li>
-                           <li><a href="index3.html">   <img alt="" src="${ contextPath }/resources/images/dropPolice.png"
+                           <li id='rte'><a onclick='reportContent(${row.boardId},${row.mId})'><img alt="" src="${ contextPath }/resources/images/dropPolice.png"
                         class="avatar avatar-75 photo avatar-default" >&nbsp&nbsp&nbsp&nbsp&nbsp신고하기</a></li>
                         </ul></li>
                   </ul>
@@ -272,6 +273,49 @@
                </div>
                
                <script>
+               function deleteContent(bid){
+            	   if(confirm('정말로 삭제하시겠습니까?')){
+	            	   $.ajax({
+	            		   url:'deleteContent.do',
+	            		   data:{
+	            			   boardid:bid
+	            		   },
+	            		   success:function(data){
+	            			   if(data != 0){
+	            				   alert('삭제 완료')
+	            				   location.reload();
+	            			   }
+	            		   },
+	            		   error:function(error){
+	            			   
+	            		   }
+	            	   });
+            	   }
+               }
+               
+               function reportContent(bid,mid){
+            	   var reason = prompt('신고 사유를 입력해 주세요');
+            	   if(reason != null){
+	            	   $.ajax({
+	            		   url:'reportContent.do',
+	            		   data:{
+	            			   boardid:bid,
+	            			   reason : reason,
+	            			   bid: ${ Band.bid },
+	            			   mid : mid
+	            		   },
+	            		   success:function(data){
+	            			   console.log(data);
+	            		   },
+	            		   error:function(error){
+	            			   
+	            		   }
+	            	   });
+            	   }else{
+            		   console.log(reason);
+            	   }
+               }
+               
                	function update(){
                		/*
                		var mId = "${row.mId}"
@@ -423,7 +467,6 @@
               <ol class="commentlist">
                 <c:forEach var="commentList" items="${commentList}">
                 
-                
                 	<c:if test="${ commentList.refBId eq row.boardId  }">
                 	 <c:set var="comCount" value="${comCount + 1 }"/>
                 	 <li class="comment parent">
@@ -500,12 +543,12 @@
                           		 <input type="hidden" value="${comCount}">
                             
 	                            <c:if test="${commentList.mId != userId}">
-	                                <a class="comment-reply-link reportBoard" style="cursor:pointer;">신고</a>
+	                                <a onclick='reportComment(${commentList.boardId}, ${commentList.mId})'  class="comment-reply-link reportBoard" style="cursor:pointer;">신고</a>
 	                              </c:if>
                                 <c:if test="${commentList.mId == userId}">
                
 	                                <a class="comment-reply-link updateBoard" style="cursor:pointer; margin-right:5px; margin-left:5px;">수정</a>
-	                                <a class="comment-reply-link deleteBoard" style="cursor:pointer;">삭제</a>
+	                                <a onclick='deleteComment(${commentList.boardId})' class="comment-reply-link" style="cursor:pointer;">삭제</a>
                                </c:if>
                             </span> 
             
@@ -575,6 +618,50 @@
          </c:forEach>
          
 <script>
+
+function deleteComment(bid){
+	   if(confirm('정말로 삭제하시겠습니까?')){
+	 	   $.ajax({
+	 		   url:'deleteComment2.do',
+	 		   data:{
+	 			   boardid:bid
+	 		   },
+	 		   success:function(data){
+	 			   if(data != 0){
+	 				   alert('삭제 완료')
+	 				   location.reload();
+	 			   }
+	 		   },
+	 		   error:function(error){
+	 			   
+	 		   }
+	 	   });
+		   }
+}
+
+function reportComment(bid, mid){
+	   var reason = prompt('신고 사유를 입력해 주세요');
+	   if(reason != null){
+ 	   $.ajax({
+ 		   url:'reportComment.do',
+ 		   data:{
+ 			   boardid:bid,
+ 			   reason : reason,
+ 			   bid: ${ Band.bid },
+ 			   mid : mid
+ 		   },
+ 		   success:function(data){
+ 			   console.log(data);
+ 		   },
+ 		   error:function(error){
+ 			   
+ 		   }
+ 	   });
+	   }else{
+		   console.log(reason);
+	   }
+}
+
 $('.deleteBoard').click(function(){
 	 
 	 document.getElementById('boardid2').value = $(this).parents().children("input").eq(0).val();
@@ -787,9 +874,6 @@ $('.updateBoard').click(function(){
    
 
    <jsp:include page="../common/footer.jsp" />
-   
-   <script>window.jQuery || document.write('<script src="../../../libs/jquery/dist/jquery.min.js"><\/script>')</script>
-<script src="${ contextPath }/resources/Remodal-1.1.1/dist/remodal.js"></script>
    
 	<script>
 

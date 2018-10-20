@@ -209,8 +209,7 @@
 	
 	
 	<delete id="deleteBoard" parameterType="int">
-		DELETE FROM BOARDS WHERE BOARDID = #{boardId}
-	
+		DELETE FROM BOARDS WHERE BOARDID = #{boardid}
 	</delete>
 	
 	<update id="updateBoard" parameterType="Board">
@@ -291,7 +290,7 @@
 		SELECT SEQ_BOARDID.currval FROM DUAL
 	</select>
 	
-	
+
 	<select id = "selectAlbum" parameterType = "AttBoard" resultMap = "AttBoardResultSet">
 		SELECT B.BOARDID, MB.BID, M.MID, BCONTENT, BDATE, BSTATUS, REF_STATUS, REF_BID, M.MNAME, FID, FORIGIN_NAME, EDIT_NAME, FILE_SRC, FDATE, FLEVEL
 		FROM BOARDS B
@@ -301,7 +300,18 @@
 		WHERE B.BID = #{bid} AND BSTATUS = 'Y'
 	</select>
 	
+
+	<!-- 글삭제 -->
+	<delete id="deleteContent">
+		DELETE FROM BOARDS WHERE BOARDID = #{boardid}  OR REF_BID = #{boardid}
+	</delete>
+
 	
+	<!-- 글을 신고한 정보를 저장하는 메소드 -->
+	<insert id="insertReportContent" parameterType="Report">
+		INSERT INTO REPORT
+		 VALUES(SEQ_RID.NEXTVAL, #{rcontent}, #{mid}, SYSDATE, #{rlevel}, #{bid}, #{boardid}, #{cid})
+	</insert>
 	
 
 </mapper>

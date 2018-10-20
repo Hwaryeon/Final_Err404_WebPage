@@ -16,6 +16,7 @@ import com.kh.efp.band.model.vo.Board;
 import com.kh.efp.member.model.vo.Profile;
 import com.kh.efp.newPost.model.vo.Boards;
 import com.kh.efp.newPost.model.vo.MemberProfile;
+import com.kh.efp.newPost.model.vo.Report;
  
 @Service
 public class BoardServiceImpl implements BoardService{
@@ -165,9 +166,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public void deleteComment(int boardid) {
-		// TODO Auto-generated method stub
-		boardDao.deleteComment(boardid);
+	public int deleteComment(int boardid) {
+		return boardDao.deleteComment(boardid);
 	}
 
 	@Override
@@ -240,6 +240,21 @@ public class BoardServiceImpl implements BoardService{
 	public ArrayList<AttBoard> selectAlbum(int pbid) {
 		// TODO Auto-generated method stub
 		return boardDao.selectAlbum(pbid);
+    
+	@Override
+	public int deleteContent(int boardid) {
+		return boardDao.deleteContent(boardid);
+	}
+
+	@Override
+	public int insertReportContent(Report rp) {
+		return boardDao.insertReportContent(rp);
+	}
+
+	@Override
+	public int insertReportComment(Report rp) {
+		return boardDao.insertReportComment(rp);
+
 	}
 
 
