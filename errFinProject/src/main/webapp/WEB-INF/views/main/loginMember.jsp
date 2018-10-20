@@ -9,7 +9,50 @@
     <meta name="viewport" content=" width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
-
+	<style type="text/css">
+		#btnJoinFacebook{
+      width:300px;
+      height:51px;
+      padding-left : 0px;
+      padding-top : 0px;
+      padding-bottom : 0px;
+      /* background:#2E64FE;
+      border:solid 1px #FAFAFA;
+      color:#FAFAFA; */
+      border:solid 1px #2E64FE;
+      background:#FAFAFA;
+      color:#2E64FE;
+      line-height : 100%;
+   }
+   
+    #btnJoinGoogle{
+      width:300px;
+      height:51px;
+      padding-left : 0px;
+      padding-top : 0px;
+      padding-bottom : 0px;
+      /* border:solid 1px #FAFAFA;
+      background:#DF0101;
+      color:#FAFAFA; */
+      border:solid 1px #DF0101;
+      background:#FAFAFA;
+      color:#DF0101;
+   }
+   
+    #btnJoinNaver{
+      width:300px;
+      height:51px;
+      padding-left : 0px;
+      padding-top : 0px;
+      padding-bottom : 0px;
+      /* border:solid 1px #FAFAFA;
+      background:#DF0101;
+      color:#FAFAFA; */
+      border:solid 1px #1EC800;
+      background:#FAFAFA;
+      color:#1EC800;
+   }
+	</style>
     
     <title>ERR404</title>
     <!-- CSS -->
@@ -84,32 +127,79 @@
     
     <div class="container">
         <div class="main col-xs-push-3 col-md-12 col-xs-12" style="width : 100%; margin-bottom: 20px;">
-            <div class="widget" style="width : 54%; text-align: center; margin: auto;">
+            <div class="widget" style="width : 52%; text-align: center; margin: auto;">
 
-                <div style="width:550px; height:700px; display: inline-block;">
-                    <div style="height : 140px; border : 1px solid black; margin-bottom: 50px;">
-                        이미지? 공백?
+                <div style="width:530px; height:720px; display: inline-block;">
+                    <div style="height : 250px; margin-bottom: 50px;">
+                        <img src = "${contextPath }/resources/images/giphy.gif" style = "width : 50%; height : 100%;"/>
                     </div>
                     <div class="col-xs-12">
                     	<form action = "login.me" method = "post" id = "insertLogin">
-                        <input class="form-control" type="text" name = "mEmail" id = "mEmail" placeholder="이메일">
-                        <br>
+                    	<table>
+                    	<tr>
+	                        <td width = "428px">
+	                        <input class="form-control" type="text" name = "mEmail" id = "mEmail" placeholder="이메일">
+                    		</td>
+                    		<td rowspan = '2' style = "vertical-align : middle;" height = "85px">
+                    			<a style = "height : 60px; text-align : center; margin-top : 0px; padding-top : 25%; border-radius : 20px;" id = 'btns' class = "button-orange button-link" onclick = "moveMain();">로그인</a>
+                    		</td>
+                    	</tr>
+                    	<tr>
+                    	<td>
                         <input class="form-control" type="password" name = "mPwd" id = "mPwd" placeholder="비밀번호">
-                        <br>
-                        <a id = 'btns' class = "button-orange button-link" onclick = "moveMain();">로그인</a>
-                        <br>
+                    	</td>
+						</tr>
+                        
+                    	</table>
                     	</form>
                         <hr>
-                        <div style="text-align:center; margin-left : auto; margin-right : auto;">
-                          		<a id = "Test4"><img width="290px" height = "60px" src="resources/images/login/GGlogin1.png"/></a>
+                        <div style="text-align:center; margin-left : auto; margin-right : auto; padding : 0px;">
+                          		<a id = "Test4">
+                          		<button id = "btnJoinGoogle" class = "Test3">
+                       			<table>
+                       			<tr>
+									<td>
+                       					<img src = "${ contextPath}/resources/images/login/ggicon.png">
+									</td>
+                       				<td style = "font-size : 10pt;align : center; width : 250px; heigth : 50px; vertical-align : middle">
+                       					구글 아이디로 로그인하기
+                       				</td>
+                       			</tr>
+                       			</table>
+                       			</button>
+                       			</a>
                         </div>
                         <br>
-                        <div style="text-align:center; margin-left : auto; margin-right : auto;">
-                          		<a id = "Test3"><img width="280px" height = "40px" src="resources/images/login/FBLogin1.PNG"/></a>
+                        <div style="text-align:center; margin-left : auto; margin-right : auto; padding : 0px;">
+                          		<a id = "Test3">
+                          		<button id = "btnJoinFacebook" class = "Test3">
+                       			<table>
+                       			<tr>
+									<td>
+                       					<img src = "${ contextPath}/resources/images/login/fb50px.png">
+									</td>
+                       				<td align = "center" style = "font-size : 10pt; align : center; width : 250px; heigth : 50px; vertical-align : middle">
+                       					페이스북 아이디로 로그인하기
+                       				</td>
+                       			</tr>
+                       			</table>
+                       			</button></a>
                         </div>
                         <br>
-                            <div id="naver_id_login" style="text-align:center">
-                            <a id = "Test2"><img width="280px" height = "50px" src="resources/images/login/naver.PNG"/>
+                            <div id="naver_id_login" style="text-align:center; padding : 0px; margin-left : auto; margin-right : auto;">
+                            <a id = "Test2" style = "padding : 0px;">
+                            <button id = "btnJoinNaver" class = "Test3">
+                       			<table>
+                       			<tr>
+									<td>
+                       					<img src = "${ contextPath}/resources/images/login/naveicon.png">
+									</td>
+                       				<td style = "font-size : 10pt; width : 250px; heigth : 50px; vertical-align : middle">
+                       					네이버 아이디로 로그인하기
+                       				</td>
+                       			</tr>
+                       			</table>
+                       			</button>
                             </a></div>
                         <hr>
                         <a href = "memberJoinForm.me">회원가입</a><br>
@@ -149,6 +239,7 @@
     			var url2 = url.replace('"', "");
     			console.log(url2);
     			$("#Test3").attr("href", url2);
+    			$(".Test3").attr('onclick', "location.href = '" + url2 + "'");
       		},
       		error:function(){
       			console.log('실패');
