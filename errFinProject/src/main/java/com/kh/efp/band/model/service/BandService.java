@@ -96,6 +96,12 @@ public interface BandService {
 
 	ArrayList<MemberBandProfile> selectMemberBandProfileList(MemberBandProfile mbp);
 
+	String selectBandCode(int bid);
+
+	void updateBandCode(Band b);
+
+	int checkInviteCode(String code);
+
 	
 
 
