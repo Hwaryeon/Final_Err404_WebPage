@@ -69,6 +69,19 @@
 		<result property="flevel" column="FLEVEL" />
 	</resultMap>
 	
+	<resultMap type ="MemberBandProfile" id = "MemberBandProfileResultSet">
+		<id property="mbid" column="MBID" />
+		<result property="bid" column="BID" />
+		<result property="mid" column="MID" />
+		<result property="idate" column="IDATE" />
+		<result property="istatus" column="ISTATUS" />
+		<result property="mlevel" column="MLEVEL" />
+		<result property="mname" column="MNAME" />
+		<result property="mType" column="MTYPE" />
+		<result property="fileSrc" column="FILE_SRC"/>
+		<result property="editName" column="EDIT_NAME"/>
+	</resultMap>
+	
 	<!-- 밴드 오픈설정 변경 메소드 -->
 	<update id = "updateBandOpenStatus" parameterType = "Band">
 		UPDATE BAND SET BOPEN_STATUS = #{bopen_status}
@@ -293,6 +306,17 @@
 		SELECT FID, BOARDID, FORIGIN_NAME, EDIT_NAME, FILE_SRC, FDATE, FLEVEL FROM 
 		(SELECT ROWNUM, FID, BOARDID, FORIGIN_NAME, EDIT_NAME, FILE_SRC, FDATE, FLEVEL FROM ATTFILE WHERE BOARDID = #{boardid} 
 		ORDER BY FDATE DESC) WHERE ROWNUM = 1
+	</select>
+	
+	<select id = "selectMemberBandProfile" parameterType="MemberBandProfile" resultMap = "MemberBandProfileResultSet">
+		SELECT MB.MBID, MB.BID, MB.IDATE, MB.ISTATUS, MB.MLEVEL, M.MNAME, M.MTYPE, FILE_SRC, EDIT_NAME
+		FROM MEMBER_BAND MB
+		JOIN MEMBER M ON(MB.MID = M.MID)
+		JOIN PROFILE P ON(M.MID = P.MID)
+		WHERE MB.BID = #{bid} AND ISTATUS = 'Y' AND FDATE = 
+		(SELECT MAX(FDATE) FROM (SELECT MID, BID FROM MEMBER_BAND WHERE BID = #{bid}) S JOIN PROFILE P ON(S.MID = P.MID)
+        WHERE S.MID = MB.MID)
+	
 	</select>
 	
 </mapper>

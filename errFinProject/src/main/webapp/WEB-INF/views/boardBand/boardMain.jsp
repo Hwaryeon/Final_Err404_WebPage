@@ -60,20 +60,18 @@
    
    <div class="container">
 
-      <div class="left-sidebar col-md-3" role="complementary">
+      <div class="left-sidebar col-md-3" role="complementary" >
 
-         <div id="categort-posts-widget-2"
-            class="widget fullwidth categort-posts">
-            <h1 class="widget-title"></h1>
+         <div id="categort-posts-widget-2" class="widget fullwidth categort-posts" style = "background : white;">
             <ul class="tvshows">
                <li><a href="#"> <!-- <span class="comment-count">11</span> -->
-                     <img src="http://placehold.it/209x128" alt="">
+                     <img src="${ contextPath }/resources/upload_images/${pf.editName }" alt="">
                </a>
                   <h2
                      style="color: #222; font-size: 21px; margin-bottom: 15px; font-weight: 600; margin-top: 20px;">${ Band.bname }</h2>
                   <h4
                      style="display: inline-block; font-size: 13px; font-weight: 400; color: #333;">
-                     멤버 4<a href="#"
+                     멤버 ${memberCount }<a href="boardMemberInvite.do?bid=${band.bid }"
                         style="position: relative; padding-left: 12px; color: #fdb00d !important; font-size: 13px;">
                         초대코드 </a>
                   </h4>
@@ -85,7 +83,6 @@
                         
                   </h4></li>
             </ul>
-            <div class="clear"></div>
          </div>
 
       </div>
@@ -190,8 +187,6 @@
                            <input type="hidden" id="mid" name="mid" value="${row.mId}">
                            <input type="hidden" id ="bid" name ="bid" value ="${row.bId}">
                            <a>
-                           
-                           
                               <img alt="" src="${ contextPath }/resources/images/dropEdit.png?id=${row.boardId}"
                         class="avatar avatar-75 photo avatar-default" >
                         <button type="button" id="btnUpdate" class="btnUpdate" onclick=update()>수정</button></a></li>

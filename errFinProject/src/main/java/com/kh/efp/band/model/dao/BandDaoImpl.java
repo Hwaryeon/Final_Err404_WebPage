@@ -13,6 +13,7 @@ import com.kh.efp.band.model.vo.Ban;
 import com.kh.efp.band.model.vo.BanMemberList;
 import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.band.model.vo.Board;
+import com.kh.efp.band.model.vo.MemberBandProfile;
 import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
 import com.kh.efp.member.model.vo.Profile;
@@ -298,5 +299,15 @@ public class BandDaoImpl implements BandDao{
 	@Override
 	public Attfile selectAttFile(SqlSessionTemplate sqlSession, int boardid) {
 		return sqlSession.selectOne("Band.selectAttFile", boardid);
+	}
+
+	@Override
+	public ArrayList<MemberBandProfile> selectMemberBandProfileList(SqlSessionTemplate sqlSession,
+			MemberBandProfile mbp) {
+		ArrayList<MemberBandProfile> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("Band.selectMemberBandProfile", mbp);
+		
+		return list;
 	}	
 }
