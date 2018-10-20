@@ -7,9 +7,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.efp.band.model.dao.BoardDao;
+import com.kh.efp.band.model.vo.Attfile;
 import com.kh.efp.band.model.vo.Board;
+import com.kh.efp.member.model.vo.Profile;
 import com.kh.efp.newPost.model.vo.Boards;
 import com.kh.efp.newPost.model.vo.MemberProfile;
  
@@ -174,10 +177,64 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public MemberProfile selectMemberProfile(int mId) {
+	public MemberProfile selectMemberProfile(int getmId) {
 		// TODO Auto-generated method stub
-		return boardDao.selectMemberProfile(mId);
+		return boardDao.selectMemberProfile(getmId);
 	}
+	
+	
+	@Override
+	@Transactional
+	public int insertFile(Board vo,  Attfile pf) {
+		// TODO Auto-generated method stub
+		int result = -99;
+		
+		
+
+		System.out.println("service vo : " + vo + " / pf : " + pf);
+		int result1 = boardDao.create1(vo);
+		
+		/*int mid = boardDao.selectMid(vo);*/
+		int boardId = boardDao.selectBoardId(vo);
+		
+		int mid=99;
+		/*
+		int boardId = 99;
+		*/
+		
+		System.out.println("여기까지 동작함");
+		System.out.println("result1 : " + result1);
+		
+		pf.setMid(mid);
+		vo.setBoardId(boardId);
+		pf.setBoardId(boardId);
+
+		System.out.println("동작2번 : " + pf);
+		
+		
+		System.out.println("mid : " + mid);
+		System.out.println("boardId : " + boardId);
+		System.out.println("pf : " + pf);
+		
+		
+		
+		
+		int result2 = boardDao.insertBoardFile(pf);	//여기서 에러
+		System.out.println(result2);
+		
+		if(result1 > 0 && result2 > 0){
+			result = 1;
+		}else{
+			result = 0;
+		}
+		return result;
+	}
+
+	@Override
+	public int selectCurrval() {
+		return boardDao.selectCurrval();
+	}
+
 
 	
  

@@ -33,6 +33,7 @@
 		<typeAlias type="com.kh.efp.admin.model.vo.ReportList" alias="ReportList"/>
 		<typeAlias type="com.kh.efp.admin.model.vo.BanList" alias="BanList"/>
 		<typeAlias type="com.kh.efp.alarm.model.vo.Alarm" alias="Alarm"/>
+		<typeAlias type="com.kh.efp.band.model.vo.Attfile" alias="Attfile"/>
 	</typeAliases>
 
 	<mappers>

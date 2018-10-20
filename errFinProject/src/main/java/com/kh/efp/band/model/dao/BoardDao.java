@@ -2,7 +2,9 @@ package com.kh.efp.band.model.dao;
 
 import java.util.List;
 
+import com.kh.efp.band.model.vo.Attfile;
 import com.kh.efp.band.model.vo.Board;
+import com.kh.efp.member.model.vo.Profile;
 import com.kh.efp.newPost.model.vo.Boards;
 import com.kh.efp.newPost.model.vo.MemberProfile;
 
@@ -31,6 +33,20 @@ public interface BoardDao {
 	public void insertComment(Boards b);
 	public void deleteComment(int boardid);
 	public void updateComment(Boards b);
-	public MemberProfile selectMemberProfile(int mId);
+	public MemberProfile selectMemberProfile(int getmId);
+	
+	
+	public int insertFileProfile(String bid, Profile pf);
+
+	
+	
+	
+	
+	public int insertFile(String bid);
+	public int create1(Board vo);
+	public int selectMid(Board vo);
+	public int insertBoardFile(Attfile pf);
+	public int selectBoardId(Board vo);
+	public int selectCurrval();
 
 }
