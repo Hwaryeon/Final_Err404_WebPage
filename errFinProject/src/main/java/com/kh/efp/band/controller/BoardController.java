@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ import com.kh.efp.member.model.vo.Profile;
 import com.kh.efp.newPost.model.service.newPostService;
 import com.kh.efp.newPost.model.vo.Boards;
 import com.kh.efp.newPost.model.vo.MemberProfile;
+import com.kh.efp.newPost.model.vo.Report;
  
 @Controller
 
@@ -495,7 +497,72 @@ String bname = bs.selectBandName(pbid);
 		return "redirect:/newPost.np";
 	}
     
+	@RequestMapping("deleteContent.do")
+	public void deleteContent(@RequestParam int boardid , HttpServletRequest req, HttpServletResponse res, Model model){
+		
+		int result = boardService.deleteContent(boardid);
+		
+		try {
+			res.getWriter().print(result);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
     
-    
+	@RequestMapping("reportContent.do")
+	public void reportContent(@RequestParam int boardid, String reason, int bid, int mid , HttpServletRequest req, HttpServletResponse res, Model model){
+		Member m = (Member) req.getSession().getAttribute("loginUser");
+		Report rp = new Report();
+		rp.setBid(bid);
+		rp.setBoardid(boardid);
+		rp.setRcontent(reason);
+		rp.setCid(mid);
+		rp.setRlevel("C");
+		rp.setMid(m.getMid());
+		
+		int result = boardService.insertReportContent(rp);
+		System.out.println(result);
+		try {
+			res.getWriter().print(result);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("deleteComment2.do")
+	public void deleteComment2(@RequestParam int boardid , HttpServletRequest req, HttpServletResponse res, Model model){
+		
+		int result = boardService.deleteComment(boardid);
+		
+		try {
+			res.getWriter().print(result);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("reportComment.do")
+	public void reportComment(@RequestParam int boardid, String reason, int bid, int mid , HttpServletRequest req, HttpServletResponse res, Model model){
+		Member m = (Member) req.getSession().getAttribute("loginUser");
+		Report rp = new Report();
+		rp.setBid(bid);
+		rp.setBoardid(boardid);
+		rp.setRcontent(reason);
+		rp.setCid(mid);
+		rp.setRlevel("M");
+		rp.setMid(m.getMid());
+		
+		int result = boardService.insertReportComment(rp);
+		System.out.println(result);
+		try {
+			res.getWriter().print(result);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
     
 }

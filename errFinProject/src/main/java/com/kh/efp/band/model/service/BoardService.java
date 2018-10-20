@@ -12,6 +12,7 @@ import com.kh.efp.band.model.vo.Board;
 import com.kh.efp.member.model.vo.Profile;
 import com.kh.efp.newPost.model.vo.Boards;
 import com.kh.efp.newPost.model.vo.MemberProfile;
+import com.kh.efp.newPost.model.vo.Report;
 
 public interface BoardService {
 
@@ -51,13 +52,16 @@ public interface BoardService {
 	public int selectCommentCount(int pbid) throws Exception;
 	public List<Board> commentList(int pbid) throws Exception;
 	public void insertComment(Boards b);
-	public void deleteComment(int boardid);
+	public int deleteComment(int boardid);
 	public void updateComment(Boards b);
 	public MemberProfile selectMemberProfile(int getmId);
 	
 	
 	public int insertFile(Board vo, Attfile af);
 	public int selectCurrval();
+	public int deleteContent(int boardid);
+	public int insertReportContent(Report rp);
+	public int insertReportComment(Report rp);
 
 	
 
