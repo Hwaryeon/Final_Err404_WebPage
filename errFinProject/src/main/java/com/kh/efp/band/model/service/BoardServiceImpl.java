@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.efp.band.model.dao.BoardDao;
+import com.kh.efp.band.model.vo.AttBoard;
 import com.kh.efp.band.model.vo.Attfile;
 import com.kh.efp.band.model.vo.Board;
 import com.kh.efp.member.model.vo.Profile;
@@ -233,6 +234,12 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int selectCurrval() {
 		return boardDao.selectCurrval();
+	}
+
+	@Override
+	public ArrayList<AttBoard> selectAlbum(int pbid) {
+		// TODO Auto-generated method stub
+		return boardDao.selectAlbum(pbid);
 	}
 
 

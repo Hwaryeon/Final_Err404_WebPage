@@ -1,7 +1,9 @@
 package com.kh.efp.band.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.kh.efp.band.model.vo.AttBoard;
 import com.kh.efp.band.model.vo.Attfile;
 import com.kh.efp.band.model.vo.Board;
 import com.kh.efp.member.model.vo.Profile;
@@ -48,5 +50,6 @@ public interface BoardDao {
 	public int insertBoardFile(Attfile pf);
 	public int selectBoardId(Board vo);
 	public int selectCurrval();
+	public ArrayList<AttBoard> selectAlbum(int pbid);
 
 }
