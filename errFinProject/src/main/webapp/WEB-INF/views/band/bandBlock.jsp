@@ -143,7 +143,11 @@
                         			멤버 ${memberCount}<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
                         			초대코드 </a></h4>
                         <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
-                        <a href="bandLeader.bd?bid=${ bid }" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
+                        <a href="bandLeader.bd?bid=${ bid }" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">
+                        <c:if test="${ mlevel != 0 }">
+                        	* 밴드 설정
+                        </c:if>
+                        </a></h4>
                     </li>
                 </ul>
                 <div class="clear"></div>
@@ -154,16 +158,22 @@
 		<div class="main col-md-6 col-xs-12">
 
 			<div class="widget fullwidth post-single" style="margin-bottom:1px;">
-				<h4 class="widget-title" style="font-size:20px;">밴드 탈퇴 실패 </h4>
+				<h4 class="widget-title" style="font-size:20px;">비공개 밴드 </h4>
 			</div>
             <div class="widget team-member">
-              <h4 class="page-title">밴드 탈퇴에 실패하였습니다.</h4>
+              <h4 class="page-title">멤버만 게시글을 볼 수 있습니다.</h4>
               <!-- <h6>밴드에서 탈퇴하려면,</h4> -->
-              <p>회원님의 등급이 밴드리더이실 경우 밴드 탈퇴가 불가능합니다. 
-              리더의 권한을 위임하시면 탈퇴가 가능합니다.</p>
+              <p>해당 밴드에 가입 신청해보세요!</p>
 				<div class="row survey" style="margin-top:20px;">
 							<div class="col-md-6" style="margin-left:220px; width: 150px;">
-								<button class="button vote" id="bandSecessionFail">확인</button>
+								
+							<form action="Member_BandInsert.bd" method="post" class="mrgn-bottom-0">
+	                        
+	                        	<input type="hidden" name="bid" value="${ bid }">
+	                        
+	                        	<button class="button vote" >가입하기</button>
+	                        </form>
+								
 							</div>
 							<!-- <div class="col-md-6">
 								<button class="button" id="cancle">취소</button>

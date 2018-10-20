@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import= "java.util.*"  %>
 <%@ page import= "java.text.*"  %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
 <meta charset="utf-8">
@@ -117,11 +118,12 @@
 
 		<div class="left-sidebar col-md-3" role="complementary">
 
-			<div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title"></h1>
+			 <div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title"></h1>
                 <ul class="tvshows">
                     <li>
-                         <a href="#">
-                            
+                        <a href="#">
+                            <!-- <img src="http://placehold.it/209x128" alt=""> -->
+                             <%-- <img src="${ contextPath }/resources/upload_images/${pf.editName }" alt=""> --%>
                              <c:if test="${ pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
 									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
 									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
@@ -137,13 +139,49 @@
 								
 										<img src="${ contextPath }/resources/upload_images/${ pf.editName }">
 									</c:if>
+                             
+                             
+                             
                         </a>
                         <h2 style="color:#222; font-size:21px; margin-bottom:15px;font-weight:600;margin-top:20px;">${bname }</h2>
                         <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
                         			멤버 ${memberCount}<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
                         			초대코드 </a></h4>
+                        			
+                        <div> 
+                        
+                        <c:set var="loop" value="false"/>
+                        <c:set var="mid" value = "${ sessionScope.loginUser.mid }"/>
+                        <c:forEach var="list" items="${list }" >
+                        	<c:if test="${ not loop }">
+                        	
+	                        	<c:if test="${list.mid == mid }">
+	                        		<c:set var="loop" value="true"/>
+	                        
+	                        	</c:if>
+                        	
+                        	</c:if>
+                        
+                        </c:forEach>
+                        
+                        <c:if test="${ not loop }">
+	                        <form action="Member_BandInsert.bd" method="post" class="mrgn-bottom-0">
+	                        
+	                        	<input type="hidden" name="bid" value="${ bid }">
+	                        
+	                        	<button class="button vote" >가입하기</button>
+	                        </form>
+                        </c:if>
+                        
+                        
+                        
+                        </div>
                         <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
-                        <a href="bandLeader.bd?bid=${ bid }" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
+                        <a href="bandLeader.bd?bid=${ bid }" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">
+                        <c:if test="${ mlevel != 0 }">
+                        	* 밴드 설정
+                        </c:if>
+                        </a></h4>
                     </li>
                 </ul>
                 <div class="clear"></div>
@@ -153,33 +191,132 @@
 
 		<div class="main col-md-6 col-xs-12">
 
-			<div class="widget fullwidth post-single" style="margin-bottom:1px;">
-				<h4 class="widget-title" style="font-size:20px;">밴드 탈퇴 실패 </h4>
-			</div>
-            <div class="widget team-member">
-              <h4 class="page-title">밴드 탈퇴에 실패하였습니다.</h4>
-              <!-- <h6>밴드에서 탈퇴하려면,</h4> -->
-              <p>회원님의 등급이 밴드리더이실 경우 밴드 탈퇴가 불가능합니다. 
-              리더의 권한을 위임하시면 탈퇴가 가능합니다.</p>
-				<div class="row survey" style="margin-top:20px;">
-							<div class="col-md-6" style="margin-left:220px; width: 150px;">
-								<button class="button vote" id="bandSecessionFail">확인</button>
-							</div>
-							<!-- <div class="col-md-6">
-								<button class="button" id="cancle">취소</button>
-							</div> -->
-						</div>
+
+            <div class="post widget">
+              <div class="post-meta">
+                  ${ boards.bdate }    
+                  
+                  <c:if test="${  sessionScope.loginUser.mid == boards.mid  }">  
+                  <a href="" class="print" title="Print" style="width:70px;"><i class="fa fa-print">수정</i></a>
+                  <a href="" class="print" title="Print" style="width:70px;"><i class="fa fa-print">삭제</i></a>
+                  
+                  </c:if>
+                  
+                  <a href="" class="print" title="Print" style="width:70px;"><i class="fa fa-print">신고</i></a>
+              </div>
+              <div class="post-content">
+            	
+		            ${ boards.bcontent }
+            
+            
+               		 <!-- <img class="post-image img-beresponsive" src="http://placehold.it/469x291" alt=""> -->
+               		 <img class="post-image img-beresponsive" src="${ contextPath }/resources/upload_images/${att.edit_name }" alt="">
+               		 
+               		 
+              </div>
             </div>
-		</div>
+
+
+
+            <div class="box-content widget fullwidth" id="comments">
+              <h4 class="comment-title">댓글 ${ count }</h4>
+              <ol class="commentlist">
+              
+              <c:forEach var="commentList" items="${commentList}">
+              
+                <li class="comment parent">
+                
+                    <div class="comment-body">
+                        <div class="line"></div>
+                        
+                        <div class="comment-vcard">
+                       
+                       		<c:set var="profileLoop" value="false"/>
+                            <c:forEach var="m" items="${ mList }">
+                            <c:if test="${not profileLoop }">
+	                            	<c:if test="${ m.mid == commentList.mid }" >
+	                            
+	                          		  <img width="60" height="60" alt="" src="${ contextPath }/resources/upload_images/${m.edit_name }" class="avatar"> 
+			                            <span class="author-tag"></span>
+	                          		  <c:set var="profileLoop" value="true"/> 
+	                          	  </c:if>
+                          	  </c:if>
+                            </c:forEach>
+                       
+                       
+                       
+                        </div>
+                        
+                        <div class="comment_detail">
+                            
+                            <div class="comment-header">
+                                
+                                <span class="author">
+                                
+                                
+                                <c:set var="loop" value="false"/>
+                            <c:forEach var="m" items="${ mList }">
+                            <c:if test="${not loop }">
+	                            	<c:if test="${ m.mid == commentList.mid }" >
+	                            
+		                                ${ m.mname }
+	                          		  <c:set var="loop" value="true"/> 
+	                          	  </c:if>
+                          	  </c:if>
+                            </c:forEach>
+                                
+                                
+                                </span> 
+                                
+                                <span class="date">
+                                    <a href="#">${ commentList.bdate }</a>
+                                </span>
+                                
+                                <span class="reply">
+                                    <a class="comment-reply-link" href="#">신고</a>
+                                </span>
+                                
+                            </div><!--comment-header-->
+                            
+                            <p>${ commentList.bcontent }</p>
+                            
+                        </div><!--.comment_detail-->
+                        
+                    </div><!--.comment-body-->
+                    
+                </li><!--Parent li-->
+                
+                </c:forEach>
+                
+                
+              </ol>
+            </div>
+
+            <div class="widget clearfix">
+              <div id="respond" class="comment-respond">
+                <h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="" style="display:none;">Cancel reply</a></small></h3>
+                <form action="#" method="post" id="commentform" class="comment-form">
+                  <p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>     
+                  <p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="text" value="" size="30"></p>
+                  <p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>            <p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:  <code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code></p>            <p class="form-submit">
+                  <input name="submit" type="submit" id="submit" value="Post Comment">
+                  <input type="hidden" name="comment_parent" id="comment_parent" value="0">
+                  </p>
+                </form>
+              </div><!-- #respond -->
+            </div>
+
+
+        </div>
 		
 		<input type="hidden" id="bid" name="bid" value="${ bid }" >
 							
 		<script>
-			$('#bandSecessionFail').click(function(){
+			$('#bandSecession').click(function(){
 				
 				var bid = document.getElementById('bid').value;
 				
-				location.href="bandLeader.bd?bid=" + bid;
+				location.href="secessionBand.bd?bid=" + bid;
 			});
 			
 			$('#cancle').click(function(){
@@ -229,62 +366,6 @@
 
 			</div>
 
-			<div id="widget-survey" class="widget fullwidth widget-survey">
-				<h1 class="widget-title">Survey</h1>
-				<div class="widget-content">
-					<p>What was the last time you slept on bed in your house?</p>
-					<form action="#" method="post" class="mrgn-bottom-0">
-						<div class="form-group mrgn-bottom-0">
-							<div class="checkbox">
-								<label> <input name="remember" value="1" type="checkbox">
-									Today
-								</label>
-							</div>
-						</div>
-						<div class="form-group mrgn-bottom-0">
-							<div class="checkbox">
-								<label> <input name="remember" value="1" type="checkbox">
-									Yesterday
-								</label>
-							</div>
-						</div>
-						<div class="form-group mrgn-bottom-0">
-							<div class="checkbox">
-								<label> <input name="remember" value="1" type="checkbox">
-									The day after tomorrow
-								</label>
-							</div>
-						</div>
-						<div class="form-group mrgn-bottom-0">
-							<div class="checkbox">
-								<label> <input name="remember" value="1" type="checkbox">
-									Tomorrow
-								</label>
-							</div>
-						</div>
-						<div class="row survey">
-							<div class="col-md-6">
-								<button class="button vote">Vote</button>
-							</div>
-							<div class="col-md-6">
-								<button class="button">Results</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-
-
-			<div id="ads250_250-widget-2"
-				class="widget fullwidth ads250_250-widget">
-				<h1 class="widget-title">Advertisement</h1>
-				<div class="ads250-250">
-					<div class="ad-cell">
-						<a href="#"><img src="img/ad-210x190.png" class="fullwidth"
-							alt=""></a>
-					</div>
-				</div>
-			</div>
 
 		</div>
 

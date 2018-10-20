@@ -121,7 +121,7 @@
                     <li>
                          <a href="#">
                             
-                             <c:if test="${ pf.editName == 'cover1.jpeg' || pf.editName == 'cover2.jpg'
+                             <c:if test="${ pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
 									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
 									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
 									|| pf.editName == 'cover7.jpg' }">
@@ -129,7 +129,7 @@
 										<img src="${ contextPath }/resources/images/cover/${ pf.editName }">
 									</c:if>
 									
-									<c:if test="${ !(pf.editName == 'cover1.jpeg' || pf.editName == 'cover2.jpg'
+									<c:if test="${ !(pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
 									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
 									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
 									|| pf.editName == 'cover7.jpg') }">
@@ -157,15 +157,31 @@
 			</div>
 			
 			<div class="recent-widget" id="tabbed-widget">
-                  <ul class="nav nav-justified nav-tabs">
-                    <li class="active"><a href="#tab1" data-toggle="tab">멤버 목록</a></li>
-                    <li><a href="#tab2" data-toggle="tab">차단 목록</a></li>
-                  </ul>
+			
+				<c:if test="${check == 0 }">
+			
+	                  <ul class="nav nav-justified nav-tabs">
+	                    <li class="active"><a href="#tab1" data-toggle="tab">멤버 목록</a></li>
+	                    <li><a href="#tab2" data-toggle="tab">차단 목록</a></li>
+	                  </ul>
+                  
+                  </c:if>
+                  
+                  <c:if test="${check == 1 }">
+			
+	                  <ul class="nav nav-justified nav-tabs">
+	                    <li><a href="#tab1" data-toggle="tab">멤버 목록</a></li>
+	                    <li class="active"><a href="#tab2" data-toggle="tab">차단 목록</a></li>
+	                  </ul>
+                  
+                  </c:if>
+                  
                   <div class="tab-content padding-10" style="padding:0.1px;">
                     <div class="tab-pane fade in active" id="tab1">
                     
                     <div id="search-3" class="widget fullwidth widget_search" style="margin-bottom:1px;">
                 <form class="search" role="search" method="get" action="searchBanMemberSearch.bd">
+                	<input type="hidden" name="bid" value="${ bid }">
                     <input type="search" placeholder="Search &hellip;" value="" name="s" title="Search for:">
                 </form>
             </div>
@@ -209,7 +225,8 @@
                     </div>
                     <div class="tab-pane fade" id="tab2">
                     <div id="search-3" class="widget fullwidth widget_search" style="margin-bottom:1px;">
-                <form class="search" role="search" method="get" action="#">
+                <form class="search" role="search" method="get" action="searchBanMemberList.bd">
+                	<input type="hidden" name="bid" value="${bid }">
                     <input type="search" placeholder="Search &hellip;" value="" name="s" title="Search for:">
                 </form>
             </div>
@@ -249,6 +266,8 @@
 
 		</div>
 		
+		<input type="hidden" value="${check }" id="checkNum">
+		
 		  <script>
 			$('.deleteBanMember').click(function(){
 				
@@ -266,6 +285,26 @@
 				
 			});
 		
+			$(document).ready(function(){
+				
+				var check = document.getElementById('checkNum').value;
+				
+				console.log('check : ' + check);
+				
+				if(check == 0){
+				
+					$('#tab1').attr('class', 'tab-pane fade in active');
+					$('#tab2').attr('class', 'tab-pane fade');
+				}else{
+					$('#tab2').attr('class', 'tab-pane fade in active');
+					$('#tab1').attr('class', 'tab-pane fade');
+				}
+				
+				
+				
+			});
+			
+			
 		</script>
 		
 

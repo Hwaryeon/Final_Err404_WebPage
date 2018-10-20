@@ -38,8 +38,8 @@ public class BoardMemberController {
 		System.out.println("bandMemberManagement.bd 호출");
 		
 		//임시로 지정
-		//int pbid = Integer.parseInt(bid);
-		int pbid = 1;
+		int pbid = Integer.parseInt(bid);
+		//int pbid = 1;
 	
 		
 		Member_Band mb = new Member_Band();

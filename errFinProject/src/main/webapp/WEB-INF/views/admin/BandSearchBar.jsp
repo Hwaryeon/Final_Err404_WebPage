@@ -5,16 +5,15 @@
 <html>
 <head>
 <meta charset="utf-8">
-<!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content=" width=device-width, initial-scale=1">
-<title>관리자 | 블랙리스트 회원조회</title>
+<title>관리자 | 밴드 검색</title>
 <!-- CSS --> 
 <jsp:include page="../admin/adminMenubar.jsp" />
 <link href="resources/css/bootstrap.min.css" rel="stylesheet">
-<link href="resources/css/font-awesome.min.css" rel="stylesheet">
+<link href="resources/css/font-awesome.min.css" rel="stylesheet"> 
 <link href="resources/css/style.css" rel="stylesheet">
 <link href="resources/css/responsive.css" rel="stylesheet">
-<link href="resources/css/light-pink-blue.css" rel="stylesheet"> 
+<link href="resources/css/light-pink-blue.css" rel="stylesheet">
 <style>
 .menu-list {
 	/* width:200px; */
@@ -58,6 +57,7 @@
 	border: 1px solid black;
 }
 
+
 .search-area{
 	width:100%;
 	height:50px;
@@ -82,58 +82,79 @@
 			</div>
 		</div>
 		<!-- LOGO AREA -->
-		
 		<!-- MAIN NAV -->
 		<div class="container">
 
 			<div class="left-sidebar col-md-3" role="complementary">
 				<div class="menu-container">
 					<ul>
-						<li class="menu-list" onclick="location.href='goMemberSelect.ad'">회원조회</li>
-						<li class="menu-list" onclick="location.href='goBandSelect.ad'">밴드조회</li>
+						<li class="menu-list" onclick="location.href='MemberSelect.ad'">회원조회</li>
+						<li class="menu-list" onclick="location.href='BandSelect.ad'">밴드조회</li>
 						<li class="menu-list" onclick="location.href='goMemberSearch.ad'">회원검색</li>
 						<li class="menu-list" onclick="location.href='goBandSearch.ad'">밴드검색</li>
-						<li class="menu-list" onclick="location.href='goBMSelect.ad'">신고받은 회원 조회</li>
-						<li class="menu-list" onclick="location.href='goBBSelect.ad'">신고받은 밴드 조회</li>
-						<li class="menu-list" onclick="location.href='goBlackMember.ad'">블랙리스트 회원 조회</li>
-						<li class="menu-list" onclick="location.href='goBlackBand.ad'">블랙리스트 밴드 조회</li>
+						<li class="menu-list" onclick="location.href='ReportMemberSelect.ad'">신고받은 회원 조회</li>
+						<li class="menu-list" onclick="location.href='ReportBandSelect.ad'">신고받은 밴드 조회</li>
+						<li class="menu-list" onclick="location.href='BlackMember.ad'">블랙리스트 회원 조회</li>
+						<li class="menu-list" onclick="location.href='BlackBand.ad'">블랙리스트 밴드 조회</li>
 					</ul>
 				</div>
 			</div>
 			<div class="main col-md-6 col-xs-12">
 				<div class="admin-container">
-					<h1 style="height: 50px; padding-left: 20px; padding-top: 10px;">신고받은 회원 조회</h1>
-					<!-- <div class="search-area">
-						정렬방법  : 
-						<select style="margin-left:2%; font-size:15px; height:25px;">
-							<option>-------</option>
-							<option>플랫폼타입</option>
-							<option>가입일</option>
-							<option>닉네임</option>
-						</select>
-						<button>정렬</button>
-					</div> -->
-					<table class="admin-table">
+					<h1 style="height: 50px; padding-left: 20px; padding-top: 10px;">밴드검색</h1>
+					<!-- <form action="BandSearch.ad"> -->
+						<div class="search-area">
+							검색방법  : 
+							<select name="keywordValue" style="margin-left:2%; font-size:15px; height:25px;">
+								<!-- <option>-------</option> -->
+								<option value="bandName" selected="selected">밴드명</option>
+								<option value="bandMaster">밴드장</option>
+							</select>
+							<input id="searchNickName" type="text" name="keyword" value="">
+							<button id="searchBu">검색</button>
+						</div>
+					<!-- </form> -->
+					
+					<script>
+						
+						$('#searchBu').click(function(){
+							
+							var keyword = $("#searchNickName").val();
+							var pi = 1;
+
+							var keywordValue = $("select[name='keywordValue']").val();
+							
+							console.log("keywordValue : " + keywordValue);
+							
+							location.href="BandSearch.ad?keyword=" + keyword + "&currentPage=" + pi + "&keywordValue=" + keywordValue;
+						
+						});
+						
+						</script>					
+					
+					
+					
+					<%-- <table class="admin-table">
 						<tr style="background-color:lightblue">
-							<td>회원번호</td>
-							<td>이메일</td>
-							<td>닉네임</td>
-							<td>신고자</td>
-							<td>신고받은 밴드</td>
-							<td width="20%">신고사유</td>
+							<td width="10%">밴드번호</td>
+							<td width="50%">밴드명</td>
+							<td width="15%">카테고리명</td>
+							<td width="15%">밴드유형</td>
+							<td width="10%">밴드장</td>
 						</tr>
-						<c:forEach var="reportMember" items="${ reportMember }">
+						<c:forEach var="SearchBand" items="${ bandSearch }">
 							<tr>
-								<td>${ reportMember.cid }</td>
-								<td>${ reportMember.memail }</td>
-								<td>${ reportMember.mcname }</td>
-								<td>${ reportMember.mname }</td>
-								<td>${ reportMember.bname }</td>
-								<td>${ reportMember.rcontent }</td>
+								<td>${ SearchBand.bid }</td>
+								<td>${ SearchBand.bname }</td>
+								<td>${ SearchBand.cname }</td>
+								<td>${ SearchBand.bopen_status }</td>
+								<td>${ SearchBand.mname }</td>
+							</tr>
 						</c:forEach>
 					</table>
-
-					<!-- 페이징 영역 -->
+						<!-- 페이징 영역 -->
+						
+					<c:if test="${not empty pi}">
 					<div class="paging-area">
 						<c:if test="${ pi.currentPage <= 1 }">
 							[이전] &nbsp;
@@ -165,6 +186,7 @@
 							<a href="${ mListNext }"> [다음]</a>
 						</c:if>
 					</div>
+					</c:if> --%>
 				</div>
 			</div>
 		</div>

@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content=" width=device-width, initial-scale=1">
-<title>관리자 | 블랙리스트 회원 조회</title>
+<title>관리자 | 신고받은 회원 조회</title>
 <!-- CSS --> 
 <jsp:include page="../admin/adminMenubar.jsp" />
 <link href="resources/css/bootstrap.min.css" rel="stylesheet">
@@ -55,7 +55,7 @@
 	height: 70px;
 	font-size: 20px;
 	text-align: center;
-	border: 1px solid black;
+	/* border: 1px solid black; */
 }
 
 .search-area{
@@ -102,41 +102,38 @@
 			</div>
 			<div class="main col-md-6 col-xs-12">
 				<div class="admin-container">
-					<h1 style="height: 50px; padding-left: 20px; padding-top: 10px;">블랙리스트 회원 조회</h1>
-					<form action="BlackMember.ad">
-						<div class="search-area">
-							정렬방법  : 
-							<select name="alignment" style="margin-left:2%; font-size:15px; height:25px;">
-								<option value="mid">-------</option>
-								<option value="mtype">플랫폼타입</option>
-								<option value="mdate">가입일</option>
-								<option value="mname">닉네임</option>
-							</select>
-							<button>정렬</button>
-						</div>
-					</form>
+					<h1 style="height: 50px; padding-left: 20px; padding-top: 10px;">신고받은 회원 조회</h1>
+					<!-- <div class="search-area">
+						정렬방법  : 
+						<select style="margin-left:2%; font-size:15px; height:25px;">
+							<option>-------</option>
+							<option>플랫폼타입</option>
+							<option>가입일</option>
+							<option>닉네임</option>
+						</select>
+						<button>정렬</button>
+					</div> -->
 					<table class="admin-table">
 						<tr style="background-color:lightblue">
 							<td>회원번호</td>
-							<td>이메일</td>
 							<td>닉네임</td>
-							<td>연락처</td>
-							<td>국가코드</td>
-							<td>가입일</td>
-							<td>플랫폼타입</td>
-							<td width="20%">신고사유</td>
+							<td>이메일</td>
+							<td>신고횟수</td>
+							<td>차단하기</td>
 						</tr>
-						<c:forEach var="banMember" items="${ banMember }">
+						<c:forEach var="reportMember" items="${ reportMember }">
 							<tr>
-								<td>${ banMember.mid }</td>
-								<td>${ banMember.memail }</td>
-								<td>${ banMember.mname }</td>
-								<td>${ banMember.mphone }</td>
-								<td>${ banMember.mnational }</td>
-								<td>${ banMember.mdate }</td>
-								<td>${ banMember.mtype }</td>
-								<td>${ banMember.banreason }</td>
-							</tr>
+								<td>${ reportMember.cid }</td>
+								<td>${ reportMember.mcname }</td>
+								<td>${ reportMember.memail }</td>
+								<td>${ reportMember.times }</td>
+								<td>
+									<c:if test="${ reportMember.times >= 5 }">
+										<button onclick="location.href='showReportMember.ad?mid=${reportMember.cid}'">
+											상세보기
+										</button>
+									</c:if>
+								</td>
 						</c:forEach>
 					</table>
 
@@ -146,7 +143,7 @@
 							[이전] &nbsp;
 						</c:if>
 						<c:if test="${ pi.currentPage > 1 }">
-							<c:url var='mListBack' value="BlackMember.ad">
+							<c:url var='mListBack' value="ReportMemberSelect.ad">
 								<c:param name="requestCurrentPage" value="${ pi.currentPage -1 }"/>
 							</c:url>
 							<a href="${ mListBack }">[이전]</a> &nbsp;
@@ -156,7 +153,7 @@
 								<font color="red" size="4"><b>${ p }</b></font>
 							</c:if>
 							<c:if test="${ p ne pi.currentPage }">
-								<c:url var="mListCheck" value="BlackMember.ad">
+								<c:url var="mListCheck" value="ReportMemberSelect.ad">
 									<c:param name="requestCurrentPage" value="${ p }"/>
 								</c:url>
 								<a href="${ mListCheck }">${ p }</a>
@@ -166,7 +163,7 @@
 							&nbsp; [다음]
 						</c:if>
 						<c:if test="${ pi.currentPage < pi.maxPage }">
-							<c:url var="mListNext" value="BlackMember.ad">
+							<c:url var="mListNext" value="ReportMemberSelect.ad">
 								<c:param name="requestCurrentPage" value="${ pi.currentPage + 1 }"/>
 							</c:url>
 							<a href="${ mListNext }"> [다음]</a>
@@ -175,5 +172,6 @@
 				</div>
 			</div>
 		</div>
+	</div>
 </body>
 </html>

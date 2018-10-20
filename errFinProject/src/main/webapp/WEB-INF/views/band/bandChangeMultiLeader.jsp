@@ -120,7 +120,7 @@
                 <ul class="tvshows">
                     <li>
                          <a href="#">
-                             <c:if test="${ pf.editName == 'cover1.jpeg' || pf.editName == 'cover2.jpg'
+                             <c:if test="${ pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
 									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
 									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
 									|| pf.editName == 'cover7.jpg' }">
@@ -128,7 +128,7 @@
 										<img src="${ contextPath }/resources/images/cover/${ pf.editName }">
 									</c:if>
 									
-									<c:if test="${ !(pf.editName == 'cover1.jpeg' || pf.editName == 'cover2.jpg'
+									<c:if test="${ !(pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
 									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
 									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
 									|| pf.editName == 'cover7.jpg') }">
@@ -157,6 +157,7 @@
 			
 			<div id="search-3" class="widget fullwidth widget_search" style="margin-bottom:1px;">
                 <form class="search" role="search" method="get" action="searchBandMultiLeader.bd">
+                	<input type="hidden" name="bid" value="${bid }"> 
                     <input type="search" placeholder="Search &hellip;" value="" name="s" title="Search for:">
                 </form>
             </div>

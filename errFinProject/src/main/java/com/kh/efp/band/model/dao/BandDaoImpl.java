@@ -8,13 +8,16 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.efp.band.model.vo.Attfile;
 import com.kh.efp.band.model.vo.Ban;
 import com.kh.efp.band.model.vo.BanMemberList;
 import com.kh.efp.band.model.vo.Band;
+import com.kh.efp.band.model.vo.Board;
 import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
 import com.kh.efp.member.model.vo.Profile;
 import com.kh.efp.member_band.model.vo.BoardList;
+import com.kh.efp.newPost.model.vo.Boards;
 
 @Repository
 public class BandDaoImpl implements BandDao{
@@ -28,9 +31,9 @@ public class BandDaoImpl implements BandDao{
 	}
 
 	@Override
-	public List<Object> scehduleList(SqlSessionTemplate sqlSession) {
+	public List<Object> scehduleList(SqlSessionTemplate sqlSession, int bid) {
 		
-		List<Object> objectList = new ArrayList<Object>(sqlSession.selectList("Scehdule.scehduleList"));
+		List<Object> objectList = new ArrayList<Object>(sqlSession.selectList("Scehdule.scehduleList", bid));
 		
 		
 		return objectList;
@@ -210,7 +213,19 @@ public class BandDaoImpl implements BandDao{
 
 	@Override
 	public int selectMlevel(SqlSessionTemplate sqlSession, Member_Band mb) {
-		return sqlSession.selectOne("Band.selectMlevel", mb);
+
+		
+		int result = 0;
+		
+		
+		
+		if(sqlSession.selectOne("Band.selectMlevel", mb) != null){
+			result = sqlSession.selectOne("Band.selectMlevel", mb);
+		}
+		
+		
+		return result;
+
 	}
 
 	@Override
@@ -232,5 +247,56 @@ public class BandDaoImpl implements BandDao{
 		list = (ArrayList)sqlSession.selectList("Band.insertMemberList", bid);
 		
 		return list;
+
+	}
+
+	@Override
+	public void updateMemberStatus(SqlSessionTemplate sqlSession, int mbid) {
+		sqlSession.update("Band.updateMemberStatus", mbid);
+	}
+
+	@Override
+	public void refuseMemberStatus(SqlSessionTemplate sqlSession, int mbid) {
+		sqlSession.update("Band.refuseMemberStatus", mbid);
+	}
+
+	@Override
+	public ArrayList<BanMemberList> searchBanMemberList(SqlSessionTemplate sqlSession, Member_Band mb) {
+		
+		ArrayList<BanMemberList> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("Band.searchBanMemberList", mb);
+		
+		return list;
+
+	}
+
+	@Override
+	public ArrayList<Member_Band> selectMember_BandList2(SqlSessionTemplate sqlSession, Member_Band mb) {
+		ArrayList<Member_Band> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("Band.selectMember_BandList2", mb);
+		
+		return list;
+	}
+
+	@Override
+	public Boards selectBoardDetail(SqlSessionTemplate sqlSession, int boardid) {
+		return sqlSession.selectOne("Band.selectBoardDetail", boardid);
+	}
+
+	@Override
+	public ArrayList<Boards> selectRefList(SqlSessionTemplate sqlSession, int boardid) {
+		
+		ArrayList<Boards> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("Band.selectRefList", boardid);
+		
+		return list;
+	}
+
+	@Override
+	public Attfile selectAttFile(SqlSessionTemplate sqlSession, int boardid) {
+		return sqlSession.selectOne("Band.selectAttFile", boardid);
 	}	
 }

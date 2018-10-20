@@ -9,6 +9,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.efp.admin.model.vo.BanReason;
 import com.kh.efp.member_band.model.vo.PageInfo;
 
 @Repository
@@ -25,7 +26,7 @@ public class adminDaoImpl implements adminDao {
 			case 3 : result = sqlSession.selectOne("Admin.countReportMember"); break;
 			case 4 : result = sqlSession.selectOne("Admin.countReportBand"); break;
 			case 5 : result = sqlSession.selectOne("Admin.countBanMember"); break;
-			case 6: result = sqlSession.selectOne("Admin.countBanBand"); break;
+			case 6 : result = sqlSession.selectOne("Admin.countBanBand"); break;
 		}
 		return result;
 	}
@@ -41,26 +42,35 @@ public class adminDaoImpl implements adminDao {
 		}
 		return result;
 	}
+	//신고받은 회원 상세 조회용 카운트 메소드
 	@Override
-	public List<Object> memberAllList(SqlSessionTemplate sqlSession, PageInfo pi, String alignment) {
+	public int getListCount2(SqlSessionTemplate sqlSession, int i, int mid) {
+		int result = -99;
+		switch(i)
+		{
+			case 1 : result = sqlSession.selectOne("Admin.countShowReportMember", mid); break;
+			case 2 : result = sqlSession.selectOne("Admin.countShowReportBand", mid); break;
+		}
+		return result;
+	}
+	
+	//회원조회하기
+	@Override
+	public List<Object> memberAllList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		List<Object> memberList = new ArrayList<Object>();
-		Map<String, Object> align = new HashMap<String, Object>();
-		align.put("alignment", alignment);
 		int offset = (pi.getCurrentPage() -1) * pi.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
-		memberList = sqlSession.selectList("Admin.selectAllMember", align, rowBounds); 
+		memberList = sqlSession.selectList("Admin.selectAllMember", 0, rowBounds);
 		
 		return memberList;
 	}
 
 	@Override
-	public List<Object> bandAllList(SqlSessionTemplate sqlSession, PageInfo pi, String alignment) {
+	public List<Object> bandAllList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		List<Object> bandList = new ArrayList<Object>();
-		Map<String, Object> align = new HashMap<String, Object>();
-		align.put("alignment", alignment);
 		int offset = (pi.getCurrentPage() -1) * pi.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
-		bandList = sqlSession.selectList("Admin.selectAllBand", align, rowBounds); 
+		bandList = sqlSession.selectList("Admin.selectAllBand", 0, rowBounds); 
 		
 		return bandList;
 	}
@@ -92,8 +102,36 @@ public class adminDaoImpl implements adminDao {
 		List<Object> reportMemberList = new ArrayList<Object>();
 		int offset = (pi.getCurrentPage() -1) * pi.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
-		reportMemberList = sqlSession.selectList("Admin.selectReportMember", rowBounds);
+		reportMemberList = sqlSession.selectList("Admin.selectReportMember", 0,rowBounds);
 		return reportMemberList;
+	}
+	
+	//신고받은 회원 상세보기
+	@Override
+	public List<Object> showReportMember(SqlSessionTemplate sqlSession, PageInfo pi, int mid) {
+		List<Object> showReportMember = new ArrayList<Object>();
+		int offset = (pi.getCurrentPage() -1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		showReportMember = sqlSession.selectList("Admin.showReportMember", mid, rowBounds);
+		return showReportMember;
+	}
+	
+	@Override
+	public int insertBlackMember(SqlSessionTemplate sqlSession, int cid, String banReason) {
+		BanReason br = new BanReason();
+		br.setCid(cid);
+		br.setBanReason(banReason);
+		
+		return sqlSession.insert("Admin.insertBlackMember", br);
+	}
+	
+	@Override
+	public void updateMember(SqlSessionTemplate sqlSession, int cid){
+		sqlSession.update("Admin.updateMember", cid);
+	}
+	@Override
+	public void updateMemberBand(SqlSessionTemplate sqlSession, int cid){
+		sqlSession.update("Admin.updateMemberBand", cid);
 	}
 
 	@Override
@@ -101,32 +139,53 @@ public class adminDaoImpl implements adminDao {
 		List<Object> reportBandList = new ArrayList<Object>();
 		int offset = (pi.getCurrentPage() -1) * pi.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
-		reportBandList = sqlSession.selectList("Admin.selectReportBand", rowBounds);
+		reportBandList = sqlSession.selectList("Admin.selectReportBand", 0, rowBounds);
 		return reportBandList;
+	}
+	
+	@Override
+	public List<Object> showReportBand(SqlSessionTemplate sqlSession, PageInfo pi, int bid) {
+		List<Object> showReportBand = new ArrayList<Object>();
+		int offset = (pi.getCurrentPage() -1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		showReportBand = sqlSession.selectList("Admin.showReportBand", bid, rowBounds);
+		return showReportBand;
 	}
 
 	@Override
-	public List<Object> banMemberList(SqlSessionTemplate sqlSession, PageInfo pi, String alignment) {
+	public int insertBlackBand(SqlSessionTemplate sqlSession, int bid, String banReason) {
+		BanReason br = new BanReason();
+		br.setBid(bid);
+		br.setBanReason(banReason);
+		return sqlSession.insert("Admin.insertBlackBand", br);
+	}
+	
+	@Override
+	public void updateBand(SqlSessionTemplate sqlSession, int bid){
+		sqlSession.update("Admin.updateBand", bid);
+	}
+	
+	@Override
+	public List<Object> banMemberList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		List<Object> banMemberList = new ArrayList<Object>();
-		Map<String, Object> align = new HashMap<String, Object>();
-		align.put("alignment", alignment);
+		/*Map<String, Object> align = new HashMap<String, Object>();
+		align.put("alignment", alignment);*/
 		int offset = (pi.getCurrentPage() -1) * pi.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
-		banMemberList = sqlSession.selectList("Admin.selectBanMember", align, rowBounds);
+		banMemberList = sqlSession.selectList("Admin.selectBanMember", 0, rowBounds);
 		
 		return banMemberList;
 	}
 
 	@Override
-	public List<Object> banBandList(SqlSessionTemplate sqlSession, PageInfo pi, String alignment) {
+	public List<Object> banBandList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		List<Object> banBandList = new ArrayList<Object>();
-		Map<String, Object> align = new HashMap<String, Object>();
-		align.put("alignment", alignment);
+		/*Map<String, Object> align = new HashMap<String, Object>();
+		align.put("alignment", alignment);*/
 		int offset = (pi.getCurrentPage() -1) * pi.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
-		banBandList = sqlSession.selectList("Admin.selectBanBand", align, rowBounds);
+		banBandList = sqlSession.selectList("Admin.selectBanBand", 0, rowBounds);
 		
 		return banBandList;
 	}
-
 }

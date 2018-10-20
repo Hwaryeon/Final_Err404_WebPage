@@ -87,8 +87,7 @@
                         <a href="#">
                             <!-- <img src="http://placehold.it/209x128" alt=""> -->
                              <%-- <img src="${ contextPath }/resources/upload_images/${pf.editName }" alt=""> --%>
-                             
-                             <c:if test="${ pf.editName == 'cover1.jpeg' || pf.editName == 'cover2.jpg'
+                             <c:if test="${ pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
 									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
 									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
 									|| pf.editName == 'cover7.jpg' }">
@@ -96,7 +95,7 @@
 										<img src="${ contextPath }/resources/images/cover/${ pf.editName }">
 									</c:if>
 									
-									<c:if test="${ !(pf.editName == 'cover1.jpeg' || pf.editName == 'cover2.jpg'
+									<c:if test="${ !(pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
 									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
 									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
 									|| pf.editName == 'cover7.jpg') }">
@@ -141,7 +140,11 @@
                         
                         </div>
                         <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
-                        <a href="bandLeader.bd?bid=${ bid }" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
+                        <a href="bandLeader.bd?bid=${ bid }" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">
+                        <c:if test="${ mlevel != 0 }">
+                        	* 밴드 설정
+                        </c:if>
+                        </a></h4>
                     </li>
                 </ul>
                 <div class="clear"></div>
@@ -150,8 +153,14 @@
         </div>
 
         <div class="main col-md-6 col-xs-12">
+        
+             <c:if test="${ mlevel == 1 }">
 
              <div class="widget fullwidth post-single">
+             
+             
+             <div > </div>
+             
               <h4 class="widget-title">밴드 정보 관리 </h4>
               <div class="widget-content">
                 <ul>
@@ -174,10 +183,17 @@
               </div>
             </div>
             
+            </c:if>
+            
+            <c:if test="${ mlevel != 3  }">
+            
              <div class="widget fullwidth post-single">
               <h4 class="widget-title">멤버 활동 관리 </h4>
               <div class="widget-content">
                 <ul>
+                
+                <c:if test="${ mlevel == 1 }">
+                
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  공동리더 관리
@@ -188,6 +204,8 @@
                   		  리더 위임
                   		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandChangeLeader.bd?bid=${ bid }">변경</a></h4>
                   </li>
+                  </c:if>
+                  
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  멤버 탈퇴,차단 설정
@@ -202,26 +220,37 @@
               </div>
             </div>
             
+            </c:if>
+            
             
              <div class="widget fullwidth post-single">
+             
+             
               <h4 class="widget-title">밴드 메뉴 관리 </h4>
               <div class="widget-content">
                 <ul>
+                
+                <c:if test="${ mlevel != 3 }">
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		 밴드 소개 변경
                   		 <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandIntro.bd?bid=${ bid }">변경</a></h4>
                   </li>
+                  
+                 </c:if>
+                  
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  밴드 탈퇴
                   		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandSecession.bd?bid=${ bid }">변경</a></h4>
                   </li>
+                  <c:if test="${ mlevel == 1 }">
                   <li>
                     <h4 class="list-title" style="display: block;word-wrap: break-word;word-break: break-all;font-size: 14px;font-weight: 400;color: #222;">
                   		  밴드 삭제
                   		  <a style="float:right; background: #fafafa;border: 1px solid #c9c8c8;padding: 3px 8px 3px 8px;" href="bandDelete.bd?bid=${ bid }">변경</a></h4>
                   </li>
+                  </c:if>
                 </ul>
               </div>
             </div>

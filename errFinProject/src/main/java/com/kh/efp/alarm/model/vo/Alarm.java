@@ -9,16 +9,20 @@ public class Alarm implements java.io.Serializable{
 	private String bContent;
 	private String bName;
 	private String mName;
+	private int boardId;
+	private int nid;
 	
 	public Alarm() {}
 
-	public Alarm(String nType, Date alarm_Date, String bContent, String bName, String mName) {
+	public Alarm(String nType, Date alarm_Date, String bContent, String bName, String mName, int boardId, int nid) {
 		super();
 		this.nType = nType;
 		this.alarm_Date = alarm_Date;
 		this.bContent = bContent;
 		this.bName = bName;
 		this.mName = mName;
+		this.boardId = boardId;
+		this.nid = nid;
 	}
 
 	public String getnType() {
@@ -28,6 +32,25 @@ public class Alarm implements java.io.Serializable{
 	public void setnType(String nType) {
 		this.nType = nType;
 	}
+
+
+	public int getBoardId() {
+		return boardId;
+	}
+
+
+	public int getNid() {
+		return nid;
+	}
+
+	public void setNid(int nid) {
+		this.nid = nid;
+	}
+
+	public void setBoardId(int boardId) {
+		this.boardId = boardId;
+	}
+
 
 	public Date getAlarm_Date() {
 		return alarm_Date;
@@ -61,13 +84,12 @@ public class Alarm implements java.io.Serializable{
 		this.mName = mName;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Alarm [nType=" + nType + ", alarm_Date=" + alarm_Date + ", bContent=" + bContent + ", bName=" + bName
-				+ ", mName=" + mName + "]";
+				+ ", mName=" + mName + ", bid=" + boardId + "]";
 	}
-	
 
-	
 	
 }
