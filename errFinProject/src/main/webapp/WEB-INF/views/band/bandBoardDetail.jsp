@@ -4,9 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import= "java.util.*"  %>
 <%@ page import= "java.text.*"  %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
 <meta charset="utf-8">
+<!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content=" width=device-width, initial-scale=1">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>Weekend Magazine</title>
@@ -116,11 +118,12 @@
 
 		<div class="left-sidebar col-md-3" role="complementary">
 
-			<div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title"></h1>
+			 <div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title"></h1>
                 <ul class="tvshows">
                     <li>
-                         <a href="#">
-                            
+                        <a href="#">
+                            <!-- <img src="http://placehold.it/209x128" alt=""> -->
+                             <%-- <img src="${ contextPath }/resources/upload_images/${pf.editName }" alt=""> --%>
                              <c:if test="${ pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
 									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
 									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
@@ -136,13 +139,49 @@
 								
 										<img src="${ contextPath }/resources/upload_images/${ pf.editName }">
 									</c:if>
+                             
+                             
+                             
                         </a>
                         <h2 style="color:#222; font-size:21px; margin-bottom:15px;font-weight:600;margin-top:20px;">${bname }</h2>
                         <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
                         			멤버 ${memberCount}<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
                         			초대코드 </a></h4>
+                        			
+                        <div> 
+                        
+                        <c:set var="loop" value="false"/>
+                        <c:set var="mid" value = "${ sessionScope.loginUser.mid }"/>
+                        <c:forEach var="list" items="${list }" >
+                        	<c:if test="${ not loop }">
+                        	
+	                        	<c:if test="${list.mid == mid }">
+	                        		<c:set var="loop" value="true"/>
+	                        
+	                        	</c:if>
+                        	
+                        	</c:if>
+                        
+                        </c:forEach>
+                        
+                        <c:if test="${ not loop }">
+	                        <form action="Member_BandInsert.bd" method="post" class="mrgn-bottom-0">
+	                        
+	                        	<input type="hidden" name="bid" value="${ bid }">
+	                        
+	                        	<button class="button vote" >가입하기</button>
+	                        </form>
+                        </c:if>
+                        
+                        
+                        
+                        </div>
                         <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
-                        <a href="bandLeader.bd?bid=${ bid }" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
+                        <a href="bandLeader.bd?bid=${ bid }" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">
+                        <c:if test="${ mlevel != 0 }">
+                        	* 밴드 설정
+                        </c:if>
+                        </a></h4>
                     </li>
                 </ul>
                 <div class="clear"></div>
@@ -152,74 +191,145 @@
 
 		<div class="main col-md-6 col-xs-12">
 
-			<div class="widget fullwidth post-single" style="margin-bottom:1px;">
-				<h4 class="widget-title" style="font-size:20px;">공동리더
-				 <span style="float:right; border:1px solid #fdb00d!important; padding:7px; cursor:pointer;">
-				<a style="font-size:12px; color:#fdb00d!important;" href="bandChangeMultiLeader.bd?bid=${ bid }">공동리더 추가</a></span></h4>
-			</div>
-			
-            
-            <c:forEach var="b" items="${list}">
+
+            <div class="post widget">
+              <div class="post-meta">
+                  ${ boards.bdate }    
+                  
+                  <c:if test="${  sessionScope.loginUser.mid == boards.mid  }">  
+                  <a href="" class="print" title="Print" style="width:70px;"><i class="fa fa-print">수정</i></a>
+                  <a href="" class="print" title="Print" style="width:70px;"><i class="fa fa-print">삭제</i></a>
+                  
+                  </c:if>
+                  
+                  <a href="" class="print" title="Print" style="width:70px;"><i class="fa fa-print">신고</i></a>
+              </div>
+              <div class="post-content">
             	
-            	<c:if test="${b.mlevel == 1}" >
-					<div class="author-bar widget" style="margin-bottom:1px;">
-		              <div class="author-content">
-		                <img alt="" src="http://placehold.it/89x89" class="avatar avatar-75 photo avatar-default" height="75" width="75">        
-		                <h4> <span><a href="#">리더</a></span> </h4>
-		                <h4><a href="" title="Posts by admin" rel="author">${b.mname}</a></h4>
-		                <div class="clear"></div>
-		              </div>
-		            </div>
-					
-				</c:if>
+		            ${ boards.bcontent }
             
             
-            	<c:if test="${b.mlevel == 2}" >
-					<div class="author-bar widget" style="margin-bottom:1px;">
-		              <div class="author-content">
-		                <img alt="" src="http://placehold.it/89x89" class="avatar avatar-75 photo avatar-default" height="75" width="75">        
-		                <h4> <span><a href="#">공동 리더</a></span> </h4>
-		                <h4><a href="" title="Posts by admin" rel="author">${b.mname}</a></h4>
-		                <span style="float:right;">
-			               		<input type="hidden" value="${b.mbid }" >
-			                	<a style="border:1px solid lightgray; padding:7px; cursor:pointer;" class="deleteMultiLeader">
-			                	공동리더 삭제</a>
-			                </span>
-		                <div class="clear"></div>
-		              </div>
-		            </div>
-					
-				</c:if>
+               		 <!-- <img class="post-image img-beresponsive" src="http://placehold.it/469x291" alt=""> -->
+               		 <img class="post-image img-beresponsive" src="${ contextPath }/resources/upload_images/${att.edit_name }" alt="">
+               		 
+               		 
+              </div>
+            </div>
+
+
+
+            <div class="box-content widget fullwidth" id="comments">
+              <h4 class="comment-title">댓글 ${ count }</h4>
+              <ol class="commentlist">
+              
+              <c:forEach var="commentList" items="${commentList}">
+              
+                <li class="comment parent">
+                
+                    <div class="comment-body">
+                        <div class="line"></div>
+                        
+                        <div class="comment-vcard">
+                       
+                       		<c:set var="profileLoop" value="false"/>
+                            <c:forEach var="m" items="${ mList }">
+                            <c:if test="${not profileLoop }">
+	                            	<c:if test="${ m.mid == commentList.mid }" >
+	                            
+	                          		  <img width="60" height="60" alt="" src="${ contextPath }/resources/upload_images/${m.edit_name }" class="avatar"> 
+			                            <span class="author-tag"></span>
+	                          		  <c:set var="profileLoop" value="true"/> 
+	                          	  </c:if>
+                          	  </c:if>
+                            </c:forEach>
+                       
+                       
+                       
+                        </div>
+                        
+                        <div class="comment_detail">
+                            
+                            <div class="comment-header">
+                                
+                                <span class="author">
+                                
+                                
+                                <c:set var="loop" value="false"/>
+                            <c:forEach var="m" items="${ mList }">
+                            <c:if test="${not loop }">
+	                            	<c:if test="${ m.mid == commentList.mid }" >
+	                            
+		                                ${ m.mname }
+	                          		  <c:set var="loop" value="true"/> 
+	                          	  </c:if>
+                          	  </c:if>
+                            </c:forEach>
+                                
+                                
+                                </span> 
+                                
+                                <span class="date">
+                                    <a href="#">${ commentList.bdate }</a>
+                                </span>
+                                
+                                <span class="reply">
+                                    <a class="comment-reply-link" href="#">신고</a>
+                                </span>
+                                
+                            </div><!--comment-header-->
+                            
+                            <p>${ commentList.bcontent }</p>
+                            
+                        </div><!--.comment_detail-->
+                        
+                    </div><!--.comment-body-->
+                    
+                </li><!--Parent li-->
+                
+                </c:forEach>
+                
+                
+              </ol>
+            </div>
+
+            <div class="widget clearfix">
+              <div id="respond" class="comment-respond">
+                <h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="" style="display:none;">Cancel reply</a></small></h3>
+                <form action="#" method="post" id="commentform" class="comment-form">
+                  <p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>     
+                  <p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="text" value="" size="30"></p>
+                  <p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>            <p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:  <code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code></p>            <p class="form-submit">
+                  <input name="submit" type="submit" id="submit" value="Post Comment">
+                  <input type="hidden" name="comment_parent" id="comment_parent" value="0">
+                  </p>
+                </form>
+              </div><!-- #respond -->
+            </div>
+
+
+        </div>
+		
+		<input type="hidden" id="bid" name="bid" value="${ bid }" >
+							
+		<script>
+			$('#bandSecession').click(function(){
 				
+				var bid = document.getElementById('bid').value;
 				
-				
-			</c:forEach>
-            
-            <script>
-			$('.deleteMultiLeader').click(function(){
-				
-				document.getElementById('mbid').value = $(this).parents().children("input").eq(0).val();
-				
-				 location.href="#modal";
-				
+				location.href="secessionBand.bd?bid=" + bid;
 			});
 			
-			
+			$('#cancle').click(function(){
+				
+				var bid = document.getElementById('bid').value;
+				
+				location.href="bandLeader.bd?bid=" + bid;
+			});
+		
 		
 		</script>
-            
-            
-            <div class="widget">
-          <div class="col-md-3 text-center">
-            <!-- <a href="#" class="about-btn-job">Job Oppertunities</a> -->
-          </div>
-          <div class="col-md-6" style="text-align:center">공동리더는 무엇을 할 수 있나요?<br>
-          공동리더는 일반회원을 관리할 수 있습니다.
-<a href="bandMemberManagement.bd?bid= + '${ bid }'" class="about-btn-download">멤버 관리 바로가기</a>
-</div>
-        </div> 
-
-		</div>
+		
+		
 
 		<div class="right-sidebar col-md-3" role="complementary">
 
@@ -256,62 +366,6 @@
 
 			</div>
 
-			<div id="widget-survey" class="widget fullwidth widget-survey">
-				<h1 class="widget-title">Survey</h1>
-				<div class="widget-content">
-					<p>What was the last time you slept on bed in your house?</p>
-					<form action="#" method="post" class="mrgn-bottom-0">
-						<div class="form-group mrgn-bottom-0">
-							<div class="checkbox">
-								<label> <input name="remember" value="1" type="checkbox">
-									Today
-								</label>
-							</div>
-						</div>
-						<div class="form-group mrgn-bottom-0">
-							<div class="checkbox">
-								<label> <input name="remember" value="1" type="checkbox">
-									Yesterday
-								</label>
-							</div>
-						</div>
-						<div class="form-group mrgn-bottom-0">
-							<div class="checkbox">
-								<label> <input name="remember" value="1" type="checkbox">
-									The day after tomorrow
-								</label>
-							</div>
-						</div>
-						<div class="form-group mrgn-bottom-0">
-							<div class="checkbox">
-								<label> <input name="remember" value="1" type="checkbox">
-									Tomorrow
-								</label>
-							</div>
-						</div>
-						<div class="row survey">
-							<div class="col-md-6">
-								<button class="button vote">Vote</button>
-							</div>
-							<div class="col-md-6">
-								<button class="button">Results</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-
-
-			<div id="ads250_250-widget-2"
-				class="widget fullwidth ads250_250-widget">
-				<h1 class="widget-title">Advertisement</h1>
-				<div class="ads250-250">
-					<div class="ad-cell">
-						<a href="#"><img src="img/ad-210x190.png" class="fullwidth"
-							alt=""></a>
-					</div>
-				</div>
-			</div>
 
 		</div>
 
@@ -363,69 +417,5 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.bxslider.min.js"></script>
 	<script src="js/custom.js"></script>
-	
-		<div class="remodal" data-remodal-id="modal" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
-  <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
-  <div>
-    <h2 id="modal1Title">공동 리더 삭제</h2>
-    <p id="modal1Desc">
-       	해당 멤버를 공동리더에서 삭제하시겠습니까?
-    </p>
-  </div>
-  <br>
-  <input type="hidden" id="mbid" value=""/> 
-  <input type="hidden" id="bid" name="bid" value="${ bid }" >
-  <button data-remodal-action="cancel" class="remodal-cancel">취소</button>
-  <button id="deleteBandMultiLeader" data-remodal-action="confirm" class="remodal-confirm">확인</button>
-</div>
-
-<script>
-
-$('#deleteBandMultiLeader').click(function(){
-	console.log("id : " + document.getElementById('mbid').value);
-	
-	var mbid = document.getElementById('mbid').value;
-	var bid = document.getElementById('bid').value;
-	
-	location.href="deleteBandMultiLeader.bd?mbid=" + mbid + '&bid=' + bid;
-	
-});
-
-</script>
-
-
-<script>window.jQuery || document.write('<script src="../../../libs/jquery/dist/jquery.min.js"><\/script>')</script>
-<script src="${ contextPath }/resources/Remodal-1.1.1/dist/remodal.js"></script>
-
-<!-- Events -->
-<script>
-  $(document).on('opening', '.remodal', function () {
-    /* console.log('opening'); */
-  });
-
-  $(document).on('opened', '.remodal', function () {
-    /* console.log('opened'); */
-  });
-
-  $(document).on('closing', '.remodal', function (e) {
-    /* console.log('closing' + (e.reason ? ', reason: ' + e.reason : '')); */
-  });
-
-  $(document).on('closed', '.remodal', function (e) {
-    /* console.log('closed' + (e.reason ? ', reason: ' + e.reason : '')); */
-  });
-
-  $(document).on('confirmation', '.remodal', function () {
-    /* console.log('confirmation'); */
-  });
-
-  $(document).on('cancellation', '.remodal', function () {
-    /* console.log('cancellation'); */
-  });
-  
-  $('[data-remodal-id=modal2]').remodal({
-    /* modifier: 'with-red-theme' */
-  });
-</script>
 </body>
 </html>

@@ -10,15 +10,18 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.kh.efp.band.model.dao.BandDao;
+import com.kh.efp.band.model.vo.Attfile;
 import com.kh.efp.band.model.vo.Ban;
 import com.kh.efp.band.model.vo.BanMemberList;
 import com.kh.efp.band.model.vo.Band;
+import com.kh.efp.band.model.vo.Board;
 import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
 import com.kh.efp.member.model.dao.MemberDao;
 import com.kh.efp.member.model.exception.LoginException;
 import com.kh.efp.member.model.vo.Member;
 import com.kh.efp.member.model.vo.Profile;
+import com.kh.efp.newPost.model.vo.Boards;
 
 @Service
 public class BandServiceImpl implements BandService {
@@ -238,6 +241,21 @@ public class BandServiceImpl implements BandService {
 	@Override
 	public ArrayList<Member_Band> selectMember_BandList2(Member_Band mb) {
 		return bd.selectMember_BandList2(sqlSession, mb);
+	}
+
+	@Override
+	public Boards selectBoardDetail(int boardid) {
+		return bd.selectBoardDetail(sqlSession, boardid);
+	}
+
+	@Override
+	public ArrayList<Boards> selectRefList(int boardid) {
+		return bd.selectRefList(sqlSession, boardid);
+	}
+
+	@Override
+	public Attfile selectAttFile(int boardid) {
+		return bd.selectAttFile(sqlSession, boardid);
 	}
 
 
