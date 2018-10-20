@@ -11,6 +11,7 @@ import com.kh.efp.band.model.vo.Board;
 import com.kh.efp.member.model.vo.Profile;
 import com.kh.efp.newPost.model.vo.Boards;
 import com.kh.efp.newPost.model.vo.MemberProfile;
+import com.kh.efp.newPost.model.vo.Report;
 
 
 @Repository
@@ -120,9 +121,8 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public void deleteComment(int boardid) {
-		// TODO Auto-generated method stub
-		SqlSession.delete("board.deleteBoard", boardid);
+	public int deleteComment(int boardid) {
+		return SqlSession.delete("board.deleteBoard", boardid);
 	}
 
 	@Override
@@ -180,6 +180,21 @@ public class BoardDaoImpl implements BoardDao {
 	public int selectCurrval() {
 		// TODO Auto-generated method stub
 		return SqlSession.selectOne("board.selectCurrval");
+	}
+
+	@Override
+	public int deleteContent(int boardid) {
+		return SqlSession.delete("board.deleteContent", boardid);
+	}
+
+	@Override
+	public int insertReportContent(Report rp) {
+		return SqlSession.insert("board.insertReportContent",rp);
+	}
+
+	@Override
+	public int insertReportComment(Report rp) {
+		return SqlSession.insert("board.insertReportContent",rp);
 	}
 	
 
