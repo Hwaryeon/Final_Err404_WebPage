@@ -58,6 +58,19 @@
 		<result property="edit_name" column="EDIT_NAME" />
 	</resultMap>
 	
+
+
+	<resultMap type="Attfile" id="AttResultSet">
+		<id property = "fid" column="FID"/>
+		<result property = "boardId" column ="BOARDID"/>
+		<result property = "foreginName" column="FORIGIN_NAME"/>
+		<result property = "editName" column="EDIT_NAME"/>
+		<result property = "fileSrc" column ="FILE_SRC"/>
+		<result property ="fDate" column="FDATE"/>
+		<result property ="fLevel" column="FLEVEL"/>
+	</resultMap>
+	
+	
 	
 	<!-- 01.전체목록조회 -->
 	<select id="listAll" parameterType="int" resultMap="BoarddResultSet" >
@@ -71,7 +84,7 @@
  	
  	<insert id ="insert">
  	INSERT INTO BOARDS VALUES(SEQ_BOARDID.NEXTVAL,
- 	#{bId},#{mId},#{bContent},SYSDATE,'Y',NULL,NULL
+ 	#{bId},#{mId},#{bContent},SYSDATE,'Y','CONTENT',NULL
  	)
  	</insert>
  
@@ -194,7 +207,7 @@
 	 <select id = "selectBoardCount" parameterType = "int" resultType = "int">
 		SELECT count(*)
 		FROM BOARDS
-		WHERE BID = #{pbid} AND MID != #{mId} AND BSTATUS = 'Y' AND REF_STATUS = 'CONTENT'
+		WHERE BID = #{pbid}  AND BSTATUS = 'Y' AND REF_STATUS = 'CONTENT'
 	</select>
 	
 	<!-- 댓글 갯수 -->
@@ -236,6 +249,32 @@
         ORDER BY FDATE DESC
         ) WHERE ROWNUM = 1
 	</select>
+	
+	
+	
+	<!--  사진 업로드 -->
+    
+    <insert id="insertBoardFile" parameterType = "Attfile">
+		INSERT INTO ATTFILE
+		VALUES(SEQ_FID.NEXTVAL, #{boardId}, #{forigin_name}, #{edit_name}, #{file_src}, SYSDATE, 1)
+	</insert>
+    
+    
+    	<select id="selectMid" resultType="_int" parameterType="Member">
+		SELECT MID FROM MEMBER WHERE MEMAIL = #{mEmail} AND MSTATUS = 'Y'
+	</select>
+	
+	
+	<select id="selectBoardId" resultType="_int" parameterType="Board">
+		SELECT SEQ_BOARDID.currval FROM DUAL
+	</select>
+	
+	<select id="selectCurrval" resultType="_int">
+		SELECT SEQ_BOARDID.currval FROM DUAL
+	</select>
+	
+	
+	
 	
 
 </mapper>
