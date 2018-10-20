@@ -84,6 +84,8 @@ public interface BandDao {
 
 	ArrayList<BanMemberList> searchBanMemberList(SqlSessionTemplate sqlSession, Member_Band mb);
 
+	ArrayList<Member_Band> selectMember_BandList2(SqlSessionTemplate sqlSession, Member_Band mb);
+
 
 
 

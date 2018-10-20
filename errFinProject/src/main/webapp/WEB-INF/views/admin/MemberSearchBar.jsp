@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content=" width=device-width, initial-scale=1">
-<title>관리자 | 블랙리스트 회원 조회</title>
+<title>관리자 | 회원검색</title>
 <!-- CSS --> 
 <jsp:include page="../admin/adminMenubar.jsp" />
 <link href="resources/css/bootstrap.min.css" rel="stylesheet">
@@ -102,20 +102,45 @@
 			</div>
 			<div class="main col-md-6 col-xs-12">
 				<div class="admin-container">
-					<h1 style="height: 50px; padding-left: 20px; padding-top: 10px;">블랙리스트 회원 조회</h1>
-					<form action="BlackMember.ad">
+					<h1 style="height: 50px; padding-left: 20px; padding-top: 10px;">회원검색</h1>
+					<!-- <form action="MemberSearch.ad?keyword="> -->
 						<div class="search-area">
-							정렬방법  : 
-							<select name="alignment" style="margin-left:2%; font-size:15px; height:25px;">
-								<option value="mid">-------</option>
-								<option value="mtype">플랫폼타입</option>
-								<option value="mdate">가입일</option>
-								<option value="mname">닉네임</option>
+							검색방법  : 
+							<select style="margin-left:2%; font-size:15px; height:25px;">
+								<!-- <option>-------</option> -->
+								<option>닉네임</option>
+								<!-- <option>연락처</option> -->
 							</select>
-							<button>정렬</button>
+								
+								<c:if test="${ keyword eq null }">
+									<input id="searchNickName" type="text" name="searchNickName" value="">
+								</c:if>
+								<c:if test="${ keyword ne null }">
+									<input id="searchNickName" type="text" name="searchNickName" value="${ keyword }">
+								</c:if>
+								<button id="searchBu">검색</button>
 						</div>
-					</form>
-					<table class="admin-table">
+						
+						<script>
+						
+						$('#searchBu').click(function(){
+							
+							console.log('눌림???');
+							
+							var keyword = $("#searchNickName").val();
+							
+							console.log('keywprd : '+ keyword);
+							
+							var pi = 1;
+							
+							location.href="MemberSearch.ad?keyword=" + keyword + "&currentPage=" + pi; 
+						
+						});
+						
+						</script>
+						
+					<!-- </form> -->
+					<%-- <table class="admin-table">
 						<tr style="background-color:lightblue">
 							<td>회원번호</td>
 							<td>이메일</td>
@@ -124,18 +149,17 @@
 							<td>국가코드</td>
 							<td>가입일</td>
 							<td>플랫폼타입</td>
-							<td width="20%">신고사유</td>
 						</tr>
-						<c:forEach var="banMember" items="${ banMember }">
+						
+						<c:forEach var="SearchMember" items="${ memberSearch }">
 							<tr>
-								<td>${ banMember.mid }</td>
-								<td>${ banMember.memail }</td>
-								<td>${ banMember.mname }</td>
-								<td>${ banMember.mphone }</td>
-								<td>${ banMember.mnational }</td>
-								<td>${ banMember.mdate }</td>
-								<td>${ banMember.mtype }</td>
-								<td>${ banMember.banreason }</td>
+								<td>${ SearchMember.mid }</td>
+								<td>${ SearchMember.mEmail }</td>
+								<td>${ SearchMember.mName }</td>
+								<td>${ SearchMember.mPhone }</td>
+								<td>${ SearchMember.mNational }</td>
+								<td>${ SearchMember.mDate }</td>
+								<td>${ SearchMember.mType }</td>
 							</tr>
 						</c:forEach>
 					</table>
@@ -146,27 +170,27 @@
 							[이전] &nbsp;
 						</c:if>
 						<c:if test="${ pi.currentPage > 1 }">
-							<c:url var='mListBack' value="BlackMember.ad">
+							<c:url var='mListBack' value="MemberSelect.ad">
 								<c:param name="requestCurrentPage" value="${ pi.currentPage -1 }"/>
 							</c:url>
 							<a href="${ mListBack }">[이전]</a> &nbsp;
 						</c:if>
 						<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 							<c:if test="${ p eq pi.currentPage }">
-								<font color="red" size="4"><b>${ p }</b></font>
+								<font color="red" size="4"><b>${ p } </b></font>
 							</c:if>
 							<c:if test="${ p ne pi.currentPage }">
-								<c:url var="mListCheck" value="BlackMember.ad">
+								 <c:url var="mListCheck" value="MemberSelect.ad">
 									<c:param name="requestCurrentPage" value="${ p }"/>
-								</c:url>
-								<a href="${ mListCheck }">${ p }</a>
+								</c:url> 
+								<a >${ p } </a>
 							</c:if>
 						</c:forEach>
 						<c:if test="${ pi.currentPage >= pi.maxPage }">
 							&nbsp; [다음]
 						</c:if>
 						<c:if test="${ pi.currentPage < pi.maxPage }">
-							<c:url var="mListNext" value="BlackMember.ad">
+							<c:url var="mListNext" value="MemberSelect.ad">
 								<c:param name="requestCurrentPage" value="${ pi.currentPage + 1 }"/>
 							</c:url>
 							<a href="${ mListNext }"> [다음]</a>
@@ -174,6 +198,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> --%>
+
 </body>
 </html>

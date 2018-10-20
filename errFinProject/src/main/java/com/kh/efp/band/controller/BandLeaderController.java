@@ -3,15 +3,22 @@ package com.kh.efp.band.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.efp.band.model.service.BandService;
@@ -22,6 +29,7 @@ import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.commons.CommonUtils;
 import com.kh.efp.member.model.vo.Member;
 import com.kh.efp.member.model.vo.Profile;
+import com.kh.efp.member.model.vo.loginUser;
 import com.kh.efp.newPost.model.service.newPostService;
 import com.kh.efp.newPost.model.vo.Category;
 
@@ -73,7 +81,7 @@ public class BandLeaderController {
 		
 		mb.setBid(bid);
 		
-		ArrayList<Member_Band> mbList = bs.selectMember_BandList(mb);
+		ArrayList<Member_Band> mbList = bs.selectMember_BandList2(mb);
 		
 		model.addAttribute("list", mbList);
 		
@@ -392,7 +400,8 @@ public class BandLeaderController {
 	
 	@RequestMapping("updateBandModify.bd")
 	public String updateBandModify(HttpServletRequest request,
-			@RequestParam(name="bandProfile", required=false)MultipartFile photo, int bid, String bandName, HttpServletResponse response){
+			@RequestParam(name="bandProfile", required=false)MultipartFile photo, int bid, String coverType, String bandName,
+			HttpServletResponse response){
 		
 		
 		System.out.println("bid : " + bid);
@@ -404,25 +413,34 @@ public class BandLeaderController {
 		
 		bs.updateBandName(b);
 		
-		if(photo.getSize() != 0){
+		String root = "";
+		String filePath = "";
+		String originFileName = "";
+		String ext = "";
+		String changeName = "";
+		
+		if(coverType.equals("Y")){
+			
+			
+			if(photo.getSize() != 0){
+			
+				root=request.getSession().getServletContext().getRealPath("resources");
+				filePath=root + "/upload_images/";
+				/*filePath = root + "\\upload_images";*/
+				originFileName= photo.getOriginalFilename();
+				ext=originFileName.substring(originFileName.lastIndexOf("."));
+				changeName=CommonUtils.getRandomString();
+			}
+		} else {
+			originFileName = coverType + ".jpg";
+			changeName = coverType;
+			ext = ".jpg";
+			filePath="C:/Users/user/git/FinalProject_Err/errFinProject/src/main/webapp/resources/images/cover/";
+			
+		}
 		
 			Profile pf = new Profile();
 			
-			String root = "";
-			String filePath = "";
-			String originFileName = "";
-			String ext = "";
-			String changeName = "";
-			
-			
-			root = request.getSession().getServletContext().getRealPath("resources");
-	
-			filePath = root + "\\upload_images";
-	
-			originFileName = photo.getOriginalFilename();
-			ext = originFileName.substring(originFileName.lastIndexOf("."));
-	
-			changeName = CommonUtils.getRandomString();
 			
 			pf.setFileSrc(filePath);
 			pf.setOriginName(originFileName);
@@ -436,8 +454,13 @@ public class BandLeaderController {
 				if(!photo.isEmpty()){
 					photo.transferTo(new File(filePath + "\\" + changeName + ext));
 				}
-				int result = bs.insertBandModify(pf);
-	
+
+				int result = 0;
+				
+				if(photo.getSize() != 0){
+					result = bs.insertBandModify(pf);
+				}
+				
 				if(result == 0){
 					return "common/errorPage";
 				}else{
@@ -448,7 +471,7 @@ public class BandLeaderController {
 				e.printStackTrace();
 			}
 		
-		}
+		
 		
 		return "redirect:/bandLeader.bd?bid=" + bid;
 	}
@@ -610,9 +633,28 @@ public class BandLeaderController {
 	
 	@RequestMapping("updateMemberStatus.bd")
 
-	public String updateMemberStatus(@RequestParam int bid, int mbid, Model model){
+	public String updateMemberStatus(@RequestParam int bid, int mbid, Model model, HttpServletRequest request){
 		
 		bs.updateMemberStatus(mbid);
+		
+		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
+		
+		//다른서버로 채팅 요청하기
+		// RestTemplate 에 MessageConverter 세팅
+	    List<HttpMessageConverter<?>> converters = new ArrayList<HttpMessageConverter<?>>();
+	    converters.add(new FormHttpMessageConverter());
+	    converters.add(new StringHttpMessageConverter());
+	 
+	    RestTemplate restTemplate = new RestTemplate();
+	    restTemplate.setMessageConverters(converters);
+	 
+	    // parameter 세팅
+	    MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
+	    map.add("bid", String.valueOf(bid));
+	    map.add("mid", String.valueOf(loginUser.getMid()));
+	 
+	    // REST API 호출
+	    String result2 = restTemplate.postForObject("http://127.0.0.1:3000/insertMember", map, String.class);
 		
 		return "redirect:/insertMemberList.bd?bid=" + bid;
 	}

@@ -13,6 +13,7 @@
   <meta name="viewport" content=" width=device-width, initial-scale=1">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <title>Weekend Magazine</title>
+  <jsp:include page="../common/menubar.jsp" />
   <link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal.css">
   <link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal-default-theme.css">
 <link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
@@ -25,94 +26,6 @@
 
 	<c:set var="comCount" value="0"/>
 
-    <!-- TOP NAV -->
-    <div class="navbar navbar-default top-nav-bar" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".topmenu">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div class="navbar-collapse collapse topmenu">
-          <div class="menu-header-templates-menu-container">
-            <ul class="nav navbar-nav">
-              <li><a href="about.html">About</a></li>
-              <li><a href="article.html">Article</a></li>
-              <li><a href="article-review.html">Article Review</a></li>
-              <li><a href="archives.html">Archives</a></li>
-              <li><a href="category.html">Category</a></li>
-              <li><a href="fullwidth.html">Full Width</a></li>
-              <li><a href="shortcodes.html">Shortcodes</a></li>
-              <li><a href="404.html">404</a></li>
-              <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>        
-            </div>
-      </div>
-    </div>
-    <!-- LOGO AREA -->
-    <div class="fullwidth bg-pink">
-      <div class="container">
-        <div class="col-md-6 col-xs-12">
-          <div class="logo">
-            <h1><a href="index.html" title="Weekend Magazine">Weekend Magazine</a></h1>
-          </div>
-        </div>
-        <div class="col-md-6 col-xs-12">
-            <div id="ads120_60-widget-2" class="ads120-60 ads-one">
-                        <div class="ad-cell">
-                      <a href="#" target="_blank" >                 
-                <img src="img/ad-468x60.png " alt="">
-              </a>  
-            </div>
-                    </div>
-          </div>
-      </div>
-    </div>
-    <!-- MAIN NAV -->
-    <div class="fullwidth navbar navbar-default main-nav-bar" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".mainmenu">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div class="navbar-collapse collapse mainmenu">
-              <div class="menu-primary-navigation-container">
-              <ul id="menu-primary-navigation" class="nav navbar-nav">
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Home <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                      <li><a href="index.html">Home</a></li>
-                      <li><a href="index2.html">Home 2</a></li>
-                      <li><a href="index3.html">Home Dark 1</a></li>
-                      <li><a href="index4.html">Home Dark 2</a></li>
-                      <li><a href="index5.html">Home Light 1</a></li>
-                      <li><a href="index6.html">Home Light 2</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="#">News</a></li>
-                  <li><a href="#">Economy</a></li>
-                  <li><a href="#">Sports</a></li>
-                  <li><a href="#">Shows</a></li>
-                  <li><a href="#">Culture &#038; Art</a></li>
-                  <li><a href="#">Gossips</a></li>
-                  <li><a href="#">Fashion</a></li>
-                  <li><a href="#">Health &#038; Body</a></li>
-                  <li><a href="#">Technology</a></li>
-                  <li><a href="#">Science</a></li>
-              </ul>
-              </div>        
-            </div>
-      </div>
-    </div>
-
     <div class="container">
 
         <div class="left-sidebar col-md-3" role="complementary">
@@ -123,11 +36,8 @@
                     <div class="socialize">
                         <h4>밴드 만들기</h4>
                         <ul>
-                           <!--  <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                            <li><a href="#"><i class="fa fa-rss"></i></a></li> -->
-                            <button>+</button>
+                            
+                            	<button onclick="location.href='newBand.mp'">+</button>
                         </ul>
                     </div>
                 </div>
@@ -157,7 +67,26 @@
                                         
                                         <c:forEach var="p" items="${bpList }">
                                         	<c:if test="${ b.bid == p.bid  }">
-                                        		<img width="60" height="60" src="${ contextPath }/resources/upload_images/${p.editName }" alt="">
+                                        		 <%-- <img width="60" height="60" src="${ contextPath }/resources/upload_images/${p.editName }" alt=""> --%>
+                                        	
+                                        	
+                                        		<c:if test="${ p.editName == 'cover1.jpg' || p.editName == 'cover2.jpg'
+													|| p.editName == 'cover3.jpg' || p.editName == 'cover4.jpg'
+													|| p.editName == 'cover5.jpg' || p.editName == 'cover6.jpg'
+													|| p.editName == 'cover7.jpg' }">
+												
+													<img width="60" height="60" src="${ contextPath }/resources/images/cover/${ p.editName }" alt="">
+												</c:if>
+												
+												<c:if test="${ !(p.editName == 'cover1.jpg' || p.editName == 'cover2.jpg'
+													|| p.editName == 'cover3.jpg' || p.editName == 'cover4.jpg'
+													|| p.editName == 'cover5.jpg' || p.editName == 'cover6.jpg'
+													|| p.editName == 'cover7.jpg') }">
+											
+													<img width="60" height="60" src="${ contextPath }/resources/upload_images/${p.editName }" alt="">
+												</c:if>
+                                        	
+                                        	
                                         	</c:if>
                                         </c:forEach>
                                     </a>
@@ -569,7 +498,29 @@
                             
                             <c:forEach var="rp" items="${rpList }">
                                         	<c:if test="${ ran.bid == rp.bid  }">
-                                        		<img src="${ contextPath }/resources/upload_images/${rp.editName }" />
+                                        		<%-- <img src="${ contextPath }/resources/upload_images/${rp.editName }" /> --%>
+                                        	
+                                        	
+                                        	
+	                                        	<c:if test="${ rp.editName == 'cover1.jpg' || rp.editName == 'cover2.jpg'
+														|| rp.editName == 'cover3.jpg' || rp.editName == 'cover4.jpg'
+														|| rp.editName == 'cover5.jpg' || rp.editName == 'cover6.jpg'
+														|| rp.editName == 'cover7.jpg' }">
+													
+														<img width="210" height="140" src="${ contextPath }/resources/images/cover/${ rp.editName }" alt="">
+													</c:if>
+													
+													<c:if test="${ !(rp.editName == 'cover1.jpg' || rp.editName == 'cover2.jpg'
+														|| rp.editName == 'cover3.jpg' || rp.editName == 'cover4.jpg'
+														|| rp.editName == 'cover5.jpg' || rp.editName == 'cover6.jpg'
+														|| rp.editName == 'cover7.jpg') }">
+												
+														<img width="210" height="140" src="${ contextPath }/resources/upload_images/${rp.editName }" alt="">
+													</c:if>
+                                        	
+                                        	
+                                        	
+                                        	
                                         	</c:if>
                             </c:forEach>
                                         	

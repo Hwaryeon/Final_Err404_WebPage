@@ -11,12 +11,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
 import com.kh.efp.band.model.service.BandService;
 import com.kh.efp.band.model.vo.Band;
@@ -174,11 +180,33 @@ public class BandController {
 			mb.setIstatus("Y");
 		}else if(b.equals("PTD")){
 			mb.setIstatus("S");
+		}else if(b.equals("PRV")){
+			mb.setIstatus("S");
 		}
 		
 		System.out.println("mb : " + mb.toString());
 		
 		bs.insertMember_Band(mb);
+		
+		if(mb.getIstatus().equals("Y")){
+			
+		//다른서버로 채팅 요청하기
+		// RestTemplate 에 MessageConverter 세팅
+	    List<HttpMessageConverter<?>> converters = new ArrayList<HttpMessageConverter<?>>();
+	    converters.add(new FormHttpMessageConverter());
+	    converters.add(new StringHttpMessageConverter());
+	 
+	    RestTemplate restTemplate = new RestTemplate();
+	    restTemplate.setMessageConverters(converters);
+	 
+	    // parameter 세팅
+	    MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
+	    map.add("bid", String.valueOf(bid));
+	    map.add("mid", String.valueOf(mid));
+	 
+	    // REST API 호출
+	    String result2 = restTemplate.postForObject("http://127.0.0.1:3000/insertMember", map, String.class);
+		}
 
 		String bid2 = bid + "";
 		

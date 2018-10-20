@@ -82,6 +82,8 @@ public interface BandService {
 
 	ArrayList<BanMemberList> searchBanMemberList(Member_Band mb);
 
+	ArrayList<Member_Band> selectMember_BandList2(Member_Band mb);
+
 	
 
 

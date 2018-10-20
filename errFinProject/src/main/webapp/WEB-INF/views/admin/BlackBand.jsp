@@ -90,14 +90,14 @@
 			<div class="left-sidebar col-md-3" role="complementary">
 				<div class="menu-container">
 					<ul>
-						<li class="menu-list" onclick="location.href='goMemberSelect.ad'">회원조회</li>
-						<li class="menu-list" onclick="location.href='goBandSelect.ad'">밴드조회</li>
+						<li class="menu-list" onclick="location.href='MemberSelect.ad'">회원조회</li>
+						<li class="menu-list" onclick="location.href='BandSelect.ad'">밴드조회</li>
 						<li class="menu-list" onclick="location.href='goMemberSearch.ad'">회원검색</li>
 						<li class="menu-list" onclick="location.href='goBandSearch.ad'">밴드검색</li>
-						<li class="menu-list" onclick="location.href='goBMSelect.ad'">신고받은 회원 조회</li>
-						<li class="menu-list" onclick="location.href='goBBSelect.ad'">신고받은 밴드 조회</li>
-						<li class="menu-list" onclick="location.href='goBlackMember.ad'">블랙리스트 회원 조회</li>
-						<li class="menu-list" onclick="location.href='goBlackBand.ad'">블랙리스트 밴드 조회</li>
+						<li class="menu-list" onclick="location.href='ReportMemberSelect.ad'">신고받은 회원 조회</li>
+						<li class="menu-list" onclick="location.href='ReportBandSelect.ad'">신고받은 밴드 조회</li>
+						<li class="menu-list" onclick="location.href='BlackMember.ad'">블랙리스트 회원 조회</li>
+						<li class="menu-list" onclick="location.href='BlackBand.ad'">블랙리스트 밴드 조회</li>
 					</ul>
 				</div>
 			</div>
@@ -143,7 +143,7 @@
 							[이전] &nbsp;
 						</c:if>
 						<c:if test="${ pi.currentPage > 1 }">
-							<c:url var='mListBack' value="MemberSelect.ad">
+							<c:url var='mListBack' value="BlackBand.ad">
 								<c:param name="requestCurrentPage" value="${ pi.currentPage -1 }"/>
 							</c:url>
 							<a href="${ mListBack }">[이전]</a> &nbsp;
@@ -153,7 +153,7 @@
 								<font color="red" size="4"><b>${ p }</b></font>
 							</c:if>
 							<c:if test="${ p ne pi.currentPage }">
-								<c:url var="mListCheck" value="MemberSelect.ad">
+								<c:url var="mListCheck" value="BlackBand.ad">
 									<c:param name="requestCurrentPage" value="${ p }"/>
 								</c:url>
 								<a href="${ mListCheck }">${ p }</a>
@@ -163,7 +163,7 @@
 							&nbsp; [다음]
 						</c:if>
 						<c:if test="${ pi.currentPage < pi.maxPage }">
-							<c:url var="mListNext" value="MemberSelect.ad">
+							<c:url var="mListNext" value="BlackBand.ad">
 								<c:param name="requestCurrentPage" value="${ pi.currentPage + 1 }"/>
 							</c:url>
 							<a href="${ mListNext }"> [다음]</a>
@@ -172,37 +172,5 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="footer">
-			<div class="footer-top">
-				<div class="container">
-					<div class="pull-left">
-						<div id="text-6">
-							<div class="textwidget">
-								<a href="#">Weekend Magazine</a> &copy; 2015 All rights reserved
-							</div>
-						</div>
-					</div>
-					<div class="pull-right hidden-xs">
-						<div id="text-7">
-							<div class="textwidget">
-								Theme by <a title="Email me now" href="#">JKthemes</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="footer-bottom hidden-xs">
-				<div class="container">
-					<div id="nav_menu-2"></div>
-					<a class="footer-nav-scroll pull-right"></a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<script src="../../resources/js/jquery.min.js"></script>
-	<script src="../../resources/js/bootstrap.min.js"></script>
-	<script src="../../resources/js/jquery.bxslider.min.js"></script>
-	<script src="../../resources/js/custom.js"></script>
 </body>
 </html>
