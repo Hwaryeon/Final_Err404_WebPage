@@ -323,6 +323,9 @@ String bname = bs.selectBandName(pbid);
 
 		System.out.println("photo : " + photo);
     	
+		if(!photo.isEmpty()){
+			
+		
 		root = request.getSession().getServletContext().getRealPath("resources");
 
 		filePath = root + "/upload_images/";
@@ -342,16 +345,17 @@ String bname = bs.selectBandName(pbid);
 		
 		System.out.println("controller bif : " + vo + " / pf : " + af);
 		
+		}
 		try {
 			
 			//사진 유무 확인 후 파일 저장
 			if(!photo.isEmpty()){
 				
 				photo.transferTo(new File(filePath + changeName + ext));
+				int result = boardService.insertFile(vo, af); //프사와 멤버객체 저장
 			}
 
 
-			int result = boardService.insertFile(vo, af); //프사와 멤버객체 저장
 
 			
 
@@ -361,8 +365,9 @@ String bname = bs.selectBandName(pbid);
 		}
     	
     	
-    	
+    	if(photo.isEmpty()){    		
     	boardService.create(vo);
+    	}
     	return "redirect:list.do?bid=" + vo.getbId();
 
     	

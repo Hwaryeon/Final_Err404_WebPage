@@ -37,6 +37,7 @@
 		<typeAlias type="com.kh.efp.alarm.model.vo.Alarm" alias="Alarm"/>
 		<typeAlias type="com.kh.efp.band.model.vo.Attfile" alias="Attfile"/>
 		<typeAlias type="com.kh.efp.band.model.vo.MemberBandProfile" alias="MemberBandProfile"/>
+		<typeAlias type="com.kh.efp.band.model.vo.AttBoard" alias="AttBoard"/>
 	</typeAliases>
 
 	<mappers>

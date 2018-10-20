@@ -1,11 +1,13 @@
 package com.kh.efp.band.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.efp.band.model.vo.AttBoard;
 import com.kh.efp.band.model.vo.Attfile;
 import com.kh.efp.band.model.vo.Board;
 import com.kh.efp.member.model.vo.Profile;
@@ -183,6 +185,14 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
+	public ArrayList<AttBoard> selectAlbum(int pbid) {
+		ArrayList<AttBoard> list = null;
+		
+		list = (ArrayList)SqlSession.selectList("board.selectAlbum", pbid);
+		
+		return list;
+    
+	@Override
 	public int deleteContent(int boardid) {
 		return SqlSession.delete("board.deleteContent", boardid);
 	}
@@ -195,6 +205,7 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public int insertReportComment(Report rp) {
 		return SqlSession.insert("board.insertReportContent",rp);
+
 	}
 	
 

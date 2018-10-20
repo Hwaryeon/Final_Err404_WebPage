@@ -210,7 +210,9 @@ public class BandController {
 	    map.add("mid", String.valueOf(mid));
 	 
 	    // REST API 호출
+
 	    //String result2 = restTemplate.postForObject("http://127.0.0.1:3000/insertMember", map, String.class);
+
 		}
 
 		String bid2 = bid + "";

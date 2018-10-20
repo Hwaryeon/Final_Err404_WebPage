@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html >
 <html>
 <head>
@@ -7,6 +8,7 @@
   <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
   <meta name="viewport" content=" width=device-width, initial-scale=1">
   <title>Weekend Magazine</title>
+  <jsp:include page="../common/menubar.jsp" />
   <!-- CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
@@ -53,180 +55,164 @@
   </style>
 </head>
 <body class="home page page-id-4 page-template page-template-template_home-php">
-    <!-- TOP NAV -->
-    <div class="navbar navbar-default top-nav-bar" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".topmenu">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div class="navbar-collapse collapse topmenu">
-          <div class="menu-header-templates-menu-container">
-            <ul class="nav navbar-nav">
-              <li><a href="about.html">About</a></li>
-              <li><a href="article.html">Article</a></li>
-              <li><a href="article-review.html">Article Review</a></li>
-              <li><a href="archives.html">Archives</a></li>
-              <li><a href="category.html">Category</a></li>
-              <li><a href="fullwidth.html">Full Width</a></li>
-              <li><a href="shortcodes.html">Shortcodes</a></li>
-              <li><a href="404.html">404</a></li>
-              <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>        
-            </div>
-      </div>
-    </div>
-    <!-- LOGO AREA -->
-    <div class="fullwidth bg-pink">
-      <div class="container">
-        <div class="col-md-6 col-xs-12">
-          <div class="logo">
-            <h1><a href="index.html" title="Weekend Magazine">Weekend Magazine</a></h1>
-          </div>
-        </div>
-        <div class="col-md-6 col-xs-12">
-            <div id="ads120_60-widget-2" class="ads120-60 ads-one">
-                        <div class="ad-cell">
-                      <a href="#" target="_blank" >                 
-                <img src="img/ad-468x60.png " alt="">
-              </a>  
-            </div>
-                    </div>
-          </div>
-      </div>
-    </div>
-    <!-- MAIN NAV -->
-    <div class="fullwidth navbar navbar-default main-nav-bar" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".mainmenu">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div class="navbar-collapse collapse mainmenu">
-              <div class="menu-primary-navigation-container">
-              <ul id="menu-primary-navigation" class="nav navbar-nav">
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Home <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                      <li><a href="index.html">Home</a></li>
-                      <li><a href="index2.html">Home 2</a></li>
-                      <li><a href="index3.html">Home Dark 1</a></li>
-                      <li><a href="index4.html">Home Dark 2</a></li>
-                      <li><a href="index5.html">Home Light 1</a></li>
-                      <li><a href="index6.html">Home Light 2</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="#">News</a></li>
-                  <li><a href="#">Economy</a></li>
-                  <li><a href="#">Sports</a></li>
-                  <li><a href="#">Shows</a></li>
-                  <li><a href="#">Culture &#038; Art</a></li>
-                  <li><a href="#">Gossips</a></li>
-                  <li><a href="#">Fashion</a></li>
-                  <li><a href="#">Health &#038; Body</a></li>
-                  <li><a href="#">Technology</a></li>
-                  <li><a href="#">Science</a></li>
-              </ul>
-              </div>        
-            </div>
-      </div>
-    </div>
+    <div class="recent-widget" id="tabbed-widget" style="background:#f6f6f6;">
+                  <ul class="nav nav-justified nav-tabs" style="width:610px;margin-left:auto;margin-right:auto;">
+                    <li class="active" style="width:150px; min-width:150px;" id="tab1">
+                    <a href="#tab1" data-toggle="tab" style="width:150px; min-width:150px;">전체글</a></li>
+                    <li style="width:150px; min-width:150px;" id="tab2">
+                    <a href="goboardAlbum.do?bid=${ bid }" data-toggle="tab" style="width:150px; min-width:150px;">사진첩</a></li>
+                    <li style="width:150px; min-width:150px;" id="tab3">
+                    <a href="#tab3" data-toggle="tab" style="width:150px; min-width:150px;">일정</a></li>
+                    <li style="width:150px; min-width:150px;" id="tab4">
+                    <a href="boardMember.do?bid=${ bid }" data-toggle="tab" style="width:150px; min-width:150px;">멤버</a></li>
+                  </ul>
+                </div>
+   
+   <script>
+			$(function(){
+				
+				$("#tab1").mouseenter(function(){
+					
+				}).mouseout(function(){
+					
+				}).click(function(){
+					console.log("tab1클릭됨");
+					location.href="list.do?bid=${bid}";
+				});
+				
+				$("#tab2").mouseenter(function(){
+					
+				}).mouseout(function(){
+					
+				}).click(function(){
+					console.log("tab2클릭됨");
+					location.href="goboardAlbum.do?bid=${ bid }";
+
+				});
+				
+				$("#tab3").mouseenter(function(){
+					
+				}).mouseout(function(){
+					
+				}).click(function(){
+					console.log("tab3클릭됨");
+				});
+				
+				$("#tab4").mouseenter(function(){
+					
+				}).mouseout(function(){
+					
+				}).click(function(){
+					console.log("tab4클릭됨");
+					location.href="boardMember.do?bid=${ bid }";
+				});
+				
+				
+			});		
+		</script>
 
     <div class="container">
 
         <div class="left-sidebar col-md-3" role="complementary">
 
-			 <div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title"></h1>
-                <ul class="tvshows">
-                    <li>
-                        <a href="#">
-                            <!-- <span class="comment-count">11</span> -->
-                            <img src="http://placehold.it/209x128" alt="">
+			<div id="categort-posts-widget-2" class="widget fullwidth categort-posts" style = "background : white;">
+            <ul class="tvshows">
+               <li>
+               <a href="#">
+                            <!-- <img src="http://placehold.it/209x128" alt=""> -->
+                             <%-- <img src="${ contextPath }/resources/upload_images/${pf.editName }" alt=""> --%>
+                             <c:if test="${ pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
+									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
+									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
+									|| pf.editName == 'cover7.jpg' }">
+								
+										<img src="${ contextPath }/resources/images/cover/${ pf.editName }">
+									</c:if>
+									
+									<c:if test="${ !(pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
+									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
+									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
+									|| pf.editName == 'cover7.jpg') }">
+								
+										<img src="${ contextPath }/resources/upload_images/${ pf.editName }">
+									</c:if>
+                             
+                             
+                             
                         </a>
-                        <h2 style="color:#222; font-size:21px; margin-bottom:15px;font-weight:600;margin-top:20px;">밴드명</h2>
-                        <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
-                        			멤버 4<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
-                        			초대코드 </a></h4>
-                        <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
-                        <a href="#" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
-                    </li>
-                </ul>
-                <div class="clear"></div>
-            </div>
+                  <h2
+                     style="color: #222; font-size: 21px; margin-bottom: 15px; font-weight: 600; margin-top: 20px;">${ bname }</h2>
+                  <h4
+                     style="display: inline-block; font-size: 13px; font-weight: 400; color: #333;">
+                     멤버 ${memberCount }<a href="boardMemberInvite.do?bid=${band.bid }"
+                        style="position: relative; padding-left: 12px; color: #fdb00d !important; font-size: 13px;">
+                        초대코드 </a>
+                  </h4>
+                  <h4
+                     style="margin-top: 14px; padding-top: 13px; border-top: 1px solid #e1e1e1;">
+                     <a href="bandLeader.bd?bid=${ Band.bid }"
+                        style="font-size: 12px; font-weight: 400; color: #666; text-decoration: none;">*
+                        밴드 설정</a>
+                        
+                  </h4></li>
+            </ul>
+         </div>
             
         </div>
 
         <div class="main col-md-6 col-xs-12">
 		 <div class="box-content widget fullwidth">
                 <h4 class="widget-title">사진첩</h4>
+                    	<c:forEach var = "al" items = "${album }" varStatus = "idx">
                 <div class="widget-content">
                     <ul class="category-posts2">
                         <li>
-                            <a href="#" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">
+                            <a href="#" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal${idx.index }">
                                <!--  <span class="comment-count">13</span> -->
-                                <img src="http://placehold.it/225x128" width="164" height="164" alt="">
+                                <img src="${ contextPath }/resources/upload_images/${al.edit_name }" width="164px" height="164px" alt="">
                             </a>
                             <!-- <h4 class="news-title"><a href="#">Alboroza ft Kymanus Marli Natural</a></h4>
                             <p>Nunc faucibus, nisi non sagittis hendrerit, leo turpis interdum sem, non tincidunt pur us justo id ipsum some other word.</p> -->
                         </li>
-                       
+                    	
                     </ul>
-                    
                 </div>
                 
 		                <!-- Modal -->
-		  <div class="modal fade" id="myModal" role="dialog">
+		  <div class="modal fade" id="myModal${idx.index }" role="dialog">
 		    <div class="modal-dialog modal-lg">
 		      <div class="modal-content">
 		        <div class="modal-header">
 		          <button type="button" class="close" data-dismiss="modal">&times;</button>
-		          <h4 class="modal-title">이름</h4>
+		          <h4 class="modal-title">작성자 : ${ al.mName }</h4>
 		        </div>
 		        <div class="box-content widget fullwidth">
 		        <div class="modal-body" >
 		       
 		       	<div align="center">
-		          <img src="http://placehold.it/225x128" width="500" height="500" alt="">
+		          <img src="${ contextPath }/resources/upload_images/${al.edit_name }" width="500" height="500" alt="">
 		        </div>  
-		          
-		          
-		        
 		         <div class="post-content" style="margin-top:60px;border-top:2px solid #EAEAEA; padding-top:15px;">
               
 		               <%--  <p>${row.bContent }</p> --%>
-		             <p>내용들어갈 자리</p>
+		             <p>${ al.bContent }</p>
 		            	
            		   </div>
 		        
-		         
 		        </div>
 		        </div>
 		        <div class="modal-footer">
 		          <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-		       
-		      
 		        <button type="button" class="btn btn-default" data-dismiss="modal">신고</button>
+		        <c:if test = "${ sessionScope.loginUser.mid eq al.getmId() }">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">수정</button>
 		        <button type="button" class="btn btn-default" data-dismiss="modal">삭제</button>
-
-                
-		        
+				</c:if>
 		        </div>
 		      </div>
 		    </div>
 		  </div>
-		                
-                
-                
+                </c:forEach>
                 
             </div>
             

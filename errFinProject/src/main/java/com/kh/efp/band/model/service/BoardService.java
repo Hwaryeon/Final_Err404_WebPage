@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.social.google.api.plus.Activity.Article;
 
+import com.kh.efp.band.model.vo.AttBoard;
 import com.kh.efp.band.model.vo.Attfile;
 import com.kh.efp.band.model.vo.Board;
 import com.kh.efp.member.model.vo.Profile;
@@ -59,9 +60,11 @@ public interface BoardService {
 	
 	public int insertFile(Board vo, Attfile af);
 	public int selectCurrval();
+	public ArrayList<AttBoard> selectAlbum(int pbid);
 	public int deleteContent(int boardid);
 	public int insertReportContent(Report rp);
 	public int insertReportComment(Report rp);
+
 
 	
 
