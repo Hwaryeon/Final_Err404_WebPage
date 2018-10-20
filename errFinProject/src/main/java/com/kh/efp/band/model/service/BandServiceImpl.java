@@ -15,6 +15,7 @@ import com.kh.efp.band.model.vo.Ban;
 import com.kh.efp.band.model.vo.BanMemberList;
 import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.band.model.vo.Board;
+import com.kh.efp.band.model.vo.MemberBandProfile;
 import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
 import com.kh.efp.member.model.dao.MemberDao;
@@ -256,6 +257,11 @@ public class BandServiceImpl implements BandService {
 	@Override
 	public Attfile selectAttFile(int boardid) {
 		return bd.selectAttFile(sqlSession, boardid);
+	}
+
+	@Override
+	public ArrayList<MemberBandProfile> selectMemberBandProfileList(MemberBandProfile mbp) {
+		return bd.selectMemberBandProfileList(sqlSession, mbp);
 	}
 
 

@@ -10,6 +10,7 @@ import com.kh.efp.band.model.vo.Ban;
 import com.kh.efp.band.model.vo.BanMemberList;
 import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.band.model.vo.Board;
+import com.kh.efp.band.model.vo.MemberBandProfile;
 import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
 import com.kh.efp.member.model.vo.Member;
@@ -94,6 +95,8 @@ public interface BandDao {
 	ArrayList<Boards> selectRefList(SqlSessionTemplate sqlSession, int boardid);
 
 	Attfile selectAttFile(SqlSessionTemplate sqlSession, int boardid);
+
+	ArrayList<MemberBandProfile> selectMemberBandProfileList(SqlSessionTemplate sqlSession, MemberBandProfile mbp);
 
 
 

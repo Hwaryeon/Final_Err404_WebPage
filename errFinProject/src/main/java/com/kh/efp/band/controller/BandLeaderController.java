@@ -40,7 +40,7 @@ public class BandLeaderController {
 	@Autowired private newPostService ns;
 	
 	public void bandLeftSideBar(int bid, int mid, Model model){
-		
+		System.out.println(bid + " , " + mid);
 		String bname = bs.selectBandName(bid);  
 		
 		Member_Band mb = new Member_Band();
