@@ -240,6 +240,7 @@ public class BoardServiceImpl implements BoardService{
 	public ArrayList<AttBoard> selectAlbum(int pbid) {
 		// TODO Auto-generated method stub
 		return boardDao.selectAlbum(pbid);
+	}
     
 	@Override
 	public int deleteContent(int boardid) {
