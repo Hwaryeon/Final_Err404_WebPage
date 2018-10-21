@@ -125,7 +125,8 @@
 							</small>
 						</label>
 						<input type="text" name="bname" id="bname"
-							value="이곳에 밴드 이름을 입력해주세요" class="required requiredField"
+							value="이곳에 밴드 이름을 입력해주세요" 
+							onclick="this.value='';" class="required requiredField"
 							style="line-height: 54px; border-bottom: 1px solid #ccc; font-size: 30px; font-weight: 400; color: #c5c0c0; background: white;">
 						<input type="hidden" id="coverType" name="coverType" value="cover1" >
 					

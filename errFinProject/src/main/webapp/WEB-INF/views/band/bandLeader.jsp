@@ -20,23 +20,22 @@
 </head>
 <body class="home page page-id-4 page-template page-template-template_home-php">
     
-
-	
-
 <div class="recent-widget" id="tabbed-widget" style="background:#f6f6f6;">
                   <ul class="nav nav-justified nav-tabs" style="width:610px;margin-left:auto;margin-right:auto;">
-                    <li class="active" style="width:150px; min-width:150px;" id="tab1">
+                    <li style="width:150px; min-width:150px;" id="tab1">
                     <a href="#tab1" data-toggle="tab" style="width:150px; min-width:150px;">전체글</a></li>
                     <li style="width:150px; min-width:150px;" id="tab2">
-                    <a href="#tab2" data-toggle="tab" style="width:150px; min-width:150px;">사진첩</a></li>
+                    <a href="goboardAlbum.do?bid=${ bid }" data-toggle="tab" style="width:150px; min-width:150px;">사진첩</a></li>
                     <li style="width:150px; min-width:150px;" id="tab3">
-                    <a href="#tab3" data-toggle="tab" style="width:150px; min-width:150px;">일정</a></li>
+                    <!-- <a href="#tab3" data-toggle="tab" style="width:150px; min-width:150px;">일정</a> -->
+                    <a href="bandCalendarList.bd?bid=${ bid }" data-toggle="tab" style="width:150px; min-width:150px;">일정</a>
+                    </li>
                     <li style="width:150px; min-width:150px;" id="tab4">
                     <a href="boardMember.do?bid=${ bid }" data-toggle="tab" style="width:150px; min-width:150px;">멤버</a></li>
                   </ul>
                 </div>
-                
-         <script>
+   
+   <script>
 			$(function(){
 				
 				$("#tab1").mouseenter(function(){
@@ -45,6 +44,7 @@
 					
 				}).click(function(){
 					console.log("tab1클릭됨");
+					location.href="list.do?bid=${bid}";
 				});
 				
 				$("#tab2").mouseenter(function(){
@@ -53,7 +53,7 @@
 					
 				}).click(function(){
 					console.log("tab2클릭됨");
-					location.href="photoAlbum.jsp";
+					location.href="goboardAlbum.do?bid=${ bid }";
 
 				});
 				
@@ -63,6 +63,7 @@
 					
 				}).click(function(){
 					console.log("tab3클릭됨");
+					location.href="bandCalendarList.bd?bid=${ bid }";
 				});
 				
 				$("#tab4").mouseenter(function(){
@@ -71,6 +72,7 @@
 					
 				}).click(function(){
 					console.log("tab4클릭됨");
+					location.href="boardMember.do?bid=${ bid }";
 				});
 				
 				
@@ -107,12 +109,6 @@
                              
                         </a>
                         <h2 style="color:#222; font-size:21px; margin-bottom:15px;font-weight:600;margin-top:20px;">${bname }</h2>
-                        <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
-                        			멤버 ${memberCount}<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
-                        			초대코드 </a></h4>
-                        			
-                        <div> 
-                        
                         <c:set var="loop" value="false"/>
                         <c:set var="mid" value = "${ sessionScope.loginUser.mid }"/>
                         <c:forEach var="list" items="${list }" >
@@ -126,6 +122,19 @@
                         	</c:if>
                         
                         </c:forEach>
+                        
+                        <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
+                        			멤버 ${memberCount}
+                        			
+                        			 <c:if test="${ loop }">
+                        			
+	                        			<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
+	                        			초대코드 </a>
+                        			</c:if>
+                        			
+                        			</h4>
+                        			
+                        <div> 
                         
                         <c:if test="${ not loop }">
 	                        <form action="Member_BandInsert.bd" method="post" class="mrgn-bottom-0">

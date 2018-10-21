@@ -280,6 +280,11 @@ public class BandServiceImpl implements BandService {
 		return bd.checkInviteCode(sqlSession, code);
 	}
 
+	@Override
+	public int checkBlock(Member_Band check) {
+		return bd.checkBlock(sqlSession, check);
+	}
+
 
 
 //	@Override

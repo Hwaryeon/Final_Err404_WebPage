@@ -55,14 +55,16 @@
   </style>
 </head>
 <body class="home page page-id-4 page-template page-template-template_home-php">
-    <div class="recent-widget" id="tabbed-widget" style="background:#f6f6f6;">
+     <div class="recent-widget" id="tabbed-widget" style="background:#f6f6f6;">
                   <ul class="nav nav-justified nav-tabs" style="width:610px;margin-left:auto;margin-right:auto;">
-                    <li class="active" style="width:150px; min-width:150px;" id="tab1">
+                    <li style="width:150px; min-width:150px;" id="tab1">
                     <a href="#tab1" data-toggle="tab" style="width:150px; min-width:150px;">전체글</a></li>
-                    <li style="width:150px; min-width:150px;" id="tab2">
+                    <li  class="active" style="width:150px; min-width:150px;" id="tab2">
                     <a href="goboardAlbum.do?bid=${ bid }" data-toggle="tab" style="width:150px; min-width:150px;">사진첩</a></li>
                     <li style="width:150px; min-width:150px;" id="tab3">
-                    <a href="#tab3" data-toggle="tab" style="width:150px; min-width:150px;">일정</a></li>
+                    <!-- <a href="#tab3" data-toggle="tab" style="width:150px; min-width:150px;">일정</a> -->
+                    <a href="bandCalendarList.bd?bid=${ bid }" data-toggle="tab" style="width:150px; min-width:150px;">일정</a>
+                    </li>
                     <li style="width:150px; min-width:150px;" id="tab4">
                     <a href="boardMember.do?bid=${ bid }" data-toggle="tab" style="width:150px; min-width:150px;">멤버</a></li>
                   </ul>
@@ -96,6 +98,7 @@
 					
 				}).click(function(){
 					console.log("tab3클릭됨");
+					location.href="bandCalendarList.bd?bid=${ bid }";
 				});
 				
 				$("#tab4").mouseenter(function(){
@@ -113,12 +116,12 @@
 
     <div class="container">
 
-        <div class="left-sidebar col-md-3" role="complementary">
+       <div class="left-sidebar col-md-3" role="complementary">
 
-			<div id="categort-posts-widget-2" class="widget fullwidth categort-posts" style = "background : white;">
-            <ul class="tvshows">
-               <li>
-               <a href="#">
+			 <div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title"></h1>
+                <ul class="tvshows">
+                    <li>
+                        <a href="#">
                             <!-- <img src="http://placehold.it/209x128" alt=""> -->
                              <%-- <img src="${ contextPath }/resources/upload_images/${pf.editName }" alt=""> --%>
                              <c:if test="${ pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
@@ -140,23 +143,56 @@
                              
                              
                         </a>
-                  <h2
-                     style="color: #222; font-size: 21px; margin-bottom: 15px; font-weight: 600; margin-top: 20px;">${ bname }</h2>
-                  <h4
-                     style="display: inline-block; font-size: 13px; font-weight: 400; color: #333;">
-                     멤버 ${memberCount }<a href="boardMemberInvite.do?bid=${band.bid }"
-                        style="position: relative; padding-left: 12px; color: #fdb00d !important; font-size: 13px;">
-                        초대코드 </a>
-                  </h4>
-                  <h4
-                     style="margin-top: 14px; padding-top: 13px; border-top: 1px solid #e1e1e1;">
-                     <a href="bandLeader.bd?bid=${ Band.bid }"
-                        style="font-size: 12px; font-weight: 400; color: #666; text-decoration: none;">*
-                        밴드 설정</a>
+                        <h2 style="color:#222; font-size:21px; margin-bottom:15px;font-weight:600;margin-top:20px;">${bname }</h2>
+                        <c:set var="loop" value="false"/>
+                        <c:set var="mid" value = "${ sessionScope.loginUser.mid }"/>
+                        <c:forEach var="list" items="${list }" >
+                        	<c:if test="${ not loop }">
+                        	
+	                        	<c:if test="${list.mid == mid }">
+	                        		<c:set var="loop" value="true"/>
+	                        
+	                        	</c:if>
+                        	
+                        	</c:if>
                         
-                  </h4></li>
-            </ul>
-         </div>
+                        </c:forEach>
+                        
+                        <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
+                        			멤버 ${memberCount}
+                        			
+                        			 <c:if test="${ loop }">
+                        			
+	                        			<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
+	                        			초대코드 </a>
+                        			</c:if>
+                        			
+                        			</h4>
+                        			
+                        <div> 
+                        
+                        <c:if test="${ not loop }">
+	                        <form action="Member_BandInsert.bd" method="post" class="mrgn-bottom-0">
+	                        
+	                        	<input type="hidden" name="bid" value="${ bid }">
+	                        
+	                        	<button class="button vote" >가입하기</button>
+	                        </form>
+                        </c:if>
+                        
+                        
+                        
+                        </div>
+                        <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
+                        <a href="bandLeader.bd?bid=${ bid }" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">
+                        <c:if test="${ mlevel != 0 }">
+                        	* 밴드 설정
+                        </c:if>
+                        </a></h4>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
             
         </div>
 
