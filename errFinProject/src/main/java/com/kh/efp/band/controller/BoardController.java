@@ -417,7 +417,10 @@ public class BoardController {
     
     //05. 게시글 수정 처리 화면
     @RequestMapping(value="updatePage.do",method=RequestMethod.GET)
-    public ModelAndView updatePage(int boardId, int mId, String bContent, int bId) throws Exception{
+    public ModelAndView updatePage(int boardId, String bContent, int bId,
+    		HttpServletRequest request ) throws Exception{
+    	
+    	int mId = ((Member)request.getSession().getAttribute("loginUser")).getMid();
   
     	Board board = new Board();
     	
@@ -426,11 +429,9 @@ public class BoardController {
     	board.setbContent(bContent);
     	board.setbId(bId);
     	
-    	System.out.println("ㅔㅔ" + board);	
     	Board selectBoard = boardService.selectBoard(board);
 //    	ModelAndView mav = new ModelAndView();
 //    	mav.setViewName("board/view");
-    	System.out.println("ll" + selectBoard);
     	ModelAndView mav = new ModelAndView();
     	mav.setViewName("boardBand/boardEdit"); //뷰를 boardMain.jsp로 설정
     	mav.addObject("board",selectBoard);//데이터를 저장

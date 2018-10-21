@@ -167,7 +167,7 @@
                         			
                         			 <c:if test="${ loop }">
                         			
-	                        			<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
+	                        			<a href="boardMemberInvite.do?bid=${bid}" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
 	                        			초대코드 </a>
                         			</c:if>
                         			
@@ -362,7 +362,7 @@
                		
                		var bId = $(this).parent().parent().children("input").eq(3).val();
                		console.log(bId);
-               		location.href="updatePage.do?mId=" + mId + "&boardId=" + bo +"&bContent=" + bcontent + "&bId=" + bId;
+               		location.href="updatePage.do?boardId=" + bo + "&bContent=" + bcontent +"&bId=" + bId;
                		
                	});
                	
