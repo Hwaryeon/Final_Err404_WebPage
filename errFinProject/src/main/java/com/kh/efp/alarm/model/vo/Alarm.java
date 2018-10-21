@@ -11,10 +11,13 @@ public class Alarm implements java.io.Serializable{
 	private String mName;
 	private int boardId;
 	private int nid;
+	private int ref_Bid;
 	
 	public Alarm() {}
 
-	public Alarm(String nType, Date alarm_Date, String bContent, String bName, String mName, int boardId, int nid) {
+
+	public Alarm(String nType, Date alarm_Date, String bContent, String bName, String mName, int boardId, int nid,
+			int ref_Bid) {
 		super();
 		this.nType = nType;
 		this.alarm_Date = alarm_Date;
@@ -23,7 +26,19 @@ public class Alarm implements java.io.Serializable{
 		this.mName = mName;
 		this.boardId = boardId;
 		this.nid = nid;
+		this.ref_Bid = ref_Bid;
 	}
+
+
+	public int getRef_Bid() {
+		return ref_Bid;
+	}
+
+
+	public void setRef_Bid(int ref_Bid) {
+		this.ref_Bid = ref_Bid;
+	}
+
 
 	public String getnType() {
 		return nType;

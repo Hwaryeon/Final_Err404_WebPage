@@ -26,6 +26,7 @@
   <!-- theme -->
   <link rel="stylesheet" href="${contextPath}/resources/css/codeFactory/codemirror/theme/3024-night.css">
   <link rel="stylesheet" href="${contextPath}/resources/css/codeFactory/codemirror/theme/ambiance.css">
+  <link rel="stylesheet" href="${contextPath}/resources/css/codeFactory/codemirror/theme/xq-dark.css">
   
   <!-- dialog -->
   <link rel="stylesheet" href="${contextPath}/resources/css/codeFactory/codemirror/dialog/dialog.css">
@@ -271,7 +272,7 @@ public class MyClass {
 		//코드창
 		var editor = CodeMirror.fromTextArea($('#editor')[0], {
 			  mode: "text/x-java",
-			  theme:'ambiance',
+			  theme:'xq-dark',
 			  matchBrackets: true,
 			  lineNumbers: true,
 			  autoCloseBrackets: true,
@@ -281,7 +282,7 @@ public class MyClass {
 		//결과 화면
 		var result_view = CodeMirror.fromTextArea($('#result_view')[0],{
 			  mode: "text/x-java",
-			  theme:'3024-night',
+			  theme:'xq-dark',
 			  readOnly: true
 		});
 		//컴파일 ajax
