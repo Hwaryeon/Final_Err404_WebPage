@@ -258,6 +258,12 @@ public class BoardServiceImpl implements BoardService{
 
 	}
 
+	@Override
+	public ArrayList<Attfile> selectRightSidePhoto(String bid) {
+		// TODO Auto-generated method stub
+		return boardDao.selectRightSidePhoto(bid);
+	}
+
 
 	
  
