@@ -241,7 +241,7 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return boardDao.selectAlbum(pbid);
 	}
-	
+
 	@Override
 	public int deleteContent(int boardid) {
 		return boardDao.deleteContent(boardid);
@@ -256,6 +256,12 @@ public class BoardServiceImpl implements BoardService{
 	public int insertReportComment(Report rp) {
 		return boardDao.insertReportComment(rp);
 
+	}
+
+	@Override
+	public ArrayList<Attfile> selectRightSidePhoto(String bid) {
+		// TODO Auto-generated method stub
+		return boardDao.selectRightSidePhoto(bid);
 	}
 
 

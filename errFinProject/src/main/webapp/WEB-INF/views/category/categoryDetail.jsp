@@ -114,7 +114,7 @@
        <div id='' class="row team-row" style='margin-right:auto; margin-left:auto;'>
 	 	<c:forEach var='b' items='${list}' >
 	          <div class="col-md-6 col-xs-6">
-			 	<a href='${b.bid}'>
+			 	<a href='list.do?bid=${b.bid}'>
 		            <div class="widget band_box" style=''>
 		              <div class="media">
 		                <div class="media-left media-middle">

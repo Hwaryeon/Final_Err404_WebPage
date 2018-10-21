@@ -191,17 +191,22 @@
         }
      });
     
-    function deleteOneAlarm(boardId, nid){
+    function deleteOneAlarm(boardId, nid, ref_Bid){
     	$.ajax({
     		url:'deleteOneAlarm.alarm',
     		data:{
     			nid:nid
     		},
     		success:function(data){
-    			if(data == 1)
-    				location.href='${contextpath}'+boardId;
-    			else
+    			if(data == 1){
+    				if(ref_Bid == 0){
+    					location.href='bandBoardDetail.bd?boardid='+boardId;
+    				}else{
+    					location.href='bandBoardDetail.bd?boardid='+ref_Bid;
+    				}
+    			}else{
     				alert('해당 게시판으로 가기 실패');
+    			}
     		},
     		error:function(error){
     			
@@ -239,7 +244,7 @@
                   			case 'CONTENT' : type='게시글'; break;
                   			case 'COMMENT' : type='댓글'; break;
                   		}
-                  		$('#alarm_content').append("<li class='alarm_band' style='margin-right:0px;' onclick='deleteOneAlarm("+value.boardId+','+value.nid+")'>"+
+                  		$('#alarm_content').append("<li class='alarm_band' style='margin-right:0px;' onclick='deleteOneAlarm("+value.boardId+','+value.nid+','+value.ref_Bid+")'>"+
              			"<h3 class='alarm_band_name'>" + value.bName + "</h3>"+ 
              				content +             			
              			"<hr class='band_line'>"+

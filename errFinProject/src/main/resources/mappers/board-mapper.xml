@@ -313,5 +313,15 @@
 		 VALUES(SEQ_RID.NEXTVAL, #{rcontent}, #{mid}, SYSDATE, #{rlevel}, #{bid}, #{boardid}, #{cid})
 	</insert>
 	
+	<select id= "selectRightSidePhoto" parameterType = "int" resultMap = "AttResultSet">
+		SELECT FID, BOARDID, FORIGIN_NAME, EDIT_NAME, FILE_SRC, FDATE, FLEVEL
+		FROM ( SELECT ROWNUM RNUM, FID, B.BOARDID, FORIGIN_NAME, EDIT_NAME, FILE_SRC, FDATE, FLEVEL
+		FROM ATTFILE A
+		JOIN BOARDS B ON(A.BOARDID = B.BOARDID)
+		WHERE B.BID = #{pbid}
+		ORDER BY FDATE DESC)
+		WHERE RNUM <![CDATA[ < ]]> 5
+	</select>
+	
 
 </mapper>

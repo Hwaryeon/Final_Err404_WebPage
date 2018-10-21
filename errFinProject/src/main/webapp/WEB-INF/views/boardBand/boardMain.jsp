@@ -203,10 +203,7 @@
 
 
          <div id="search-3" class="widget fullwidth widget_search">
-            <form class="search" role="search" method="get" action="#">
-               <input type="search" placeholder="Search &hellip;" value=""
-                  name="s" title="Search for:">
-            </form>
+            
          </div>
 
          <div class="widget clearfix">

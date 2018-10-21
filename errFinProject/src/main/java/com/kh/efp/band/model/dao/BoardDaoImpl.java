@@ -192,7 +192,7 @@ public class BoardDaoImpl implements BoardDao {
 		
 		return list;
 	}
-	
+
 	@Override
 	public int deleteContent(int boardid) {
 		return SqlSession.delete("board.deleteContent", boardid);
@@ -207,6 +207,17 @@ public class BoardDaoImpl implements BoardDao {
 	public int insertReportComment(Report rp) {
 		return SqlSession.insert("board.insertReportContent",rp);
 
+	}
+
+	@Override
+	public ArrayList<Attfile> selectRightSidePhoto(String bid) {
+		int pbid = Integer.parseInt(bid);
+		
+		ArrayList<Attfile> list =null;
+		
+		list = (ArrayList)SqlSession.selectList("board.selectRightSidePhoto", pbid);
+		
+		return list;
 	}
 	
 

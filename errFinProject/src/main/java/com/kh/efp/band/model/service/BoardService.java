@@ -64,6 +64,7 @@ public interface BoardService {
 	public int deleteContent(int boardid);
 	public int insertReportContent(Report rp);
 	public int insertReportComment(Report rp);
+	public ArrayList<Attfile> selectRightSidePhoto(String bid);
 
 
 	

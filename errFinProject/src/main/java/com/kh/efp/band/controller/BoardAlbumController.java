@@ -32,6 +32,12 @@ public class BoardAlbumController {
 	@Autowired BoardService boards;
 	@Autowired BandService bs;
 	
+	public void rightSidePhoto(String bid, Model model){
+		ArrayList<Attfile> list = boards.selectRightSidePhoto(bid);
+		
+		model.addAttribute("rightAlbum", list);
+	}
+	
 	@RequestMapping("goboardAlbum.do")
 	public String boardAlbum(Model model, String bid, HttpServletRequest request){
 		
