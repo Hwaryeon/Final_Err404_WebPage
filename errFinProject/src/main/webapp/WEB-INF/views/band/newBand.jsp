@@ -183,7 +183,7 @@
 					<div class="opensetting-container">
 						<div class="opensetting closed">
 							<div class="check">
-								<input type="radio" name="bandStatus" id="radio-1" value="PTD">
+								<input type="radio" name="bandStatus" id="radio-1" value="PRV">
 							</div>
 							<h2>비공개 밴드</h2><br>
 							<p>밴드와 게시글이 공개되지 않습니다. 초대를 통해서만 가입할 수 있습니다.</p>
@@ -191,7 +191,7 @@
 						</div>
 						<div class="opensetting nameopen">
 							<div class="check">
-								<input type="radio" name="bandStatus" id="radio-2" value="PRV">
+								<input type="radio" name="bandStatus" id="radio-2" value="PTD">
 							</div>
 							<h2>밴드명 공개 밴드</h2><br>
 							<p>누구나 밴드를 검색해 찾을 수 있지만, 게시물은 멤버만 볼 수 있습니다.</p>

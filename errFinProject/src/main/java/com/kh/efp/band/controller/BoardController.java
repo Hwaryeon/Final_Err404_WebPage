@@ -51,6 +51,8 @@ public class BoardController {
     	
     	int mId = ((Member)request.getSession().getAttribute("loginUser")).getMid();
     	
+    	blc.bandLeftSideBar(Integer.parseInt(bid), mId, model);
+    	
     	
     	String status = bs.checkBandOpenStatus(Integer.parseInt(bid));
     	
@@ -233,7 +235,7 @@ public class BoardController {
     	System.out.println("result : " + result);
     	System.out.println("비공개 밴드 and 가입되지 않은 회원");
     	
-    	blc.bandLeftSideBar(Integer.parseInt(bid), mId, model);
+    	/*blc.bandLeftSideBar(Integer.parseInt(bid), mId, model);*/
     	
     	ModelAndView mav = new ModelAndView();
     	mav.setViewName("band/bandBlock"); //뷰를 boardMain.jsp로 설정

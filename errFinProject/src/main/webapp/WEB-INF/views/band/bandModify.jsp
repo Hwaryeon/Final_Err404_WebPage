@@ -137,6 +137,8 @@
 									</c:if>
               
               
+              <input type="hidden" id="changePhoto" name="changePhoto" value="N" >
+              
             </p>
                <div class="box-content widget fullwidth">
                 <h4 class="widget-title"></h4>
@@ -263,6 +265,7 @@
     				}
     				reader.readAsDataURL(value.files[0])
     				document.getElementById('coverType').value = 'Y';
+    				document.getElementById('changePhoto').value = 'Y';
     			}
     			
     		}
@@ -270,6 +273,8 @@
     		function damaY(value){
     			
     			console.log("value : " + value);
+    			
+    			document.getElementById('changePhoto').value = 'Y';
     			
     			document.getElementById('coverType').value = value;
     			

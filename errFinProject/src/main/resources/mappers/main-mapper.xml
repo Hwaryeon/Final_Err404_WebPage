@@ -47,6 +47,7 @@
             order by bid asc) c on (c.bid = b.bid)
       where p.bid is not null
       and m.mid = #{mid}
+      and mb.istatus = 'Y'
       and (p.bid, p.fdate) in (select bid, max(fdate) from profile  where bid is not null group by bid)
       and b.bstatus = 'Y'
    </select>
