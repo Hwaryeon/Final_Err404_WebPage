@@ -67,6 +67,8 @@ public class BandLeaderController {
 		model.addAttribute("bid", bid);
 		model.addAttribute("mlevel", mlevel);
 		
+		model.addAttribute("list", mbList);
+		
 	}
 	
 	@RequestMapping("bandLeader.bd")
@@ -400,11 +402,11 @@ public class BandLeaderController {
 	
 	@RequestMapping("updateBandModify.bd")
 	public String updateBandModify(HttpServletRequest request,
-			@RequestParam(name="bandProfile", required=false)MultipartFile photo, int bid, String coverType, String bandName,
-			HttpServletResponse response){
+			@RequestParam(name="bandProfile", required=false)MultipartFile photo, int bid, String coverType, 
+			String changePhoto, String bandName, HttpServletResponse response){
 		
 		
-		System.out.println("bid : " + bid);
+		System.out.println("changePhoto : " + changePhoto);
 		
 		Band b = new Band();
 		
@@ -419,6 +421,8 @@ public class BandLeaderController {
 		String ext = "";
 		String changeName = "";
 		
+		int check = 0;
+		
 		if(coverType.equals("Y")){
 			
 			
@@ -432,6 +436,9 @@ public class BandLeaderController {
 				changeName=CommonUtils.getRandomString();
 			}
 		} else {
+			
+			check = 1;
+			
 			originFileName = coverType + ".jpg";
 			changeName = coverType;
 			ext = ".jpg";
@@ -457,8 +464,10 @@ public class BandLeaderController {
 
 				int result = 0;
 				
-				if(photo.getSize() != 0){
+				if(changePhoto.equals("Y")){
 					result = bs.insertBandModify(pf);
+				}else{
+					result = 1;
 				}
 				
 				if(result == 0){

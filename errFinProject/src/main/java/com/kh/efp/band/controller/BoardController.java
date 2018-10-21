@@ -1,3 +1,4 @@
+
 package com.kh.efp.band.controller;
 
 import java.io.File;
@@ -43,7 +44,6 @@ public class BoardController {
 	@Autowired private newPostService ns; 
     @Autowired BoardService boardService;
     @Autowired BandService bs;
-    @Autowired BoardAlbumController bac;
     @Autowired BandLeaderController blc;
     
     // 01.게시글 목록
@@ -51,6 +51,8 @@ public class BoardController {
     public ModelAndView list(String bid, HttpServletRequest request, Model model) throws Exception{
     	
     	int mId = ((Member)request.getSession().getAttribute("loginUser")).getMid();
+    	
+    	blc.bandLeftSideBar(Integer.parseInt(bid), mId, model);
     	
     	
     	String status = bs.checkBandOpenStatus(Integer.parseInt(bid));
@@ -201,7 +203,7 @@ public class BoardController {
     	}
     	
     	
-    	bac.rightSidePhoto(bid, model);
+    	
     	
 ///////////////////////////////여기가지 ㅠ파이리리리릴
     	Band bb = bs.selectBand(pbid);
@@ -234,7 +236,7 @@ public class BoardController {
     	System.out.println("result : " + result);
     	System.out.println("비공개 밴드 and 가입되지 않은 회원");
     	
-    	blc.bandLeftSideBar(Integer.parseInt(bid), mId, model);
+    	/*blc.bandLeftSideBar(Integer.parseInt(bid), mId, model);*/
     	
     	ModelAndView mav = new ModelAndView();
     	mav.setViewName("band/bandBlock"); //뷰를 boardMain.jsp로 설정
@@ -581,4 +583,5 @@ public class BoardController {
 		}
 	}
     
+
 }

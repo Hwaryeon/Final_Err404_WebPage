@@ -40,7 +40,7 @@
 </script>
 
 </head>
-<style>
+<!-- <style>
 #categort-posts-widget-2 {
    background-color: transparent;
 }
@@ -51,7 +51,7 @@
 
 
 
-</style>
+</style> -->
 <body
    class="home page page-id-4 page-template page-template-template_home-php">
 
@@ -119,7 +119,7 @@
 
    <div class="container">
 
-      <div class="left-sidebar col-md-3" role="complementary">
+         <div class="left-sidebar col-md-3" role="complementary">
 
 			 <div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title"></h1>
                 <ul class="tvshows">
@@ -153,6 +153,7 @@
                         	<c:if test="${ not loop }">
                         	
 	                        	<c:if test="${list.mid == mid }">
+	                        	
 	                        		<c:set var="loop" value="true"/>
 	                        
 	                        	</c:if>
@@ -160,7 +161,7 @@
                         	</c:if>
                         
                         </c:forEach>
-                        
+                         
                         <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
                         			멤버 ${memberCount}
                         			
@@ -179,7 +180,7 @@
 	                        
 	                        	<input type="hidden" name="bid" value="${ bid }">
 	                        
-	                        	<button class="button vote" >가입하기</button>
+	                        	<button class="button vote" >${ loop }가입하기</button>
 	                        </form>
                         </c:if>
                         
@@ -203,7 +204,10 @@
 
 
          <div id="search-3" class="widget fullwidth widget_search">
-            
+            <form class="search" role="search" method="get" action="#">
+               <input type="search" placeholder="Search &hellip;" value=""
+                  name="s" title="Search for:">
+            </form>
          </div>
 
          <div class="widget clearfix">
@@ -328,28 +332,6 @@
             	   }
                }
                
-               function reportContent(bid,mid){
-            	   var reason = prompt('신고 사유를 입력해 주세요');
-            	   if(reason != null){
-	            	   $.ajax({
-	            		   url:'reportContent.do',
-	            		   data:{
-	            			   boardid:bid,
-	            			   reason : reason,
-	            			   bid: ${ Band.bid },
-	            			   mid : mid
-	            		   }
-	            		   success:function(data){
-	            			   console.log(data);
-	            		   },
-	            		   error:function(error){
-	            			   
-	            		   }
-	            	   });
-            	   }else{
-            		   console.log(reason);
-            	   }
-               }
                
                	function update(){
                		/*
@@ -674,28 +656,6 @@ function deleteComment(bid){
 		   }
 }
 
-function reportComment(bid, mid){
-	   var reason = prompt('신고 사유를 입력해 주세요');
-	   if(reason != null){
- 	   $.ajax({
- 		   url:'reportComment.do',
- 		   data:{
- 			   boardid:bid,
- 			   reason : reason,
- 			   bid: ${ Band.bid },
- 			   mid : mid
- 		   },
- 		   success:function(data){
- 			   console.log(data);
- 		   },
- 		   error:function(error){
- 			   
- 		   }
- 	   });
-	   }else{
-		   console.log(reason);
-	   }
-}
 
 $('.deleteBoard').click(function(){
 	 

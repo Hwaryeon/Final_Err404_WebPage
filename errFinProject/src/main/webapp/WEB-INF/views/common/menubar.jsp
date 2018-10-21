@@ -128,10 +128,6 @@
               <div class="post-social" id="postsocial" style="border-top:0px; padding-top:0px;">
 
                   <ul class="share-social">
-
-          
-                  <li><a href="bandBlock.bd?bid=1">차단</a></li>
-                <li><a href="bandBoardDetail.bd?boardid=1">밴드글 상세보기</a></li>
                      
                   	<li><a href="newPost.np" style="color:#25afe5; width: 62px; height:25px; line-height: inherit; font-weight: bold; border:0px;">새글 피드</a></li>
                   	<li><a href='codeFactoryMain.codeFac' style='border:0px;'><img src='${ contextPath }/resources/images/codePactory.png' width=25px; height=25px; class='menu_tooltip' title='코드 팩토리'/></a></li>
