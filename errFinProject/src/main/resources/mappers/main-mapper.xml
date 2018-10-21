@@ -23,6 +23,7 @@
 		<result property="edit_name" column="EDIT_NAME"/>
 		<result property="flevel" column="FLEVEL"/>
 		<result property="bcontent" column="BCONTENT"/>
+		<result property="boardid" column="BOARDID"/>
 	</resultMap>
 	
 	<resultMap type="RecommendContent" id="RcmContent">
@@ -51,7 +52,7 @@
    </select>
 	
 	<select id="selectPopContent" resultMap="PopContent" parameterType="java.util.ArrayList" resultType="java.util.ArrayList">
-		SELECT R.NO, R.REF_COUNT, B.BID, D.BNAME, B.MID, M.MNAME, A.EDIT_NAME, A.FLEVEL, B.BCONTENT
+		SELECT R.NO, R.REF_COUNT, B.BID, D.BNAME, B.MID, M.MNAME, A.EDIT_NAME, A.FLEVEL, B.BCONTENT, b.boardid
 		FROM(SELECT ROWNUM AS NO, C.REF_COUNT, C.REF_BID
 		     FROM(
 		        SELECT COUNT(BCONTENT) AS REF_COUNT, REF_BID

@@ -151,6 +151,10 @@
 	display:inline-block;
 }
 
+.poppost-content:hover {
+	cursor:pointer;
+}
+
 .poppostPic>img {
 	width:100%;
 	height:100%;
@@ -344,7 +348,7 @@ ul{
 				<div class="poppost-container">
 					<ul>
 						<c:forEach var="PopularContents" items="${ popContents }">
-							<li class="poppost-list">
+							<li class="poppost-list" onclick="location.href='bandBoardDetail.bd?boardid=${ PopularContents.boardid }'">
 								<div class="poppost-name">
 									<p>${ PopularContents.bname } 밴드</p>
 								</div>
