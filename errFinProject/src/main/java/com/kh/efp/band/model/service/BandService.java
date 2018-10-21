@@ -102,6 +102,8 @@ public interface BandService {
 
 	int checkInviteCode(String code);
 
+	int checkBlock(Member_Band check);
+
 	
 
 

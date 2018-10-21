@@ -104,6 +104,8 @@ public interface BandDao {
 
 	int checkInviteCode(SqlSessionTemplate sqlSession, String code);
 
+	int checkBlock(SqlSessionTemplate sqlSession, Member_Band check);
+
 
 
 

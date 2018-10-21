@@ -324,5 +324,10 @@ public class BandDaoImpl implements BandDao{
 	@Override
 	public int checkInviteCode(SqlSessionTemplate sqlSession, String code) {
 		return sqlSession.selectOne("Band.checkInviteCode", code);
+	}
+
+	@Override
+	public int checkBlock(SqlSessionTemplate sqlSession, Member_Band check) {
+		return sqlSession.selectOne("Band.checkBlock", check);
 	}	
 }
