@@ -43,10 +43,11 @@ public class BoardController {
 	@Autowired private newPostService ns; 
     @Autowired BoardService boardService;
     @Autowired BandService bs;
+    @Autowired BoardAlbumController bac;
     
     // 01.게시글 목록
     @RequestMapping("list.do")
-    public ModelAndView list(String bid, HttpServletRequest request) throws Exception{
+    public ModelAndView list(String bid, HttpServletRequest request, Model model) throws Exception{
     	
     	int mId = ((Member)request.getSession().getAttribute("loginUser")).getMid();
     	
@@ -202,7 +203,7 @@ String bname = bs.selectBandName(pbid);
     	}
     	
     	
-    	
+    	bac.rightSidePhoto(bid, model);
     	
 ///////////////////////////////여기가지 ㅠ파이리리리릴
     	Band bb = bs.selectBand(pbid);

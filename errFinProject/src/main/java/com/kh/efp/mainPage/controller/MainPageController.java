@@ -131,7 +131,7 @@ public class MainPageController {
 			    map.add("mid", String.valueOf(loginUser.getMid()));
 			 
 			    // REST API 호출
-			    String result2 = restTemplate.postForObject("http://127.0.0.1:3000/createRoom", map, String.class);
+			    //String result2 = restTemplate.postForObject("http://127.0.0.1:3000/createRoom", map, String.class);
 //			    System.out.println(result2);
 				
 				
