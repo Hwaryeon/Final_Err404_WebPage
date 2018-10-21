@@ -11,6 +11,7 @@
   <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
   <meta name="viewport" content=" width=device-width, initial-scale=1">
   <title>Weekend Magazine</title>
+  <jsp:include page="../common/menubar.jsp" />
   <link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">
@@ -422,36 +423,76 @@
 </script>
 </head>
 <body class="home page page-id-4 page-template page-template-template_home-php">
-    <!-- TOP NAV -->
-    <!-- LOGO AREA -->
-    <div class="fullwidth bg-pink">
-      <div class="container">
-        <div class="col-md-6 col-xs-12">
-          <div class="logo">
-            <h1><a href="index.html" title="Weekend Magazine">Weekend Magazine</a></h1>
-          </div>
-        </div>
-        <div class="col-md-6 col-xs-12">
-            <div id="ads120_60-widget-2" class="ads120-60 ads-one">
-                        <div class="ad-cell">
-                      <a href="#" target="_blank" >                 
-                <img src="img/ad-468x60.png " alt="">
-              </a>  
-            </div>
-                    </div>
-          </div>
-      </div>
-    </div>
+
+	<div class="recent-widget" id="tabbed-widget" style="background:#f6f6f6;">
+                  <ul class="nav nav-justified nav-tabs" style="width:610px;margin-left:auto;margin-right:auto;">
+                    <li style="width:150px; min-width:150px;" id="tab1">
+                    <a href="#tab1" data-toggle="tab" style="width:150px; min-width:150px;">전체글</a></li>
+                    <li style="width:150px; min-width:150px;" id="tab2">
+                    <a href="goboardAlbum.do?bid=${ bid }" data-toggle="tab" style="width:150px; min-width:150px;">사진첩</a></li>
+                    <li class="active" style="width:150px; min-width:150px;" id="tab3">
+                    <!-- <a href="#tab3" data-toggle="tab" style="width:150px; min-width:150px;">일정</a> -->
+                    <a href="bandCalendarList.bd?bid=${ bid }" data-toggle="tab" style="width:150px; min-width:150px;">일정</a>
+                    </li>
+                    <li style="width:150px; min-width:150px;" id="tab4">
+                    <a href="boardMember.do?bid=${ bid }" data-toggle="tab" style="width:150px; min-width:150px;">멤버</a></li>
+                  </ul>
+                </div>
+   
+   <script>
+			$(function(){
+				
+				$("#tab1").mouseenter(function(){
+					
+				}).mouseout(function(){
+					
+				}).click(function(){
+					console.log("tab1클릭됨");
+					location.href="list.do?bid=${bid}";
+				});
+				
+				$("#tab2").mouseenter(function(){
+					
+				}).mouseout(function(){
+					
+				}).click(function(){
+					console.log("tab2클릭됨");
+					location.href="goboardAlbum.do?bid=${ bid }";
+
+				});
+				
+				$("#tab3").mouseenter(function(){
+					
+				}).mouseout(function(){
+					
+				}).click(function(){
+					console.log("tab3클릭됨");
+					location.href="bandCalendarList.bd?bid=${ bid }";
+				});
+				
+				$("#tab4").mouseenter(function(){
+					
+				}).mouseout(function(){
+					
+				}).click(function(){
+					console.log("tab4클릭됨");
+					location.href="boardMember.do?bid=${ bid }";
+				});
+				
+				
+			});		
+		</script>
 
      <div class="container">
 
-        <div class="left-sidebar col-md-3" role="complementary">
+       <div class="left-sidebar col-md-3" role="complementary">
 
-			<div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title"></h1>
+			 <div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title"></h1>
                 <ul class="tvshows">
                     <li>
-                         <a href="#">
-                            
+                        <a href="#">
+                            <!-- <img src="http://placehold.it/209x128" alt=""> -->
+                             <%-- <img src="${ contextPath }/resources/upload_images/${pf.editName }" alt=""> --%>
                              <c:if test="${ pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
 									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
 									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
@@ -467,14 +508,56 @@
 								
 										<img src="${ contextPath }/resources/upload_images/${ pf.editName }">
 									</c:if>
+                             
+                             
+                             
                         </a>
                         <h2 style="color:#222; font-size:21px; margin-bottom:15px;font-weight:600;margin-top:20px;">${bname }</h2>
+                        <c:set var="loop" value="false"/>
+                        <c:set var="mid" value = "${ sessionScope.loginUser.mid }"/>
+                        <c:forEach var="list" items="${list }" >
+                        	<c:if test="${ not loop }">
+                        	
+	                        	<c:if test="${list.mid == mid }">
+	                        		<c:set var="loop" value="true"/>
+	                        
+	                        	</c:if>
+                        	
+                        	</c:if>
+                        
+                        </c:forEach>
+                        
                         <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
-                        			멤버 ${memberCount}<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
-                        			초대코드 </a></h4>
+                        			멤버 ${memberCount}
+                        			
+                        			 <c:if test="${ loop }">
+                        			
+	                        			<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
+	                        			초대코드 </a>
+                        			</c:if>
+                        			
+                        			</h4>
+                        			
+                        <div> 
+                        
+                        <c:if test="${ not loop }">
+	                        <form action="Member_BandInsert.bd" method="post" class="mrgn-bottom-0">
+	                        
+	                        	<input type="hidden" name="bid" value="${ bid }">
+	                        
+	                        	<button class="button vote" >가입하기</button>
+	                        </form>
+                        </c:if>
+                        
+                        
+                        
+                        </div>
                         <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
-                        <a href="bandLeader.bd?bid=1" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">
-                        * 밴드 설정</a></h4>
+                        <a href="bandLeader.bd?bid=${ bid }" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">
+                        <c:if test="${ mlevel != 0 }">
+                        	* 밴드 설정
+                        </c:if>
+                        </a></h4>
                     </li>
                 </ul>
                 <div class="clear"></div>

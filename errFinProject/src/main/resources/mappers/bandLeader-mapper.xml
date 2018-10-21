@@ -335,6 +335,11 @@
 		SELECT count(*) FROM BAND WHERE BINVITE_CODE=#{code}
 	</select>
 	
+	<!-- 비공개 밴드에 해당 회원이 가입되어 있는지 확인하는 메소드 -->
+	<select id = "checkBlock" parameterType = "Member_Band" resultType = "int">
+		SELECT COUNT(*) FROM MEMBER_BAND WHERE BID=#{bid} AND MID=#{mid} AND ISTATUS='Y'
+	</select>
+	
 	
 </mapper>
 

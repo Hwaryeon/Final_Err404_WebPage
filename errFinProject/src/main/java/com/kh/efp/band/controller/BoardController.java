@@ -43,18 +43,41 @@ public class BoardController {
 	@Autowired private newPostService ns; 
     @Autowired BoardService boardService;
     @Autowired BandService bs;
+    @Autowired BandLeaderController blc;
     
     // 01.게시글 목록
     @RequestMapping("list.do")
-    public ModelAndView list(String bid, HttpServletRequest request) throws Exception{
+    public ModelAndView list(String bid, HttpServletRequest request, Model model) throws Exception{
     	
     	int mId = ((Member)request.getSession().getAttribute("loginUser")).getMid();
     	
+    	
+    	String status = bs.checkBandOpenStatus(Integer.parseInt(bid));
+    	
+    	int result = 0;
+    	
+    	if(status.equals("PTD")){
+    		
+    		System.out.println("status : " + status);
+    		
+    		Member_Band check = new Member_Band();
+    		
+    		check.setBid(Integer.parseInt(bid));
+    		check.setMid(mId);
+    		
+    		result = bs.checkBlock(check);
+    		
+    	}else{
+    		result = 1;
+    	}
+    	
+    	if(result == 1)
+    	{
     	int pbid = Integer.parseInt(bid);
     	
     	Board board = new Board();
     	
-String bname = bs.selectBandName(pbid);  
+    	String bname = bs.selectBandName(pbid);  
 		
 		Member_Band mb = new Member_Band();
 		
@@ -102,31 +125,6 @@ String bname = bs.selectBandName(pbid);
     			}
     			
     		}
-    	
-/*    	
-    	for(int i=0; i<boardList.size(); i++){
-    		System.out.println(i + " : " + boardList.get(i).toString());
-    	}
-    	
-    	for(int i=0; i<commentList.size(); i++){
-    		System.out.println(i + " : " + commentList.get(i).toString());
-    	}
-*/    	
-    	
-    	/*List<Board> cList= boardService.commentList(pbid);
-    	
-    	
-    	for(int i=0;i<list.size();i++){
-    		for(int j=0; j< list.size(); j++){
-    			
-    			boardList.add(list.get(j));
-    		}
-    		
-    		for(int j=0; j<cList.size(); j++){
-    			commentList.add(cList.get(j));
-    		}
-    		
-    	}*/
     	
     	
     	Board[] test = new Board[boardList.size()];
@@ -230,8 +228,20 @@ String bname = bs.selectBandName(pbid);
     	
     	return mav;// boardMain.jsp로 List 전달
     	
+    }else{
     	
-
+    	System.out.println("result : " + result);
+    	System.out.println("비공개 밴드 and 가입되지 않은 회원");
+    	
+    	blc.bandLeftSideBar(Integer.parseInt(bid), mId, model);
+    	
+    	ModelAndView mav = new ModelAndView();
+    	mav.setViewName("band/bandBlock"); //뷰를 boardMain.jsp로 설정
+    	
+    	
+    	return mav;// boardMain.jsp로 List 전달
+    	
+    }
 
     	
     	

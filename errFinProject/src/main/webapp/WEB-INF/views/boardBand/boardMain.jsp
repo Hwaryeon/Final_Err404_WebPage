@@ -17,11 +17,11 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-   /* $(document).ready(function(){
+    $(document).ready(function(){
 	   
-	  /*  $("#btnUpdate").click(function(){
+	    $("#btnUpdate").click(function(){
 		  location.href="updatePage.do"; 
-	   }); */
+	   }); 
 	   
 	   
       $("#btnSave").click(function(){
@@ -34,7 +34,8 @@
          
          document.form1.submit();
       });
-   }); */
+   }); 
+   
    
 </script>
 
@@ -63,7 +64,9 @@
                     <li style="width:150px; min-width:150px;" id="tab2">
                     <a href="goboardAlbum.do?bid=${ bid }" data-toggle="tab" style="width:150px; min-width:150px;">사진첩</a></li>
                     <li style="width:150px; min-width:150px;" id="tab3">
-                    <a href="#tab3" data-toggle="tab" style="width:150px; min-width:150px;">일정</a></li>
+                    <!-- <a href="#tab3" data-toggle="tab" style="width:150px; min-width:150px;">일정</a> -->
+                    <a href="bandCalendarList.bd?bid=${ bid }" data-toggle="tab" style="width:150px; min-width:150px;">일정</a>
+                    </li>
                     <li style="width:150px; min-width:150px;" id="tab4">
                     <a href="boardMember.do?bid=${ bid }" data-toggle="tab" style="width:150px; min-width:150px;">멤버</a></li>
                   </ul>
@@ -97,6 +100,7 @@
 					
 				}).click(function(){
 					console.log("tab3클릭됨");
+					location.href="bandCalendarList.bd?bid=${ bid }";
 				});
 				
 				$("#tab4").mouseenter(function(){
@@ -115,11 +119,12 @@
 
    <div class="container">
 
-      <div class="left-sidebar col-md-3" role="complementary" >
+      <div class="left-sidebar col-md-3" role="complementary">
 
-         <div id="categort-posts-widget-2" class="widget fullwidth categort-posts" style = "background : white;">
-            <ul class="tvshows">
-               <li><a href="#">
+			 <div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title"></h1>
+                <ul class="tvshows">
+                    <li>
+                        <a href="#">
                             <!-- <img src="http://placehold.it/209x128" alt=""> -->
                              <%-- <img src="${ contextPath }/resources/upload_images/${pf.editName }" alt=""> --%>
                              <c:if test="${ pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
@@ -141,27 +146,58 @@
                              
                              
                         </a>
-                  <h2
-                     style="color: #222; font-size: 21px; margin-bottom: 15px; font-weight: 600; margin-top: 20px;">${ Band.bname }</h2>
-                  <h4
-                     style="display: inline-block; font-size: 13px; font-weight: 400; color: #333;">
-                     멤버 ${memberCount }
-                     <a href="boardMemberInvite.do?bid=${bid }"
-                        style="position: relative; padding-left: 12px; color: #fdb00d !important; font-size: 13px;">
-                        초대코드 </a>
-                  </h4>
-                  <h4
-                     style="margin-top: 14px; padding-top: 13px; border-top: 1px solid #e1e1e1;">
-                     <a href="bandLeader.bd?bid=${ Band.bid }"
-                        style="font-size: 12px; font-weight: 400; color: #666; text-decoration: none;">*
-                        밴드 설정</a>
+                        <h2 style="color:#222; font-size:21px; margin-bottom:15px;font-weight:600;margin-top:20px;">${bname }</h2>
+                        <c:set var="loop" value="false"/>
+                        <c:set var="mid" value = "${ sessionScope.loginUser.mid }"/>
+                        <c:forEach var="list" items="${list }" >
+                        	<c:if test="${ not loop }">
+                        	
+	                        	<c:if test="${list.mid == mid }">
+	                        		<c:set var="loop" value="true"/>
+	                        
+	                        	</c:if>
+                        	
+                        	</c:if>
                         
-                  </h4></li>
-            </ul>
-         </div>
-
-      </div>
-
+                        </c:forEach>
+                        
+                        <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
+                        			멤버 ${memberCount}
+                        			
+                        			 <c:if test="${ loop }">
+                        			
+	                        			<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
+	                        			초대코드 </a>
+                        			</c:if>
+                        			
+                        			</h4>
+                        			
+                        <div> 
+                        
+                        <c:if test="${ not loop }">
+	                        <form action="Member_BandInsert.bd" method="post" class="mrgn-bottom-0">
+	                        
+	                        	<input type="hidden" name="bid" value="${ bid }">
+	                        
+	                        	<button class="button vote" >가입하기</button>
+	                        </form>
+                        </c:if>
+                        
+                        
+                        
+                        </div>
+                        <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
+                        <a href="bandLeader.bd?bid=${ bid }" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">
+                        <c:if test="${ mlevel != 0 }">
+                        	* 밴드 설정
+                        </c:if>
+                        </a></h4>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            
+        </div>
       <div class="main col-md-6 col-xs-12">
 
 
@@ -302,7 +338,7 @@
 	            			   reason : reason,
 	            			   bid: ${ Band.bid },
 	            			   mid : mid
-	            		   },
+	            		   }
 	            		   success:function(data){
 	            			   console.log(data);
 	            		   },
@@ -780,95 +816,6 @@ $('.updateBoard').click(function(){
 
 
    </div>
-   
-     <div class="remodal" data-remodal-id="modal" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
-  <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
-  <div>
-    <h2 id="modal1Title" style="border: 1px solid black;padding: 10px;">신고하기</h2>
-    <p id="modal1Desc" style="margin-top:30px; font-size:20px;">
-       	신고 이름
-    </p> 
-    <p id="modal1Desc2" style="font-size:20px;">
-       	신고 내용
-    </p>
-    
-    <ul>
-							<li>
-								<h4 class="list-title"
-									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
-									음란 또는 청소년에게 부적합한 내용
-									<label style="float:right"> 
-										<input name="remember" value="음란 또는 청소년에게 부적합한 내용" type="radio">
-								</label>
-								</h4>
-							</li>
-							<li>
-								<h4 class="list-title"
-									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
-									부적절한 홍보
-									<label style="float:right">
-										<input name="remember" value="부적절한 홍보" type="radio" >
-									</label>
-								</h4>
-							</li>
-							<li>
-								<h4 class="list-title"
-									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
-									개인정보 노출
-									<label style="float:right"> 
-										<input name="remember" value="개인정보 노출" type="radio">
-									
-									</label>
-								</h4>
-							</li>
-							<li>
-								<h4 class="list-title"
-									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
-									저작권 및 명예훼손/기타권리 침해
-									<label style="float:right"> 
-										<input name="remember" value="저작권 및 명예훼손/기타권리 침해" type="radio">
-									
-									</label>
-								</h4>
-							</li>
-						</ul>
-    
-    
-    
-  </div>
-  <br>
-  <input type="hidden" id="boardId" value=""/>
-  <input type="hidden" id="bId" value=""/> 
-  <input type="hidden" id="mId" value=""/>  
-  <button data-remodal-action="cancel" class="remodal-cancel">취소</button>
-  <button id="reportNewPost" data-remodal-action="confirm" class="remodal-confirm">신고하기</button>
-</div>
-
-<div class="remodal" data-remodal-id="modal2" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
-  <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
-  <div class="widget-content">
-						<ul>
-							<li>
-								<h4 class="list-title"
-									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
-									댓글 삭제
-								</h4>
-							</li>
-							<li>
-								<h4 class="list-title"
-									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
-									해당 댓글을 삭제하시겠습니까 ?
-								</h4>
-							</li>
-						</ul>
-
-
-					</div>
-  <br>
-  <input type="hidden" id="boardid2" value=""/> 
-  <button data-remodal-action="cancel" class="remodal-cancel">취소</button>
-  <button id="deleteBoardBu" data-remodal-action="confirm" class="remodal-confirm">확인</button>
-</div>
    
    
 

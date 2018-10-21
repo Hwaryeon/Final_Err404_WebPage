@@ -131,7 +131,6 @@
 
           
                   <li><a href="bandBlock.bd?bid=1">차단</a></li>
-                  <li><a href="bandCalendarList.bd?bid=1">달력 호출</a></li>
                 <li><a href="bandBoardDetail.bd?boardid=1">밴드글 상세보기</a></li>
                      
                   	<li><a href="newPost.np" style="color:#25afe5; width: 62px; height:25px; line-height: inherit; font-weight: bold; border:0px;">새글 피드</a></li>
