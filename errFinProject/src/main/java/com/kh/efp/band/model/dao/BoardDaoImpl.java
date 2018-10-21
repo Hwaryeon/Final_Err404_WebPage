@@ -208,6 +208,17 @@ public class BoardDaoImpl implements BoardDao {
 		return SqlSession.insert("board.insertReportContent",rp);
 
 	}
+
+	@Override
+	public ArrayList<Attfile> selectRightSidePhoto(String bid) {
+		int pbid = Integer.parseInt(bid);
+		
+		ArrayList<Attfile> list =null;
+		
+		list = (ArrayList)SqlSession.selectList("board.selectRightSidePhoto", pbid);
+		
+		return list;
+	}
 	
 
 	 
