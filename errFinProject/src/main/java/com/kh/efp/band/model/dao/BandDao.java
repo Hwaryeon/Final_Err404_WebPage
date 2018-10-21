@@ -5,13 +5,17 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.efp.band.model.vo.Attfile;
 import com.kh.efp.band.model.vo.Ban;
 import com.kh.efp.band.model.vo.BanMemberList;
 import com.kh.efp.band.model.vo.Band;
+import com.kh.efp.band.model.vo.Board;
+import com.kh.efp.band.model.vo.MemberBandProfile;
 import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
 import com.kh.efp.member.model.vo.Member;
 import com.kh.efp.member.model.vo.Profile;
+import com.kh.efp.newPost.model.vo.Boards;
 
 public interface BandDao {
 
@@ -85,6 +89,20 @@ public interface BandDao {
 	ArrayList<BanMemberList> searchBanMemberList(SqlSessionTemplate sqlSession, Member_Band mb);
 
 	ArrayList<Member_Band> selectMember_BandList2(SqlSessionTemplate sqlSession, Member_Band mb);
+
+	Boards selectBoardDetail(SqlSessionTemplate sqlSession, int boardid);
+
+	ArrayList<Boards> selectRefList(SqlSessionTemplate sqlSession, int boardid);
+
+	Attfile selectAttFile(SqlSessionTemplate sqlSession, int boardid);
+
+	ArrayList<MemberBandProfile> selectMemberBandProfileList(SqlSessionTemplate sqlSession, MemberBandProfile mbp);
+
+	String selectBandCode(SqlSessionTemplate sqlSession, int bid);
+
+	void updateBandCode(SqlSessionTemplate sqlSession, Band b);
+
+	int checkInviteCode(SqlSessionTemplate sqlSession, String code);
 
 
 

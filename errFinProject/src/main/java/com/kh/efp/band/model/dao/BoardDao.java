@@ -1,10 +1,15 @@
 package com.kh.efp.band.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.kh.efp.band.model.vo.AttBoard;
+import com.kh.efp.band.model.vo.Attfile;
 import com.kh.efp.band.model.vo.Board;
+import com.kh.efp.member.model.vo.Profile;
 import com.kh.efp.newPost.model.vo.Boards;
 import com.kh.efp.newPost.model.vo.MemberProfile;
+import com.kh.efp.newPost.model.vo.Report;
 
 public interface BoardDao {
 	//01.게시글 작성
@@ -29,8 +34,27 @@ public interface BoardDao {
 	public int selectCommentCount(int pbid)throws Exception;
 	public List<Board> commentList(int pbid)throws Exception;
 	public void insertComment(Boards b);
-	public void deleteComment(int boardid);
+	public int deleteComment(int boardid);
 	public void updateComment(Boards b);
-	public MemberProfile selectMemberProfile(int mId);
+	public MemberProfile selectMemberProfile(int getmId);
+	
+	
+	public int insertFileProfile(String bid, Profile pf);
+
+	
+	
+	
+	
+	public int insertFile(String bid);
+	public int create1(Board vo);
+	public int selectMid(Board vo);
+	public int insertBoardFile(Attfile pf);
+	public int selectBoardId(Board vo);
+	public int selectCurrval();
+	public ArrayList<AttBoard> selectAlbum(int pbid);
+	public int deleteContent(int boardid);
+	public int insertReportContent(Report rp);
+	public int insertReportComment(Report rp);
+
 
 }

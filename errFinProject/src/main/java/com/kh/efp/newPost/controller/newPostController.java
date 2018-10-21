@@ -205,7 +205,7 @@ public class newPostController {
 	}
 	
 	@RequestMapping("reportPost.np")
-	public String insertReport(@RequestParam int boardid, int bid, int mid, String radioVal , HttpServletRequest request, Model model){
+	public String insertReport(@RequestParam int boardid, int bid, int mid, String radioVal, String rType, HttpServletRequest request, Model model){
 		
 		int mid2 = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
@@ -213,7 +213,15 @@ public class newPostController {
 		
 		re.setRcontent(radioVal);
 		re.setMid(mid2);
-		re.setRlevel("C");
+		
+		if(rType.equals("C")){
+			re.setRlevel("C");
+		}else if(rType.equals("M")){
+			re.setRlevel("M");
+		}
+		
+		System.out.println("rType=" + re.getRlevel());
+		
 		re.setBoardid(boardid);
 		re.setBid(bid);
 		re.setCid(mid);

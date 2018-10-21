@@ -5,22 +5,19 @@
 <html>
 <head>
 <meta charset="utf-8">
-<!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
-<meta name="viewport" content=" width=device-width, initial-scale=1">
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<title>ERR404</title>
-<!-- CSS -->
-<link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet"> <link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
+  <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+  <meta name="viewport" content=" width=device-width, initial-scale=1">
+  <title>Weekend Magazine</title>
+<jsp:include page="../common/menubar.jsp" />
+<link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/light-pink-blue.css" rel="stylesheet">
-    <link href="${ contextPath }/resources/css/sss.css" rel="stylesheet">
-<!-- Skin -->
-<link href="${ contextPath }/resources/skins/light-pink-blue.css" rel="stylesheet">
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-   $(document).ready(function(){
+   /* $(document).ready(function(){
 	   
 	  /*  $("#btnUpdate").click(function(){
 		  location.href="updatePage.do"; 
@@ -37,7 +34,7 @@
          
          document.form1.submit();
       });
-   });
+   }); */
    
 </script>
 
@@ -56,24 +53,100 @@
 </style>
 <body
    class="home page page-id-4 page-template page-template-template_home-php">
-   <jsp:include page="../common/menubar.jsp" />
+
    
+   
+   <div class="recent-widget" id="tabbed-widget" style="background:#f6f6f6;">
+                  <ul class="nav nav-justified nav-tabs" style="width:610px;margin-left:auto;margin-right:auto;">
+                    <li class="active" style="width:150px; min-width:150px;" id="tab1">
+                    <a href="#tab1" data-toggle="tab" style="width:150px; min-width:150px;">전체글</a></li>
+                    <li style="width:150px; min-width:150px;" id="tab2">
+                    <a href="goboardAlbum.do?bid=${ bid }" data-toggle="tab" style="width:150px; min-width:150px;">사진첩</a></li>
+                    <li style="width:150px; min-width:150px;" id="tab3">
+                    <a href="#tab3" data-toggle="tab" style="width:150px; min-width:150px;">일정</a></li>
+                    <li style="width:150px; min-width:150px;" id="tab4">
+                    <a href="boardMember.do?bid=${ bid }" data-toggle="tab" style="width:150px; min-width:150px;">멤버</a></li>
+                  </ul>
+                </div>
+   
+   <script>
+			$(function(){
+				
+				$("#tab1").mouseenter(function(){
+					
+				}).mouseout(function(){
+					
+				}).click(function(){
+					console.log("tab1클릭됨");
+					location.href="list.do?bid=${bid}";
+				});
+				
+				$("#tab2").mouseenter(function(){
+					
+				}).mouseout(function(){
+					
+				}).click(function(){
+					console.log("tab2클릭됨");
+					location.href="goboardAlbum.do?bid=${ bid }";
+
+				});
+				
+				$("#tab3").mouseenter(function(){
+					
+				}).mouseout(function(){
+					
+				}).click(function(){
+					console.log("tab3클릭됨");
+				});
+				
+				$("#tab4").mouseenter(function(){
+					
+				}).mouseout(function(){
+					
+				}).click(function(){
+					console.log("tab4클릭됨");
+					location.href="boardMember.do?bid=${ bid }";
+				});
+				
+				
+			});		
+		</script>
+		
+
    <div class="container">
 
-      <div class="left-sidebar col-md-3" role="complementary">
+      <div class="left-sidebar col-md-3" role="complementary" >
 
-         <div id="categort-posts-widget-2"
-            class="widget fullwidth categort-posts">
-            <h1 class="widget-title"></h1>
+         <div id="categort-posts-widget-2" class="widget fullwidth categort-posts" style = "background : white;">
             <ul class="tvshows">
-               <li><a href="#"> <!-- <span class="comment-count">11</span> -->
-                     <img src="http://placehold.it/209x128" alt="">
-               </a>
+               <li><a href="#">
+                            <!-- <img src="http://placehold.it/209x128" alt=""> -->
+                             <%-- <img src="${ contextPath }/resources/upload_images/${pf.editName }" alt=""> --%>
+                             <c:if test="${ pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
+									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
+									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
+									|| pf.editName == 'cover7.jpg' }">
+								
+										<img src="${ contextPath }/resources/images/cover/${ pf.editName }">
+									</c:if>
+									
+									<c:if test="${ !(pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
+									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
+									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
+									|| pf.editName == 'cover7.jpg') }">
+								
+										<img src="${ contextPath }/resources/upload_images/${ pf.editName }">
+									</c:if>
+                             
+                             
+                             
+                        </a>
                   <h2
                      style="color: #222; font-size: 21px; margin-bottom: 15px; font-weight: 600; margin-top: 20px;">${ Band.bname }</h2>
                   <h4
                      style="display: inline-block; font-size: 13px; font-weight: 400; color: #333;">
-                     멤버 4<a href="#"
+                     멤버 ${memberCount }
+                     <a href="boardMemberInvite.do?bid=${bid }"
                         style="position: relative; padding-left: 12px; color: #fdb00d !important; font-size: 13px;">
                         초대코드 </a>
                   </h4>
@@ -85,7 +158,6 @@
                         
                   </h4></li>
             </ul>
-            <div class="clear"></div>
          </div>
 
       </div>
@@ -95,10 +167,7 @@
 
 
          <div id="search-3" class="widget fullwidth widget_search">
-            <form class="search" role="search" method="get" action="#">
-               <input type="search" placeholder="Search &hellip;" value=""
-                  name="s" title="Search for:">
-            </form>
+            
          </div>
 
          <div class="widget clearfix">
@@ -108,7 +177,7 @@
                      id="cancel-comment-reply-link" href="" style="display: none;">Cancel
                         reply</a></small>
                </h3>
-               <form name="form1" action="insert.do" method="post" >
+               <form name="form1" action="insert.do" method="post"encType = "multipart/form-data" >
                   <input type = 'hidden' name = 'mId' value = "${ sessionScope.loginUser.mid }">
                   <input type = 'hidden' name = 'bId' value = "${ Band.bid }">
                   <p class="comment-notes">
@@ -127,12 +196,12 @@
                         &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt;
                         &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code>
                   </p> --%>
-                   <table
+                  <table
 							style="display: table-cell; vertical-align: middle; text-align: center;">
 							<tr>
 								<td width="270px" style="vertical-align: middle; text-align: left;">
 									<img id = "contentImg1" src="resources/images/fileImg.png" alt="" style = "width : 64px; height : 64px;">
-									<input type="file" id="userImage" name="userImage" multiple onchange="loadImg(this)">
+									 <input type="file" id="uploadImage" name="uploadImage" multiple onchange="loadImg(this)">
 								</td>
 								<td style="vertical-align: middle;"><a class="button-navy button-link" onclick = "changeImage()">사진 첨부</a> 
 								</td>
@@ -152,11 +221,10 @@
             <!-- #respond -->
          </div>
          
+         <c:set var="userId" value="${ sessionScope.loginUser.mid }"/>
          
-         
-         <c:forEach items="${boardMain }" var="row">
-
-
+         <%-- <c:forEach items="${boardMain }" var="row"> --%>
+	 <c:forEach items="${boardList }" var="row">
       <div class="post widget" style="margin-bottom:34px;">
       
       
@@ -190,15 +258,13 @@
                            <input type="hidden" id="mid" name="mid" value="${row.mId}">
                            <input type="hidden" id ="bid" name ="bid" value ="${row.bId}">
                            <a>
-                           
-                           
                               <img alt="" src="${ contextPath }/resources/images/dropEdit.png?id=${row.boardId}"
                         class="avatar avatar-75 photo avatar-default" >
                         <button type="button" id="btnUpdate" class="btnUpdate" onclick=update()>수정</button></a></li>
                         
-                           <li><a href="index2.html">   <img alt="" src="${ contextPath }/resources/images/dropDelete.png"
+                           <li><a onclick='deleteContent(${row.boardId})'><img alt="" src="${ contextPath }/resources/images/dropDelete.png"
                         class="avatar avatar-75 photo avatar-default" >&nbsp&nbsp&nbsp&nbsp&nbsp삭제하기</a></li>
-                           <li><a href="index3.html">   <img alt="" src="${ contextPath }/resources/images/dropPolice.png"
+                           <li id='rte'><a onclick='reportContent(${row.boardId},${row.mId})'><img alt="" src="${ contextPath }/resources/images/dropPolice.png"
                         class="avatar avatar-75 photo avatar-default" >&nbsp&nbsp&nbsp&nbsp&nbsp신고하기</a></li>
                         </ul></li>
                   </ul>
@@ -206,6 +272,49 @@
                </div>
                
                <script>
+               function deleteContent(bid){
+            	   if(confirm('정말로 삭제하시겠습니까?')){
+	            	   $.ajax({
+	            		   url:'deleteContent.do',
+	            		   data:{
+	            			   boardid:bid
+	            		   },
+	            		   success:function(data){
+	            			   if(data != 0){
+	            				   alert('삭제 완료')
+	            				   location.reload();
+	            			   }
+	            		   },
+	            		   error:function(error){
+	            			   
+	            		   }
+	            	   });
+            	   }
+               }
+               
+               function reportContent(bid,mid){
+            	   var reason = prompt('신고 사유를 입력해 주세요');
+            	   if(reason != null){
+	            	   $.ajax({
+	            		   url:'reportContent.do',
+	            		   data:{
+	            			   boardid:bid,
+	            			   reason : reason,
+	            			   bid: ${ Band.bid },
+	            			   mid : mid
+	            		   },
+	            		   success:function(data){
+	            			   console.log(data);
+	            		   },
+	            		   error:function(error){
+	            			   
+	            		   }
+	            	   });
+            	   }else{
+            		   console.log(reason);
+            	   }
+               }
+               
                	function update(){
                		/*
                		var mId = "${row.mId}"
@@ -252,42 +361,68 @@
                     
             
                     <div class="line"></div>
-                    <div class="comment-vcard">
-                        <img width="60" height="60" alt="" src="http://placehold.it/70x70" class="avatar">            
-                        <!-- <span class="author-tag">Author</span> -->
-                        
-                        
-                    </div>
+                     
+                      <div class="comment-vcard">
                     
+                    	<c:set var="profileLoop" value="false"/>
+                            <c:forEach var="mName" items="${ mList }">
+                            <c:if test="${not profileLoop }">
+	                            	<c:if test="${ mName.mid == row.mId }" >
+	                            
+	                          		  <img width="60" height="60" alt="" src="${ contextPath }/resources/upload_images/${mName.edit_name }" class="avatar"> 
+	                          		  <c:set var="profileLoop" value="true"/> 
+	                          	  </c:if>
+                          	  </c:if>
+                            </c:forEach>
+                    </div>
                     
                     
                     <div class="comment_detail" style="width: 423px;">
                         
                         <div class="comment-header">
                             
-                             <c:forEach var="mName" items="${ mList }">
+
                             
-                               <c:if test="${ mName.mId == row.mId }" >
-                            
-                                  <span class="author">${ mName.mName }</span> 
-                               </c:if>
+                             <c:set var="doneLoop2" value="false"/>
+                            <c:forEach var="mName" items="${ mList }">
+                            <c:if test="${not doneLoop2 }">
+	                            	<c:if test="${ mName.mid == row.mId }" >
+	                            
+	                          		  <span class="author">${ mName.mname }</span>
+	                          		  <c:set var="doneLoop2" value="true"/> 
+	                          	  </c:if>
+                          	  </c:if>
                             </c:forEach>
                             <span class="date">
                                 <a href="#">${row.bDate }</a>
                             </span>
                             
-                  
                             
-                            <%-- <span class="author">작성자 이름</span> 
+            				  <span class="reply">
+                            	<!-- 신고글 번호 -->
+                            	<input type="hidden" value="${row.boardId }">
+                            	
+                            	<!-- 신고글 밴드 번호 -->
+                            	<input type="hidden" value="${row.bId }">
+                            	
+                            	<!-- 신고글 유저 번호 -->
+                            	<input type="hidden" value="${row.mId}">
+                            	
+                            	<!-- 신고글 유저 이름 -->
+                            	<c:forEach var="m" items="${ mList }">
                             
-                            <span class="date">
-                                <a href="#">${row.bDate }</a>
-                            </span> --%>
-                            
-                           <!--  <span class="reply">
-                                <a class="comment-reply-link" href="#">신고</a>
-                            </span> -->
-            	
+	                            	<c:if test="${ m.mid == row.mId }" >
+	                            		<input type="hidden" value="${ m.mname }">
+	                          	  	</c:if>
+                          	  	</c:forEach>
+                            	
+								<!-- 신고글 내용 -->                            	
+                            	<input type="hidden" value="${row.bContent }">
+                            	
+                            	<c:if test="${row.mId != userId}">
+                                	<a class="comment-reply-link reportBoard" style="cursor:pointer;">신고</a>
+                                </c:if>
+                            </span>
             
                         </div><!--comment-header-->
                         
@@ -331,52 +466,55 @@
               <ol class="commentlist">
                 <c:forEach var="commentList" items="${commentList}">
                 
-                
                 	<c:if test="${ commentList.refBId eq row.boardId  }">
                 	 <c:set var="comCount" value="${comCount + 1 }"/>
                 	 <li class="comment parent">
                     <div class="comment-body">
             
                     <div class="line"></div>
-                    <div class="comment-vcard">
+                    
+                     <div class="comment-vcard">
                     
                     	<c:set var="profileLoop" value="false"/>
                          <c:forEach var="mName2" items="${ mList2 }">
                             <c:if test="${not profileLoop }">
-	                            	<c:if test="${ mName2.mid == commentList.mid }" >
+	                            	<c:if test="${ mName2.mid == commentList.mId }" >
 	                            
 	                          		  <img width="60" height="60" alt="" src="${ contextPath }/resources/upload_images/${mName2.edit_name }" class="avatar"> 
 	                          		  <c:set var="profileLoop" value="true"/> 
 	                          	  </c:if>
                           	  </c:if>
                             </c:forEach>
-                    </div> --
+                    </div>
+                    
+                    
                     
                     <div class="comment_detail">
                         
                         <div class="comment-header">
-                            
+                             
+                              
                             <span class="author">
                             
-                             	<c:set var="doneLoop" value="false"/>
+                            	<c:set var="doneLoop" value="false"/>
                             	<c:forEach var="mName2" items="${ mList2 }">
                             
                             	<c:if test="${not doneLoop }">
-	                            	<c:if test="${ mName2.mid == commentList.mid }" >
+	                            	<c:if test="${ mName2.mid == commentList.mId }" >
 	                            
 		                          		  <span class="author">${ mName2.mname }</span> 
 		                          		  <c:set var="doneLoop" value="true"/>
 		                          	  </c:if>
 	                          	  </c:if>
 	                            </c:forEach>
-                             
+                            
                            </span> 
                             
                             <span class="date">
                                 <a href="#">${ commentList.bDate }</a>
                             </span>
                             
-                            <%-- <span class="reply">
+                             <span class="reply">
                             	<!-- 신고댓글 번호 -->
                             	<input type="hidden" value="${ commentList.boardId }">
                             	
@@ -391,7 +529,7 @@
                             	<c:forEach var="m" items="${ mList2 }">
                             
                             		<c:if test="${not doneLoop }">
-		                            	<c:if test="${ m.mid == commentList.mid }" >
+		                            	<c:if test="${ m.mid == commentList.mId }" >
 		                            		<input type="hidden" value="${ m.mname }">
 		                            		<c:set var="doneLoop" value="true"/>
 		                          	  	</c:if>
@@ -399,18 +537,19 @@
                           	  	</c:forEach>
                             	
 								<!-- 신고댓글 내용 -->                            	
-                            	<input type="hidden" value="${commentList.bcontent }">
+                            	<input type="hidden" value="${commentList.bContent }">
                             
                           		 <input type="hidden" value="${comCount}">
                             
-                                <a class="comment-reply-link reportBoard" style="cursor:pointer;">신고</a>
-                                
-                                <c:if test="${commentList.mid == userId}">
-                                
+	                            <c:if test="${commentList.mId != userId}">
+	                                <a onclick='reportComment(${commentList.boardId}, ${commentList.mId})'  class="comment-reply-link reportBoard" style="cursor:pointer;">신고</a>
+	                              </c:if>
+                                <c:if test="${commentList.mId == userId}">
+               
 	                                <a class="comment-reply-link updateBoard" style="cursor:pointer; margin-right:5px; margin-left:5px;">수정</a>
-	                                <a class="comment-reply-link deleteBoard" style="cursor:pointer;">삭제</a>
+	                                <a onclick='deleteComment(${commentList.boardId})' class="comment-reply-link" style="cursor:pointer;">삭제</a>
                                </c:if>
-                            </span> --%>
+                            </span> 
             
                         </div><!--comment-header-->
                         
@@ -477,119 +616,79 @@
          
          </c:forEach>
          
-         <%-- 
-         <div class="post widget">s
-            <div class="post-meta">
+<script>
 
-               <!-- 게시글 드롭다운 -->
-               <div style="float: right" class="menu-primary-navigation-container">
-                  <ul id="menu-primary-navigation" class="nav navbar-nav">
-                     <li class="dropdown"><a href="#" class="dropdown-toggle"
-                        data-toggle="dropdown" role="button" aria-expanded="false">
-                        <img alt="" src="${ contextPath }/resources/images/dropBar.png"
-                        class="avatar avatar-75 photo avatar-default" >
-                        
-                     </a>
-                        <ul class="dropdown-menu" role="menu">
-                           <li><a href="index.html">    <img alt="" src="${ contextPath }/resources/images/dropEdit.png"
-                        class="avatar avatar-75 photo avatar-default" >&nbsp&nbsp&nbsp&nbsp&nbsp글 수정</a></li>
-                           <li><a href="index2.html">   <img alt="" src="${ contextPath }/resources/images/dropDelete.png"
-                        class="avatar avatar-75 photo avatar-default" >&nbsp&nbsp&nbsp&nbsp&nbsp삭제하기</a></li>
-                           <li><a href="index3.html">   <img alt="" src="${ contextPath }/resources/images/dropPolice.png"
-                        class="avatar avatar-75 photo avatar-default" >&nbsp&nbsp&nbsp&nbsp&nbsp신고하기</a></li>
-                        </ul></li>
-                  </ul>
-               </div>
+function deleteComment(bid){
+	   if(confirm('정말로 삭제하시겠습니까?')){
+	 	   $.ajax({
+	 		   url:'deleteComment2.do',
+	 		   data:{
+	 			   boardid:bid
+	 		   },
+	 		   success:function(data){
+	 			   if(data != 0){
+	 				   alert('삭제 완료')
+	 				   location.reload();
+	 			   }
+	 		   },
+	 		   error:function(error){
+	 			   
+	 		   }
+	 	   });
+		   }
+}
 
-               <div class="author-content">
-                  <h4>
-                     <img alt="" src="http://placehold.it/89x89"
-                        class="avatar avatar-75 photo avatar-default" height="45"
-                        width="45"> <a href="" title="Posts by admin" rel="author">이름</a>
-                     <span><a href="#"></a></span> <span> June 22, 2014 7:33 pm
-                     </span>
+function reportComment(bid, mid){
+	   var reason = prompt('신고 사유를 입력해 주세요');
+	   if(reason != null){
+ 	   $.ajax({
+ 		   url:'reportComment.do',
+ 		   data:{
+ 			   boardid:bid,
+ 			   reason : reason,
+ 			   bid: ${ Band.bid },
+ 			   mid : mid
+ 		   },
+ 		   success:function(data){
+ 			   console.log(data);
+ 		   },
+ 		   error:function(error){
+ 			   
+ 		   }
+ 	   });
+	   }else{
+		   console.log(reason);
+	   }
+}
 
-                  </h4>
-
-
-
-               </div>
-            </div>
-            <div class="post-content">
-               <img class="post-image img-beresponsive"
-                  src="http://placehold.it/469x291" alt="">
-               <p class="content">${np.bcontent }</p>
-
-            </div>
-
-            <!-- 댓글창 -->
-            <div class="box-content widget fullwidth" id="comments">
-               <h4 class="comment-title">2 Comments</h4>
-               <ol class="commentlist">
-
-                  <ul class="children">
-                     <li class="comment">
-                        <div class="comment-body">
-
-                           <div class="line"></div>
-                           <div class="comment-vcard">
-                              <img width="60" height="60" alt=""
-                                 src="http://placehold.it/70x70" class="avatar"> <span
-                                 class="author-tag"></span>
-                           </div>
-
-                           <div class="comment_detail">
-
-                              <div class="comment-header">
-
-                                 <span class="author">이름임</span> <span class="date"> <a
-                                    href="#">2:14 AM 22 feb 2013</a>
-                                 </span>
+$('.deleteBoard').click(function(){
+	 
+	 document.getElementById('boardid2').value = $(this).parents().children("input").eq(0).val();
+	
+	 location.href="#modal2";
+});
 
 
-                              </div>
-                              <!--comment-header-->
-                              <p>댓그으ㅡ으으으으ㅡ으으으으으으으으을</p>
-                           </div>
-                           <!--.comment_detail-->
-
-                        </div>
-                        <!--.comment-body-->
-                     </li>
-                  </ul>
-
-               </ol>
-            </div>
-
-
+$('.updateBoard').click(function(){
+	 
+	var count = $(this).parents().children("input").eq(5).val();
+	 
+	var str = 'updateBoardArea' + count;
+	 
+	var con = document.getElementById(str);
+	 
+	if(con.style.display=='none'){
+       con.style.display = 'block';
+   }else{
+       con.style.display = 'none';
+   }
 
 
-            <div id="widget-feedburner-2"
-               class="widget fullwidth widget-feedburner">
-               <h1 class="widget-title">댓글쓰기</h1>
-               <div class="widget-feedburner-counter subscribe">
-                  <form action="#" method="post">
-                     <input class="feedburner-email input-subscribe" type="text"
-                        name="comment" value="댓글을 남겨주세요."
-                        onfocus="if (this.value == '댓글을 남겨주세요.') {this.value = '';}"
-                        onblur="if (this.value == '') {this.value = '댓글을 남겨주세요.';}">
-                     <input class="feedburner-subscribe input-button" type="submit"
-                        name="submit" value="보내기">
-                  </form>
-               </div>
+	 
+	 
+});
 
-
-
-
-            </div>
-
-         </div>
-</c:forEach> --%>
-
-
-
-
-
+</script>
 
       </div>
 
@@ -681,6 +780,97 @@
 
 
    </div>
+   
+     <div class="remodal" data-remodal-id="modal" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
+  <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
+  <div>
+    <h2 id="modal1Title" style="border: 1px solid black;padding: 10px;">신고하기</h2>
+    <p id="modal1Desc" style="margin-top:30px; font-size:20px;">
+       	신고 이름
+    </p> 
+    <p id="modal1Desc2" style="font-size:20px;">
+       	신고 내용
+    </p>
+    
+    <ul>
+							<li>
+								<h4 class="list-title"
+									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
+									음란 또는 청소년에게 부적합한 내용
+									<label style="float:right"> 
+										<input name="remember" value="음란 또는 청소년에게 부적합한 내용" type="radio">
+								</label>
+								</h4>
+							</li>
+							<li>
+								<h4 class="list-title"
+									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
+									부적절한 홍보
+									<label style="float:right">
+										<input name="remember" value="부적절한 홍보" type="radio" >
+									</label>
+								</h4>
+							</li>
+							<li>
+								<h4 class="list-title"
+									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
+									개인정보 노출
+									<label style="float:right"> 
+										<input name="remember" value="개인정보 노출" type="radio">
+									
+									</label>
+								</h4>
+							</li>
+							<li>
+								<h4 class="list-title"
+									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
+									저작권 및 명예훼손/기타권리 침해
+									<label style="float:right"> 
+										<input name="remember" value="저작권 및 명예훼손/기타권리 침해" type="radio">
+									
+									</label>
+								</h4>
+							</li>
+						</ul>
+    
+    
+    
+  </div>
+  <br>
+  <input type="hidden" id="boardId" value=""/>
+  <input type="hidden" id="bId" value=""/> 
+  <input type="hidden" id="mId" value=""/>  
+  <button data-remodal-action="cancel" class="remodal-cancel">취소</button>
+  <button id="reportNewPost" data-remodal-action="confirm" class="remodal-confirm">신고하기</button>
+</div>
+
+<div class="remodal" data-remodal-id="modal2" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
+  <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
+  <div class="widget-content">
+						<ul>
+							<li>
+								<h4 class="list-title"
+									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
+									댓글 삭제
+								</h4>
+							</li>
+							<li>
+								<h4 class="list-title"
+									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
+									해당 댓글을 삭제하시겠습니까 ?
+								</h4>
+							</li>
+						</ul>
+
+
+					</div>
+  <br>
+  <input type="hidden" id="boardid2" value=""/> 
+  <button data-remodal-action="cancel" class="remodal-cancel">취소</button>
+  <button id="deleteBoardBu" data-remodal-action="confirm" class="remodal-confirm">확인</button>
+</div>
+   
+   
 
    <jsp:include page="../common/footer.jsp" />
    
@@ -700,14 +890,43 @@
 	        con.style.display = 'none';
 	    }
 
-
+		$('#deleteBoardBu').click(function(){
+			
+			var boardid = document.getElementById('boardid2').value;
+			
+			
+			console.log("boardid : " + boardid);
+			
+			location.href="deleteBoard.np?boardid=" + boardid; 
+			
+		});
 		 
 		 
 	});
 	
+	$('#reportNewPost').click(function(){
+		
+		
+		/* console.log("id : " + document.getElementById('boardid').value);
+		console.log("id : " + document.getElementById('bid').value);
+		console.log("id : " + document.getElementById('mid').value); */
+		
+		var boardid = document.getElementById('boardid').value;
+		var bid = document.getElementById('bid').value;
+		var mid = document.getElementById('mid').value;
+		
+		var radioVal = $('input[name="remember"]:checked').val();
+		
+		console.log("radio : " + radioVal);
+		
+		/* var mbid = document.getElementById('mbid').value;
+		*/
+		location.href="reportPost.np?boardid=" + boardid + "&bid=" + bid + "&mid=" + mid + "&radioVal=" + radioVal; 
+		
+	});
 	
 	$(function() {
-		$("#userImage").hide(); 
+		$("#uploadImage").hide(); 
 		nameResult = -99;
 		emailResult = -99;
 		ck = -99;
@@ -715,7 +934,7 @@
 	});
 
 	function changeImage(){
-		$("#userImage").click();
+		$("#uploadImage").click();
 	}
 	
 	function loadImg(value){
@@ -727,6 +946,34 @@
 			reader.readAsDataURL(value.files[0])
 		}
 	}
+	
+	  $(document).on('opening', '.remodal', function () {
+		    /* console.log('opening'); */
+		  });
+
+		  $(document).on('opened', '.remodal', function () {
+		    /* console.log('opened'); */
+		  });
+
+		  $(document).on('closing', '.remodal', function (e) {
+		    /* console.log('closing' + (e.reason ? ', reason: ' + e.reason : '')); */
+		  });
+
+		  $(document).on('closed', '.remodal', function (e) {
+		    /* console.log('closed' + (e.reason ? ', reason: ' + e.reason : '')); */
+		  });
+
+		  $(document).on('confirmation', '.remodal', function () {
+		    /* console.log('confirmation'); */
+		  });
+
+		  $(document).on('cancellation', '.remodal', function () {
+		    /* console.log('cancellation'); */
+		  });
+		  
+		  $('[data-remodal-id=modal2]').remodal({
+		    /* modifier: 'with-red-theme' */
+		  });
 		
 	</script>
    <script src="${ contextPath }/resources/js/jquery.min.js"></script>

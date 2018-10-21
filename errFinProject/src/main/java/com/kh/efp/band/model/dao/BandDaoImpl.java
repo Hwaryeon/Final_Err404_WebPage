@@ -8,13 +8,17 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.efp.band.model.vo.Attfile;
 import com.kh.efp.band.model.vo.Ban;
 import com.kh.efp.band.model.vo.BanMemberList;
 import com.kh.efp.band.model.vo.Band;
+import com.kh.efp.band.model.vo.Board;
+import com.kh.efp.band.model.vo.MemberBandProfile;
 import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
 import com.kh.efp.member.model.vo.Profile;
 import com.kh.efp.member_band.model.vo.BoardList;
+import com.kh.efp.newPost.model.vo.Boards;
 
 @Repository
 public class BandDaoImpl implements BandDao{
@@ -275,5 +279,50 @@ public class BandDaoImpl implements BandDao{
 		list = (ArrayList)sqlSession.selectList("Band.selectMember_BandList2", mb);
 		
 		return list;
+	}
+
+	@Override
+	public Boards selectBoardDetail(SqlSessionTemplate sqlSession, int boardid) {
+		return sqlSession.selectOne("Band.selectBoardDetail", boardid);
+	}
+
+	@Override
+	public ArrayList<Boards> selectRefList(SqlSessionTemplate sqlSession, int boardid) {
+		
+		ArrayList<Boards> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("Band.selectRefList", boardid);
+		
+		return list;
+	}
+
+	@Override
+	public Attfile selectAttFile(SqlSessionTemplate sqlSession, int boardid) {
+		return sqlSession.selectOne("Band.selectAttFile", boardid);
+	}
+
+	@Override
+	public ArrayList<MemberBandProfile> selectMemberBandProfileList(SqlSessionTemplate sqlSession,
+			MemberBandProfile mbp) {
+		ArrayList<MemberBandProfile> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("Band.selectMemberBandProfile", mbp);
+		
+		return list;
+	}
+
+	@Override
+	public String selectBandCode(SqlSessionTemplate sqlSession, int bid) {
+		return sqlSession.selectOne("Band.selectBandCode", bid);
+	}
+
+	@Override
+	public void updateBandCode(SqlSessionTemplate sqlSession, Band b) {
+		sqlSession.update("Band.updateBandCode", b);
+	}
+
+	@Override
+	public int checkInviteCode(SqlSessionTemplate sqlSession, String code) {
+		return sqlSession.selectOne("Band.checkInviteCode", code);
 	}	
 }

@@ -135,7 +135,7 @@
 	          			</div>
 	          		</c:if>
 	          		<c:if test='${!empty contents[i]}'>
-	          			<a href='list.do?bid=${contents[i].bid}'>
+	          			<a href='bandBoardDetail.bd?boardid=${contents[i].boardId}'>
 				          <div class="col-md-3 col-xs-3">
 				            <div class="widget team-member contents-list" style='height: 360px;'>
 				              <img class='contentImg' src="${contextPath}/resources/upload_images/${contents[i].a_edit_Name}">

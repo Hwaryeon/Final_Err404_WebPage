@@ -129,8 +129,10 @@
 
                   <ul class="share-social">
 
-<!--                   <li><a href="bandBlock.bd?bid=1">차단</a></li>
-                  <li><a href="bandCalendarList.bd?bid=1">달력 호출</a></li> -->
+          
+                  <li><a href="bandBlock.bd?bid=1">차단</a></li>
+                  <li><a href="bandCalendarList.bd?bid=1">달력 호출</a></li>
+                <li><a href="bandBoardDetail.bd?boardid=1">밴드글 상세보기</a></li>
                      
                   	<li><a href="newPost.np" style="color:#25afe5; width: 62px; height:25px; line-height: inherit; font-weight: bold; border:0px;">새글 피드</a></li>
                   	<li><a href='codeFactoryMain.codeFac' style='border:0px;'><img src='${ contextPath }/resources/images/codePactory.png' width=25px; height=25px; class='menu_tooltip' title='코드 팩토리'/></a></li>
@@ -190,17 +192,22 @@
         }
      });
     
-    function deleteOneAlarm(bid, nid){
+    function deleteOneAlarm(boardId, nid, ref_Bid){
     	$.ajax({
     		url:'deleteOneAlarm.alarm',
     		data:{
     			nid:nid
     		},
     		success:function(data){
-    			if(data == 1)
-    				location.href='list.do?bid='+bid;
-    			else
+    			if(data == 1){
+    				if(ref_Bid == 0){
+    					location.href='bandBoardDetail.bd?boardid='+boardId;
+    				}else{
+    					location.href='bandBoardDetail.bd?boardid='+ref_Bid;
+    				}
+    			}else{
     				alert('해당 게시판으로 가기 실패');
+    			}
     		},
     		error:function(error){
     			
@@ -238,11 +245,11 @@
                   			case 'CONTENT' : type='게시글'; break;
                   			case 'COMMENT' : type='댓글'; break;
                   		}
-                  		$('#alarm_content').append("<li class='alarm_band' style='margin-right:0px;' onclick='deleteOneAlarm("+value.bid+','+value.nid+")'>"+
+                  		$('#alarm_content').append("<li class='alarm_band' style='margin-right:0px;' onclick='deleteOneAlarm("+value.boardId+','+value.nid+','+value.ref_Bid+")'>"+
              			"<h3 class='alarm_band_name'>" + value.bName + "</h3>"+ 
              				content +             			
              			"<hr class='band_line'>"+
-             			"<label class='alarm_type'> - "+type+" - \t작성일 : "+ value.alarm_Date +"<br>작성자 : "+ value.mName +"</label></li>");
+             			"<label class='alarm_type'>"+ type +"</label></li>");
                   	});
                   	
 		    		$('.alarm').show();

@@ -58,12 +58,43 @@
 		<result property="edit_name" column="EDIT_NAME" />
 	</resultMap>
 	
+
+
+	<resultMap type="Attfile" id="AttResultSet">
+		<id property = "fid" column="FID"/>
+		<result property = "boardId" column ="BOARDID"/>
+		<result property = "foreginName" column="FORIGIN_NAME"/>
+		<result property = "editName" column="EDIT_NAME"/>
+		<result property = "fileSrc" column ="FILE_SRC"/>
+		<result property ="fDate" column="FDATE"/>
+		<result property ="fLevel" column="FLEVEL"/>
+	</resultMap>
+	
+	<resultMap type ="AttBoard" id = "AttBoardResultSet">
+		<id property="boardId" column="BOARDID" />
+		<result property="bId" column="BID" />
+		<result property="mId" column="MID" />
+		<result property="bContent" column="BCONTENT" />
+		<result property="bDate" column="BDATE" />
+		<result property="bStatus" column="BSTATUS" />
+		<result property="refStatus" column="REF_STATUS" />
+		<result property="refBId" column="REF_BID" />
+		<result property = "mName" column="MNAME"/>
+		<result property = "fid" column="FID"/>
+		<result property = "forigin_name" column="FORIGIN_NAME"/>
+		<result property = "edit_name" column="EDIT_NAME"/>
+		<result property = "file_src" column ="FILE_SRC"/>
+		<result property ="fdate" column="FDATE"/>
+		<result property ="flevel" column="FLEVEL"/>
+	</resultMap>
+	
 	
 	<!-- 01.전체목록조회 -->
 	<select id="listAll" parameterType="int" resultMap="BoarddResultSet" >
 	SELECT *
 	FROM BOARDS 
 	WHERE BSTATUS ='Y' AND BID = #{pbid}
+	ORDER BY BDATE DESC
 	</select>
  	
  	
@@ -71,7 +102,7 @@
  	
  	<insert id ="insert">
  	INSERT INTO BOARDS VALUES(SEQ_BOARDID.NEXTVAL,
- 	#{bId},#{mId},#{bContent},SYSDATE,'Y',NULL,NULL
+ 	#{bId},#{mId},#{bContent},SYSDATE,'Y','CONTENT',NULL
  	)
  	</insert>
  
@@ -178,8 +209,7 @@
 	
 	
 	<delete id="deleteBoard" parameterType="int">
-		DELETE FROM BOARDS WHERE BOARDID = #{boardId}
-	
+		DELETE FROM BOARDS WHERE BOARDID = #{boardid}
 	</delete>
 	
 	<update id="updateBoard" parameterType="Board">
@@ -194,7 +224,7 @@
 	 <select id = "selectBoardCount" parameterType = "int" resultType = "int">
 		SELECT count(*)
 		FROM BOARDS
-		WHERE BID = #{pbid} AND MID != #{mId} AND BSTATUS = 'Y' AND REF_STATUS = 'CONTENT'
+		WHERE BID = #{pbid}  AND BSTATUS = 'Y' AND REF_STATUS = 'CONTENT'
 	</select>
 	
 	<!-- 댓글 갯수 -->
@@ -236,6 +266,52 @@
         ORDER BY FDATE DESC
         ) WHERE ROWNUM = 1
 	</select>
+	
+	
+	
+	<!--  사진 업로드 -->
+    
+    <insert id="insertBoardFile" parameterType = "Attfile">
+		INSERT INTO ATTFILE
+		VALUES(SEQ_FID.NEXTVAL, #{boardId}, #{forigin_name}, #{edit_name}, #{file_src}, SYSDATE, 1)
+	</insert>
+    
+    
+    	<select id="selectMid" resultType="_int" parameterType="Member">
+		SELECT MID FROM MEMBER WHERE MEMAIL = #{mEmail} AND MSTATUS = 'Y'
+	</select>
+	
+	
+	<select id="selectBoardId" resultType="_int" parameterType="Board">
+		SELECT SEQ_BOARDID.currval FROM DUAL
+	</select>
+	
+	<select id="selectCurrval" resultType="_int">
+		SELECT SEQ_BOARDID.currval FROM DUAL
+	</select>
+	
+
+	<select id = "selectAlbum" parameterType = "AttBoard" resultMap = "AttBoardResultSet">
+		SELECT B.BOARDID, MB.BID, M.MID, BCONTENT, BDATE, BSTATUS, REF_STATUS, REF_BID, M.MNAME, FID, FORIGIN_NAME, EDIT_NAME, FILE_SRC, FDATE, FLEVEL
+		FROM BOARDS B
+		JOIN ATTFILE A ON(B.BOARDID = A.BOARDID)
+		JOIN MEMBER_BAND MB ON(MB.MID = B.MID)
+		JOIN MEMBER M ON(M.MID = MB.MID)
+		WHERE B.BID = #{bid} AND BSTATUS = 'Y'
+	</select>
+	
+
+	<!-- 글삭제 -->
+	<delete id="deleteContent">
+		DELETE FROM BOARDS WHERE BOARDID = #{boardid}  OR REF_BID = #{boardid}
+	</delete>
+
+	
+	<!-- 글을 신고한 정보를 저장하는 메소드 -->
+	<insert id="insertReportContent" parameterType="Report">
+		INSERT INTO REPORT
+		 VALUES(SEQ_RID.NEXTVAL, #{rcontent}, #{mid}, SYSDATE, #{rlevel}, #{bid}, #{boardid}, #{cid})
+	</insert>
 	
 
 </mapper>

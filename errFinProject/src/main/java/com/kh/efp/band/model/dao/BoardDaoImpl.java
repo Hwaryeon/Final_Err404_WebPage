@@ -1,14 +1,19 @@
 package com.kh.efp.band.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.efp.band.model.vo.AttBoard;
+import com.kh.efp.band.model.vo.Attfile;
 import com.kh.efp.band.model.vo.Board;
+import com.kh.efp.member.model.vo.Profile;
 import com.kh.efp.newPost.model.vo.Boards;
 import com.kh.efp.newPost.model.vo.MemberProfile;
+import com.kh.efp.newPost.model.vo.Report;
 
 
 @Repository
@@ -118,9 +123,8 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public void deleteComment(int boardid) {
-		// TODO Auto-generated method stub
-		SqlSession.delete("board.deleteBoard", boardid);
+	public int deleteComment(int boardid) {
+		return SqlSession.delete("board.deleteBoard", boardid);
 	}
 
 	@Override
@@ -130,11 +134,84 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public MemberProfile selectMemberProfile(int mId) {
+	public MemberProfile selectMemberProfile(int getmId) {
 		// TODO Auto-generated method stub
-		return SqlSession.selectOne("board.selectMemberProfile",mId);
+		return SqlSession.selectOne("board.selectMemberProfile",getmId);
+	}
+
+
+
+	@Override
+	public int insertFileProfile(String bid, Profile pf) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int insertFile(String bid) {
+		// TODO Auto-generated method stub
+		return SqlSession.insert("board.insertFile",bid);
+	}
+
+	@Override
+	public int insertBoardFile(Attfile pf) {
+		// TODO Auto-generated method stub
+		return SqlSession.insert("board.insertBoardFile",pf);
+	}
+
+	@Override
+	public int create1(Board vo) {
+		// TODO Auto-generated method stub
+		return SqlSession.insert("board.insert",vo);
+	}
+
+	@Override
+	public int selectMid(Board vo) {
+		// TODO Auto-generated method stub
+		return SqlSession.selectOne("board.selectMid", vo);
+	}
+
+	@Override
+	public int selectBoardId(Board vo) {
+		// TODO Auto-generated method stub
+		return SqlSession.selectOne("board.selectBoardId",vo);
+	}
+
+	@Override
+	public int selectCurrval() {
+		// TODO Auto-generated method stub
+		return SqlSession.selectOne("board.selectCurrval");
+	}
+
+	@Override
+	public ArrayList<AttBoard> selectAlbum(int pbid) {
+		ArrayList<AttBoard> list = null;
+		
+		list = (ArrayList)SqlSession.selectList("board.selectAlbum", pbid);
+		
+		return list;
+	}
+
+	@Override
+	public int deleteContent(int boardid) {
+		return SqlSession.delete("board.deleteContent", boardid);
+	}
+
+	@Override
+	public int insertReportContent(Report rp) {
+		return SqlSession.insert("board.insertReportContent",rp);
+	}
+
+	@Override
+	public int insertReportComment(Report rp) {
+		return SqlSession.insert("board.insertReportContent",rp);
+
 	}
 	
+
+	 
+
 	
 	
 	

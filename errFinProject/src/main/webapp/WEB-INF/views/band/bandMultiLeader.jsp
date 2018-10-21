@@ -214,8 +214,8 @@
             <!-- <a href="#" class="about-btn-job">Job Oppertunities</a> -->
           </div>
           <div class="col-md-6" style="text-align:center">공동리더는 무엇을 할 수 있나요?<br>
-설정 메뉴에서 공동리더의 권한을 설정할 수 있습니다.
-<a href="#" class="about-btn-download">멤버들의 권한 설정 바로가기</a>
+          공동리더는 일반회원을 관리할 수 있습니다.
+<a href="bandMemberManagement.bd?bid= + '${ bid }'" class="about-btn-download">멤버 관리 바로가기</a>
 </div>
         </div> 
 

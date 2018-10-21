@@ -23,6 +23,62 @@
 	class="home page page-id-4 page-template page-template-template_home-php">
 	<!-- TOP NAV -->
 	<jsp:include page="../common/menubar.jsp" />
+	
+	<div class="recent-widget" id="tabbed-widget" style="background:#f6f6f6;">
+                  <ul class="nav nav-justified nav-tabs" style="width:610px;margin-left:auto;margin-right:auto;">
+                    <li class="active" style="width:150px; min-width:150px;" id="tab1">
+                    <a href="#tab1" data-toggle="tab" style="width:150px; min-width:150px;">전체글</a></li>
+                    <li style="width:150px; min-width:150px;" id="tab2">
+                    <a href="goboardAlbum.do?bid=${ bid }" data-toggle="tab" style="width:150px; min-width:150px;">사진첩</a></li>
+                    <li style="width:150px; min-width:150px;" id="tab3">
+                    <a href="#tab3" data-toggle="tab" style="width:150px; min-width:150px;">일정</a></li>
+                    <li style="width:150px; min-width:150px;" id="tab4">
+                    <a href="boardMember.do?bid=${ bid }" data-toggle="tab" style="width:150px; min-width:150px;">멤버</a></li>
+                  </ul>
+                </div>
+   
+   <script>
+			$(function(){
+				
+				$("#tab1").mouseenter(function(){
+					
+				}).mouseout(function(){
+					
+				}).click(function(){
+					console.log("tab1클릭됨");
+					location.href="list.do?bid=${bid}";
+				});
+				
+				$("#tab2").mouseenter(function(){
+					
+				}).mouseout(function(){
+					
+				}).click(function(){
+					console.log("tab2클릭됨");
+					location.href="goboardAlbum.do?bid=${ bid }";
+
+				});
+				
+				$("#tab3").mouseenter(function(){
+					
+				}).mouseout(function(){
+					
+				}).click(function(){
+					console.log("tab3클릭됨");
+				});
+				
+				$("#tab4").mouseenter(function(){
+					
+				}).mouseout(function(){
+					
+				}).click(function(){
+					console.log("tab4클릭됨");
+					location.href="boardMember.do?bid=${ bid }";
+				});
+				
+				
+			});		
+		</script>
 
 	<div class="container">
 
@@ -33,11 +89,30 @@
                     <li>
                         <a href="#">
                             <!-- <img src="http://placehold.it/209x128" alt=""> -->
-                             <img src="${ contextPath }/resources/upload_images/${pf.editName }" alt="">
+                             <%-- <img src="${ contextPath }/resources/upload_images/${pf.editName }" alt=""> --%>
+                             <c:if test="${ pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
+									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
+									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
+									|| pf.editName == 'cover7.jpg' }">
+								
+										<img src="${ contextPath }/resources/images/cover/${ pf.editName }">
+									</c:if>
+									
+									<c:if test="${ !(pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
+									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
+									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
+									|| pf.editName == 'cover7.jpg') }">
+								
+										<img src="${ contextPath }/resources/upload_images/${ pf.editName }">
+									</c:if>
+                             
+                             
+                             
                         </a>
                         <h2 style="color:#222; font-size:21px; margin-bottom:15px;font-weight:600;margin-top:20px;">${bname }</h2>
                         <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
-                        			멤버 ${memberCount}<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
+                        			멤버 ${memberCount}
+                        			<a href="boardMemberInvite.do?bid=${band.bid }" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
                         			초대코드 </a></h4>
                         <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
                         <a href="bandLeader.bd?bid=1" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
@@ -62,22 +137,24 @@
                   <div class="tab-content padding-10" style="padding:0.1px;">
                     <div class="tab-pane fade in active" id="tab1">
                     
-                    <div id="search-3" class="widget fullwidth widget_search" style="margin-bottom:1px;">
-                <form class="search" role="search" method="get" action="searchBanMemberSearch.bd">
-                    <input type="search" placeholder="Search &hellip;" value="" name="s" title="Search for:">
-                </form>
-            </div>
 			
            
            <c:forEach var="b" items="${list}">
             	
-            	<c:if test="${b.mlevel != 1}" >
 		            
 		            <div class="author-bar widget" style="margin-bottom:1px;">
               <div class="author-content">
-                <img alt="" src="http://placehold.it/89x89" class="avatar avatar-75 photo avatar-default" height="75" width="75">        
+              <c:if test = "${b.mType ne 'LOCAL' }">
+                <img alt="" src="${b.fileSrc }${b.editName}" height="75" width="75">        
+              </c:if>
+              <c:if test = "${ b.mType eq 'LOCAL' }">
+              	<img alt="" src="${contextPath }/resources/upload_images/${b.editName}" height="75" width="75">
+              </c:if>
                 <h4> <span><a href="#">
 					
+					<c:if test="${b.mlevel == 1}" >
+					밴드리더
+					</c:if>
 					<c:if test="${b.mlevel == 2}" >
 					공동리더
 					</c:if>
@@ -115,7 +192,6 @@
               </div>
             </div>
 				
-				</c:if>
 				
 			</c:forEach>
             
@@ -125,38 +201,7 @@
                     </div>
                     <div class="tab-pane fade" id="tab2">
                     <div id="search-3" class="widget fullwidth widget_search" style="margin-bottom:1px;">
-                <form class="search" role="search" method="get" action="#">
-                    <input type="search" placeholder="Search &hellip;" value="" name="s" title="Search for:">
-                </form>
             </div>
-            
-         <c:forEach var="c" items="${banList}">
-            	
-		            
-		            <div class="author-bar widget" style="margin-bottom:1px;">
-              <div class="author-content">
-                <img alt="" src="http://placehold.it/89x89" class="avatar avatar-75 photo avatar-default" height="75" width="75">        
-               <h4> <span><a href="#">
-					
-					차단된 회원
-
-				</a></span> </h4>
-                <h4><a href="" title="Posts by admin" rel="author">${c.mname}</a>
-                <span style="float:right;">
-                	<input type="hidden" value="${c.banid }" >
-                <a style="border:1px solid red; padding:7px; color:red; cursor:pointer;" class="deleteBanMember">
-                	차단 해제</a></span>
-                </h4>
-                <div class="clear"></div>
-              </div>
-            </div>
-				
-				
-			</c:forEach>
-            
-                    
-                    
-                    
                     </div>
                   </div>
                 </div>

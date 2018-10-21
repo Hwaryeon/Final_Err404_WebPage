@@ -25,17 +25,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import com.kh.efp.band.model.service.BandService;
+import com.kh.efp.band.model.vo.Attfile;
 import com.kh.efp.band.model.vo.Band;
+import com.kh.efp.band.model.vo.Board;
 import com.kh.efp.band.model.vo.Member_Band;
 import com.kh.efp.band.model.vo.Scehdule;
 import com.kh.efp.commons.DayWeek;
 import com.kh.efp.member.model.vo.Member;
+import com.kh.efp.newPost.model.service.newPostService;
+import com.kh.efp.newPost.model.vo.Boards;
+import com.kh.efp.newPost.model.vo.MemberProfile;
+import com.kh.efp.newPost.model.vo.Report;
 
 
 @Controller
 public class BandController {
 	@Autowired private BandService bs;
-	
+	@Autowired private newPostService ns; 
 	@Autowired private BandLeaderController blc;
 
 	@RequestMapping("bandCalendarList.bd")
@@ -205,7 +211,9 @@ public class BandController {
 	    map.add("mid", String.valueOf(mid));
 	 
 	    // REST API 호출
-	    String result2 = restTemplate.postForObject("http://127.0.0.1:3000/insertMember", map, String.class);
+
+	    //String result2 = restTemplate.postForObject("http://127.0.0.1:3000/insertMember", map, String.class);
+
 		}
 
 		String bid2 = bid + "";
@@ -213,6 +221,125 @@ public class BandController {
 		return "redirect:/list.do?bid=" + bid2;
 	}
 	
+	
+	@RequestMapping("bandBoardDetail.bd")
+	public String bandBoardDetail(@RequestParam int boardid, HttpServletRequest request,
+			HttpServletResponse response, Model model) throws Exception{
+		
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
+		
+		Boards b = bs.selectBoardDetail(boardid);
+		
+		int bid = b.getBid();
+		
+		blc.bandLeftSideBar(bid, mid, model);
+		
+		ArrayList<Boards> list = bs.selectRefList(boardid);
+		
+		for(int i=0; i<list.size(); i++){
+			System.out.println(i + " : " + list.get(i).toString());
+		}
+		
+		ArrayList<MemberProfile> mList = new ArrayList<MemberProfile>();
+		
+		for(int i=0; i<list.size(); i++){
+			mList.add(ns.selectMemberProfile(list.get(i).getMid()));
+			
+		}
+		
+		Attfile a = bs.selectAttFile(boardid);
+		
+		System.out.println("a : " + a);
+		
+		model.addAttribute("boards", b);
+		model.addAttribute("commentList", list);
+		model.addAttribute("count", list.size());
+		model.addAttribute("mList", mList);
+		model.addAttribute("att", a);
+		
+		return "band/bandBoardDetail";
+	}
 
+	@RequestMapping("insertComment.bd")
+	public String insertComment(@RequestParam int boardid, int bid, String comment , HttpServletRequest request, Model model){
+		
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();		
+		
+		Boards b = new Boards();
+		
+		b.setMid(mid);
+		b.setRef_bid(boardid);
+		b.setBid(bid);
+		b.setBcontent(comment);
+		b.setBstatus("Y");
+		b.setRef_status("COMMENT");
+		
+		ns.insertNewPost(b);
+		
+		return "redirect:/bandBoardDetail.bd?boardid=" + boardid;
+	}
+	
+	@RequestMapping("updateComment.bd")
+	public String updateComment(@RequestParam int boardid, String comment , HttpServletRequest request, Model model){
+		
+		
+		
+		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
+		
+		Boards b = new Boards();
+
+		b.setBoardid(boardid);
+		b.setBcontent(comment);
+		
+		ns.updateBoard(b);
+		
+		return "redirect:/bandBoardDetail.bd?boardid=" + boardid;
+	}
+	
+	@RequestMapping("reportComment.bd")
+	public String reportComment(@RequestParam int boardid, int bid, int mid, String radioVal, String rType, int ref_bid,
+			HttpServletRequest request, Model model){
+		
+		int mid2 = ((Member)request.getSession().getAttribute("loginUser")).getMid();
+		
+		Report re = new Report();
+		
+		re.setRcontent(radioVal);
+		re.setMid(mid2);
+		
+		if(rType.equals("C")){
+			re.setRlevel("C");
+		}else if(rType.equals("M")){
+			re.setRlevel("M");
+		}
+		
+		
+		re.setBoardid(boardid);
+		re.setBid(bid);
+		re.setCid(mid);
+		
+		ns.insertReport(re);
+		
+		
+		return "redirect:/bandBoardDetail.bd?boardid=" + ref_bid;
+	}
+	
+	@RequestMapping("deleteComment.bd")
+	public String deleteComment(@RequestParam int boardid, int ref_bid, Model model){
+		
+		ns.deleteBoard(boardid);
+		
+		
+		return "redirect:/bandBoardDetail.bd?boardid=" + ref_bid;
+	}
+	
+	@RequestMapping("deleteBoard.bd")
+	public String deleteBoard(@RequestParam int boardid, int bid, Model model){
+		
+		ns.deleteBoard(boardid);
+		
+		
+		return "redirect:/list.do?bid=" + bid;
+	}
 }
 

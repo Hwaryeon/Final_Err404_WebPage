@@ -128,34 +128,54 @@
 
 	<div class="container">
 
-		<div class="left-sidebar col-md-3" role="complementary">
+		 <div class="left-sidebar col-md-3" role="complementary" >
 
-			<div id="categort-posts-widget-2"
-				class="widget fullwidth categort-posts">
-				<h1 class="widget-title"></h1>
-				<ul class="tvshows">
-					<li><a href="#"> <!-- <span class="comment-count">11</span> -->
-							<img src="http://placehold.it/209x128" alt="">
-					</a>
-						<h2
-							style="color: #222; font-size: 21px; margin-bottom: 15px; font-weight: 600; margin-top: 20px;">밴드명</h2>
-						<h4
-							style="display: inline-block; font-size: 13px; font-weight: 400; color: #333;">
-							멤버 4<a href="#"
-								style="position: relative; padding-left: 12px; color: #fdb00d !important; font-size: 13px;">
-								초대코드 </a>
-						</h4>
-						<h4
-							style="margin-top: 14px; padding-top: 13px; border-top: 1px solid #e1e1e1;">
-							<a href="#"
-								style="font-size: 12px; font-weight: 400; color: #666; text-decoration: none;">*
-								밴드 설정</a>
-						</h4></li>
-				</ul>
-				<div class="clear"></div>
-			</div>
+         <div id="categort-posts-widget-2" class="widget fullwidth categort-posts" style = "background : white;">
+            <ul class="tvshows">
+               <li><a href="#">
+                            <!-- <img src="http://placehold.it/209x128" alt=""> -->
+                             <%-- <img src="${ contextPath }/resources/upload_images/${pf.editName }" alt=""> --%>
+                             <c:if test="${ pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
+									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
+									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
+									|| pf.editName == 'cover7.jpg' }">
+								
+										<img src="${ contextPath }/resources/images/cover/${ pf.editName }">
+									</c:if>
+									
+									<c:if test="${ !(pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
+									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
+									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
+									|| pf.editName == 'cover7.jpg') }">
+								
+										<img src="${ contextPath }/resources/upload_images/${ pf.editName }">
+									</c:if>
+                             
+                             
+                             
+                        </a>
+                  <h2
+                     style="color: #222; font-size: 21px; margin-bottom: 15px; font-weight: 600; margin-top: 20px;">${ Band.bname }</h2>
+                  <h4
+                     style="display: inline-block; font-size: 13px; font-weight: 400; color: #333;">
+                     멤버 ${memberCount }
+                     <a href="boardMemberInvite.do?bid=${bid }"
+                        style="position: relative; padding-left: 12px; color: #fdb00d !important; font-size: 13px;">
+                        초대코드 </a>
+                  </h4>
+                  <h4
+                     style="margin-top: 14px; padding-top: 13px; border-top: 1px solid #e1e1e1;">
+                     <a href="bandLeader.bd?bid=${ Band.bid }"
+                        style="font-size: 12px; font-weight: 400; color: #666; text-decoration: none;">*
+                        밴드 설정</a>
+                        
+                  </h4></li>
+            </ul>
+         </div>
 
-		</div>
+      </div>
+      
+      <input type="hidden" id="bid" value="${bid }">
 
 		<div class="main col-md-6 col-xs-12">
 
@@ -202,9 +222,35 @@
 						           }
 						           mFlag = true;
 						       } 
+						        
+						        var code = code[0]+' '+code[1]+' '+code[2]+' '+code[3]+' '+code[4]+' '+code[5];
 				
-						    return(code[0]+' '+code[1]+' '+code[2]+' '+code[3]+' '+code[4]+' '+code[5]);
+						        var bid = $('#bid').val();
+						   	    
+						   	    $.ajax({
+						   			url:"updateInvite.do",
+						   			type:"post",
+						   			data:{code:code,
+						   				bid:bid
+						   			},
+						   			
+						   			success:function(data){
+						   				console.log('코드 변경 성공');
+						   				console.log(data.code);
+						   				
+						   				document.getElementById('contactName').value = data.code;
+						   				
+						   				/* return(data.code); */
+						   				
+						   			},error:function(){
+						   				console.log('코드 변경 실패');
+						   			}
+						   		});
+						        
+						        
+						    /* return(code); */
 						    }
+						    
 						
 						</script>
 											
@@ -213,8 +259,19 @@
 					<!-- 초대코드입력 -->
 					<form id="contactForm">
 						<p class="name clearfix">
-							<input type="text" name="code" id="contactName" 
-								class="required requiredField">
+						
+							<c:if test="${ code != null }">
+								<input type="text" name="code" id="contactName" 
+								class="required requiredField" value="${code }">
+							</c:if>
+							
+							<c:if test="${ code == null }">
+								<input type="text" name="code" id="contactName" 
+								class="required requiredField"">
+							</c:if>
+							
+							<!-- <input type="text" name="code" id="contactName" 
+								class="required requiredField"> -->
 						</p>
 						<input style ="width:118px; height : 35px" onclick="code.value=btnChodae()" type="button" value="코드생성" height="50" width="200">
 						
@@ -244,17 +301,8 @@
 				</div>
 				<!-- #respond -->
 			</div>
-
-
-
-
-
-
-
-
-
 		</div>
-
+		
 		<div class="right-sidebar col-md-3" role="complementary">
 
 

@@ -115,7 +115,7 @@
           <div class="widget-content">
           	<div id='contents_list' class="row team-row" style='margin-right: auto; margin-left: auto; width:80%'>
 	          	<c:forEach var='i' begin='0' end='4' step='1'>
-	          	<a href='list.do?bid=${contents[i].bid}'>
+	          	<a href='bandBoardDetail.bd?boardid=${contents[i].boardId}'>
 		      	  <div class="col-md-12 col-xs-12">
 		            <div class="widget band-list">
 		              <div class="media">
@@ -123,10 +123,10 @@
 		                    <img class="media-object" src="${contextPath}/resources/upload_images/${contents[i].a_edit_Name}" alt="...">
 		                </div>
 		                <div class="media-body">
-		                  <h4 class="media-title" style='font-size:20px; color:#00b3f9;'>${fn:substring(contents[i].bContent,0,30)}</h4>
+		                  <h4 class="media-title" style='font-size:20px; color:#00b3f9;'>${fn:substring(contents[i].bContent,0,40)}</h4>
 		                  	<c:choose>
-					           <c:when test="${fn:length(contents[i].bContent) > 250}">
-					           		${fn:substring(contents[i].bContent,0,250)}....
+					           <c:when test="${fn:length(contents[i].bContent) > 300}">
+					           		${fn:substring(contents[i].bContent,0,300)}....
 					           </c:when>
 					           <c:otherwise>
 				        	    	${contents[i].bContent}
@@ -185,11 +185,11 @@
                	$.each(dataValue, function(key, value){
 	               	var bcontent = value.bContent;
 	               	var titleContent ;
-	               	if(bcontent.length > 50){		//문자열 길이 70이상이면 자르기
-	               		bcontent = bcontent.substr(0,250);
-	               		titleContent = bcontent.substr(0,30);
+	               	if(bcontent.length > 70){		//문자열 길이 70이상이면 자르기
+	               		bcontent = bcontent.substr(0,300);
+	               		titleContent = bcontent.substr(0,40);
 	               	}
-	               	$("#contents_list").append("<a href=list.do?bid="+value.bid+"><div class='col-md-12 col-xs-12'>"+
+	               	$("#contents_list").append("<a href=bandBoardDetail.bd?boardid="+value.boardId+"><div class='col-md-12 col-xs-12'>"+
 	    		            "<div class='widget band-list'>"+
 		              "<div class='media'>"+
 		                "<div class='media-left media-middle'>"+
