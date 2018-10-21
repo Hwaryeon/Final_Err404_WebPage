@@ -13,11 +13,11 @@ public class PopularContents implements java.io.Serializable{
 	private String edit_name;
 	private String flevel;
 	private String bcontent;
+	private int boardid;
 	
 	public PopularContents(){}
 
-	public PopularContents(int no, int replyCount, int bid, String bname, int mid, String mname, String edit_name, String flevel, String bcontent) {
-		super();
+	public PopularContents(int no, int replyCount, int bid, String bname, int mid, String mname, String edit_name, String flevel, String bcontent, int boardid) {
 		this.no = no;
 		this.replyCount = replyCount;
 		this.bid = bid;
@@ -27,6 +27,7 @@ public class PopularContents implements java.io.Serializable{
 		this.edit_name = edit_name;
 		this.flevel = flevel;
 		this.bcontent = bcontent;
+		this.boardid = boardid;
 	}
 
 	public int getNo() {
@@ -100,17 +101,20 @@ public class PopularContents implements java.io.Serializable{
 	public void setBcontent(String bcontent) {
 		this.bcontent = bcontent;
 	}
+	
+	public int getBoardid() {
+		return boardid;
+	}
+	
+	public void setBoardid(int boardid) {
+		this.boardid = boardid;
+	}
 
 	@Override
 	public String toString() {
-		return "\nPopularContents [no=" + no + ", replyCount=" + replyCount + ", bid=" + bid + ", bname=" + bname
+		return "PopularContents [no=" + no + ", replyCount=" + replyCount + ", bid=" + bid + ", bname=" + bname
 				+ ", mid=" + mid + ", mname=" + mname + ", edit_name=" + edit_name + ", flevel=" + flevel
-				+ ", bcontent=" + bcontent + "]";
+				+ ", bcontent=" + bcontent + ", boardid=" + boardid + "]";
 	}
 
-	
-	
-	
-	
-	
 }
