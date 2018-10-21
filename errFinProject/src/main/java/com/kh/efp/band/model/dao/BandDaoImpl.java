@@ -309,5 +309,20 @@ public class BandDaoImpl implements BandDao{
 		list = (ArrayList)sqlSession.selectList("Band.selectMemberBandProfile", mbp);
 		
 		return list;
+	}
+
+	@Override
+	public String selectBandCode(SqlSessionTemplate sqlSession, int bid) {
+		return sqlSession.selectOne("Band.selectBandCode", bid);
+	}
+
+	@Override
+	public void updateBandCode(SqlSessionTemplate sqlSession, Band b) {
+		sqlSession.update("Band.updateBandCode", b);
+	}
+
+	@Override
+	public int checkInviteCode(SqlSessionTemplate sqlSession, String code) {
+		return sqlSession.selectOne("Band.checkInviteCode", code);
 	}	
 }

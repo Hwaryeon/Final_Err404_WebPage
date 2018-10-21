@@ -101,7 +101,7 @@ public class newPostDaoImpl implements newPostDao{
 
 	@Override
 	public void deleteBoard(SqlSessionTemplate sqlSession, int boardid) {
-		sqlSession.delete("newPost.deleteBoard", boardid);
+		sqlSession.update("newPost.deleteBoard", boardid);
 	}
 
 	@Override

@@ -98,6 +98,12 @@ public interface BandDao {
 
 	ArrayList<MemberBandProfile> selectMemberBandProfileList(SqlSessionTemplate sqlSession, MemberBandProfile mbp);
 
+	String selectBandCode(SqlSessionTemplate sqlSession, int bid);
+
+	void updateBandCode(SqlSessionTemplate sqlSession, Band b);
+
+	int checkInviteCode(SqlSessionTemplate sqlSession, String code);
+
 
 
 

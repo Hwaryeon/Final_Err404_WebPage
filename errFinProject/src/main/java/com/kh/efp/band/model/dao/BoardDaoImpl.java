@@ -191,7 +191,8 @@ public class BoardDaoImpl implements BoardDao {
 		list = (ArrayList)SqlSession.selectList("board.selectAlbum", pbid);
 		
 		return list;
-    
+	}
+	
 	@Override
 	public int deleteContent(int boardid) {
 		return SqlSession.delete("board.deleteContent", boardid);
