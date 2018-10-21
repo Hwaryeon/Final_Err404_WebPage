@@ -264,6 +264,22 @@ public class BandServiceImpl implements BandService {
 		return bd.selectMemberBandProfileList(sqlSession, mbp);
 	}
 
+	@Override
+	public String selectBandCode(int bid) {
+		return bd.selectBandCode(sqlSession, bid);
+	}
+
+	@Override
+	public void updateBandCode(Band b) {
+		bd.updateBandCode(sqlSession, b);
+		
+	}
+
+	@Override
+	public int checkInviteCode(String code) {
+		return bd.checkInviteCode(sqlSession, code);
+	}
+
 
 
 //	@Override

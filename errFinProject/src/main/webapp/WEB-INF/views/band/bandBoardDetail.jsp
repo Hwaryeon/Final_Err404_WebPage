@@ -12,7 +12,8 @@
 <meta name="viewport" content=" width=device-width, initial-scale=1">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <title>Weekend Magazine</title>
-<link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal.css">
+<jsp:include page="../common/menubar.jsp" />
+  <link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal.css">
   <link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal-default-theme.css">
 <link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
@@ -22,6 +23,9 @@
 </head>
 <body
 	class="home page page-id-4 page-template page-template-template_home-php">
+	
+	<c:set var="comCount" value="0"/>
+	
 	<!-- TOP NAV -->
 	<div class="navbar navbar-default top-nav-bar" role="navigation">
 		<div class="container">
@@ -196,13 +200,44 @@
               <div class="post-meta">
                   ${ boards.bdate }    
                   
+                  
+                  <span class="reply" style="float:right;">
+                  
+                				  <!-- 신고글 번호 -->
+                            	<input type="hidden" value="${ boards.boardid }">
+                            	
+                            	<!-- 신고글 밴드 번호 -->
+                            	<input type="hidden" value="${boards.bid }">
+                            	
+                            	<!-- 신고글 유저 번호 -->
+                            	<input type="hidden" value="${boards.mid }">
+                            	
+                            	<!-- 신고글 유저 이름 -->
+                            	<c:forEach var="m" items="${ mList }">
+                            
+	                            	<c:if test="${ m.mid == boards.mid }" >
+	                            		<input type="hidden" value="${ m.mname }">
+	                          	  	</c:if>
+                          	  	</c:forEach>
+                            	
+								<!-- 신고글 내용 -->                            	
+                            	<input type="hidden" value="${boards.bcontent }">
+                            	
+                            	<!-- 신고 타입 -->
+                            	<input type="hidden" value="C">
+                  
+                  
+                  
                   <c:if test="${  sessionScope.loginUser.mid == boards.mid  }">  
-                  <a href="" class="print" title="Print" style="width:70px;"><i class="fa fa-print">수정</i></a>
-                  <a href="" class="print" title="Print" style="width:70px;"><i class="fa fa-print">삭제</i></a>
+                  <a class="comment-reply-link updateBoard" style="cursor:pointer; margin-right:5px; margin-left:5px;">수정</a>
+	              <a class="comment-reply-link deleteContent" style="cursor:pointer;">삭제</a>
                   
                   </c:if>
-                  
-                  <a href="" class="print" title="Print" style="width:70px;"><i class="fa fa-print">신고</i></a>
+                  <a class="comment-reply-link reportBoard" style="cursor:pointer;">신고</a>
+             	
+             	
+             	</span>
+             
               </div>
               <div class="post-content">
             	
@@ -223,6 +258,8 @@
               <ol class="commentlist">
               
               <c:forEach var="commentList" items="${commentList}">
+              
+               <c:set var="comCount" value="${comCount + 1 }"/>
               
                 <li class="comment parent">
                 
@@ -272,9 +309,52 @@
                                     <a href="#">${ commentList.bdate }</a>
                                 </span>
                                 
-                                <span class="reply">
-                                    <a class="comment-reply-link" href="#">신고</a>
-                                </span>
+                                
+                               <span class="reply">
+                               
+                               <!-- 신고댓글 번호 -->
+                            	<input type="hidden" value="${ commentList.boardid }">
+                            	
+                            	<!-- 신고댓글 밴드 번호 -->
+                            	<input type="hidden" value="${commentList.bid }">
+                            	
+                            	<!-- 신고댓글 유저 번호 -->
+                            	<input type="hidden" value="${commentList.mid }">
+                            	
+                            	<!-- 신고댓글 유저 이름 -->
+                            	<c:set var="doneLoop" value="false"/>
+                            	<c:forEach var="m" items="${ mList }">
+                            
+                            		<c:if test="${not doneLoop }">
+		                            	<c:if test="${ m.mid == commentList.mid }" >
+		                            		<input type="hidden" value="${ m.mname }">
+		                            		<c:set var="doneLoop" value="true"/>
+		                          	  	</c:if>
+	                          	  	</c:if>
+                          	  	</c:forEach>
+                            	
+								<!-- 신고댓글 내용 -->                            	
+                            	<input type="hidden" value="${commentList.bcontent }">
+                            
+                          		 
+                          		 <!-- 신고 타입 -->
+                            	<input type="hidden" value="M">
+                               
+                          		 <input type="hidden" value="${comCount}">
+                          		 
+                          		<input type="hidden" value="${ commentList.ref_bid }"> 
+                          		 
+                                
+                                <c:if test="${commentList.mid != sessionScope.loginUser.mid}">
+	                                    <a class="comment-reply-link reportBoard" style="cursor:pointer;">신고</a>
+                                </c:if>
+                                <c:if test="${commentList.mid == sessionScope.loginUser.mid}">
+	                                <a class="comment-reply-link updateBoard" style="cursor:pointer; margin-right:5px; margin-left:5px;">수정</a>
+	                                <a class="comment-reply-link deleteBoard" style="cursor:pointer;">삭제</a>
+                               </c:if>
+                               
+                               
+                               </span>
                                 
                             </div><!--comment-header-->
                             
@@ -286,6 +366,27 @@
                     
                 </li><!--Parent li-->
                 
+                <div class="widget clearfix" id="updateBoardArea${comCount}" style="display:none;">
+              <div id="respond" class="comment-respond">
+                <h3 id="reply-title" class="comment-reply-title" style="border-bottom:0px; float:left; margin-right:20px;">댓글 수정 <small><a rel="nofollow" id="cancel-comment-reply-link" href="" style="display:none;">Cancel reply</a></small></h3>
+                <form action="updateComment.bd" method="post" id="commentform" class="comment-form" style="float:left;">
+                  <p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="text" value="" size="30"></p>
+                  <p class="comment-form-comment" style="float:left; width:93%; margin-right: 10px;">
+                            	
+                  <input name="boardid" type="hidden" value="${ commentList.boardid }">
+                  
+                  <textarea id="comment" name="comment" cols="45" rows="1" aria-required="true" style="min-height:1px; resize: none;" onclick="this.value=''">${commentList.bcontent }</textarea></p>       
+                  <p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr>
+                  tags and attributes:  <code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code></p>
+                  <p class="form-submit" style="float:left; width:10px;">
+                  <input name="submit" type="submit" id="submit" value="Post Comment">
+                  <input type="hidden" name="comment_parent" id="comment_parent" value="0">
+                  </p>
+                </form>
+              </div><!-- #respond -->
+            </div>
+                
+                
                 </c:forEach>
                 
                 
@@ -294,12 +395,21 @@
 
             <div class="widget clearfix">
               <div id="respond" class="comment-respond">
-                <h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="" style="display:none;">Cancel reply</a></small></h3>
-                <form action="#" method="post" id="commentform" class="comment-form">
-                  <p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>     
+                <h3 id="reply-title" class="comment-reply-title" style="border-bottom:0px; float:left; margin-right:20px;">댓글쓰기 <small><a rel="nofollow" id="cancel-comment-reply-link" href="" style="display:none;">Cancel reply</a></small></h3>
+                <form action="insertComment.bd" method="post" id="commentform" class="comment-form" style="float:left;">
                   <p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="text" value="" size="30"></p>
-                  <p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>            <p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:  <code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code></p>            <p class="form-submit">
-                  <input name="submit" type="submit" id="submit" value="Post Comment">
+                  <p class="comment-form-comment" style="float:left; width:93%; margin-right: 10px;">
+                            	
+                  <input name="boardid" type="hidden" value="${boards.boardid }">
+                            	
+                  <input id="bid" name="bid" type="hidden" value="${ bid }">
+
+
+                  <textarea id="comment" name="comment" cols="55" rows="1" aria-required="true" style="min-height:1px; resize: none;" onclick="this.value=''">댓글을 입력해주세요</textarea></p>       
+                  <p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr>
+                  tags and attributes:  <code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code></p>
+                  <p class="form-submit" style="float:left; width:10px;">
+                  <input name="submit" type="submit" id="submit" value="댓글 등록" style="background-color: #5497e7;">
                   <input type="hidden" name="comment_parent" id="comment_parent" value="0">
                   </p>
                 </form>
@@ -417,5 +527,274 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.bxslider.min.js"></script>
 	<script src="js/custom.js"></script>
+	
+	<div class="remodal" data-remodal-id="modal" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
+  <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
+  <div>
+    <h2 id="modal1Title" style="border: 1px solid black;padding: 10px;">신고하기</h2>
+    <p id="modal1Desc" style="margin-top:30px; font-size:20px;">
+       	신고 이름
+    </p> 
+    <p id="modal1Desc2" style="font-size:20px;">
+       	신고 내용
+    </p>
+    
+    <ul>
+							<li>
+								<h4 class="list-title"
+									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
+									음란 또는 청소년에게 부적합한 내용
+									<label style="float:right"> 
+										<input name="remember" value="음란 또는 청소년에게 부적합한 내용" type="radio">
+								</label>
+								</h4>
+							</li>
+							<li>
+								<h4 class="list-title"
+									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
+									부적절한 홍보
+									<label style="float:right">
+										<input name="remember" value="부적절한 홍보" type="radio" >
+									</label>
+								</h4>
+							</li>
+							<li>
+								<h4 class="list-title"
+									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
+									개인정보 노출
+									<label style="float:right"> 
+										<input name="remember" value="개인정보 노출" type="radio">
+									
+									</label>
+								</h4>
+							</li>
+							<li>
+								<h4 class="list-title"
+									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
+									저작권 및 명예훼손/기타권리 침해
+									<label style="float:right"> 
+										<input name="remember" value="저작권 및 명예훼손/기타권리 침해" type="radio">
+									
+									</label>
+								</h4>
+							</li>
+						</ul>
+    
+    
+    
+  </div>
+  <br>
+  <input type="hidden" id="boardid" value=""/>
+  <input type="hidden" id="bid" value=""/> 
+  <input type="hidden" id="mid" value=""/> 
+  <input type="hidden" id="rType" value=""/> 
+  <input type="hidden" id="ref_bid" value=""/>
+  
+  <button data-remodal-action="cancel" class="remodal-cancel">취소</button>
+  <button id="reportNewPost" data-remodal-action="confirm" class="remodal-confirm">신고하기</button>
+</div>
+
+<div class="remodal" data-remodal-id="modal2" role="dialog" aria-labelledby="modal1Title" aria-describedby="modal1Desc">
+  <button data-remodal-action="close" class="remodal-close" aria-label="Close"></button>
+  <div class="widget-content">
+						<ul>
+							<li>
+								<h4 class="list-title" id="reply-title2" 
+									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
+									댓글 삭제
+								</h4>
+							</li>
+							<li>
+								<h4 class="list-title" id="reply-content" 
+									style="display: block; word-wrap: break-word; word-break: break-all; font-size: 14px; font-weight: 400; color: #222;">
+									해당 댓글을 삭제하시겠습니까 ?
+								</h4>
+							</li>
+						</ul>
+					</div>
+  <br>
+  <input type="hidden" id="boardid2" value=""/> 
+  <input type="hidden" id="ref_bid2" value=""/>
+  <button data-remodal-action="cancel" class="remodal-cancel">취소</button>
+  <button id="deleteContentBu" data-remodal-action="confirm" class="remodal-confirm">확인@</button>
+  <button id="deleteBoardBu" data-remodal-action="confirm" class="remodal-confirm">확인</button>
+</div>
+
+<script>
+
+$('#reportNewPost').click(function(){
+	
+	
+	/* console.log("id : " + document.getElementById('boardid').value);
+	console.log("id : " + document.getElementById('bid').value);
+	console.log("id : " + document.getElementById('mid').value); */
+	
+	var boardid = document.getElementById('boardid').value;
+	var bid = document.getElementById('bid').value;
+	var mid = document.getElementById('mid').value;
+	
+	var radioVal = $('input[name="remember"]:checked').val();
+	
+	var rType = document.getElementById('rType').value;
+	var ref_bid = document.getElementById('ref_bid').value;
+	
+	
+	/* var mbid = document.getElementById('mbid').value;
+	*/
+	location.href="reportComment.bd?boardid=" + boardid + "&bid=" + bid + "&mid=" + mid + "&radioVal=" + radioVal + 
+			"&rType=" + rType + "&ref_bid=" + ref_bid; 
+	
+});
+
+$('#deleteBoardBu').click(function(){
+	
+	var boardid = document.getElementById('boardid2').value;
+	var ref_bid = document.getElementById('ref_bid2').value;
+	
+	location.href="deleteComment.bd?boardid=" + boardid + "&ref_bid=" + ref_bid; 
+	
+});
+
+
+</script>
+<script>
+ $('#deleteContentBu').click(function(){
+	
+	console.log('deleteContentBu');
+	
+	var boardid = document.getElementById('boardid2').value;
+	
+	var bid = document.getElementById('bid').value;
+	
+	console.log('deleteContentBu');
+	
+	location.href="deleteBoard.bd?boardid=" + boardid + "&bid=" + bid; 
+	
+});
+
+</script>
+	
+	
+	<script>
+		$('.reportBoard').click(function(){
+			 
+			var str = ($(this).parents().children("input").eq(4).val());	
+			
+			
+			if(str.length > 24){
+				str = str.substr(0, 25);
+				str += '...';
+			}
+			
+			 document.getElementById('boardid').value = $(this).parents().children("input").eq(0).val();  
+			 document.getElementById('bid').value = $(this).parents().children("input").eq(1).val();
+			 document.getElementById('mid').value = $(this).parents().children("input").eq(2).val();
+			 
+			 document.getElementById('modal1Desc').innerHTML = $(this).parents().children("input").eq(3).val();
+			 document.getElementById('modal1Desc2').innerHTML = str;
+			 
+			 document.getElementById('rType').value = ($(this).parents().children("input").eq(5).val());
+			 
+			 document.getElementById('ref_bid').value = ($(this).parents().children("input").eq(7).val());
+			 
+			 location.href="#modal";
+		});
+		
+		$('.deleteBoard').click(function(){
+			 
+			 document.getElementById('boardid2').value = $(this).parents().children("input").eq(0).val();
+			 document.getElementById('ref_bid2').value = ($(this).parents().children("input").eq(7).val());
+			 
+			 document.getElementById('reply-title2').innerHTML = '댓글 삭제';
+			 document.getElementById('reply-content').innerHTML = '해당 댓글을 삭제하시겠습니까 ?';
+			
+			 
+			var con = document.getElementById('deleteContentBu');
+			 var con2 = document.getElementById('deleteBoardBu');
+             
+             con.style.display = 'none';
+             con2.style.display = '-webkit-inline-box'; 
+			 
+			 
+			 location.href="#modal2";
+		});
+		
+		$('.deleteContent').click(function(){
+			 
+			 document.getElementById('boardid2').value = $(this).parents().children("input").eq(0).val();
+			 
+			 document.getElementById('reply-title2').innerHTML = '게시글 삭제';
+			 document.getElementById('reply-content').innerHTML = '해당 게시글을 삭제하시겠습니까 ?';
+			 
+			 var con = document.getElementById('deleteContentBu');
+			 var con2 = document.getElementById('deleteBoardBu');
+             
+             con2.style.display = 'none';
+             con.style.display = '-webkit-inline-box';
+			 
+			 
+			 location.href="#modal2";
+		});
+		
+		
+		
+		
+		$('.updateBoard').click(function(){
+			
+			 
+			var count = $(this).parents().children("input").eq(6).val();
+			console.log('count : ' + count);
+			 
+			var str = 'updateBoardArea' + count;
+			 
+			var con = document.getElementById(str);
+			 
+			if(con.style.display=='none'){
+		        con.style.display = 'block';
+		    }else{
+		        con.style.display = 'none';
+		    }
+
+
+			 
+			 
+		});
+		
+		</script>
+		
+		<script>window.jQuery || document.write('<script src="../../../libs/jquery/dist/jquery.min.js"><\/script>')</script>
+<script src="${ contextPath }/resources/Remodal-1.1.1/dist/remodal.js"></script>
+
+<!-- Events -->
+<script>
+  $(document).on('opening', '.remodal', function () {
+    /* console.log('opening'); */
+  });
+
+  $(document).on('opened', '.remodal', function () {
+    /* console.log('opened'); */
+  });
+
+  $(document).on('closing', '.remodal', function (e) {
+    /* console.log('closing' + (e.reason ? ', reason: ' + e.reason : '')); */
+  });
+
+  $(document).on('closed', '.remodal', function (e) {
+    /* console.log('closed' + (e.reason ? ', reason: ' + e.reason : '')); */
+  });
+
+  $(document).on('confirmation', '.remodal', function () {
+    /* console.log('confirmation'); */
+  });
+
+  $(document).on('cancellation', '.remodal', function () {
+    /* console.log('cancellation'); */
+  });
+  
+  $('[data-remodal-id=modal2]').remodal({
+    /* modifier: 'with-red-theme' */
+  });
+</script>
+	
 </body>
 </html>

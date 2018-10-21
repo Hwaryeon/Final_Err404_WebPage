@@ -160,10 +160,10 @@
 		 VALUES(SEQ_BOARDID.NEXTVAL, #{bid}, #{mid}, #{bcontent}, SYSDATE, #{bstatus}, #{ref_status}, #{ref_bid})
 	</insert>
 	
-	<delete id="deleteBoard" parameterType="int">
-		DELETE FROM BOARDS WHERE BOARDID = #{boardid}
+	<update id="deleteBoard" parameterType="int">
+		UPDATE BOARDS SET BSTATUS = 'N' WHERE BOARDID = #{boardid}
+	</update>
 	
-	</delete>
 	
 	<update id="updateBoard" parameterType="Boards">
 		UPDATE BOARDS SET BCONTENT = #{bcontent}, BDATE = SYSDATE WHERE BOARDID = #{boardid}

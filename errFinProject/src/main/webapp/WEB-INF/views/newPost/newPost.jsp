@@ -239,6 +239,9 @@
 								<!-- 신고글 내용 -->                            	
                             	<input type="hidden" value="${np.bcontent }">
                             	
+                            	<!-- 신고 타입 -->
+                            	<input type="hidden" value="C">
+                            	
                                 <a class="comment-reply-link reportBoard" style="cursor:pointer;">신고</a>
                             </span>
             
@@ -351,12 +354,17 @@
 								<!-- 신고댓글 내용 -->                            	
                             	<input type="hidden" value="${commentList.bcontent }">
                             
-                          		 <input type="hidden" value="${comCount}">
+                          		 
+                          		 <!-- 신고 타입 -->
+                            	<input type="hidden" value="M">
+                          		
+                          		<input type="hidden" value="${comCount}">
                             
-                                <a class="comment-reply-link reportBoard" style="cursor:pointer;">신고</a>
-                                
+                            	<c:if test="${commentList.mid != userId}">
+                                	<a class="comment-reply-link reportBoard" style="cursor:pointer;">신고</a>
+                                </c:if>
+
                                 <c:if test="${commentList.mid == userId}">
-                                
 	                                <a class="comment-reply-link updateBoard" style="cursor:pointer; margin-right:5px; margin-left:5px;">수정</a>
 	                                <a class="comment-reply-link deleteBoard" style="cursor:pointer;">삭제</a>
                                </c:if>
@@ -427,6 +435,8 @@
 		
 		<script>
 		$('.reportBoard').click(function(){
+			
+			console.log('reportBoard');
 			 
 			 /* var str = ($(this).parents().children("input").eq(4).val()).substr(0, 25); */
 			 
@@ -447,6 +457,8 @@
 			 document.getElementById('modal1Desc').innerHTML = $(this).parents().children("input").eq(3).val();
 			 document.getElementById('modal1Desc2').innerHTML = str;
 			 
+			 document.getElementById('rType').value = ($(this).parents().children("input").eq(5).val());
+			 
 			 location.href="#modal";
 		});
 		
@@ -460,7 +472,9 @@
 		
 		$('.updateBoard').click(function(){
 			 
-			var count = $(this).parents().children("input").eq(5).val();
+			var count = $(this).parents().children("input").eq(6).val();
+			
+			console.log('count : ' + count);
 			 
 			var str = 'updateBoardArea' + count;
 			 
@@ -663,7 +677,8 @@
   <br>
   <input type="hidden" id="boardid" value=""/>
   <input type="hidden" id="bid" value=""/> 
-  <input type="hidden" id="mid" value=""/>  
+  <input type="hidden" id="mid" value=""/> 
+  <input type="hidden" id="rType" value=""/> 
   <button data-remodal-action="cancel" class="remodal-cancel">취소</button>
   <button id="reportNewPost" data-remodal-action="confirm" class="remodal-confirm">신고하기</button>
 </div>
@@ -709,11 +724,13 @@ $('#reportNewPost').click(function(){
 	
 	var radioVal = $('input[name="remember"]:checked').val();
 	
+	var rType = document.getElementById('rType').value;
+	
 	console.log("radio : " + radioVal);
 	
 	/* var mbid = document.getElementById('mbid').value;
 	*/
-	location.href="reportPost.np?boardid=" + boardid + "&bid=" + bid + "&mid=" + mid + "&radioVal=" + radioVal; 
+	location.href="reportPost.np?boardid=" + boardid + "&bid=" + bid + "&mid=" + mid + "&radioVal=" + radioVal + "&rType=" + rType; 
 	
 });
 

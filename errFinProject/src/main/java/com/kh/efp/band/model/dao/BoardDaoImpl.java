@@ -192,7 +192,7 @@ public class BoardDaoImpl implements BoardDao {
 		
 		return list;
 	}
-    
+
 	@Override
 	public int deleteContent(int boardid) {
 		return SqlSession.delete("board.deleteContent", boardid);
