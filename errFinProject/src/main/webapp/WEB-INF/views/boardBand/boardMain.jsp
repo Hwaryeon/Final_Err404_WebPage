@@ -732,26 +732,21 @@ $('.updateBoard').click(function(){
 
 
          <div id="categort-posts-widget-2"
-            class="widget fullwidth categort-posts">
+            class="widget fullwidth categort-posts" style = "background : white;">
             <h1 class="widget-title">최근 사진</h1>
             <ul class="tvshows">
-               <li><a href="#"> <img
+            <c:forEach var = "sidePhoto" items = "${ rightAlbum }" varStatus = "idx">
+            <c:if test = "${idx.count mod 2 == 1 }">
+               <li>
+              </c:if>
+              <a href="#"> <img
                      style="min-height: 100px; height: 100px; width: 100px;"
-                     src="http://placehold.it/209x128" alt="">
-               </a> <a href="#"> <img
-                     style="min-height: 100px; height: 100px; width: 100px;"
-                     src="http://placehold.it/209x128" alt="">
-               </a></li>
-               <li><a href="#"> <img
-                     style="min-height: 100px; height: 100px; width: 100px;"
-                     src="http://placehold.it/209x128" alt="">
-               </a> <a href="#"> <img
-                     style="min-height: 100px; height: 100px; width: 100px;"
-                     src="http://placehold.it/209x128" alt="">
-               </a></li>
-
-
-
+                     src="${contextPath }/resources/upload_images/${sidePhoto.edit_name}" alt="">
+               </a>
+               <c:if test = "${idx.count mod 2 != 1 }">
+               	</li>
+               </c:if>
+               </c:forEach>
             </ul>
 
 

@@ -43,6 +43,7 @@ public class BoardController {
 	@Autowired private newPostService ns; 
     @Autowired BoardService boardService;
     @Autowired BandService bs;
+    @Autowired BoardAlbumController bac;
     @Autowired BandLeaderController blc;
     
     // 01.게시글 목록
@@ -200,7 +201,7 @@ public class BoardController {
     	}
     	
     	
-    	
+    	bac.rightSidePhoto(bid, model);
     	
 ///////////////////////////////여기가지 ㅠ파이리리리릴
     	Band bb = bs.selectBand(pbid);
