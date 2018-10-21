@@ -115,7 +115,7 @@
           <div class="widget-content">
           	<div id='contents_list' class="row team-row" style='margin-right: auto; margin-left: auto; width:80%'>
 	          	<c:forEach var='i' begin='0' end='4' step='1'>
-	          	<a href='${contents[i].boardId}'>
+	          	<a href='bandBoardDetail.bd?boardid=${contents[i].boardId}'>
 		      	  <div class="col-md-12 col-xs-12">
 		            <div class="widget band-list">
 		              <div class="media">
@@ -189,7 +189,7 @@
 	               		bcontent = bcontent.substr(0,300);
 	               		titleContent = bcontent.substr(0,40);
 	               	}
-	               	$("#contents_list").append("<a href="+value.boardId+"><div class='col-md-12 col-xs-12'>"+
+	               	$("#contents_list").append("<a href=bandBoardDetail.bd?boardid="+value.boardId+"><div class='col-md-12 col-xs-12'>"+
 	    		            "<div class='widget band-list'>"+
 		              "<div class='media'>"+
 		                "<div class='media-left media-middle'>"+

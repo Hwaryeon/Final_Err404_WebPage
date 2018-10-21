@@ -313,7 +313,7 @@
 		 VALUES(SEQ_RID.NEXTVAL, #{rcontent}, #{mid}, SYSDATE, #{rlevel}, #{bid}, #{boardid}, #{cid})
 	</insert>
 	
-	<select id= "selectRightSidePhoto" parameterType = "int" resultMap = "Attfile">
+	<select id= "selectRightSidePhoto" parameterType = "int" resultMap = "AttResultSet">
 		SELECT FID, BOARDID, FORIGIN_NAME, EDIT_NAME, FILE_SRC, FDATE, FLEVEL
 		FROM ( SELECT ROWNUM RNUM, FID, B.BOARDID, FORIGIN_NAME, EDIT_NAME, FILE_SRC, FDATE, FLEVEL
 		FROM ATTFILE A
