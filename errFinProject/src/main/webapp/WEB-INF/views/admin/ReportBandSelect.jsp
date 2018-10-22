@@ -100,7 +100,7 @@
 		<!-- LOGO AREA -->
 		
 		<!-- MAIN NAV -->
-		<div class="container">
+		<div class="container" style="width:1170px; height:702px;">
 
 			<div class="left-sidebar col-md-3" role="complementary">
 				<div class="menu-container">
@@ -136,13 +136,13 @@
 							<td width="20%">신고 사유</td>
 							<td width="13%">신고받은 날짜</td>
 						</tr>
-						<c:forEach var="reportMember" items="${ reportMember }">
+						<c:forEach var="reportBand" items="${ reportBand }">
 							<tr>
 								<%-- <td>${ reportMember.cid }</td> --%>
-								<td>${ reportMember.mname }</td>
+								<td>${ reportBand.mname }</td>
 								<%-- <td>${ reportMember.bname }</td> --%>
-								<td>${ reportMember.rcontent }</td>
-								<td>${ reportMember.rdate }</td>
+								<td>${ reportBand.rcontent }</td>
+								<td>${ reportBand.rdate }</td>
 						</c:forEach>
 					</table>
 

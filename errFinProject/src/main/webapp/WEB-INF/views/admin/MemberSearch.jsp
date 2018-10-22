@@ -55,7 +55,7 @@
 	height: 70px;
 	font-size: 20px;
 	text-align: center;
-	border: 1px solid black;
+	/* border: 1px solid black; */
 }
 
 .search-area{
@@ -71,7 +71,7 @@
 	class="home page page-id-4 page-template page-template-template_home-php">
 	<!-- TOP NAV -->
 	<div class="navbar navbar-default top-nav-bar" role="navigation">
-		<div class="container">
+		<!-- <div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".topmenu">
@@ -80,11 +80,11 @@
 						class="icon-bar"></span>
 				</button>
 			</div>
-		</div>
+		</div> -->
 		<!-- LOGO AREA -->
 		
 		<!-- MAIN NAV -->
-		<div class="container">
+		<div class="container" style="width:1170px; height:600px;">
 
 			<div class="left-sidebar col-md-3" role="complementary">
 				<div class="menu-container">
@@ -174,6 +174,7 @@
 							<c:url var='mListBack' value="MemberSearch.ad">
 								<c:param name="requestCurrentPage" value="${ pi.currentPage -1 }"/>
 							</c:url>
+							<!-- <a class="pageBack" >[이전]</a> -->
 							<a href="${ mListBack }">[이전]</a> &nbsp;
 						</c:if>
 						<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
@@ -201,24 +202,17 @@
 				</div>
 			</div>
 		</div>
-		<script>
+	</div>
+	<script>
 		
-		$('.pageBu').click(function(){
+	$('.pageBu').click(function(){
+		var pi = $(this).text();
+		console.log("pi : " + pi);
+		var keyword = $("#searchNickName").val();
+		console.log('keywprd : '+ keyword);
+		location.href="MemberSearch.ad?keyword=" + keyword + "&currentPage=" + pi; 
 			
-			var pi = $(this).text();
-			
-			console.log("pi : " + pi);
-			
-			var keyword = $("#searchNickName").val();
-			
-			console.log('keywprd : '+ keyword);
-			
-			location.href="MemberSearch.ad?keyword=" + keyword + "&currentPage=" + pi; 
-			
-			
-			
-		});
-		
-		</script>
+	});
+	</script>
 </body>
 </html>

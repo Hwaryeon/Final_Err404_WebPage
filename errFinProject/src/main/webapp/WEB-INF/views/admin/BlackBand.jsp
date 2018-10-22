@@ -55,7 +55,7 @@
 	height: 70px;
 	font-size: 20px;
 	text-align: center;
-	border: 1px solid black;
+	/* border: 1px solid black; */
 }
 
 
@@ -85,7 +85,7 @@
 		<!-- LOGO AREA -->
 		
 		<!-- MAIN NAV -->
-		<div class="container">
+		<div class="container" style="width:1170px; height:702px;">
 
 			<div class="left-sidebar col-md-3" role="complementary">
 				<div class="menu-container">
@@ -105,7 +105,7 @@
 				<div class="admin-container">
 					<h1 style="height: 50px; padding-left: 20px; padding-top: 10px;">블랙리스트 밴드 조회</h1>
 					<form action="BlackBand.ad">
-						<div class="search-area">
+						<!-- <div class="search-area">
 							정렬방법  : 
 							<select name="alignment" style="margin-left:2%; font-size:15px; height:25px;">
 								<option value="bid">-------</option>
@@ -114,12 +114,12 @@
 								<option value="bopen_status">밴드유형</option>
 							</select>
 							<button>정렬</button>
-						</div>
+						</div> -->
 					</form>
 					<table class="admin-table">
 						<tr style="background-color:lightblue">
 							<td width="10%">밴드번호</td>
-							<td width="40%">밴드명</td>
+							<td width="20%">밴드명</td>
 							<td width="15%">카테고리명</td>
 							<td width="15%">밴드유형</td>
 							<td width="10%">밴드장</td>
@@ -172,5 +172,6 @@
 				</div>
 			</div>
 		</div>
+	</div>
 </body>
 </html>

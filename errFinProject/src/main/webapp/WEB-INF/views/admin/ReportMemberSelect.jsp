@@ -100,7 +100,7 @@
 		<!-- LOGO AREA -->
 		
 		<!-- MAIN NAV -->
-		<div class="container">
+		<div class="container" style="width:1170px; height:702px;">
 
 			<div class="left-sidebar col-md-3" role="complementary">
 				<div class="menu-container">

@@ -54,7 +54,7 @@
 	height: 70px;
 	font-size: 20px;
 	text-align: center;
-	border: 1px solid black;
+	/* border: 1px solid black; */
 }
 
 
@@ -83,7 +83,7 @@
 		</div>
 		<!-- LOGO AREA -->
 		<!-- MAIN NAV -->
-		<div class="container">
+		<div class="container" style="width:1170px; height:600px;">
 
 			<div class="left-sidebar col-md-3" role="complementary">
 				<div class="menu-container">
@@ -160,6 +160,7 @@
 							<td width="15%">밴드유형</td>
 							<td width="10%">밴드장</td>
 						</tr>
+						
 						<c:forEach var="SearchBand" items="${ bandSearch }">
 							<tr>
 								<td>${ SearchBand.bid }</td>
