@@ -261,7 +261,7 @@ public class CreateSampleData{
 		String[] arr = str.split(",");
 		if(arr.length == 0) return null;
 		Collections.shuffle(Arrays.asList(arr));
-		return arr[0];
+		return arr[0].trim();
 	}
 	//랜덤한 100단위의 금액 생성
 	/*private String R_Money(String str){

@@ -92,6 +92,8 @@
 	  border: 1px solid #eee;
 	  height: 100%;
 	  max-height:500px;
+	  font-size:15px;
+	  font-weight:bold;
 	}
 	
     .CodeMirror-scroll {

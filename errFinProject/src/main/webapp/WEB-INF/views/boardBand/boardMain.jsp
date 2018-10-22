@@ -117,7 +117,7 @@
 		</script>
 		
 
-   <div class="container">
+   <div class="container" style="min-height:800px;">
 
          <div class="left-sidebar col-md-3" role="complementary">
 
@@ -180,7 +180,7 @@
 	                        
 	                        	<input type="hidden" name="bid" value="${ bid }">
 	                        
-	                        	<button class="button vote" >${ loop }가입하기</button>
+	                        	<button class="button vote" >가입하기</button>
 	                        </form>
                         </c:if>
                         
@@ -300,7 +300,10 @@
                            <a>
                               <img alt="" src="${ contextPath }/resources/images/dropEdit.png?id=${row.boardId}"
                         class="avatar avatar-75 photo avatar-default" >
-                        <button type="button" id="btnUpdate" class="btnUpdate" onclick=update()>수정</button></a></li>
+                        <!-- <button type="button" id="btnUpdate" class="btnUpdate" onclick=update()>수정</button> -->
+                        
+                        <button type="button" id="" class="btnUpdate" onclick="">수정</button>
+                        </a></li>
                         
                            <li><a onclick='deleteContent(${row.boardId})'><img alt="" src="${ contextPath }/resources/images/dropDelete.png"
                         class="avatar avatar-75 photo avatar-default" >&nbsp&nbsp&nbsp&nbsp&nbsp삭제하기</a></li>
@@ -362,8 +365,8 @@
                		
                		var bId = $(this).parent().parent().children("input").eq(3).val();
                		console.log(bId);
-               		/* location.href="updatePage.do?boardId=" + bo + "&bContent=" + bcontent +"&bId=" + bId;
-               		 */
+               		location.href="updatePage.do?boardId=" + bo + "&bContent=" + bcontent +"&bId=" + bId;
+               		 
                	});
                	
                </script>
@@ -458,6 +461,10 @@
               
                 <p>${row.bContent }</p>
              
+            	
+            	
+            	
+            	<%-- <c:if test="${row.boardId == }"> --%>
             	
               </div>
               

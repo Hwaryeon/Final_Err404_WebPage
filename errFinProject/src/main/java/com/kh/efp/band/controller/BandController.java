@@ -187,7 +187,7 @@ public class BandController {
 		}else if(b.equals("PTD")){
 			mb.setIstatus("S");
 		}else if(b.equals("PRV")){
-			mb.setIstatus("S");
+			mb.setIstatus("Y");
 		}
 		
 		System.out.println("mb : " + mb.toString());
@@ -212,7 +212,7 @@ public class BandController {
 	 
 	    // REST API 호출
 
-	    String result2 = restTemplate.postForObject("http://192.168.20.228:3000/insertMember", map, String.class);
+	    String result2 = restTemplate.postForObject("http://192.168.20.246:3000/insertMember", map, String.class);
 
 		}
 

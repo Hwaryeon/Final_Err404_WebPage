@@ -60,6 +60,7 @@
 		JOIN BAND B ON(B.BID = MB.BID)
 		JOIN PROFILE P ON(P.BID = B.BID)
 		WHERE M.MID = #{ imid } AND ISTATUS != 'N'
+		AND P.FDATE = (SELECT MAX(F.FDATE) FROM PROFILE F WHERE F.BID =B.BID)
 	</select>
 	
 	<!-- 탈퇴 / 가입취소 상태 변경 -->

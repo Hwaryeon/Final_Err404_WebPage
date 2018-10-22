@@ -285,6 +285,22 @@ public class BandServiceImpl implements BandService {
 		return bd.checkBlock(sqlSession, check);
 	}
 
+	@Override
+	public void deleteAttFile(int boardId) {
+		bd.deleteAttFile(sqlSession, boardId);
+	}
+
+	@Override
+	public void updateAttFile(Attfile af) {
+		bd.updateAttFile(sqlSession, af);
+	}
+
+	@Override
+	public ArrayList<Attfile> selectAttList(int bid) {
+		return bd.selectAttList(sqlSession, bid);
+	}
+
+
 
 
 //	@Override

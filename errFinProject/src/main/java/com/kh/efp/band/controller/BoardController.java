@@ -105,10 +105,8 @@ public class BoardController {
     	int boardCount =0;
     	int commentCount =0;
     	
-
-	    	
-	    	boardCount = boardService.selectBoardCount(pbid);
-	    	commentCount = boardService.selectCommentCount(pbid);
+    	boardCount = boardService.selectBoardCount(pbid);
+	    commentCount = boardService.selectCommentCount(pbid);
    
     	
     	ArrayList<Board> boardList = new ArrayList<Board>(boardService.selectBoardCount(pbid));
@@ -188,24 +186,18 @@ public class BoardController {
 			mList2.add(ns.selectMemberProfile(test2[i].getmId()));
 		}
 		
-    	/*for(int i=0; i<mList.size(); i++){
-    		System.out.println(i + " : " + mList.get(i).toString());
-    		
-    	}*/
-    	
-    	for(int i=0; i<mList.size(); i++){
-    		System.out.println(i+" : " +mList.get(i).toString());
-    		
-    	}
-    	
-    	for(int i=0; i<mList2.size(); i++){
-    		System.out.println(i+" : " +mList2.get(i).toString());
-    		
-    	}
     	
     	bac.rightSidePhoto(bid, model);
     	
-///////////////////////////////여기가지 ㅠ파이리리리릴
+    	
+    	ArrayList<Attfile> aList = bs.selectAttList(Integer.parseInt(bid));
+    	
+    	for(int i=0; i<aList.size(); i++){
+    		System.out.println(i + " : " + aList.get(i).toString());
+    	}
+    	
+    	
+    	
     	Band bb = bs.selectBand(pbid);
     	//ModelAndView - 모델과 뷰
     	ModelAndView mav = new ModelAndView();
@@ -228,6 +220,8 @@ public class BoardController {
     	//프로필 리스트
     	mav.addObject("mList",mList);
     	mav.addObject("mList2",mList2);
+    	
+    	mav.addObject("aList",aList);
     	
     	return mav;// boardMain.jsp로 List 전달
     	
@@ -429,6 +423,8 @@ public class BoardController {
     	board.setbContent(bContent);
     	board.setbId(bId);
     	
+    	System.out.println("baord : " + board);
+    	
     	Board selectBoard = boardService.selectBoard(board);
 //    	ModelAndView mav = new ModelAndView();
 //    	mav.setViewName("board/view");
@@ -439,6 +435,90 @@ public class BoardController {
   	
     	/*return "boardBand/boardEdit";*/
     }
+    
+    @RequestMapping(value="updateContent.do", method=RequestMethod.POST)
+	public String updateContent(@RequestParam int boardId, String bContent, int bId, 
+			@RequestParam(name="uploadImage", required=false)MultipartFile photo,
+			HttpServletRequest request, Model model)throws Exception{
+		
+    	int mId = ((Member)request.getSession().getAttribute("loginUser")).getMid();
+    	
+    	Boards b = new Boards();
+    	
+    	
+    	b.setBoardid(boardId);
+    	b.setBcontent(bContent);
+    	
+    	System.out.println("updateContent.do");
+    	System.out.println("b : " + b);
+    	
+    	ns.updateBoard(b);
+    	
+    	
+    	Attfile af = new Attfile();
+    	
+    	String root = "";
+		String filePath = "";
+		String originFileName = "";
+		String ext = "";
+		String changeName = "";
+
+		System.out.println("photo : " + photo);
+    	
+		if(!photo.isEmpty()){
+			
+		
+		root = request.getSession().getServletContext().getRealPath("resources");
+
+		filePath = root + "/upload_images/";
+
+		originFileName = photo.getOriginalFilename();
+		ext = originFileName.substring(originFileName.lastIndexOf("."));
+
+		changeName = CommonUtils.getRandomString();
+		
+		af.setFile_src(filePath);
+		af.setForigin_name(originFileName);
+		af.setEdit_name(changeName + ext); 
+		af.setBoardId(boardId);
+		
+		System.out.println("af : " + af);
+		
+		}
+		try {
+			
+			//사진 유무 확인 후 파일 저장
+			if(!photo.isEmpty()){
+				
+				System.out.println("사진 파일 있음");
+				
+				photo.transferTo(new File(filePath + changeName + ext));
+				
+				System.out.println("attfile : " + af);
+				
+				bs.updateAttFile(af);
+				//프사와 멤버객체 저장
+			}else{
+				System.out.println("사진 파일 없음");
+			}
+
+		} catch (Exception e) {
+			new File(filePath + changeName + ext).delete();
+
+		}
+    	
+    	
+    	/*if(photo.isEmpty()){    		
+    		boardService.create(vo);
+    	}*/
+    	
+    	
+    	
+    	
+    	String bid2 = bId + "";
+		
+		return "redirect:/list.do?bid=" + bid2;
+	}
     
     
     //05. 게시글 삭제
