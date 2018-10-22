@@ -663,7 +663,7 @@ public class BandLeaderController {
 	    map.add("mid", String.valueOf(loginUser.getMid()));
 	 
 	    // REST API 호출
-	    String result2 = restTemplate.postForObject("http://127.0.0.1:3000/insertMember", map, String.class);
+	    String result2 = restTemplate.postForObject("http://192.168.20.246:3000/insertMember", map, String.class);
 		
 		return "redirect:/insertMemberList.bd?bid=" + bid;
 	}

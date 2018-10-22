@@ -329,5 +329,25 @@ public class BandDaoImpl implements BandDao{
 	@Override
 	public int checkBlock(SqlSessionTemplate sqlSession, Member_Band check) {
 		return sqlSession.selectOne("Band.checkBlock", check);
+	}
+
+	@Override
+	public void deleteAttFile(SqlSessionTemplate sqlSession, int boardId) {
+		sqlSession.delete("Band.deleteAttFile", boardId);
+	}
+
+	@Override
+	public void updateAttFile(SqlSessionTemplate sqlSession, Attfile af) {
+		sqlSession.update("Band.updateAttFile", af);
+	}
+
+	@Override
+	public ArrayList<Attfile> selectAttList(SqlSessionTemplate sqlSession, int bid) {
+	
+		ArrayList<Attfile> list = null;
+		
+		list = (ArrayList)sqlSession.selectList("Band.selectAttList", bid);
+		
+		return list;
 	}	
 }

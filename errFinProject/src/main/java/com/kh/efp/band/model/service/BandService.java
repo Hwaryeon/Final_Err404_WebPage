@@ -104,6 +104,12 @@ public interface BandService {
 
 	int checkBlock(Member_Band check);
 
+	void deleteAttFile(int boardId);
+
+	void updateAttFile(Attfile af);
+
+	ArrayList<Attfile> selectAttList(int bid);
+
 	
 
 

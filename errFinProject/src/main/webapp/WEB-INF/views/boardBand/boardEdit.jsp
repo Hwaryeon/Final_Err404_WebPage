@@ -32,7 +32,6 @@
     	   		console.log(mId);
     	   		console.log(boardId);
     	   		console.log(bContent);
-    	   		alert(bId);
     	   		
     	   		
     	   		location.href="updateBoard.do?mId=" + mId + "&boardId=" + boardId +"&bContent=" + bContent +"&bId=" + bId;
@@ -116,13 +115,6 @@
 
 			<input type="hidden" path="boardId"/>
 
-         <div id="search-3" class="widget fullwidth widget_search">
-            <form class="search" role="search" method="get" action="#">
-               <input type="search" placeholder="Search &hellip;" value=""
-                  name="s" title="Search for:">
-            </form>
-         </div>
-
          <div class="widget clearfix">
             <div id="respond" class="comment-respond">
                <h3 id="reply-title" class="comment-reply-title">
@@ -130,34 +122,33 @@
                      id="cancel-comment-reply-link" href="" style="display: none;">Cancel
                         reply</a></small>
                </h3>
-               <form name="form1" action="updateBoard.do" method="post" >
+               <form name="form1" action="updateContent.do" method="post" encType = "multipart/form-data" >
                   <input type="hidden" id="boardId" name="boardId" value="${board.boardId }"> 
                   <input type="hidden" id="bId" name="bId" value="${board.bId }">
                   <p class="comment-notes">
-                     멤버들에게 전할 소식을 남겨주세요~ <span class="required">*</span>
+                     수정할 내용을 입력해주세요 <span class="required">*</span>
                   </p>
                   <p class="comment-form-comment">
                      <label for="comment"></label>
                      <textarea  name="bContent" id="bContent" cols="45" rows="8"
-                        aria-required="true">
-                     ${ board.bContent }
-                        </textarea>
+                        aria-required="true">${ board.bContent }</textarea>
               
                   </p>
-                  <%-- <p class="form-allowed-tags">
-                     You may use these <abbr title="HyperText Markup Language">HTML</abbr>
-                     tags and attributes:
-                     <code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt;
-                        &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt;
-                        &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt;
-                        &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code>
-                  </p> --%>
+                   <table
+							style="display: table-cell; vertical-align: middle; text-align: center;">
+							<tr>
+								<td width="270px" style="vertical-align: middle; text-align: left;">
+									<img id = "contentImg1" src="resources/images/fileImg.png" alt="" style = "width : 64px; height : 64px;">
+									 <input type="file" id="uploadImage" name="uploadImage" multiple onchange="loadImg(this)">
+								</td>
+								<td style="vertical-align: middle;"><a class="button-navy button-link" onclick = "changeImage()">사진 첨부</a> 
+								</td>
+							</tr>
+						</table>
                   <p class="form-submit">
                      <span style="float: right">
-                      <button id="btnUpdate">게시</button>
+                      <button id="btnUpdate">수정</button>
                       </span> 
-                        <!-- <input type="hidden" name="comment_parent" id="comment_parent"
-                        value="0"> -->
                   </p>
                </form>
             </div>

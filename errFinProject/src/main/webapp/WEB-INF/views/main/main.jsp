@@ -19,6 +19,14 @@
 <link href="resources/css/lightslider.css" rel="stylesheet">
 <script src="resources/js/lightslider.js"></script>
 <style>
+@import url('https://fonts.googleapis.com/css?family=Nanum+Myeongjo');
+</style>
+<style>
+
+p{
+	font-family: 'Nanum Myeongjo', serif;
+}
+
 .myband {
 	margin-left: auto;
 	margin-right: auto;
@@ -37,7 +45,7 @@
 }
 
 .myband-list {
-	background-color: lightgray;
+	background-color: #eff0f1;
 	width: 180px;
 	height: 200px;
 	margin-left: 20px;
@@ -106,7 +114,7 @@
 }
 
 .poppost-list {
-	background-color: lightgray;
+	background-color: #eff0f1;
 	width: 490px;
 	height: 200px;
 	margin-left: 30px;
@@ -173,7 +181,7 @@
 }
 
 .recommend-list {
-	background-color: lightgray;
+	background-color: #eff0f1;
 	width: 500px;
 	height: 100px;
 	margin-right: 25px;

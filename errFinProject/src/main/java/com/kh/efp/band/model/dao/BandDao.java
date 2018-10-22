@@ -106,6 +106,12 @@ public interface BandDao {
 
 	int checkBlock(SqlSessionTemplate sqlSession, Member_Band check);
 
+	void deleteAttFile(SqlSessionTemplate sqlSession, int boardId);
+
+	void updateAttFile(SqlSessionTemplate sqlSession, Attfile af);
+
+	ArrayList<Attfile> selectAttList(SqlSessionTemplate sqlSession, int bid);
+
 
 
 

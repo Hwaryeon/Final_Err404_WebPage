@@ -23,8 +23,6 @@
 <body
 	class="home page page-id-4 page-template page-template-template_home-php">
 
-	<!-- TOP NAV -->
-	<jsp:include page="../common/menubar.jsp" />
 	
 	<div class="recent-widget" id="tabbed-widget" style="background:#f6f6f6;">
                   <ul class="nav nav-justified nav-tabs" style="width:610px;margin-left:auto;margin-right:auto;">
@@ -88,29 +86,12 @@
 		</script>
 
 
-				});
-				
-				$("#tab3").mouseenter(function(){
-					
-				}).mouseout(function(){
-					
-				}).click(function(){
-					console.log("tab3클릭됨");
-					location.href="bandCalendarList.bd?bid=${ bid }";
-				});
-				
-				$("#tab4").mouseenter(function(){
-					
-				}).mouseout(function(){
-					
-				}).click(function(){
-					console.log("tab4클릭됨");
-					location.href="boardMember.do?bid=${ bid }";
-				});
-				
-				
-			});		
-		</script>
+
+
+
+
+
+			
 	<div class="container">
 
 	<div class="left-sidebar col-md-3" role="complementary">
@@ -485,7 +466,7 @@ function doChatting(mid){
 			window.open(link, 'test window', settings);
 	    }
 		
-	})
+	});
 }
 
 function inviteChatting(mid){

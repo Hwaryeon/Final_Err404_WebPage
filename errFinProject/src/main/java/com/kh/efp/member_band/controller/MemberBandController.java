@@ -88,7 +88,12 @@ public class MemberBandController {
 		
 		Band b = mbs.selectBandinviteCode(inviteCode);
 		
-		return "redirect:/list.do?bid=" + b.getBid();
+		if(b != null){
+			
+			return "redirect:/list.do?bid=" + b.getBid();
+		}else{
+			return "commons/errorPage";
+		}
 	}
 	
 }

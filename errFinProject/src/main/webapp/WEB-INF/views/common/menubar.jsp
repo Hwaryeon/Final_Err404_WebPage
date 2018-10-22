@@ -298,7 +298,6 @@
 			   	    	response(data);
 	   	    		  },
 	   	    		  error:function(error){
-	   	    			  alert(error);
 	   	    		  }
 	   	    	  })
    	    	  }
@@ -328,7 +327,7 @@
     	
          $.ajax({
 
-        	url : 'http://127.0.0.1:3000/',
+        	url : 'http://192.168.20.246:3000/',
         	data : {
         		mid : `${sessionScope.loginUser.mid}`,
         		name : `${sessionScope.loginUser.mName}`,
@@ -349,7 +348,7 @@
     
     function chatting(){
 
-    	var url = "http://127.0.0.1:3000/chat/" + ${sessionScope.loginUser.mid};
+    	var url = "http://192.168.20.246:3000/chat/" + ${sessionScope.loginUser.mid};
     	/* var url = "http://192.168.20.248:3000/" + ${sessionScope.loginUser.mid}; */
 
 		var settings = "width=400, height=602, toolbar=no, menubar=no, scrollbars=no, resizable=no";
