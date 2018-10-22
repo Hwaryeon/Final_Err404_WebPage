@@ -205,7 +205,7 @@ public class AdminController {
 		List<Object> list = as.showReportBand(pi, bid);
 			
 		model.addAttribute("loginUser", loginUser);
-		model.addAttribute("reportMember", list);
+		model.addAttribute("reportBand", list);
 		model.addAttribute("pi", pi);
 		model.addAttribute("cid", ((ReportList)list.get(0)).getBid());
 			

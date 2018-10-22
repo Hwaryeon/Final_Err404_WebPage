@@ -55,7 +55,7 @@
 	height: 70px;
 	font-size: 20px;
 	text-align: center;
-	border: 1px solid black;
+	/* border: 1px solid black; */
 }
 
 .search-area{
@@ -84,7 +84,7 @@
 		<!-- LOGO AREA -->
 		
 		<!-- MAIN NAV -->
-		<div class="container">
+		<div class="container" style="width:1170px; height:600px;">
 
 			<div class="left-sidebar col-md-3" role="complementary">
 				<div class="menu-container">
@@ -104,7 +104,7 @@
 				<div class="admin-container">
 					<h1 style="height: 50px; padding-left: 20px; padding-top: 10px;">블랙리스트 회원 조회</h1>
 					<form action="BlackMember.ad">
-						<div class="search-area">
+						<!-- <div class="search-area">
 							정렬방법  : 
 							<select name="alignment" style="margin-left:2%; font-size:15px; height:25px;">
 								<option value="mid">-------</option>
@@ -113,7 +113,7 @@
 								<option value="mname">닉네임</option>
 							</select>
 							<button>정렬</button>
-						</div>
+						</div> -->
 					</form>
 					<table class="admin-table">
 						<tr style="background-color:lightblue">
@@ -175,5 +175,6 @@
 				</div>
 			</div>
 		</div>
+	</div>
 </body>
 </html>

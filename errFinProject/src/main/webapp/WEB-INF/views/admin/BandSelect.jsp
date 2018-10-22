@@ -84,7 +84,7 @@
 		<!-- LOGO AREA -->
 		
 		<!-- MAIN NAV -->
-		<div class="container">
+		<div class="container" style="width:1170px; height:600px;">
 
 			<div class="left-sidebar col-md-3" role="complementary">
 				<div class="menu-container">
@@ -167,37 +167,6 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="footer">
-			<div class="footer-top">
-				<div class="container">
-					<div class="pull-left">
-						<div id="text-6">
-							<div class="textwidget">
-								<a href="#">Weekend Magazine</a> &copy; 2015 All rights reserved
-							</div>
-						</div>
-					</div>
-					<div class="pull-right hidden-xs">
-						<div id="text-7">
-							<div class="textwidget">
-								Theme by <a title="Email me now" href="#">JKthemes</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="footer-bottom hidden-xs">
-				<div class="container">
-					<div id="nav_menu-2"></div>
-					<a class="footer-nav-scroll pull-right"></a>
-				</div>
-			</div>
-		</div>
 	</div>
-	<script src="../../resources/js/jquery.min.js"></script>
-	<script src="../../resources/js/bootstrap.min.js"></script>
-	<script src="../../resources/js/jquery.bxslider.min.js"></script>
-	<script src="../../resources/js/custom.js"></script>
 </body>
 </html>

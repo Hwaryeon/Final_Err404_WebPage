@@ -16,11 +16,12 @@ public class ReportList implements java.io.Serializable{
 	private String rcontent; //신고사유
 	private String bcontent; //신고당한 게시글
 	private int boardid; //신고당한 게시글 아이디
+	private int ref_bid; //신고당한 게시글 댓글여부 확인하기용도
 	
 	public ReportList(){}
 	
 	public ReportList(int cid, String memail, String mcname, String mname, int bid, String bname, Date rdate,
-			String bopen_status, String mbname, int times, String rcontent, String bcontent, int boardid) {
+			String bopen_status, String mbname, int times, String rcontent, String bcontent, int boardid, int ref_bid) {
 		this.cid = cid;
 		this.memail = memail;
 		this.mcname = mcname;
@@ -34,8 +35,17 @@ public class ReportList implements java.io.Serializable{
 		this.rcontent = rcontent;
 		this.bcontent = bcontent;
 		this.boardid = boardid;
+		this.ref_bid = ref_bid;
 	}
 	
+	public int getRef_bid() {
+		return ref_bid;
+	}
+
+	public void setRef_bid(int ref_bid) {
+		this.ref_bid = ref_bid;
+	}
+
 	public int getBoardid() {
 		return boardid;
 	}
@@ -145,8 +155,7 @@ public class ReportList implements java.io.Serializable{
 		return "ReportList [cid=" + cid + ", memail=" + memail + ", mcname=" + mcname + ", mname=" + mname + ", bid="
 				+ bid + ", bname=" + bname + ", rdate=" + rdate + ", bopen_status=" + bopen_status + ", mbname="
 				+ mbname + ", times=" + times + ", rcontent=" + rcontent + ", bcontent=" + bcontent + ", boardid="
-				+ boardid + "]";
+				+ boardid + ", ref_bid=" + ref_bid + "]";
 	}
-
 	
 }

@@ -61,6 +61,8 @@
 		<result property="rdate" column="RDATE"/>
 		<result property="rcontent" column="RCONTENT"/>
 		<result property="bname" column="BNAME"/>
+		<result property="boardid" column="BOARDID"/>
+		<result property="ref_bid" column="REF_BID"/>
 	</resultMap>
 	
 	<resultMap type="BanList" id="banMember">
@@ -263,10 +265,11 @@
 	</select>
 	<!-- 신고받은 밴드 상세정보 조회 -->
 	<select id="showReportBand" parameterType="_int" resultMap="showReportBand">
-		select m.mname, r.rdate, r.rcontent, r.bid
+		select m.mname, r.rdate, r.rcontent, r.bid, r.boardid, d.ref_bid
 		from report r
 		join member m on (r.mid = m.mid)
 		join band b on (r.bid = b.bid)
+        join boards d on (r.boardid = d.boardid)
 		where b.bid = #{bid}
 	</select>
 	<!-- 신고받은 밴드 Ban 테이블에 저장하기 -->

@@ -74,6 +74,7 @@
 		JOIN PROFILE P ON (P.BID = B.BID)
 		JOIN CATEGORY C ON (B.CID = C.CID)
 		WHERE BSTATUS = 'Y'
+		AND BOPEN_STATUS != 'PRV'
 		and b.bid NOT IN (select bid
 		                  from member_band
 		                  WHERE MID = #{mid})
