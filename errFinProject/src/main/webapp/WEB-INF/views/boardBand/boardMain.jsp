@@ -362,8 +362,8 @@
                		
                		var bId = $(this).parent().parent().children("input").eq(3).val();
                		console.log(bId);
-               		location.href="updatePage.do?boardId=" + bo + "&bContent=" + bcontent +"&bId=" + bId;
-               		
+               		/* location.href="updatePage.do?boardId=" + bo + "&bContent=" + bcontent +"&bId=" + bId;
+               		 */
                	});
                	
                </script>
