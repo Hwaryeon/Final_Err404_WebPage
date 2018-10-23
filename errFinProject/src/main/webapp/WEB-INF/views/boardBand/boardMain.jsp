@@ -220,38 +220,46 @@
                <form name="form1" action="insert.do" method="post"encType = "multipart/form-data" >
                   <input type = 'hidden' name = 'mId' value = "${ sessionScope.loginUser.mid }">
                   <input type = 'hidden' name = 'bId' value = "${ Band.bid }">
-                  <p class="comment-notes">
-                     멤버들에게 전할 소식을 남겨주세요~ <span class="required">*</span>
-                  </p>
+                 
+                  
                   <p class="comment-form-comment">
                      <label for="comment"></label>
-                     <textarea name="bContent" id="bContent" cols="45" rows="8"
-                        aria-required="true"></textarea>
+                     <textarea style= "background-color:#F3F3F3;border-style:none;" name="bContent" id="bContent" cols="45" rows="8"
+                        aria-required="true" placeholder=" 멤버들에게 전할 소식을 남겨주세요~" ></textarea>
+                        
+                        
                   </p>
-                  <%-- <p class="form-allowed-tags">
-                     You may use these <abbr title="HyperText Markup Language">HTML</abbr>
-                     tags and attributes:
-                     <code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt;
-                        &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt;
-                        &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt;
-                        &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code>
-                  </p> --%>
+                   <p class="comment-notes"> <span class="required">*</span>
+                   		 사진 올리기
+                  </p>
+                   <a float="right" class="button-navy button-link" onclick = "changeImage()" class="btn btn-primary" class="btn btn-primary"  style="background-color: rgba( 255, 255, 255, 0.5 )" >
+					<img   fill: #000; height ="25px" alt="" src="${ contextPath }/resources/images/photo2.png"  style="cursor:pointer;">
+								
+					</a> 
+							<img id = "contentImg1" src="resources/images/fileImg.png" alt="" style = "width : 64px; height : 64px;">
+									 <input type="file" id="uploadImage" name="uploadImage" multiple onchange="loadImg(this)">
+                  <div align="left">
                   <table
 							style="display: table-cell; vertical-align: middle; text-align: center;">
 							<tr>
-								<td width="270px" style="vertical-align: middle; text-align: left;">
-									<img id = "contentImg1" src="resources/images/fileImg.png" alt="" style = "width : 64px; height : 64px;">
-									 <input type="file" id="uploadImage" name="uploadImage" multiple onchange="loadImg(this)">
+								<%-- <td style="vertical-align: left;">
+									<a class="button-navy button-link" onclick = "changeImage()" class="btn btn-primary" class="btn btn-primary"  style="background-color: rgba( 255, 255, 255, 0.5 )" >
+									<img height ="25px" alt="" src="${ contextPath }/resources/images/photo1.png">
+								
+									</a> 
+								</td> --%>
+								<td width="270px" style="vertical-align: left; text-align: left;">
+								
 								</td>
-								<td style="vertical-align: middle;"><a class="button-navy button-link" onclick = "changeImage()">사진 첨부</a> 
-								</td>
+								
 							</tr>
 						</table>
-
+</div>
                   
                   <p class="form-submit">
                      <span style="float: right">
-                      <button id="btnSave">게시</button>
+                   
+                      <button type="button"  id="btnSave" class="btn btn-primary"  style="background-color: #5497e7;">  게시   </button>
                       </span> 
                         <!-- <input type="hidden" name="comment_parent" id="comment_parent"
                         value="0"> -->
@@ -302,7 +310,7 @@
                         class="avatar avatar-75 photo avatar-default" >
                         <!-- <button type="button" id="btnUpdate" class="btnUpdate" onclick=update()>수정</button> -->
                         
-                        <button type="button" id="" class="btnUpdate" onclick="">수정</button>
+                        <button  type="button" id="" class="btnUpdate" onclick="">수정</button>
                         </a></li>
                         
                            <li><a onclick='deleteContent(${row.boardId})'><img alt="" src="${ contextPath }/resources/images/dropDelete.png"
