@@ -87,6 +87,16 @@
    cursor:pointer;
 }
 
+.comment-reply-title, .page .page-title{
+	    margin: 5px 0 11px;
+
+}
+.categort-posts,  .sh{
+
+	box-shadow: 0px 0px 6px #4d4a4a;
+
+}
+
 </style>
 </head>
 <body

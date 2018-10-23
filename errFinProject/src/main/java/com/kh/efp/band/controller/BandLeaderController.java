@@ -80,6 +80,10 @@ public class BandLeaderController {
 		// 밴드 상세보기 왼쪽 프로필 채우기
 		bandLeftSideBar(bid, mid, model);
 		
+		String bid2 = bid + "";
+		
+		bac.rightSidePhoto(bid2, model);
+		
 		Member_Band mb = new Member_Band();
 		
 		mb.setBid(bid);
@@ -234,6 +238,10 @@ public class BandLeaderController {
 		
 		bandLeftSideBar(bid, mid, model);
 				
+		String bid2 = bid + "";
+		
+		bac.rightSidePhoto(bid2, model);
+		
 		Member_Band mb = new Member_Band();
 				
 		mb.setBid(bid);
@@ -241,7 +249,7 @@ public class BandLeaderController {
 				
 		ArrayList<Member_Band> mbList = bs.searchMember_BandList(mb);
 		
-		model.addAttribute("list", mbList);
+		model.addAttribute("mbList", mbList);
 		
 		return "band/bandChangeMultiLeader";
 		
@@ -292,6 +300,9 @@ public class BandLeaderController {
 		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();	
 		
 		bandLeftSideBar(bid, mid, model);
+		String bid2 = bid + "";
+		
+		bac.rightSidePhoto(bid2, model);
 				
 		Member_Band mb = new Member_Band();
 				
@@ -300,7 +311,7 @@ public class BandLeaderController {
 				
 		ArrayList<Member_Band> mbList = bs.searchMember_BandList(mb);
 		
-		model.addAttribute("list", mbList);
+		model.addAttribute("mbList", mbList);
 		
 		return "band/bandChangeLeader";
 		

@@ -14,7 +14,7 @@
     <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/light-pink-blue.css" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
     $(document).ready(function(){
@@ -40,6 +40,11 @@
    
 </script>
 <style>
+
+p{
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
 .comment-reply-title, .page .page-title{
 	    margin: 5px 0 11px;
 
@@ -49,7 +54,49 @@
 	box-shadow: 0px 0px 6px #4d4a4a;
 
 }
-
+.vote {
+	-moz-box-shadow:inset 0px 0px 0px 0px #bbdaf7;
+	-webkit-box-shadow:inset 0px 0px 0px 0px #bbdaf7;
+	box-shadow:inset 0px 0px 0px 0px #bbdaf7;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #86b8eb) );
+	background:-moz-linear-gradient( center top, #79bbff 5%, #86b8eb 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#86b8eb');
+	background-color:#79bbff;
+	-webkit-border-top-left-radius:0px;
+	-moz-border-radius-topleft:0px;
+	border-top-left-radius:0px;
+	-webkit-border-top-right-radius:0px;
+	-moz-border-radius-topright:0px;
+	border-top-right-radius:0px;
+	-webkit-border-bottom-right-radius:0px;
+	-moz-border-radius-bottomright:0px;
+	border-bottom-right-radius:0px;
+	-webkit-border-bottom-left-radius:0px;
+	-moz-border-radius-bottomleft:0px;
+	border-bottom-left-radius:0px;
+	text-indent:0px;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	font-style:normal;
+	height:36px;
+	line-height:36px;
+	width:159px;
+	text-decoration:none;
+	text-align:center;
+}
+.vote:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #86b8eb), color-stop(1, #79bbff) );
+	background:-moz-linear-gradient( center top, #86b8eb 5%, #79bbff 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#86b8eb', endColorstr='#79bbff');
+	background-color:#86b8eb;
+}.vote:active {
+	position:relative;
+	top:1px;
+}
 </style>
 
 </head>
@@ -120,7 +167,7 @@
 
    <div class="container" style="min-height:800px;">
 
-         <div class="left-sidebar col-md-3" role="complementary">
+        <div class="left-sidebar col-md-3" role="complementary">
 
 			 <div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title"></h1>
                 <ul class="tvshows">
@@ -174,7 +221,7 @@
                         			
                         			</h4>
                         			
-                        <div> 
+                        <div style="margin-left: 19px;"> 
                         
                         <c:if test="${ not loop }">
 	                        <form action="Member_BandInsert.bd" method="post" class="mrgn-bottom-0">
@@ -234,12 +281,6 @@
                   <table
 							style="display: table-cell; vertical-align: middle; text-align: center;">
 							<tr>
-								<%-- <td style="vertical-align: left;">
-									<a class="button-navy button-link" onclick = "changeImage()" class="btn btn-primary" class="btn btn-primary"  style="background-color: rgba( 255, 255, 255, 0.5 )" >
-									<img height ="25px" alt="" src="${ contextPath }/resources/images/photo1.png">
-								
-									</a> 
-								</td> --%>
 								<td width="270px" style="vertical-align: left; text-align: left;">
 								
 								</td>
@@ -253,8 +294,6 @@
                    
                       <button type="button"  id="btnSave" class="btn btn-primary"  style="background-color: #5497e7;">  게시   </button>
                       </span> 
-                        <!-- <input type="hidden" name="comment_parent" id="comment_parent"
-                        value="0"> -->
                   </p>
                </form>
             </div>
@@ -412,13 +451,13 @@
                             <c:if test="${not doneLoop2 }">
 	                            	<c:if test="${ mName.mid == row.mId }" >
 	                            
-	                          		  <span class="author">${ mName.mname }</span>
+	                          		  <span class="author" style="font-size:17px;">${ mName.mname }</span>
 	                          		  <c:set var="doneLoop2" value="true"/> 
 	                          	  </c:if>
                           	  </c:if>
                             </c:forEach>
                             <span class="date">
-                                <a href="#">${row.bDate }</a>
+                                <a href="#" style="font-size:14px;">${row.bDate }</a>
                             </span>
                             
                             
@@ -462,9 +501,17 @@
             </div>
               <div class="post-content" style="margin-top:60px;margin-left: 30px;border-top:2px solid #EAEAEA; padding-top:15px;">
               
-                <p>${row.bContent }</p>
+                <p style="font-size: 22px;line-height: 1.3em;">${row.bContent }</p>
              
-            	
+            	<c:set var="loop" value="false"/>
+	                <c:forEach var="aList" items="${aList}">
+	               	 <c:if test="${ not loop }">
+	                	<c:if test="${aList.boardId == row.boardId }">
+	                	<c:set var="loop" value="true"/>
+	                		 <img class="post-image img-beresponsive" src="${ contextPath }/resources/upload_images/${aList.edit_name }" alt="">
+	                	</c:if>
+	                	</c:if>
+                </c:forEach>
             	
             	
             	<%-- <c:if test="${row.boardId == }"> --%>

@@ -60,6 +60,17 @@
 		<result property="cid" column="CID" />
 	</resultMap>
 
+	<resultMap type="Attfile" id="AttfileResultSet">
+		<id property="fid" column="FID" />
+		<result property="boardId" column="BOARDID" />
+		<result property="forigin_name" column="FORIGIN_NAME" />
+		<result property="edit_name" column="EDIT_NAME" />
+		<result property="file_src" column="FILE_SRC" />
+		<result property="fdate" column="FDATE" />
+		<result property="flevel" column="FLEVEL" />
+	</resultMap>
+
+
 	<!-- 카테고리 목록 메소드 -->
 	<select id = "selectCategoryList" resultMap = "CategoryResultSet">
 		SELECT * FROM CATEGORY
@@ -168,6 +179,15 @@
 	<update id="updateBoard" parameterType="Boards">
 		UPDATE BOARDS SET BCONTENT = #{bcontent}, BDATE = SYSDATE WHERE BOARDID = #{boardid}
 	</update>
+	
+	
+	
+	<!-- 게시글 첨부파일을 가져오는 메소드 -->
+	 <select id = "selectAttfile" parameterType = "int" resultMap = "AttfileResultSet">
+		SELECT *
+		FROM ATTFILE
+		WHERE BOARDID = #{boardid}
+	</select>
 	
 </mapper>
 

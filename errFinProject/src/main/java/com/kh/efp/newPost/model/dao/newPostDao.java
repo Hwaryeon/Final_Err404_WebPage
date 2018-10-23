@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.efp.band.model.vo.Attfile;
 import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.member.model.vo.Member;
 import com.kh.efp.newPost.model.vo.BandProfile;
@@ -41,6 +42,8 @@ public interface newPostDao {
 	void deleteBoard(SqlSessionTemplate sqlSession, int boardid);
 
 	void updateBoard(SqlSessionTemplate sqlSession, Boards b);
+
+	Attfile selectAttfile(SqlSessionTemplate sqlSession, int boardid);
 
 
 }

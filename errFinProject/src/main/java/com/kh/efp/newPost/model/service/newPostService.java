@@ -2,6 +2,7 @@ package com.kh.efp.newPost.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.efp.band.model.vo.Attfile;
 import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.member.model.vo.Member;
 import com.kh.efp.newPost.model.vo.BandProfile;
@@ -39,6 +40,8 @@ public interface newPostService {
 	void deleteBoard(int boardid);
 
 	void updateBoard(Boards b);
+
+	Attfile selectAttfile(int boardid);
 
 
 }

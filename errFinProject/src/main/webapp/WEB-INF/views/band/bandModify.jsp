@@ -42,12 +42,64 @@
     background-size: contain;
     background-repeat:no-repeat;
 }  
+.comment-reply-title, .page .page-title{
+	    margin: 5px 0 11px;
+
+}
+.categort-posts,  .sh{
+
+	box-shadow: 0px 0px 6px #4d4a4a;
+
+}
+.vote {
+	-moz-box-shadow:inset 0px 0px 0px 0px #bbdaf7;
+	-webkit-box-shadow:inset 0px 0px 0px 0px #bbdaf7;
+	box-shadow:inset 0px 0px 0px 0px #bbdaf7;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #86b8eb) );
+	background:-moz-linear-gradient( center top, #79bbff 5%, #86b8eb 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#86b8eb');
+	background-color:#79bbff;
+	-webkit-border-top-left-radius:0px;
+	-moz-border-radius-topleft:0px;
+	border-top-left-radius:0px;
+	-webkit-border-top-right-radius:0px;
+	-moz-border-radius-topright:0px;
+	border-top-right-radius:0px;
+	-webkit-border-bottom-right-radius:0px;
+	-moz-border-radius-bottomright:0px;
+	border-bottom-right-radius:0px;
+	-webkit-border-bottom-left-radius:0px;
+	-moz-border-radius-bottomleft:0px;
+	border-bottom-left-radius:0px;
+	text-indent:0px;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	font-style:normal;
+	height:36px;
+	line-height:36px;
+	width:159px;
+	text-decoration:none;
+	text-align:center;
+}
+.vote:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #86b8eb), color-stop(1, #79bbff) );
+	background:-moz-linear-gradient( center top, #86b8eb 5%, #79bbff 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#86b8eb', endColorstr='#79bbff');
+	background-color:#86b8eb;
+}.vote:active {
+	position:relative;
+	top:1px;
+}
   </style>
 </head>
 <body class="home page page-id-4 page-template page-template-template_home-php">
 
 
-<div class="recent-widget" id="tabbed-widget" style="background:#f6f6f6;">
+<div class="recent-widget" id="tabbed-widget" style="background:#f6f6f6; margin-top:-30px;">
                   <ul class="nav nav-justified nav-tabs" style="width:610px;margin-left:auto;margin-right:auto;">
                     <li style="width:150px; min-width:150px;" id="tab1">
                     <a href="#tab1" data-toggle="tab" style="width:150px; min-width:150px;">전체글</a></li>
@@ -111,10 +163,11 @@
       
       
       <div class="main col-md-6 col-xs-12" style="width:93%;">
-        <div id="respond" class="widget clearfix">
+        <div id="respond" class="widget clearfix sh">
           <form id="contactForm" action="updateBandModify.bd" method="post" id="bandModify" encType = "multipart/form-data">
             <p class="textarea clearfix">
-              <label for="commentsText"><small style="font-size: 14px;font-weight: 600;margin-bottom: 11px;color: #444;">
+              <label for="commentsText">
+              <small style="font-size: 14px;font-weight: 600;margin-bottom: 11px;color:#25afe5;">
            		   밴드 이름
               <span class="star"></span></small></label>
               <input type="text" name="bandName" id="bandName" value="${bname}" class="required requiredField"
