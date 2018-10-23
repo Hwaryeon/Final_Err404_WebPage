@@ -44,6 +44,7 @@
             JOIN CATEGORY C ON(B.CID = C.CID)
             JOIN PROFILE P ON(B.BID = P.BID)
             WHERE B.BOPEN_STATUS != 'PRV'
+            AND P.FDATE = (SELECT MAX(F.FDATE) FROM PROFILE F WHERE F.BID = B.BID)
             AND B.BSTATUS = 'Y'
             ORDER BY P.FDATE DESC
       )

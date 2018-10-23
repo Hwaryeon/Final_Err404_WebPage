@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content=" width=device-width, initial-scale=1">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<title>Weekend Magazine</title>
+<title>ERROR404</title>
 <jsp:include page="../common/menubar.jsp" />
 <link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal.css">
   <link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal-default-theme.css">

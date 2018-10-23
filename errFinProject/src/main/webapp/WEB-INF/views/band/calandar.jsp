@@ -10,8 +10,8 @@
   <meta charset="utf-8">
   <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
   <meta name="viewport" content=" width=device-width, initial-scale=1">
-  <title>Weekend Magazine</title>
-  <jsp:include page="../common/menubar.jsp" />
+  <title>ERROR404</title>
+ <jsp:include page="../common/menubar.jsp" /> 
   <link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">

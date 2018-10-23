@@ -59,6 +59,9 @@ public class BandController {
 		/*int bid = 1;*/
 		
 		blc.bandLeftSideBar(bid, mid, model);
+		String bid2 = bid + "";
+		
+		bac.rightSidePhoto(bid2, model);
 		
 		list = bs.scehduleList(bid);
 		

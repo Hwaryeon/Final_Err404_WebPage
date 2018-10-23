@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
   <meta name="viewport" content=" width=device-width, initial-scale=1">
-  <title>Weekend Magazine</title>
+  <title>ERROR404</title>
   <!-- CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
@@ -63,7 +63,7 @@
       <div class="container">
         <div class="col-md-6 col-xs-12">
           <div class="logo">
-            <h1><a href="index.html" title="Weekend Magazine">Weekend Magazine</a></h1>
+            <h1><a href="index.html" title="Weekend Magazine">ERROR404</a></h1>
           </div>
         </div>
         <div class="col-md-6 col-xs-12">
@@ -203,7 +203,7 @@
         <div class="container">
           <div class="pull-left">
             <div id="text-6">     
-              <div class="textwidget"><a href="#">Weekend Magazine</a> &copy; 2015 All rights reserved</div>
+              <div class="textwidget"><a href="#">ERROR404</a> &copy; 2015 All rights reserved</div>
             </div>          
           </div>
           <div class="pull-right hidden-xs">

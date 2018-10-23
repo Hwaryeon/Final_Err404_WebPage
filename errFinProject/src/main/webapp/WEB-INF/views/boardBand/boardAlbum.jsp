@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
   <meta name="viewport" content=" width=device-width, initial-scale=1">
-  <title>Weekend Magazine</title>
+  <title>ERROR404</title>
   <jsp:include page="../common/menubar.jsp" />
   <!-- CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -299,7 +299,7 @@
         <div class="container">
           <div class="pull-left">
             <div id="text-6">     
-              <div class="textwidget"><a href="#">Weekend Magazine</a> &copy; 2015 All rights reserved</div>
+              <div class="textwidget"><a href="#">ERROR404</a> &copy; 2015 All rights reserved</div>
             </div>          
           </div>
           <div class="pull-right hidden-xs">

@@ -460,7 +460,7 @@ public class MyClass {
         <div class="container">
           <div class="pull-left">
             <div id="text-6">     
-              <div class="textwidget"><a href="#">Weekend Magazine</a> &copy; 2015 All rights reserved</div>
+              <div class="textwidget"><a href="#">ERROR404</a> &copy; 2015 All rights reserved</div>
             </div>          
           </div>
           <div class="pull-right hidden-xs">
