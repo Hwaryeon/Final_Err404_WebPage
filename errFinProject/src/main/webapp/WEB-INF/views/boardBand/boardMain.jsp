@@ -201,15 +201,6 @@
         </div>
       <div class="main col-md-6 col-xs-12">
 
-
-
-         <div id="search-3" class="widget fullwidth widget_search">
-            <form class="search" role="search" method="get" action="#">
-               <input type="search" placeholder="Search &hellip;" value=""
-                  name="s" title="Search for:">
-            </form>
-         </div>
-
          <div class="widget clearfix">
             <div id="respond" class="comment-respond">
                <h3 id="reply-title" class="comment-reply-title">
@@ -264,6 +255,13 @@
          <c:set var="userId" value="${ sessionScope.loginUser.mid }"/>
          
          <%-- <c:forEach items="${boardMain }" var="row"> --%>
+         
+          <c:if test="${empty boardList }">
+          	<div>
+         		<img  src="resources/images/startBand.PNG" alt="" style="width:580px;">
+         	</div>
+         </c:if> 
+         
 	 <c:forEach items="${boardList }" var="row">
       <div class="post widget" style="margin-bottom:34px;">
       
@@ -715,60 +713,9 @@ $('.updateBoard').click(function(){
                </c:if>
                </c:forEach>
             </ul>
-
-
-
             <div class="clear"></div>
-
-
-
-
          </div>
 
-         <div id="widget-survey" class="widget fullwidth widget-survey">
-            <h1 class="widget-title">Survey</h1>
-            <div class="widget-content">
-               <p>What was the last time you slept on bed in your house?</p>
-               <form action="#" method="post" class="mrgn-bottom-0">
-                  <div class="form-group mrgn-bottom-0">
-                     <div class="checkbox">
-                        <label> <input name="remember" value="1" type="checkbox">
-                           Today
-                        </label>
-                     </div>
-                  </div>
-                  <div class="form-group mrgn-bottom-0">
-                     <div class="checkbox">
-                        <label> <input name="remember" value="1" type="checkbox">
-                           Yesterday
-                        </label>
-                     </div>
-                  </div>
-                  <div class="form-group mrgn-bottom-0">
-                     <div class="checkbox">
-                        <label> <input name="remember" value="1" type="checkbox">
-                           The day after tomorrow
-                        </label>
-                     </div>
-                  </div>
-                  <div class="form-group mrgn-bottom-0">
-                     <div class="checkbox">
-                        <label> <input name="remember" value="1" type="checkbox">
-                           Tomorrow
-                        </label>
-                     </div>
-                  </div>
-                  <div class="row survey">
-                     <div class="col-md-6">
-                        <button class="button vote">Vote</button>
-                     </div>
-                     <div class="col-md-6">
-                        <button class="button">Results</button>
-                     </div>
-                  </div>
-               </form>
-            </div>
-         </div>
 
 
 

@@ -31,6 +31,7 @@ import com.kh.efp.member.model.vo.Profile;
 public class BoardAlbumController {
 	@Autowired BoardService boards;
 	@Autowired BandService bs;
+	@Autowired BandLeaderController blc;
 	
 	public void rightSidePhoto(String bid, Model model){
 		ArrayList<Attfile> list = boards.selectRightSidePhoto(bid);
@@ -41,13 +42,21 @@ public class BoardAlbumController {
 	@RequestMapping("goboardAlbum.do")
 	public String boardAlbum(Model model, String bid, HttpServletRequest request){
 		
-int mId = ((Member)request.getSession().getAttribute("loginUser")).getMid();
+		int mId = ((Member)request.getSession().getAttribute("loginUser")).getMid();
     	
     	int pbid = Integer.parseInt(bid);
     	
+    	blc.bandLeftSideBar(Integer.parseInt(bid), mId, model);
+
+
+    	rightSidePhoto(bid, model);
+    	
+    	
+    	
+    	
     	Board board = new Board();
     	
-String bname = bs.selectBandName(pbid);  
+    	String bname = bs.selectBandName(pbid);  
 		
 		Member_Band mb = new Member_Band();
 		

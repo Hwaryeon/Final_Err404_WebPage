@@ -75,6 +75,7 @@ p{
 	margin-top: 1em;
 	text-align: center;
 	overflow:hidden;
+	color:#222;
 }
 
 .band-membertxt {
@@ -127,6 +128,7 @@ p{
 .poppost-name {
 	width: 490px;
 	height: 40px;
+	color:#222;
 }
 
 .poppost-name>p {
@@ -215,6 +217,7 @@ p{
 	padding-top: 5px;
 	margin-bottom: 0px;
 	margin-left: 10px;
+	color:#222;	
 }
 
 .recommend-content>.introduction {
@@ -224,13 +227,14 @@ p{
 }
 
 .recommend-content>button {
-	/* margin-top:4px; */
-	margin-left: 230px;
+	margin-top:19px; 
+	margin-left: 12px;
 	width:150px;
 	background-color: white;
-	border: 0.5px solid black;
+	/* border: 0.1px solid black; */
 	height: 30px;
 	font-size: 10px;
+	border-radius: 38px;
 }
 
 
@@ -295,7 +299,8 @@ ul{
 	<div class="container">
 		<div class="main col-md-12 col-xs-12">
 			<div class="widget">
-				<h4 class="page-title">내 밴드</h4>
+				<h4 class="page-title" style="color:#25afe5; font-size:20px; font-weight:500;">내 밴드
+				  <em style="color:#2ecc71;"> ${ myBandList.size() }</em></h4>
 				<div class="myband-container">
 					<ul>
 						<li class="myband-list">
@@ -343,7 +348,7 @@ ul{
 											</c:otherwise>
 										</c:choose>
 									</p>
-									<span class="band-membertxt">멤버 : ${ MyBandList.memberCount }</span>
+									<span class="band-membertxt" style="margin-left:15px;">멤버  ${ MyBandList.memberCount }</span>
 								</div>
 							</li>
 						</c:forEach>
@@ -352,7 +357,7 @@ ul{
 			</div>
 
 			<div class="widget">
-				<h4 class="page-title">공개밴드 인기글</h4>
+				<h4 class="page-title" style="color:#25afe5; font-size:20px; font-weight:500;">공개밴드 인기글</h4>
 				<div class="poppost-container">
 					<ul>
 						<c:forEach var="PopularContents" items="${ popContents }">
@@ -399,7 +404,7 @@ ul{
 			</div>
 
 			<div class="widget">
-				<h4 class="page-title">카테고리</h4>
+				<h4 class="page-title" style="color:#25afe5; font-size:20px; font-weight:500;">카테고리</h4>
 				<div class="item">
 	            <ul id="content-slider" class="content-slider">
 	                <li>
@@ -437,7 +442,7 @@ ul{
 			</div>
 
 			<div class="widget">
-				<h4 class="page-title">이런 밴드는 어때요?</h4>
+				<h4 class="page-title" style="color:#25afe5; font-size:20px; font-weight:500;">이런 밴드는 어때요?</h4>
 				<div class="recommend-container">
 					<ul>
 						<c:forEach var="rcmContents" items="${ rcmContents }">

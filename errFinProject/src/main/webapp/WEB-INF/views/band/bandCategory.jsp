@@ -221,93 +221,25 @@
 
 
 			<div id="categort-posts-widget-2"
-				class="widget fullwidth categort-posts">
-				<h1 class="widget-title">최근 사진</h1>
-				<ul class="tvshows">
-					<li><a href="#"> <img
-							style="min-height: 100px; height: 100px; width: 100px;"
-							src="http://placehold.it/209x128" alt="">
-					</a> <a href="#"> <img
-							style="min-height: 100px; height: 100px; width: 100px;"
-							src="http://placehold.it/209x128" alt="">
-					</a></li>
-					<li><a href="#"> <img
-							style="min-height: 100px; height: 100px; width: 100px;"
-							src="http://placehold.it/209x128" alt="">
-					</a> <a href="#"> <img
-							style="min-height: 100px; height: 100px; width: 100px;"
-							src="http://placehold.it/209x128" alt="">
-					</a></li>
+            class="widget fullwidth categort-posts" style = "background : white;">
+            <h1 class="widget-title">최근 사진</h1>
+            <ul class="tvshows">
+            <c:forEach var = "sidePhoto" items = "${ rightAlbum }" varStatus = "idx">
+            <c:if test = "${idx.count mod 2 == 1 }">
+               <li>
+              </c:if>
+              <a href="#"> <img
+                     style="min-height: 100px; height: 100px; width: 100px;"
+                     src="${contextPath }/resources/upload_images/${sidePhoto.edit_name}" alt="">
+               </a>
+               <c:if test = "${idx.count mod 2 != 1 }">
+               	</li>
+               </c:if>
+               </c:forEach>
+            </ul>
+            <div class="clear"></div>
+         </div>
 
-
-
-				</ul>
-
-
-
-				<div class="clear"></div>
-
-
-
-
-			</div>
-
-			<div id="widget-survey" class="widget fullwidth widget-survey">
-				<h1 class="widget-title">Survey</h1>
-				<div class="widget-content">
-					<p>What was the last time you slept on bed in your house?</p>
-					<form action="#" method="post" class="mrgn-bottom-0">
-						<div class="form-group mrgn-bottom-0">
-							<div class="checkbox">
-								<label> <input name="remember" value="1" type="checkbox">
-									Today
-								</label>
-							</div>
-						</div>
-						<div class="form-group mrgn-bottom-0">
-							<div class="checkbox">
-								<label> <input name="remember" value="1" type="checkbox">
-									Yesterday
-								</label>
-							</div>
-						</div>
-						<div class="form-group mrgn-bottom-0">
-							<div class="checkbox">
-								<label> <input name="remember" value="1" type="checkbox">
-									The day after tomorrow
-								</label>
-							</div>
-						</div>
-						<div class="form-group mrgn-bottom-0">
-							<div class="checkbox">
-								<label> <input name="remember" value="1" type="checkbox">
-									Tomorrow
-								</label>
-							</div>
-						</div>
-						<div class="row survey">
-							<div class="col-md-6">
-								<button class="button vote">Vote</button>
-							</div>
-							<div class="col-md-6">
-								<button class="button">Results</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-
-
-			<div id="ads250_250-widget-2"
-				class="widget fullwidth ads250_250-widget">
-				<h1 class="widget-title">Advertisement</h1>
-				<div class="ads250-250">
-					<div class="ad-cell">
-						<a href="#"><img src="img/ad-210x190.png" class="fullwidth"
-							alt=""></a>
-					</div>
-				</div>
-			</div>
 
 		</div>
 

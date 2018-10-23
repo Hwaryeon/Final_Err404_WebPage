@@ -45,7 +45,7 @@
             JOIN PROFILE P ON(B.BID = P.BID)
             WHERE B.BOPEN_STATUS != 'PRV'
             AND B.BSTATUS = 'Y'
-            ORDER BY B.BID DESC
+            ORDER BY P.FDATE DESC
       )
          <trim prefix="WHERE" prefixOverrides="AND |OR ">
             <foreach collection="list" item="item" index="index" separator=" " open="" close="">
@@ -57,9 +57,9 @@
             <!-- WHERE ROWNUM <![CDATA[ <= ]]> 5 -->
 	</select>
 	
-	<!--검색 밴드 리스트 5개만 가져오기 -->
-	<select id="selectFiveBand" resultMap="SearchResultSet" parameterType="Map">
-  	  SELECT ROWNUM, BID, BNAME, BOPEN_STATUS, BINTRO, CNAME, PID, EDIT_NAME
+   <!--검색 밴드 리스트 5개만 가져오기 -->
+   <select id="selectFiveBand" resultMap="SearchResultSet" parameterType="Map">
+       SELECT ROWNUM, BID, BNAME, BOPEN_STATUS, BINTRO, CNAME, PID, EDIT_NAME
       FROM(                
         SELECT ROWNUM AS RNUM, BID, BNAME, BOPEN_STATUS, BINTRO, CNAME, PID, EDIT_NAME 
         FROM
@@ -71,19 +71,20 @@
             JOIN PROFILE P ON(B.BID = P.BID)
             WHERE B.BOPEN_STATUS != 'PRV'
             AND B.BSTATUS = 'Y'
-            ORDER BY B.BID DESC
+            AND P.FDATE = (SELECT MAX(F.FDATE) FROM PROFILE F WHERE F.BID = B.BID)
+            ORDER BY P.FDATE DESC
       )
-     	<trim prefix="WHERE" prefixOverrides="AND |OR ">
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
            <foreach item="item" collection="bandList" separator=" " open="" close="">
               OR UPPER(BNAME) LIKE '%'|| UPPER(#{item}) ||'%'
               OR UPPER(BINTRO) LIKE '%'|| UPPER(#{item}) ||'%'
            </foreach>
-      	 </trim>
+          </trim>
       )
-      	WHERE RNUM <![CDATA[ <= ]]> #{endPage}
-      	AND RNUM <![CDATA[ >= ]]> #{startPage}
-      	
-	</select>
+         WHERE RNUM <![CDATA[ <= ]]> #{endPage}
+         AND RNUM <![CDATA[ >= ]]> #{startPage}
+         
+   </select>
 	
 	<!-- 모든 검색 게시글 리스트 가져오기 -->
 	<select id="selectSearchContents" resultMap="SearchResultSet" parameterType="java.util.ArrayList">

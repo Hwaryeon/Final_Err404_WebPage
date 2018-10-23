@@ -38,6 +38,7 @@ public class BandLeaderController {
 
 	@Autowired private BandService bs;
 	@Autowired private newPostService ns;
+	@Autowired BoardAlbumController bac;
 	
 	public void bandLeftSideBar(int bid, int mid, Model model){
 		System.out.println(bid + " , " + mid);
@@ -102,6 +103,10 @@ public class BandLeaderController {
 		
 		bandLeftSideBar(bid, mid, model);
 		
+		String bid2 = bid + "";
+		
+		bac.rightSidePhoto(bid2, model);
+		
 		return "band/bandOpenStatus";
 	}
 	
@@ -118,6 +123,10 @@ public class BandLeaderController {
 		model.addAttribute("cList", cList);
 		
 		bandLeftSideBar(bid, mid, model);
+		
+		String bid2 = bid + "";
+		
+		bac.rightSidePhoto(bid2, model);
 		
 		return "band/bandCategory";
 	}
@@ -158,7 +167,11 @@ public class BandLeaderController {
 		
 		ArrayList<Member_Band> mbList = bs.selectMember_BandList(mb);
 		
-		model.addAttribute("list", mbList); 
+		String bid2 = bid + "";
+		
+		bac.rightSidePhoto(bid2, model);
+		
+		model.addAttribute("mbList", mbList); 
 		
 		return "band/bandMultiLeader";
 	}
@@ -170,6 +183,9 @@ public class BandLeaderController {
 		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
 		bandLeftSideBar(bid, mid, model);
+		String bid2 = bid + "";
+		
+		bac.rightSidePhoto(bid2, model);
 		
 		Member_Band mb = new Member_Band();
 		
@@ -177,7 +193,7 @@ public class BandLeaderController {
 		
 		ArrayList<Member_Band> mbList = bs.selectMember_BandList(mb);
 		
-		model.addAttribute("list", mbList);
+		model.addAttribute("mbList", mbList);
 		model.addAttribute("bid", bid);
 		
 		return "band/bandChangeMultiLeader";
@@ -238,6 +254,9 @@ public class BandLeaderController {
 		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
 		bandLeftSideBar(bid, mid, model);
+		String bid2 = bid + "";
+		
+		bac.rightSidePhoto(bid2, model);
 				
 		Member_Band mb = new Member_Band();
 				
@@ -245,7 +264,7 @@ public class BandLeaderController {
 				
 		ArrayList<Member_Band> mbList = bs.selectMember_BandList(mb);
 				
-		model.addAttribute("list", mbList);
+		model.addAttribute("mbList", mbList);
 		
 		return "band/bandChangeLeader";
 	}
@@ -293,6 +312,9 @@ public class BandLeaderController {
 		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
 		bandLeftSideBar(bid, mid, model);
+		String bid2 = bid + "";
+		
+		bac.rightSidePhoto(bid2, model);
 		
 		return "band/bandSecession";
 	}
@@ -302,6 +324,8 @@ public class BandLeaderController {
 										HttpServletResponse response){
 		
 		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
+		
+		
 		
 		Member_Band mb = new Member_Band();
 		
@@ -315,6 +339,11 @@ public class BandLeaderController {
 			//밴드 리더는 탈퇴가 불가능
 			
 			bandLeftSideBar(bid, mid, model);
+			
+			String bid2 = bid + "";
+			
+			bac.rightSidePhoto(bid2, model);
+			
 			model.addAttribute("bid", bid);
 			
 			return "band/bandSecessionFail";
@@ -343,6 +372,10 @@ public class BandLeaderController {
 		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
 		bandLeftSideBar(bid, mid, model);
+		String bid2 = bid + "";
+		
+		bac.rightSidePhoto(bid2, model);
+		
 		
 		return "band/bandDelete";
 	}
@@ -368,6 +401,10 @@ public class BandLeaderController {
 		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
 		bandLeftSideBar(bid, mid, model);
+		
+		String bid2 = bid + "";
+		
+		bac.rightSidePhoto(bid2, model);
 		
 		String intro = bs.selectBandIntro(bid);
 		
@@ -492,6 +529,10 @@ public class BandLeaderController {
 		
 		bandLeftSideBar(bid, mid, model);
 		
+		String bid2 = bid + "";
+		
+		bac.rightSidePhoto(bid2, model);
+		
 		Member_Band mb = new Member_Band();
 		
 		mb.setBid(bid);
@@ -502,7 +543,7 @@ public class BandLeaderController {
 		
 		int check = 0;
 		
-		model.addAttribute("list", mbList);
+		model.addAttribute("mbList", mbList);
 		model.addAttribute("banList", banList);
 		model.addAttribute("check", check);
 		
@@ -532,7 +573,7 @@ public class BandLeaderController {
 		
 		int check = 0;
 		
-		model.addAttribute("list", mbList);
+		model.addAttribute("mbList", mbList);
 		model.addAttribute("banList", banList);
 		model.addAttribute("check", check);
 		
@@ -569,7 +610,7 @@ public class BandLeaderController {
 		
 		int check = 1;
 		
-		model.addAttribute("list", mbList);
+		model.addAttribute("mbList", mbList);
 		model.addAttribute("banList", banList);
 		model.addAttribute("check", check);
 		
@@ -627,6 +668,10 @@ public class BandLeaderController {
 		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
 		bandLeftSideBar(bid, mid, model);
+
+		String bid2 = bid + "";
+		
+		bac.rightSidePhoto(bid2, model);
 		
 		ArrayList<Member_Band> list = bs.insertMemberList(bid);
 		
@@ -634,7 +679,7 @@ public class BandLeaderController {
 			System.out.println(i + " : " + list.get(i).toString());
 		}
 		
-		model.addAttribute("list", list);
+		model.addAttribute("mbList", list);
 		
 		return "band/bandInsertMember";
 	}

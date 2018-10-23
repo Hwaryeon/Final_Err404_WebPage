@@ -88,7 +88,7 @@
 
 	<div class="container">
 
-		<div class="left-sidebar col-md-3" role="complementary">
+		 <div class="left-sidebar col-md-3" role="complementary">
 
 			 <div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title"></h1>
                 <ul class="tvshows">
@@ -116,18 +116,13 @@
                              
                         </a>
                         <h2 style="color:#222; font-size:21px; margin-bottom:15px;font-weight:600;margin-top:20px;">${bname }</h2>
-                        <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
-                        			멤버 ${memberCount}<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
-                        			초대코드 </a></h4>
-                        			
-                        <div> 
-                        
                         <c:set var="loop" value="false"/>
                         <c:set var="mid" value = "${ sessionScope.loginUser.mid }"/>
                         <c:forEach var="list" items="${list }" >
                         	<c:if test="${ not loop }">
                         	
 	                        	<c:if test="${list.mid == mid }">
+	                        	
 	                        		<c:set var="loop" value="true"/>
 	                        
 	                        	</c:if>
@@ -135,6 +130,19 @@
                         	</c:if>
                         
                         </c:forEach>
+                         
+                        <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
+                        			멤버 ${memberCount}
+                        			
+                        			 <c:if test="${ loop }">
+                        			
+	                        			<a href="boardMemberInvite.do?bid=${bid}" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
+	                        			초대코드 </a>
+                        			</c:if>
+                        			
+                        			</h4>
+                        			
+                        <div> 
                         
                         <c:if test="${ not loop }">
 	                        <form action="Member_BandInsert.bd" method="post" class="mrgn-bottom-0">
@@ -413,36 +421,24 @@
 
 
 			<div id="categort-posts-widget-2"
-				class="widget fullwidth categort-posts">
-				<h1 class="widget-title">최근 사진</h1>
-				<ul class="tvshows">
-					<li><a href="#"> <img
-							style="min-height: 100px; height: 100px; width: 100px;"
-							src="http://placehold.it/209x128" alt="">
-					</a> <a href="#"> <img
-							style="min-height: 100px; height: 100px; width: 100px;"
-							src="http://placehold.it/209x128" alt="">
-					</a></li>
-					<li><a href="#"> <img
-							style="min-height: 100px; height: 100px; width: 100px;"
-							src="http://placehold.it/209x128" alt="">
-					</a> <a href="#"> <img
-							style="min-height: 100px; height: 100px; width: 100px;"
-							src="http://placehold.it/209x128" alt="">
-					</a></li>
-
-
-
-				</ul>
-
-
-
-				<div class="clear"></div>
-
-
-
-
-			</div>
+            class="widget fullwidth categort-posts" style = "background : white;">
+            <h1 class="widget-title">최근 사진</h1>
+            <ul class="tvshows">
+            <c:forEach var = "sidePhoto" items = "${ rightAlbum }" varStatus = "idx">
+            <c:if test = "${idx.count mod 2 == 1 }">
+               <li>
+              </c:if>
+              <a href="#"> <img
+                     style="min-height: 100px; height: 100px; width: 100px;"
+                     src="${contextPath }/resources/upload_images/${sidePhoto.edit_name}" alt="">
+               </a>
+               <c:if test = "${idx.count mod 2 != 1 }">
+               	</li>
+               </c:if>
+               </c:forEach>
+            </ul>
+            <div class="clear"></div>
+         </div>
 
 
 		</div>
