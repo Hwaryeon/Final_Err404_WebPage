@@ -53,21 +53,23 @@
    </select>
 	
 	<select id="selectPopContent" resultMap="PopContent" parameterType="java.util.ArrayList" resultType="java.util.ArrayList">
-		SELECT R.NO, R.REF_COUNT, B.BID, D.BNAME, B.MID, M.MNAME, A.EDIT_NAME, A.FLEVEL, B.BCONTENT, b.boardid
-		FROM(SELECT ROWNUM AS NO, C.REF_COUNT, C.REF_BID
-		     FROM(
-		        SELECT COUNT(BCONTENT) AS REF_COUNT, REF_BID
-		        FROM BOARDS
-		        WHERE REF_STATUS = 'COMMENT'
-		        AND BSTATUS = 'Y'
-		        GROUP BY REF_BID
-		        ORDER BY REF_COUNT DESC) C
-		    WHERE ROWNUM BETWEEN 1 AND 5) R
-		JOIN BOARDS B ON (R.REF_BID = B.BOARDID)
-		JOIN BAND D ON (B.BID = D.BID)
-		JOIN MEMBER M ON (B.MID = M.MID)
-		JOIN ATTFILE A ON (A.BOARDID = B.BOARDID)
-	</select>
+      SELECT R.NO, R.REF_COUNT, B.BID, D.BNAME, B.MID, M.MNAME, A.EDIT_NAME, A.FLEVEL, B.BCONTENT, b.boardid
+      FROM(SELECT ROWNUM AS NO, C.REF_COUNT, C.REF_BID
+           FROM(
+              SELECT COUNT(BCONTENT) AS REF_COUNT, REF_BID
+              FROM BOARDS
+              WHERE REF_STATUS = 'COMMENT'
+              AND BSTATUS = 'Y'
+              GROUP BY REF_BID
+              ORDER BY REF_COUNT DESC) C
+          WHERE ROWNUM BETWEEN 1 AND 5) R
+      JOIN BOARDS B ON (R.REF_BID = B.BOARDID)
+      JOIN BAND D ON (B.BID = D.BID)
+      JOIN MEMBER M ON (B.MID = M.MID)
+      JOIN ATTFILE A ON (A.BOARDID = B.BOARDID)
+      <!-- WHERE D.BOPEN_STATUS = 'PUB' -->
+   </select>
+
 	
 	<select id="selectRcmContent" resultMap="RcmContent" parameterType="java.util.ArrayList" resultType="java.util.ArrayList">
 		SELECT B.BID, B.BNAME, C.CNAME, P.EDIT_NAME, B.BINTRO

@@ -259,7 +259,7 @@
             <div class="pull-left">
                <div id="text-6">
                   <div class="textwidget">
-                     <a href="#">Weekend Magazine</a> &copy; 2015 All rights reserved
+                     <a href="#">ERROR404</a> &copy; 2015 All rights reserved
                   </div>
                </div>
             </div>

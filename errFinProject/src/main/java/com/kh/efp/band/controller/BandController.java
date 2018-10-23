@@ -43,6 +43,7 @@ public class BandController {
 	@Autowired private BandService bs;
 	@Autowired private newPostService ns; 
 	@Autowired private BandLeaderController blc;
+	@Autowired BoardAlbumController bac;
 
 	@RequestMapping("bandCalendarList.bd")
 	public String showBandCalendar(@RequestParam int bid, HttpServletRequest request, Model model) throws Exception{
@@ -58,6 +59,9 @@ public class BandController {
 		/*int bid = 1;*/
 		
 		blc.bandLeftSideBar(bid, mid, model);
+		String bid2 = bid + "";
+		
+		bac.rightSidePhoto(bid2, model);
 		
 		list = bs.scehduleList(bid);
 		
@@ -233,6 +237,10 @@ public class BandController {
 		int bid = b.getBid();
 		
 		blc.bandLeftSideBar(bid, mid, model);
+		String bid2 = bid + "";
+		
+		bac.rightSidePhoto(bid2, model);
+		
 		
 		ArrayList<Boards> list = bs.selectRefList(boardid);
 		

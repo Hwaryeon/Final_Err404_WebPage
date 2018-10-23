@@ -32,6 +32,8 @@ import com.kh.efp.band.model.service.BoardMemberService;
 public class BoardMemberController {
 	
 	@Autowired private BandService bs;
+	@Autowired BoardAlbumController bac;
+	@Autowired BandLeaderController blc;
  
 	@Inject
 	BoardMemberService boardMemberService;
@@ -69,12 +71,13 @@ public class BoardMemberController {
 	// 01. 회원 목록
 	@RequestMapping("boardMember.do")
 	public String BoardMemberList(Model model, String bid, HttpServletRequest request){
-		System.out.println("bandMemberManagement.bd 호출");
 		
 		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		int pbid = Integer.parseInt(bid);
 		
-		bandLeftSideBar(pbid, mid, model);
+		blc.bandLeftSideBar(pbid, mid, model);
+		bac.rightSidePhoto(bid, model);
+		
 		
 		MemberBandProfile mbp = new MemberBandProfile();
 		
@@ -83,7 +86,7 @@ public class BoardMemberController {
 		ArrayList<MemberBandProfile> mbList = bs.selectMemberBandProfileList(mbp);
 		
 		System.out.println("결과" + mbList);
-		model.addAttribute("list", mbList);
+		model.addAttribute("mbList", mbList);
 		
 		return "boardBand/boardMemberList";
 	}

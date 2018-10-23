@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
   <meta name="viewport" content=" width=device-width, initial-scale=1">
-  <title>Weekend Magazine</title>
+  <title>ERROR404</title>
   <jsp:include page="../common/menubar.jsp" />
   <!-- CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -116,7 +116,7 @@
 
     <div class="container">
 
-       <div class="left-sidebar col-md-3" role="complementary">
+          <div class="left-sidebar col-md-3" role="complementary">
 
 			 <div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title"></h1>
                 <ul class="tvshows">
@@ -150,6 +150,7 @@
                         	<c:if test="${ not loop }">
                         	
 	                        	<c:if test="${list.mid == mid }">
+	                        	
 	                        		<c:set var="loop" value="true"/>
 	                        
 	                        	</c:if>
@@ -157,13 +158,13 @@
                         	</c:if>
                         
                         </c:forEach>
-                        
+                         
                         <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
                         			멤버 ${memberCount}
                         			
                         			 <c:if test="${ loop }">
                         			
-	                        			<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
+	                        			<a href="boardMemberInvite.do?bid=${bid}" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
 	                        			초대코드 </a>
                         			</c:if>
                         			
@@ -195,7 +196,6 @@
             </div>
             
         </div>
-
         <div class="main col-md-6 col-xs-12">
 		 <div class="box-content widget fullwidth">
                 <h4 class="widget-title">사진첩</h4>
@@ -261,92 +261,34 @@
       <div class="right-sidebar col-md-3" role="complementary">
 
 
-            <div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title">최근 사진 </h1>
-                <ul class="tvshows">
-                    <li>
-                        <a href="#">
-                            <img style="min-height:100px;height:100px;width:100px;" src="http://placehold.it/209x128" alt="">
-                        </a>
-                        <a href="#">
-                            <img style="min-height:100px;height:100px;width:100px;" src="http://placehold.it/209x128" alt="">
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img style="min-height:100px;height:100px;width:100px;" src="http://placehold.it/209x128" alt="">
-                        </a>
-                        <a href="#">
-                            <img style="min-height:100px;height:100px;width:100px;" src="http://placehold.it/209x128" alt="">
-                        </a>
-                    </li>
-                    
-               
-               
-                </ul>
-               
-               
-               
-                <div class="clear"></div>
-            
-            
-            
-            
-            </div>
-
-            <div id="widget-survey" class="widget fullwidth widget-survey">
-                <h1 class="widget-title">Survey</h1>
-                <div class="widget-content">
-                    <p>What was the last time you slept on bed in your house?</p>
-                    <form action="#" method="post" class="mrgn-bottom-0">
-                        <div class="form-group mrgn-bottom-0">
-                            <div class="checkbox">
-                                <label>
-                                    <input name="remember" value="1" type="checkbox"> Today
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group mrgn-bottom-0">
-                            <div class="checkbox">
-                                <label>
-                                    <input name="remember" value="1" type="checkbox"> Yesterday
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group mrgn-bottom-0">
-                            <div class="checkbox">
-                                <label>
-                                    <input name="remember" value="1" type="checkbox"> The day after tomorrow
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group mrgn-bottom-0">
-                            <div class="checkbox">
-                                <label>
-                                    <input name="remember" value="1" type="checkbox"> Tomorrow
-                                </label>
-                            </div>
-                        </div>
-                        <div class="row survey">
-                            <div class="col-md-6">
-                                <button class="button vote">Vote</button>
-                            </div>
-                            <div class="col-md-6">
-                                <button class="button">Results</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+             <div id="categort-posts-widget-2"
+            class="widget fullwidth categort-posts" style = "background : white;">
+            <h1 class="widget-title">최근 사진</h1>
+            <ul class="tvshows">
+            <c:forEach var = "sidePhoto" items = "${ rightAlbum }" varStatus = "idx">
+            <c:if test = "${idx.count mod 2 == 1 }">
+               <li>
+              </c:if>
+              <a href="#"> <img
+                     style="min-height: 100px; height: 100px; width: 100px;"
+                     src="${contextPath }/resources/upload_images/${sidePhoto.edit_name}" alt="">
+               </a>
+               <c:if test = "${idx.count mod 2 != 1 }">
+               	</li>
+               </c:if>
+               </c:forEach>
+            </ul>
 
 
-            <div id="ads250_250-widget-2" class="widget fullwidth ads250_250-widget"><h1 class="widget-title">
-                Advertisement</h1>
-                <div class="ads250-250">
-                    <div class="ad-cell">
-                        <a href="#"><img src="img/ad-210x190.png" class="fullwidth" alt=""></a>
-                    </div>
-                </div>
-            </div>
+
+            <div class="clear"></div>
+
+
+
+
+         </div>
+           
+
 
         </div>
 
@@ -357,7 +299,7 @@
         <div class="container">
           <div class="pull-left">
             <div id="text-6">     
-              <div class="textwidget"><a href="#">Weekend Magazine</a> &copy; 2015 All rights reserved</div>
+              <div class="textwidget"><a href="#">ERROR404</a> &copy; 2015 All rights reserved</div>
             </div>          
           </div>
           <div class="pull-right hidden-xs">

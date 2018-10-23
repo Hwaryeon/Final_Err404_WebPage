@@ -9,7 +9,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content=" width=device-width, initial-scale=1">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<title>Weekend Magazine</title>
+<title>ERROR404</title>
  <jsp:include page="../common/menubar.jsp" />
 <link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal.css">
   <link rel="stylesheet" href="${ contextPath }/resources/Remodal-1.1.1/dist/remodal-default-theme.css">
@@ -81,14 +81,16 @@
 				
 			});		
 		</script>
-	<div class="container">
+	<div class="container" style="min-height:600px;">
 
-		<div class="left-sidebar col-md-3" role="complementary">
+		 <div class="left-sidebar col-md-3" role="complementary">
 
 			 <div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title"></h1>
                 <ul class="tvshows">
                     <li>
-                         <a href="#">
+                        <a href="#">
+                            <!-- <img src="http://placehold.it/209x128" alt=""> -->
+                             <%-- <img src="${ contextPath }/resources/upload_images/${pf.editName }" alt=""> --%>
                              <c:if test="${ pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
 									|| pf.editName == 'cover3.jpg' || pf.editName == 'cover4.jpg'
 									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
@@ -104,13 +106,57 @@
 								
 										<img src="${ contextPath }/resources/upload_images/${ pf.editName }">
 									</c:if>
+                             
+                             
+                             
                         </a>
                         <h2 style="color:#222; font-size:21px; margin-bottom:15px;font-weight:600;margin-top:20px;">${bname }</h2>
+                        <c:set var="loop" value="false"/>
+                        <c:set var="mid" value = "${ sessionScope.loginUser.mid }"/>
+                        <c:forEach var="list" items="${list }" >
+                        	<c:if test="${ not loop }">
+                        	
+	                        	<c:if test="${list.mid == mid }">
+	                        	
+	                        		<c:set var="loop" value="true"/>
+	                        
+	                        	</c:if>
+                        	
+                        	</c:if>
+                        
+                        </c:forEach>
+                         
                         <h4 style="display:inline-block;font-size: 13px;font-weight: 400;color: #333;">
-                        			멤버 ${memberCount}<a href="#" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
-                        			초대코드 </a></h4>
+                        			멤버 ${memberCount}
+                        			
+                        			 <c:if test="${ loop }">
+                        			
+	                        			<a href="boardMemberInvite.do?bid=${bid}" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
+	                        			초대코드 </a>
+                        			</c:if>
+                        			
+                        			</h4>
+                        			
+                        <div> 
+                        
+                        <c:if test="${ not loop }">
+	                        <form action="Member_BandInsert.bd" method="post" class="mrgn-bottom-0">
+	                        
+	                        	<input type="hidden" name="bid" value="${ bid }">
+	                        
+	                        	<button class="button vote" >가입하기</button>
+	                        </form>
+                        </c:if>
+                        
+                        
+                        
+                        </div>
                         <h4 style="margin-top: 14px;padding-top: 13px;border-top: 1px solid #e1e1e1;">
-                        <a href="bandLeader.bd?bid=${ bid }" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">* 밴드 설정</a></h4>
+                        <a href="bandLeader.bd?bid=${ bid }" style="font-size: 12px;font-weight:400;color:#666;text-decoration:none;">
+                        <c:if test="${ mlevel != 0 }">
+                        	* 밴드 설정
+                        </c:if>
+                        </a></h4>
                     </li>
                 </ul>
                 <div class="clear"></div>
@@ -131,7 +177,7 @@
                 </form>
             </div>
             
-            <c:forEach var="b" items="${list}">
+            <c:forEach var="b" items="${mbList}">
             
 	            <c:if test="${b.mlevel == 3}" >
 						<div class="author-bar widget" style="margin-bottom:1px;">
@@ -180,93 +226,27 @@
 
 
 			<div id="categort-posts-widget-2"
-				class="widget fullwidth categort-posts">
-				<h1 class="widget-title">최근 사진</h1>
-				<ul class="tvshows">
-					<li><a href="#"> <img
-							style="min-height: 100px; height: 100px; width: 100px;"
-							src="http://placehold.it/209x128" alt="">
-					</a> <a href="#"> <img
-							style="min-height: 100px; height: 100px; width: 100px;"
-							src="http://placehold.it/209x128" alt="">
-					</a></li>
-					<li><a href="#"> <img
-							style="min-height: 100px; height: 100px; width: 100px;"
-							src="http://placehold.it/209x128" alt="">
-					</a> <a href="#"> <img
-							style="min-height: 100px; height: 100px; width: 100px;"
-							src="http://placehold.it/209x128" alt="">
-					</a></li>
+            class="widget fullwidth categort-posts" style = "background : white;">
+            <h1 class="widget-title">최근 사진</h1>
+            <ul class="tvshows">
+            <c:forEach var = "sidePhoto" items = "${ rightAlbum }" varStatus = "idx">
+            <c:if test = "${idx.count mod 2 == 1 }">
+               <li>
+              </c:if>
+              <a href="#"> <img
+                     style="min-height: 100px; height: 100px; width: 100px;"
+                     src="${contextPath }/resources/upload_images/${sidePhoto.edit_name}" alt="">
+               </a>
+               <c:if test = "${idx.count mod 2 != 1 }">
+               	</li>
+               </c:if>
+               </c:forEach>
+            </ul>
+            <div class="clear"></div>
+         </div>
 
 
 
-				</ul>
-
-
-
-				<div class="clear"></div>
-
-
-
-
-			</div>
-
-			<div id="widget-survey" class="widget fullwidth widget-survey">
-				<h1 class="widget-title">Survey</h1>
-				<div class="widget-content">
-					<p>What was the last time you slept on bed in your house?</p>
-					<form action="#" method="post" class="mrgn-bottom-0">
-						<div class="form-group mrgn-bottom-0">
-							<div class="checkbox">
-								<label> <input name="remember" value="1" type="checkbox">
-									Today
-								</label>
-							</div>
-						</div>
-						<div class="form-group mrgn-bottom-0">
-							<div class="checkbox">
-								<label> <input name="remember" value="1" type="checkbox">
-									Yesterday
-								</label>
-							</div>
-						</div>
-						<div class="form-group mrgn-bottom-0">
-							<div class="checkbox">
-								<label> <input name="remember" value="1" type="checkbox">
-									The day after tomorrow
-								</label>
-							</div>
-						</div>
-						<div class="form-group mrgn-bottom-0">
-							<div class="checkbox">
-								<label> <input name="remember" value="1" type="checkbox">
-									Tomorrow
-								</label>
-							</div>
-						</div>
-						<div class="row survey">
-							<div class="col-md-6">
-								<button class="button vote">Vote</button>
-							</div>
-							<div class="col-md-6">
-								<button class="button">Results</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-
-
-			<div id="ads250_250-widget-2"
-				class="widget fullwidth ads250_250-widget">
-				<h1 class="widget-title">Advertisement</h1>
-				<div class="ads250-250">
-					<div class="ad-cell">
-						<a href="#"><img src="img/ad-210x190.png" class="fullwidth"
-							alt=""></a>
-					</div>
-				</div>
-			</div>
 
 		</div>
 
@@ -278,7 +258,7 @@
 				<div class="pull-left">
 					<div id="text-6">
 						<div class="textwidget">
-							<a href="#">Weekend Magazine</a> &copy; 2015 All rights reserved
+							<a href="#">ERROR404</a> &copy; 2015 All rights reserved
 						</div>
 					</div>
 				</div>

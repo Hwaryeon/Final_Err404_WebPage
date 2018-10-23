@@ -7,7 +7,7 @@
 <meta charset="utf-8">
   <!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
   <meta name="viewport" content=" width=device-width, initial-scale=1">
-  <title>Weekend Magazine</title>
+  <title>ERROR404</title>
 <jsp:include page="../common/menubar.jsp" />
 <link href="${ contextPath }/resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/font-awesome.min.css" rel="stylesheet">
@@ -35,29 +35,30 @@
          document.form1.submit();
       });
    }); 
+    
    
    
 </script>
+<style>
+.comment-reply-title, .page .page-title{
+	    margin: 5px 0 11px;
 
-</head>
-<!-- <style>
-#categort-posts-widget-2 {
-   background-color: transparent;
+}
+.categort-posts,  .sh{
+
+	box-shadow: 0px 0px 6px #4d4a4a;
+
 }
 
-  	#btns:hover{
-  		cursor : pointer;
-  	}
+</style>
 
-
-
-</style> -->
+</head>
 <body
    class="home page page-id-4 page-template page-template-template_home-php">
 
    
    
-   <div class="recent-widget" id="tabbed-widget" style="background:#f6f6f6;">
+   <div class="recent-widget" id="tabbed-widget" style="background:#f6f6f6; margin-top:-30px;">
                   <ul class="nav nav-justified nav-tabs" style="width:610px;margin-left:auto;margin-right:auto;">
                     <li class="active" style="width:150px; min-width:150px;" id="tab1">
                     <a href="#tab1" data-toggle="tab" style="width:150px; min-width:150px;">전체글</a></li>
@@ -132,7 +133,7 @@
 									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
 									|| pf.editName == 'cover7.jpg' }">
 								
-										<img src="${ contextPath }/resources/images/cover/${ pf.editName }">
+										<img style="border-radius: 10px;" src="${ contextPath }/resources/images/cover/${ pf.editName }">
 									</c:if>
 									
 									<c:if test="${ !(pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
@@ -140,7 +141,7 @@
 									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
 									|| pf.editName == 'cover7.jpg') }">
 								
-										<img src="${ contextPath }/resources/upload_images/${ pf.editName }">
+										<img style="border-radius: 10px;" src="${ contextPath }/resources/upload_images/${ pf.editName }">
 									</c:if>
                              
                              
@@ -167,8 +168,8 @@
                         			
                         			 <c:if test="${ loop }">
                         			
-	                        			<a href="boardMemberInvite.do?bid=${bid}" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
-	                        			초대코드 </a>
+	                        			<a href="boardMemberInvite.do?bid=${bid}" style="position:relative;padding-left: 12px;color:#00b994!important;font-size: 13px;">
+	                        			+ 초대코드 </a>
                         			</c:if>
                         			
                         			</h4>
@@ -201,18 +202,9 @@
         </div>
       <div class="main col-md-6 col-xs-12">
 
-
-
-         <div id="search-3" class="widget fullwidth widget_search">
-            <form class="search" role="search" method="get" action="#">
-               <input type="search" placeholder="Search &hellip;" value=""
-                  name="s" title="Search for:">
-            </form>
-         </div>
-
-         <div class="widget clearfix">
+         <div class="widget clearfix sh">
             <div id="respond" class="comment-respond">
-               <h3 id="reply-title" class="comment-reply-title">
+               <h3 id="reply-title" class="comment-reply-title" style="color:#25afe5;">
                   글 작성<small><a rel="nofollow"
                      id="cancel-comment-reply-link" href="" style="display: none;">Cancel
                         reply</a></small>
@@ -272,21 +264,24 @@
          <c:set var="userId" value="${ sessionScope.loginUser.mid }"/>
          
          <%-- <c:forEach items="${boardMain }" var="row"> --%>
+         
+          <c:if test="${empty boardList }">
+          	<div>
+         		<img  src="resources/images/startBand.PNG" alt="" style="width:580px;">
+         	</div>
+         </c:if> 
+         
 	 <c:forEach items="${boardList }" var="row">
-      <div class="post widget" style="margin-bottom:34px;">
+      <div class="post widget sh" style="margin-bottom:34px; padding-top: 0px;">
       
       
-              <div class="post-social" style="border-top: 0px solid #EAEAEA; padding-top: 10px;">
+             <!--  <div class="post-social" style="border-top: 0px solid #EAEAEA; padding-top: 10px;">
                 <div class="share-container" style="width:100%;">
                 
-               <%--  <c:forEach var="b2" items="${bList }">
-                   <c:if test="${b2.bid == do.bid }"> --%>
-                   
-                     <%--     <span class="share-title">${b2.bname }</span> --%>
                       
                  
                   </div>
-              </div>
+              </div> -->
               
                <div class="post-meta">
 
@@ -448,9 +443,9 @@
 								<!-- 신고글 내용 -->                            	
                             	<input type="hidden" value="${row.bContent }">
                             	
-                            	<c:if test="${row.mId != userId}">
+                            	<%-- <c:if test="${row.mId != userId}">
                                 	<a class="comment-reply-link reportBoard" style="cursor:pointer;">신고</a>
-                                </c:if>
+                                </c:if> --%>
                             </span>
             
                         </div><!--comment-header-->
@@ -465,7 +460,7 @@
                 
               </ol>
             </div>
-              <div class="post-content" style="margin-top:60px;border-top:2px solid #EAEAEA; padding-top:15px;">
+              <div class="post-content" style="margin-top:60px;margin-left: 30px;border-top:2px solid #EAEAEA; padding-top:15px;">
               
                 <p>${row.bContent }</p>
              
@@ -481,7 +476,7 @@
             <!-- 댓글창 -->
                
             <div class="box-content widget fullwidth" id="comments" style="margin-bottom:10px;">
-              <h4 class="comment-title">
+              <h4 class="comment-title" style="color:#25afe5;">
 						
 						<c:set var="count" value="0"/>
 						<c:forEach var="commentList" items="${commentList}">
@@ -492,7 +487,7 @@
 							
 							</c:if>
 						</c:forEach>
-					댓글 ${count }
+					댓글 <em style="color:#2ecc71;"> ${count }</em>
 				</h4>
               
               
@@ -522,7 +517,7 @@
                     
                     
                     
-                    <div class="comment_detail">
+                    <div class="comment_detail" style="width: 420px;">
                         
                         <div class="comment-header">
                              
@@ -619,7 +614,7 @@
               </ol>
               <div class="widget clearfix">
               <div id="respond" class="comment-respond">
-                <h3 id="reply-title" class="comment-reply-title" style="border-bottom:0px; float:left; margin-right:20px;">댓글쓰기 <small><a rel="nofollow" id="cancel-comment-reply-link" href="" style="display:none;">Cancel reply</a></small></h3>
+                <h3 id="reply-title" class="comment-reply-title" style="border-bottom:0px; float:left; margin-right:20px; color:#25afe5;">댓글쓰기 <small><a rel="nofollow" id="cancel-comment-reply-link" href="" style="display:none;">Cancel reply</a></small></h3>
                 <form action="insertComment.do" method="post" id="commentform" class="comment-form" style="float:left;">
                   <p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="text" value="" size="30"></p>
                   <p class="comment-form-comment" style="float:left; width:93%; margin-right: 10px;">
@@ -629,7 +624,7 @@
                   <input name="bid" type="hidden" value="${row.bId }">
 
 
-                  <textarea id="comment" name="comment" cols="55" rows="1" aria-required="true" style="min-height:1px; resize: none;" onclick="this.value=''">댓글을 입력해주세요</textarea></p>       
+                  <textarea id="comment" name="comment" cols="55" rows="1" aria-required="true" style="min-height:1px; resize: none; background-color:#f1eeee;" onclick="this.value=''">댓글을 입력해주세요</textarea></p>       
                   <p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr>
                   tags and attributes:  <code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code></p>
                   <p class="form-submit" style="float:left; width:10px;">
@@ -723,60 +718,9 @@ $('.updateBoard').click(function(){
                </c:if>
                </c:forEach>
             </ul>
-
-
-
             <div class="clear"></div>
-
-
-
-
          </div>
 
-         <div id="widget-survey" class="widget fullwidth widget-survey">
-            <h1 class="widget-title">Survey</h1>
-            <div class="widget-content">
-               <p>What was the last time you slept on bed in your house?</p>
-               <form action="#" method="post" class="mrgn-bottom-0">
-                  <div class="form-group mrgn-bottom-0">
-                     <div class="checkbox">
-                        <label> <input name="remember" value="1" type="checkbox">
-                           Today
-                        </label>
-                     </div>
-                  </div>
-                  <div class="form-group mrgn-bottom-0">
-                     <div class="checkbox">
-                        <label> <input name="remember" value="1" type="checkbox">
-                           Yesterday
-                        </label>
-                     </div>
-                  </div>
-                  <div class="form-group mrgn-bottom-0">
-                     <div class="checkbox">
-                        <label> <input name="remember" value="1" type="checkbox">
-                           The day after tomorrow
-                        </label>
-                     </div>
-                  </div>
-                  <div class="form-group mrgn-bottom-0">
-                     <div class="checkbox">
-                        <label> <input name="remember" value="1" type="checkbox">
-                           Tomorrow
-                        </label>
-                     </div>
-                  </div>
-                  <div class="row survey">
-                     <div class="col-md-6">
-                        <button class="button vote">Vote</button>
-                     </div>
-                     <div class="col-md-6">
-                        <button class="button">Results</button>
-                     </div>
-                  </div>
-               </form>
-            </div>
-         </div>
 
 
 

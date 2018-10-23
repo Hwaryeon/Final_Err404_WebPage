@@ -110,6 +110,9 @@ public class MainPageController {
 			int result = mps.insertBand(pf, b, mid); 
 				
 			if(result == 0){
+				
+				
+				
 				return "common/errorPage";
 			} else {
 				
@@ -143,6 +146,9 @@ public class MainPageController {
 			}
 		} catch (Exception e) {
 			new File(filePath + changeName + ext).delete();
+			
+			System.out.println("아마 여기서 에러나느거 같은대");
+			
 			return "common/errorPage";
 		}
 		

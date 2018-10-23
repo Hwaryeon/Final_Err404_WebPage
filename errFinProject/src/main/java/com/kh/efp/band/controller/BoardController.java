@@ -54,7 +54,9 @@ public class BoardController {
     	int mId = ((Member)request.getSession().getAttribute("loginUser")).getMid();
     	
     	blc.bandLeftSideBar(Integer.parseInt(bid), mId, model);
-    	
+    	String bid2 = bid + "";
+		
+		bac.rightSidePhoto(bid2, model);
     	
     	String status = bs.checkBandOpenStatus(Integer.parseInt(bid));
     	

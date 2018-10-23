@@ -80,41 +80,6 @@
 
 <body class="home page page-id-4 page-template page-template-template_home-php">
 
-    <!-- TOP NAV -->
-    <div class="navbar navbar-default top-nav-bar" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".topmenu">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="navbar-collapse collapse topmenu">
-                <div class="menu-header-templates-menu-container">
-                    <ul class="nav navbar-nav">
-                        <li><a href="sampleForward.sample">샘플데이터</a></li>
-                        <li><a href="codeFactoryMain.codeFac">codeFactory</a></li>
-                        <li><a href="article-review.html">Article Review</a></li>
-                        <li><a href="archives.html">Archives</a></li>
-                        <li><a href="category.html">Category</a></li>
-                        <li><a href="fullwidth.html">Full Width</a></li>
-                        <li><a href="shortcodes.html">Shortcodes</a></li>
-                        <li><a href="404.html">404</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li><a href="newPost.np">새글 피드</a></li>
-                        <li><a href="bandCalendarList.bd">달력 호출</a></li>
-                        <li><a href="bandLeader.bd?bid=1">밴드 리더</a></li>
-                        <li><a href="bandLeader.bd">밴드 리더</a></li>
-                        <li><a href="list.do">으쟈쟈쟈</a></li>
-                        <li><a href="boardMember.do">회원리스트</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- LOGO AREA -->
     <div class="fullwidth bg-pink">
        <div class="col-md-6 col-xs-12" style="min-width:600px;">
@@ -123,7 +88,7 @@
           </div>
          
         </div>
-    </div>
+    </div> 
     
     <div class="container">
         <div class="main col-xs-push-3 col-md-12 col-xs-12" style="width : 100%; margin-bottom: 20px;">
@@ -141,7 +106,7 @@
 	                        <input class="form-control" type="text" name = "mEmail" id = "mEmail" placeholder="이메일">
                     		</td>
                     		<td rowspan = '2' style = "vertical-align : middle;" height = "85px">
-                    			<a style = "height : 60px; text-align : center; margin-top : 0px; padding-top : 25%;" id = 'btns' class = "button-orange button-link" onclick = "moveMain();">로그인</a>
+                    			<a style = "height : 75px; text-align : center; margin-top : 0px; padding-top : 38%;" id = 'btns' class = "button-orange button-link" onclick = "moveMain();">로그인</a>
                     		</td>
                     	</tr>
                     	<tr>
