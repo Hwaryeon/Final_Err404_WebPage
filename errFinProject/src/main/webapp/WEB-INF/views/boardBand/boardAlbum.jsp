@@ -205,7 +205,7 @@
                         <li>
                             <a href="#" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal${idx.index }">
                                <!--  <span class="comment-count">13</span> -->
-                                <img src="${ contextPath }/resources/upload_images/${al.edit_name }" width="164px" height="164px" alt="">
+                                <img src="${ contextPath }/resources/upload_images/${al.edit_name }" width="143px" height="143x" alt="">
                             </a>
                             <!-- <h4 class="news-title"><a href="#">Alboroza ft Kymanus Marli Natural</a></h4>
                             <p>Nunc faucibus, nisi non sagittis hendrerit, leo turpis interdum sem, non tincidunt pur us justo id ipsum some other word.</p> -->

@@ -224,11 +224,12 @@
 					
 					
 					<!-- 초대코드입력 -->
-					<form id="contactForm">
-						<p class="name clearfix">
+					<form  id="contactForm">
+					
+						<p class="name clearfix" style="margin-left: 70px;">
 						
 							<c:if test="${ code != null }">
-								<input type="text" name="code" id="contactName" 
+								<input   style=" background-color: rgba( 255, 255, 255, 0.5 ); text-align:center; border: 1px solid #BCBDBE;" type="text" name="code" id="contactName" 
 								class="required requiredField" value="${code }">
 							</c:if>
 							
@@ -240,7 +241,7 @@
 							<!-- <input type="text" name="code" id="contactName" 
 								class="required requiredField"> -->
 						</p>
-						<input style ="width:118px; height : 35px" onclick="code.value=btnChodae()" type="button" value="코드생성" height="50" width="200">
+						<input class="btn btn-primary"   style ="background-color: #5497e7; width:118px; height:37px" onclick="code.value=btnChodae()" type="button" value="코드생성" height="50" width="200">
 						
 						<p class="textarea clearfix">
 							<br>
@@ -259,7 +260,7 @@
 						</p>
 					</form>
 
- 				 <img align="center"  width="469px" height="291px" alt="" src="${ contextPath }/resources/images/chodaeImg.png">
+ 				 <img  style="margin-left: 35px;" align="center"  width="469px" height="291px" alt="" src="${ contextPath }/resources/images/chodaeImg.png">
  				 
 
 
