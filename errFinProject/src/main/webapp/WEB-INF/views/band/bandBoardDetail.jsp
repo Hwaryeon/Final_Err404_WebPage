@@ -219,10 +219,10 @@
             	
 		            ${ boards.bcontent }
             
-            
+            		<c:if test = "${ !empty att }">
                		 <!-- <img class="post-image img-beresponsive" src="http://placehold.it/469x291" alt=""> -->
                		 <img class="post-image img-beresponsive" src="${ contextPath }/resources/upload_images/${att.edit_name }" alt="">
-               		 
+               		</c:if>
                		 
               </div>
             </div>

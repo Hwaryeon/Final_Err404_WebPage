@@ -25,7 +25,49 @@
   	#btns:hover{
   		cursor : pointer;
   	}
-  </style>
+		#btnJoinFacebook{
+      width:300px;
+      height:51px;
+      padding-left : 0px;
+      padding-top : 0px;
+      padding-bottom : 0px;
+      /* background:#2E64FE;
+      border:solid 1px #FAFAFA;
+      color:#FAFAFA; */
+      border:solid 1px #2E64FE;
+      background:#FAFAFA;
+      color:#2E64FE;
+      line-height : 100%;
+   }
+   
+    #btnJoinGoogle{
+      width:300px;
+      height:51px;
+      padding-left : 0px;
+      padding-top : 0px;
+      padding-bottom : 0px;
+      /* border:solid 1px #FAFAFA;
+      background:#DF0101;
+      color:#FAFAFA; */
+      border:solid 1px #DF0101;
+      background:#FAFAFA;
+      color:#DF0101;
+   }
+   
+    #btnJoinNaver{
+      width:300px;
+      height:51px;
+      padding-left : 0px;
+      padding-top : 0px;
+      padding-bottom : 0px;
+      /* border:solid 1px #FAFAFA;
+      background:#DF0101;
+      color:#FAFAFA; */
+      border:solid 1px #1EC800;
+      background:#FAFAFA;
+      color:#1EC800;
+   }
+	</style>
 </head>
 
 <body
@@ -130,15 +172,56 @@
 				<div class="widget-content"
 					style="width: 49%; height: 500px; float: left; padding-top: 100px;">
 					<div style="text-align:center">
-						<a href = ${ ggurl }><img width="290px" height = "60px" src="resources/images/login/GGlogin1.png"/></a>
+						<a id = "Test4" href = "${ ggurl }">
+                          		<button id = "btnJoinGoogle" class = "Test3">
+                       			<table>
+                       			<tr>
+									<td>
+                       					<img src = "${ contextPath}/resources/images/login/ggicon.png">
+									</td>
+                       				<td style = "font-size : 10pt;align : center; width : 250px; heigth : 50px; vertical-align : middle">
+                       					구글 아이디로 로그인하기
+                       				</td>
+                       			</tr>
+                       			</table>
+                       			</button>
+                       			</a>
+						<%-- <a href = ${ ggurl }><img width="290px" height = "60px" src="resources/images/login/GGlogin1.png"/></a> --%>
 					</div>
 					<br>
 					<div style="text-align:center">
-						<a href = ${ FB_url }><img width="280px" height = "40px" src="resources/images/login/FBLogin1.PNG"/></a>
+						<a id = "Test3" href = "${ FB_url }">
+                          		<button id = "btnJoinFacebook" class = "Test3">
+                       			<table>
+                       			<tr>
+									<td>
+                       					<img src = "${ contextPath}/resources/images/login/fb50px.png">
+									</td>
+                       				<td align = "center" style = "font-size : 10pt; align : center; width : 250px; heigth : 50px; vertical-align : middle">
+                       					페이스북 아이디로 로그인하기
+                       				</td>
+                       			</tr>
+                       			</table>
+                       			</button></a>
+						<%-- <a href = ${ FB_url }><img width="280px" height = "40px" src="resources/images/login/FBLogin1.PNG"/></a> --%>
 					</div>
 					<br>
 					<div id="naver_id_login" style="text-align:center">
-                            <a href = ${ url }><img width="280px" height = "60px" src="resources/images/login/naver.PNG"/>
+					<a id = "Test2" style = "padding : 0px;" href = "${ url }">
+	                            <button id = "btnJoinNaver" class = "Test3">
+	                       			<table>
+	                       			<tr>
+										<td>
+	                       					<img src = "${ contextPath}/resources/images/login/naveicon.png">
+										</td>
+	                       				<td style = "font-size : 10pt; width : 250px; heigth : 50px; vertical-align : middle">
+	                       					네이버 아이디로 로그인하기
+	                       				</td>
+	                       			</tr>
+	                       			</table>
+	                       			</button>
+	                            </a>
+                           <%--  <a href = ${ url }><img width="280px" height = "60px" src="resources/images/login/naver.PNG"/> --%>
                             </a></div>
 				</div>
 			</div>
@@ -173,7 +256,7 @@
 		
 		function insertForm() {
 			//로그인 유효성 검사
-			/* var email = $("#mEmail").val();
+			var email = $("#mEmail").val();
 			var checkNum = $("[name=checkNum]").val();
 			var mpwd = $("#mPwd").val();
 			var cpwd = $("#checkPwd").val();
@@ -225,7 +308,7 @@
 				alert("Email을 확인하세요.");
 				return false;
 			}
-			*/
+			
 			
 			checkmPhone();
 		}
@@ -352,10 +435,10 @@
 				alert("Email 인증을 받으세요");
 			}else if(emailResult == 2){
 				if(authNum.match(checkAuth)){
-					console.log("만세!");
+					alert("인증이 완료되었습니다");
 					emailResult = 1;
 				}else{
-					console.log("다름..");
+					alert("인증번호를 다시 확인해주세요");
 					emailResult = 0;
 				}
 			}

@@ -90,7 +90,7 @@
 	
 	<!-- 밴드가입한 회원 목록 메소드 -->
 	<select id = "selectMember_BandList" parameterType = "Member_Band" resultMap = "Member_BandResultSet">
-		SELECT MB.MBID, MB.BID, M.MID, MB.IDATE, MB.ISTATUS, MB.MLEVEL, M.MNAME 
+		SELECT MB.MBID, MB.BID, MB.MID, MB.IDATE, MB.ISTATUS, MB.MLEVEL, M.MNAME 
 		FROM MEMBER_BAND MB
 		JOIN MEMBER M ON (M.MID = MB.MID)
 		WHERE BID = #{bid} AND ISTATUS = 'Y'
@@ -309,7 +309,7 @@
 	</select>
 	
 	<select id = "selectMemberBandProfile" parameterType="MemberBandProfile" resultMap = "MemberBandProfileResultSet">
-		SELECT MB.MBID, MB.BID, MB.IDATE, MB.ISTATUS, MB.MLEVEL, M.MNAME, M.MTYPE, FILE_SRC, EDIT_NAME
+		SELECT MB.MBID, MB.BID, MB.MID, MB.IDATE, MB.ISTATUS, MB.MLEVEL, M.MNAME, M.MTYPE, FILE_SRC, EDIT_NAME
 		FROM MEMBER_BAND MB
 		JOIN MEMBER M ON(MB.MID = M.MID)
 		JOIN PROFILE P ON(M.MID = P.MID)
