@@ -21,7 +21,35 @@
     <link href="${ contextPath }/resources/css/style.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/light-pink-blue.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
 </head>
+<style>
+.comment-reply-title, .page .page-title{
+	    margin: 5px 0 11px;
+
+}
+.categort-posts,  .sh{
+
+	box-shadow: 0px 0px 6px #4d4a4a;
+
+}
+.sh2{
+
+	box-shadow: 0px 4px 6px #4d4a4a;
+
+}
+.share-title{
+	font-size: 13px;
+    font-weight: 600;
+    color: #333;
+
+}
+
+p{
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+</style>
 <body class="home page page-id-4 page-template page-template-template_home-php">
 
 	<c:set var="comCount" value="0"/>
@@ -30,7 +58,7 @@
 
         <div class="left-sidebar col-md-3" role="complementary">
 
-            <div id="text-html-widget-2" class="widget fullwidth text-html">
+            <div id="text-html-widget-2" class="widget fullwidth text-html sh">
                 <h1 class="widget-title"></h1>
                 <div>
                     <div class="socialize">
@@ -44,7 +72,7 @@
                 <div class="clear"></div>
             </div>
 
-           <div class="recent-widget widget padding-0" id="tabbed-widget">
+           <div class="recent-widget widget padding-0 sh" id="tabbed-widget">
                 <ul class="nav nav-justified nav-tabs">
                     <li class="active"><a href="#popular" data-toggle="tab">내 밴드
                     <em style="color:#2ecc71; margin-left:5px;">${fn:length(bList)}</em> </a></li>
@@ -161,14 +189,15 @@
 		mid : ${np.mid } --%>
 		
 		
-		<div class="post widget" style="margin-bottom:0px;">
+		<div class="post widget sh" style="margin-bottom:0px;">
               <div class="post-social" style="border-top: 0px solid #EAEAEA; padding-top: 10px;">
                 <div class="share-container" style="width:100%;">
                 
                 <c:forEach var="b2" items="${bList }">
                 	<c:if test="${b2.bid == np.bid }">
                 	
-                     	 <span class="share-title">${b2.bname }</span>
+                     	 <span class="share-title" style="font-size: 20px;font-weight: 900;
+    						color: #333;">${b2.bname }</span>
                       </c:if>
                    </c:forEach>
                   </div>
@@ -209,13 +238,13 @@
                             <c:if test="${not doneLoop2 }">
 	                            	<c:if test="${ mName.mid == np.mid }" >
 	                            
-	                          		  <span class="author">${ mName.mname }</span>
+	                          		  <span class="author" style="font-size:17px;">${ mName.mname }</span>
 	                          		  <c:set var="doneLoop2" value="true"/> 
 	                          	  </c:if>
                           	  </c:if>
                             </c:forEach>
                             <span class="date">
-                                <a href="#">${np.bdate }</a>
+                                <a href="#" style="font-size:14px;">${np.bdate }</a>
                             </span>
                             
                             <span class="reply">
@@ -259,14 +288,25 @@
               
                 <!-- <h1 class="post-title"><a href="#">Pistorius numb with grief and shock over death of girlfriend, family says the truth</a></h1>
                 <p class="bold">Our entire family is devastated, we are in a state of total shock - first about the tragic death of Reeva, who we had all got to know well and care for deeply over the last few months," the statement, from Arnold Pistorius, uncle of the accused. All of us saw at first hand how close she had become to Oscar.</p> -->
-                <p>${np.bcontent }</p>
+                <p style="font-size: 22px;line-height: 1.3em;">${np.bcontent }</p>
+                
+                <c:set var="loop" value="false"/>
+	                <c:forEach var="aList" items="${aList}">
+	               	 <c:if test="${ not loop }">
+	                	<c:if test="${aList.boardId == np.boardid }">
+	                	<c:set var="loop" value="true"/>
+	                		 <img class="post-image img-beresponsive" src="${ contextPath }/resources/upload_images/${aList.edit_name }" alt="">
+	                	</c:if>
+	                	</c:if>
+                </c:forEach>
+                
                 <!-- <blockquote>Intelligence services, identified energy, finance, information technology, aerospace and automotive companies as the most frequent targets of hacking campaigns that appear state sponsored, according to The Washington Post earlier this week.</blockquote>
                 <img class="post-image img-beresponsive" src="http://placehold.it/469x291" alt=""> -->
               </div>
             </div>
             
-            <div class="box-content widget fullwidth" id="comments" style="margin-bottom:10px;">
-              <h4 class="comment-title">
+            <div class="box-content widget fullwidth sh2" id="comments" style="margin-bottom:10px;">
+              <h4 class="comment-title" style="color:#25afe5;">
 						
 						<c:set var="count" value="0"/>
 						<c:forEach var="commentList" items="${commentList}">
@@ -277,7 +317,7 @@
 							
 							</c:if>
 						</c:forEach>
-					댓글 ${count }
+					댓글 <em style="color:#2ecc71;"> ${count }</em>
 				</h4>
               
               
@@ -317,7 +357,7 @@
                             	<c:if test="${not doneLoop }">
 	                            	<c:if test="${ mName2.mid == commentList.mid }" >
 	                            
-		                          		  <span class="author">${ mName2.mname }</span> 
+		                          		  <span class="author" style="font-size:17px;">${ mName2.mname }</span> 
 		                          		  <c:set var="doneLoop" value="true"/>
 		                          	  </c:if>
 	                          	  </c:if>
@@ -326,7 +366,7 @@
                            </span> 
                             
                             <span class="date">
-                                <a href="#">${ commentList.bdate }</a>
+                                <a href="#" style="font-size:14px;">${ commentList.bdate }</a>
                             </span>
                             
                             <span class="reply">
@@ -405,7 +445,7 @@
               </ol>
               <div class="widget clearfix">
               <div id="respond" class="comment-respond">
-                <h3 id="reply-title" class="comment-reply-title" style="border-bottom:0px; float:left; margin-right:20px;">댓글쓰기 <small><a rel="nofollow" id="cancel-comment-reply-link" href="" style="display:none;">Cancel reply</a></small></h3>
+                <h3 id="reply-title" class="comment-reply-title" style="border-bottom:0px; float:left; margin-right:20px; color:#25afe5;">댓글쓰기 <small><a rel="nofollow" id="cancel-comment-reply-link" href="" style="display:none;">Cancel reply</a></small></h3>
                 <form action="insertNewPost.np" method="post" id="commentform" class="comment-form" style="float:left;">
                   <p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="text" value="" size="30"></p>
                   <p class="comment-form-comment" style="float:left; width:93%; margin-right: 10px;">
@@ -556,7 +596,7 @@
                 <div class="clear"></div>
             </div>
 
-            <div id="tag_cloud-2" class="widget fullwidth widget_tag_cloud">
+            <div id="tag_cloud-2" class="widget fullwidth widget_tag_cloud sh">
                 <h1 class="widget-title">주제별 밴드 찾기</h1>
                 <div class="tagcloud">
                 

@@ -19,11 +19,66 @@
     <link href="${ contextPath }/resources/css/responsive.css" rel="stylesheet">
     <link href="${ contextPath }/resources/css/light-pink-blue.css" rel="stylesheet">
 </head>
+<style>
+.comment-reply-title, .page .page-title{
+	    margin: 5px 0 11px;
+
+}
+.categort-posts,  .sh{
+
+	box-shadow: 0px 0px 6px #4d4a4a;
+
+}
+.vote {
+	-moz-box-shadow:inset 0px 0px 0px 0px #bbdaf7;
+	-webkit-box-shadow:inset 0px 0px 0px 0px #bbdaf7;
+	box-shadow:inset 0px 0px 0px 0px #bbdaf7;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #86b8eb) );
+	background:-moz-linear-gradient( center top, #79bbff 5%, #86b8eb 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#86b8eb');
+	background-color:#79bbff;
+	-webkit-border-top-left-radius:0px;
+	-moz-border-radius-topleft:0px;
+	border-top-left-radius:0px;
+	-webkit-border-top-right-radius:0px;
+	-moz-border-radius-topright:0px;
+	border-top-right-radius:0px;
+	-webkit-border-bottom-right-radius:0px;
+	-moz-border-radius-bottomright:0px;
+	border-bottom-right-radius:0px;
+	-webkit-border-bottom-left-radius:0px;
+	-moz-border-radius-bottomleft:0px;
+	border-bottom-left-radius:0px;
+	text-indent:0px;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	font-style:normal;
+	height:36px;
+	line-height:36px;
+	width:159px;
+	text-decoration:none;
+	text-align:center;
+}
+.vote:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #86b8eb), color-stop(1, #79bbff) );
+	background:-moz-linear-gradient( center top, #86b8eb 5%, #79bbff 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#86b8eb', endColorstr='#79bbff');
+	background-color:#86b8eb;
+}.vote:active {
+	position:relative;
+	top:1px;
+}
+
+</style>
 <body
 	class="home page page-id-4 page-template page-template-template_home-php">
 
 
-<div class="recent-widget" id="tabbed-widget" style="background:#f6f6f6;">
+<div class="recent-widget" id="tabbed-widget" style="background:#f6f6f6; margin-top:-30px;">
                   <ul class="nav nav-justified nav-tabs" style="width:610px;margin-left:auto;margin-right:auto;">
                     <li style="width:150px; min-width:150px;" id="tab1">
                     <a href="#tab1" data-toggle="tab" style="width:150px; min-width:150px;">전체글</a></li>
@@ -81,9 +136,9 @@
 				
 			});		
 		</script>
-	<div class="container">
+	<div class="container" style="min-height:700px;">
 
-		 <div class="left-sidebar col-md-3" role="complementary">
+		<div class="left-sidebar col-md-3" role="complementary">
 
 			 <div id="categort-posts-widget-2" class="widget fullwidth categort-posts"><h1 class="widget-title"></h1>
                 <ul class="tvshows">
@@ -96,7 +151,7 @@
 									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
 									|| pf.editName == 'cover7.jpg' }">
 								
-										<img src="${ contextPath }/resources/images/cover/${ pf.editName }">
+										<img style="border-radius: 10px;" src="${ contextPath }/resources/images/cover/${ pf.editName }">
 									</c:if>
 									
 									<c:if test="${ !(pf.editName == 'cover1.jpg' || pf.editName == 'cover2.jpg'
@@ -104,7 +159,7 @@
 									|| pf.editName == 'cover5.jpg' || pf.editName == 'cover6.jpg'
 									|| pf.editName == 'cover7.jpg') }">
 								
-										<img src="${ contextPath }/resources/upload_images/${ pf.editName }">
+										<img style="border-radius: 10px;" src="${ contextPath }/resources/upload_images/${ pf.editName }">
 									</c:if>
                              
                              
@@ -131,13 +186,13 @@
                         			
                         			 <c:if test="${ loop }">
                         			
-	                        			<a href="boardMemberInvite.do?bid=${bid}" style="position:relative;padding-left: 12px;color: #fdb00d!important;font-size: 13px;">
-	                        			초대코드 </a>
+	                        			<a href="boardMemberInvite.do?bid=${bid}" style="position:relative;padding-left: 12px;color:#00b994!important;font-size: 13px;">
+	                        			+ 초대코드 </a>
                         			</c:if>
                         			
                         			</h4>
                         			
-                        <div> 
+                        <div style="margin-left: 19px;"> 
                         
                         <c:if test="${ not loop }">
 	                        <form action="Member_BandInsert.bd" method="post" class="mrgn-bottom-0">
@@ -164,7 +219,7 @@
             
         </div>
 
-		<div class="main col-md-6 col-xs-12">
+		<div class="main col-md-6 col-xs-12 sh">
 
 			<div class="widget fullwidth post-single" style="margin-bottom:1px;">
 

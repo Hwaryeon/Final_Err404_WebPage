@@ -41,6 +41,7 @@ public class BoardMemberInvite {
 	
 	@Inject
 	BoardMemberService boardMemberService;
+	@Autowired BoardAlbumController bac;
     
 	// 01. 회원 목록
 	@RequestMapping("boardMemberInvite.do")
@@ -49,6 +50,10 @@ public class BoardMemberInvite {
 		int mid = ((Member)request.getSession().getAttribute("loginUser")).getMid();
 		
 		blc.bandLeftSideBar(bid, mid, model);
+		
+		String bid2 = bid + "";
+		
+		bac.rightSidePhoto(bid2, model);
 		
 		//임시로 지정
 		/*int bid = 1;*/

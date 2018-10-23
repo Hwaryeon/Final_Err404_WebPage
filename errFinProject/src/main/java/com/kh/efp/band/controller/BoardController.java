@@ -134,6 +134,11 @@ public class BoardController {
     	Board[] test = new Board[boardList.size()];
     	Board[] test2 = new Board[commentList.size()];
     	
+    	/*ArrayList<Attfile> aList = new ArrayList<Attfile>();
+		
+		for(int i=0; i<boardList.size(); i++){
+			aList.add(ns.selectAttfile(boardList.get(i).getBoardId()));
+		}*/
     	
     	for(int i=0; i<test.length; i++){
     		test[i] = boardList.get(i);
@@ -414,10 +419,16 @@ public class BoardController {
     //05. 게시글 수정 처리 화면
     @RequestMapping(value="updatePage.do",method=RequestMethod.GET)
     public ModelAndView updatePage(int boardId, String bContent, int bId,
-    		HttpServletRequest request ) throws Exception{
+    		HttpServletRequest request, Model model ) throws Exception{
     	
     	int mId = ((Member)request.getSession().getAttribute("loginUser")).getMid();
   
+    	blc.bandLeftSideBar(bId, mId, model);
+    	String bid2 = bId + "";
+		
+		bac.rightSidePhoto(bid2, model);
+    	
+    	
     	Board board = new Board();
     	
     	 board.setBoardId(boardId);

@@ -23,6 +23,16 @@
 </style>
 <style>
 
+.comment-reply-title, .page .page-title{
+	    margin: 5px 0 11px;
+
+}
+.categort-posts,  .sh{
+
+	box-shadow: 0px 0px 6px #4d4a4a;
+
+}
+
 p{
 	font-family: 'Nanum Myeongjo', serif;
 }
@@ -218,6 +228,7 @@ p{
 	margin-bottom: 0px;
 	margin-left: 10px;
 	color:#222;	
+	font-weight: 900;
 }
 
 .recommend-content>.introduction {
@@ -298,8 +309,9 @@ ul{
 	<!-- MAIN NAV -->
 	<div class="container">
 		<div class="main col-md-12 col-xs-12">
-			<div class="widget">
-				<h4 class="page-title" style="color:#25afe5; font-size:20px; font-weight:500;">내 밴드
+			<div class="widget sh">
+				<h4 class="page-title" style="color:#25afe5; font-size:22px; font-weight:700;">
+				내 밴드
 				  <em style="color:#2ecc71;"> ${ myBandList.size() }</em></h4>
 				<div class="myband-container">
 					<ul>
@@ -316,7 +328,7 @@ ul{
 							</div>
 						</li>
 						<c:forEach var="MyBandList" items="${ myBandList }">
-							<li class="myband-list" onclick = 'showBand(${MyBandList.bid});'>
+							<li class="myband-list" onclick = 'showBand(${MyBandList.bid});' style="border-radius:10px;">
 								<div class="band-profile">
 								
 									<c:if test="${ MyBandList.edit_name == 'cover1.jpg' || MyBandList.edit_name == 'cover2.jpg'
@@ -324,7 +336,8 @@ ul{
 									|| MyBandList.edit_name == 'cover5.jpg' || MyBandList.edit_name == 'cover6.jpg'
 									|| MyBandList.edit_name == 'cover7.jpg' }">
 								
-										<img src="resources/images/cover/${ MyBandList.edit_name }">
+										<img style="border-top-right-radius: 10px;
+  										  border-top-left-radius: 10px;"src="resources/images/cover/${ MyBandList.edit_name }">
 									</c:if>
 									
 									<c:if test="${ !(MyBandList.edit_name == 'cover1.jpg' || MyBandList.edit_name == 'cover2.jpg'
@@ -332,7 +345,8 @@ ul{
 									|| MyBandList.edit_name == 'cover5.jpg' || MyBandList.edit_name == 'cover6.jpg'
 									|| MyBandList.edit_name == 'cover7.jpg') }">
 								
-										<img src="resources/upload_images/${ MyBandList.edit_name }">
+										<img style="border-top-right-radius: 10px;
+    									border-top-left-radius: 10px;"src="resources/upload_images/${ MyBandList.edit_name }">
 									</c:if>
 									
 								</div>
@@ -356,8 +370,8 @@ ul{
 				</div>
 			</div>
 
-			<div class="widget">
-				<h4 class="page-title" style="color:#25afe5; font-size:20px; font-weight:500;">공개밴드 인기글</h4>
+			<div class="widget sh">
+				<h4 class="page-title" style="color:#25afe5; font-size:22px; font-weight:700;">공개밴드 인기글</h4>
 				<div class="poppost-container">
 					<ul>
 						<c:forEach var="PopularContents" items="${ popContents }">
@@ -379,7 +393,7 @@ ul{
 											</c:choose>
 											</p>
 											<div class="poppostPic">
-												<img src="resources/upload_images/${ PopularContents.edit_name }">
+												<img style="border-radius:10px;"src="resources/upload_images/${ PopularContents.edit_name }">
 											</div>
 										</c:when>
 										<c:otherwise>
@@ -403,8 +417,8 @@ ul{
 				</div>
 			</div>
 
-			<div class="widget">
-				<h4 class="page-title" style="color:#25afe5; font-size:20px; font-weight:500;">카테고리</h4>
+			<div class="widget sh">
+				<h4 class="page-title" style="color:#25afe5; font-size:22px; font-weight:700;">카테고리</h4>
 				<div class="item">
 	            <ul id="content-slider" class="content-slider">
 	                <li>
@@ -441,8 +455,8 @@ ul{
         </div>
 			</div>
 
-			<div class="widget">
-				<h4 class="page-title" style="color:#25afe5; font-size:20px; font-weight:500;">이런 밴드는 어때요?</h4>
+			<div class="widget sh">
+				<h4 class="page-title" style="color:#25afe5; font-size:22px; font-weight:700;">이런 밴드는 어때요?</h4>
 				<div class="recommend-container">
 					<ul>
 						<c:forEach var="rcmContents" items="${ rcmContents }">

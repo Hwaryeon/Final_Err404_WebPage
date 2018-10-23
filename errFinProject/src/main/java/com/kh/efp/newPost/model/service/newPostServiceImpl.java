@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.efp.band.model.vo.Attfile;
 import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.member.model.vo.Member;
 import com.kh.efp.newPost.model.dao.newPostDao;
@@ -89,6 +90,11 @@ public class newPostServiceImpl implements newPostService{
 	@Override
 	public void updateBoard(Boards b) {
 		nd.updateBoard(sqlSession, b);
+	}
+
+	@Override
+	public Attfile selectAttfile(int boardid) {
+		return nd.selectAttfile(sqlSession, boardid);
 	}
 
 }

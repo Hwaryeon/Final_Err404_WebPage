@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.efp.band.model.service.BandService;
+import com.kh.efp.band.model.vo.Attfile;
 import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.member.model.vo.Member;
 import com.kh.efp.member.model.vo.Profile;
@@ -134,6 +135,13 @@ public class newPostController {
 
 		Boards[] test2 = new Boards[commentList.size()];
 		
+		
+		ArrayList<Attfile> aList = new ArrayList<Attfile>();
+		
+		for(int i=0; i<newPostList.size(); i++){
+			aList.add(ns.selectAttfile(newPostList.get(i).getBoardid()));
+		}
+		
 		for(int i=0; i < test.length; i++){
 			test[i] = newPostList.get(i);
 		}
@@ -199,7 +207,7 @@ public class newPostController {
 		
 		model.addAttribute("commentList", test2);
 		model.addAttribute("mList2", mList2);
-		
+		model.addAttribute("aList", aList);
 		
 		return "newPost/newPost";
 	}
