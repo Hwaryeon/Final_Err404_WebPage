@@ -84,7 +84,7 @@ public class MemberBandController {
 	}
 	
 	@RequestMapping("moveToInviteCode.mb")
-	public String moveToInviteCode(String inviteCode){
+	public String moveToInviteCode(Model model, String inviteCode){
 		
 		Band b = mbs.selectBandinviteCode(inviteCode);
 		
@@ -92,7 +92,8 @@ public class MemberBandController {
 			
 			return "redirect:/list.do?bid=" + b.getBid();
 		}else{
-			return "commons/errorPage";
+			model.addAttribute("msg", "잘못된 초대코드 입니다");
+			return "common/errorPage";
 		}
 	}
 	

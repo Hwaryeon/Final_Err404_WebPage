@@ -218,7 +218,7 @@
                 <h4><a href="" title="Posts by admin" rel="author">${b.mname}</a>
                 <span style="float:right;">
                 	<input type="hidden" value="${b.mbid }" >
-                	<input type="hidden" value="${b.mid }" >
+                	<input type="hidden" value="${b.getMid() }" >
                  <div style="float: right" class="menu-primary-navigation-container">
                   <ul id="menu-primary-navigation" class="nav navbar-nav">
                      <li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -228,10 +228,10 @@
                         
                      </a>
                         <ul class="dropdown-menu" role="menu">
-                           <li><a onclick = "doChatting(${b.mid});">   <img alt="" src="${ contextPath }/resources/images/chat2.png?id=${row.boardId}"
+                           <li><a onclick = "doChatting(${b.getMid()});">   <img alt="" src="${ contextPath }/resources/images/chat2.png?id=${row.boardId}"
                         class="avatar avatar-75 photo avatar-default" >채팅하기</a></li>
                         
-                           <li><a onclick = "inviteChatting(${b.mid});">   <img alt="" src="${ contextPath }/resources/images/chatInvite.png?id=${row.boardId}"
+                           <li><a onclick = "inviteChatting(${b.getMid()});">   <img alt="" src="${ contextPath }/resources/images/chatInvite.png?id=${row.boardId}"
                         class="avatar avatar-75 photo avatar-default" >채팅초대</a></li>
                           
                         </ul></li>
