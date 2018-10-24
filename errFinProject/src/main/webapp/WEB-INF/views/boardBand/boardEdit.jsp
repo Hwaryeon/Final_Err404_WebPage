@@ -54,7 +54,7 @@
    });
    
    
-/* 	function update(){
+ 	/* function update(){
    		var mId = "${row.mId}"
    		var boardId = "${row.boardId}"
    		var bContent = "${row.bContent}"

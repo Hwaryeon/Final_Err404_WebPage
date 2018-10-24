@@ -150,6 +150,12 @@ public class AdminController {
 	@RequestMapping("showReportMember.ad")
 	public String showReportMember(@RequestParam("mid") int mid, String requestCurrentPage, Model model, HttpServletRequest request){
 		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
+
+		System.out.println("mid : " + mid);
+		System.out.println("requestCurrentPage : " + requestCurrentPage);
+		
+		//mid = 40;
+		
 		//페이징처리
 		int currentPage = 1;
 		if(requestCurrentPage != null)
@@ -162,6 +168,7 @@ public class AdminController {
 		model.addAttribute("reportMember", list);
 		model.addAttribute("pi", pi);
 		model.addAttribute("cid", ((ReportList)list.get(0)).getCid());
+		//model.addAttribute("cid", mid);
 		
 		return "admin/ReportMemberSelect";
 	}
@@ -213,7 +220,7 @@ public class AdminController {
 	}
 	//신고받은 밴드 블랙리스트로 이동
 	@RequestMapping("insertBlackBand.ad")
-	public String insertBlackBand(@RequestParam int bid, String banReason, HttpServletRequest request){
+	public String insertBlackBand(@RequestParam("cid") int bid, String banReason, HttpServletRequest request){
 		int result = as.insertBlackBand(bid, banReason);
 		if(result == 0)
 			return "common/errorPage";

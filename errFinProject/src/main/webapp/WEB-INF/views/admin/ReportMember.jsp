@@ -129,7 +129,7 @@
 								<td>${ reportMember.times }</td>
 								<td>
 									<c:if test="${ reportMember.times >= 5 }">
-										<button onclick="location.href='showReportMember.ad?mid=${reportMember.cid}'">
+										<button onclick="location.href='showReportMember.ad?mid=${reportMember.cid}&requestCurrentPage=1'">
 											상세보기
 										</button>
 									</c:if>

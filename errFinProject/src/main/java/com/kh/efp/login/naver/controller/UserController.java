@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,7 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.kh.efp.login.naver.model.service.loginService;
 import com.kh.efp.login.naver.model.vo.JsonStringParse;
 import com.kh.efp.login.naver.model.vo.NaverLoginBO;
+import com.kh.efp.mainPage.model.service.mainService;
 import com.kh.efp.member.model.vo.Member;
 import com.kh.efp.member.model.vo.Profile;
 
@@ -28,6 +30,8 @@ import com.kh.efp.member.model.vo.Profile;
 @SessionAttributes("loginUser")
 public class UserController {
 	@Autowired loginService ls;
+	@Autowired private mainService mps;
+	
 	private NaverLoginBO naverLoginBO;
 	private String apiResult = null;
 	private JsonStringParse jsonparse = new JsonStringParse();
@@ -57,7 +61,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value="/callback.lg",method = RequestMethod.GET)
-	public ModelAndView callback(@RequestParam String code, @RequestParam String state, HttpSession session) throws IOException {
+	public ModelAndView callback(@RequestParam String code, @RequestParam String state, HttpSession session, Model model) throws IOException {
 		/* 네아로 인증이 성공적으로 완료되면 code 파라미터가 전달되며 이를 통해 access token을 발급 */
 
 		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
@@ -92,6 +96,13 @@ public class UserController {
 		pf.setFileSrc(fileSrc);
 		
 		Member loginUser = ls.selectNaverMember(m, pf);
+		
+		
+		int mid = loginUser.getMid();
+		
+		model.addAttribute("myBandList", mps.bandList(mid));
+		model.addAttribute("popContents", mps.popContent());
+		model.addAttribute("rcmContents", mps.recommendContent(mid));
 
 		return new ModelAndView("main/main", "loginUser", loginUser);
 	}

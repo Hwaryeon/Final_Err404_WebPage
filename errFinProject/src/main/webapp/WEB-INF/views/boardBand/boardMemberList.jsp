@@ -442,11 +442,11 @@ $('#deleteBandMember').click(function(){
 
 function doChatting(mid){
 	$.ajax({
-		url : 'http://127.0.0.1:3000/startChat',
+		url : 'http://192.168.20.246:3000/startChat',
 		data : {mid : ${sessionScope.loginUser.mid}, target : mid},
 		type : 'post',
 		success : function(data){
-			var link = "http://127.0.0.1:3000/chat/" + ${sessionScope.loginUser.mid} + "/room/" + data;
+			var link = "http://192.168.20.246:3000/chat/" + ${sessionScope.loginUser.mid} + "/room/" + data;
 	    	/* var url = "http://192.168.20.248:3000/" + ${sessionScope.loginUser.mid}; */
 
 			var settings = "width=400, height=622, toolbar=no, menubar=no, scrollbars=no, resizable=no";
@@ -458,7 +458,7 @@ function doChatting(mid){
 }
 
 function inviteChatting(mid){
-			var link = "http://127.0.0.1:3000/inviteChat/${sessionScope.loginUser.mid}/" + mid;
+			var link = "http://192.168.20.246:3000/inviteChat/${sessionScope.loginUser.mid}/" + mid;
 	    	/* var url = "http://192.168.20.248:3000/" + ${sessionScope.loginUser.mid}; */
 
 			var settings = "width=400, height=622, toolbar=no, menubar=no, scrollbars=no, resizable=no";

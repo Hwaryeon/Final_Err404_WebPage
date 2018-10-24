@@ -141,7 +141,7 @@
 	<c:set var="comCount" value="0"/>
 	
 
-	<div class="container">
+	<div class="container" style="min-height:500px;">
 
 		<div class="left-sidebar col-md-3" role="complementary">
 
@@ -250,6 +250,12 @@
 	                            		<input type="hidden" value="${ m.mname }">
 	                          	  	</c:if>
                           	  	</c:forEach>
+                          	  	
+                            
+	                            	<c:if test="${ empty mList }" >
+	                            		<input type="hidden" value="user">
+	                          	  	</c:if>
+                          	  	
                             	
 								<!-- 신고글 내용 -->                            	
                             	<input type="hidden" value="${boards.bcontent }">
@@ -261,10 +267,10 @@
                   
                   <c:if test="${  sessionScope.loginUser.mid == boards.mid  }">  
                   <a class="comment-reply-link updateBoard" style="cursor:pointer; margin-right:5px; margin-left:5px;">수정</a>
-	              <a class="comment-reply-link deleteContent" style="cursor:pointer;">삭제</a>
+	              <a class="comment-reply-link deleteContent" style="cursor:pointer; margin-right:5px; margin-left:5px;">삭제</a>
                   
                   </c:if>
-                  <a class="comment-reply-link reportBoard" style="cursor:pointer;">신고</a>
+                  <a class="comment-reply-link reportBoard" style="cursor:pointer; margin-right:5px; margin-left:5px;">신고</a>
              	
              	
              	</span>
@@ -285,7 +291,11 @@
 
 
             <div class="box-content widget fullwidth sh" id="comments">
-              <h4 class="comment-title">댓글 ${ count }</h4>
+              <%-- <h4 class="comment-title">댓글 ${ count }</h4> --%>
+              
+              <h4 class="comment-title" style="color:#25afe5; font-size:15px; font-weight:700;">
+				댓글 <em style="color:#2ecc71;">  ${ count }</em></h4>
+              
               <ol class="commentlist">
               
               <c:forEach var="commentList" items="${commentList}">
@@ -635,7 +645,7 @@
   <input type="hidden" id="boardid2" value=""/> 
   <input type="hidden" id="ref_bid2" value=""/>
   <button data-remodal-action="cancel" class="remodal-cancel">취소</button>
-  <button id="deleteContentBu" data-remodal-action="confirm" class="remodal-confirm">확인@</button>
+  <button id="deleteContentBu" data-remodal-action="confirm" class="remodal-confirm">확인</button>
   <button id="deleteBoardBu" data-remodal-action="confirm" class="remodal-confirm">확인</button>
 </div>
 
@@ -754,6 +764,41 @@ $('#deleteBoardBu').click(function(){
 			 
 			 location.href="#modal2";
 		});
+		
+		$('.updateBoard').click(function(){
+			 
+			var bo = $(this).parents().children("input").eq(0).val();  
+			
+			 var bId = $(this).parents().children("input").eq(1).val();
+			
+			 var bcontent = $(this).parents().children("input").eq(4).val();
+			 
+			 
+			 
+			 console.log('bo : ' + bo);
+			 console.log('bId : ' + bId);
+			 console.log('bcontent : ' + bcontent);
+			 
+			  location.href="updatePage.do?boardId=" + bo + "&bContent=" + bcontent +"&bId=" + bId;
+		});
+		
+		
+		/* $('.btnUpdate').click(function(){
+			console.log('클릭2');
+       		
+       		var bo = $(this).parent().parent().children("input").eq(0).val();
+       		console.log('bo : ' + bo);
+       		var bcontent = $(this).parent().parent().children("input").eq(1).val();
+       		
+       		console.log('bcontent : ' + bcontent);
+       		
+       		var mId = $(this).parent().parent().children("input").eq(2).val();
+       		
+       		var bId = $(this).parent().parent().children("input").eq(3).val();
+       		console.log(bId);
+       		location.href="updatePage.do?boardId=" + bo + "&bContent=" + bcontent +"&bId=" + bId;
+       		 
+       	}); */
 		
 		
 		
