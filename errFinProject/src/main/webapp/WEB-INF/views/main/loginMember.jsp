@@ -105,7 +105,7 @@
 	                        <td width = "428px">
 	                        <input class="form-control" type="text" name = "mEmail" id = "mEmail" placeholder="이메일">
                     		</td>
-                    		<td rowspan = '2' style = "vertical-align : middle;" height = "85px">
+                    		<td rowspan = '2' style = "vertical-align : middle; height:85px; width:74px;">
                     			<a style = "height : 75px; text-align : center; margin-top : 0px; padding-top : 38%;" id = 'btns' class = "button-orange button-link" onclick = "moveMain();">로그인</a>
                     		</td>
                     	</tr>

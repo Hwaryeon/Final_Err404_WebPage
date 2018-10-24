@@ -334,7 +334,11 @@ p{
                         
                      </a>
                         <ul class="dropdown-menu" role="menu">
-                           <li>
+                         <input type="hidden" id="boardid" name="boardid" value="${row.boardId}">
+                           <input type="hidden" id="bcontent" name="bcontent" value="${row.bContent}">
+                           <input type="hidden" id="mid" name="mid" value="${row.mId}">
+                           <input type="hidden" id ="bid" name ="bid" value ="${row.bId}">
+                          <%--  <li>
                            <input type="hidden" id="boardid" name="boardid" value="${row.boardId}">
                            <input type="hidden" id="bcontent" name="bcontent" value="${row.bContent}">
                            <input type="hidden" id="mid" name="mid" value="${row.mId}">
@@ -342,14 +346,21 @@ p{
                            <a>
                               <img alt="" src="${ contextPath }/resources/images/dropEdit.png?id=${row.boardId}"
                         class="avatar avatar-75 photo avatar-default" >
-                        <!-- <button type="button" id="btnUpdate" class="btnUpdate" onclick=update()>수정</button> -->
                         
-                        <button  type="button" id="" class="btnUpdate" onclick="">수정</button>
-                        </a></li>
+                        <button  type="button" id="" class="btnUpdate" onclick="">수정하기</button>
+                        </a></li> --%>
                         
-                           <li><a onclick='deleteContent(${row.boardId})'><img alt="" src="${ contextPath }/resources/images/dropDelete.png"
+                        <li style="cursor: pointer;">
+                        
+                        
+                        <a  class="btnUpdate"><img alt="" src="${ contextPath }/resources/images/dropEdit.png?id=${row.boardId}"
+                         >&nbsp&nbsp&nbsp&nbsp&nbsp수정하기</a></li>
+                        
+                        
+                        
+                           <li style="cursor: pointer;"><a onclick='deleteContent(${row.boardId})'><img alt="" src="${ contextPath }/resources/images/dropDelete.png"
                         class="avatar avatar-75 photo avatar-default" >&nbsp&nbsp&nbsp&nbsp&nbsp삭제하기</a></li>
-                           <li id='rte'><a onclick='reportContent(${row.boardId},${row.mId})'><img alt="" src="${ contextPath }/resources/images/dropPolice.png"
+                           <li id='rte' style="cursor: pointer;"><a onclick='reportContent(${row.boardId},${row.mId})'><img alt="" src="${ contextPath }/resources/images/dropPolice.png"
                         class="avatar avatar-75 photo avatar-default" >&nbsp&nbsp&nbsp&nbsp&nbsp신고하기</a></li>
                         </ul></li>
                   </ul>
