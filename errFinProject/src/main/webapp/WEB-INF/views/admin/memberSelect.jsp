@@ -7,7 +7,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content=" width=device-width, initial-scale=1">
 <title>관리자 | 회원조회</title>
-<!-- CSS --> 
 <jsp:include page="../admin/adminMenubar.jsp" />
 <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 <link href="resources/css/font-awesome.min.css" rel="stylesheet">
@@ -50,7 +49,6 @@
 	height: 70px;
 	font-size: 20px;
 	text-align: center;
-	/* border: 1px solid black; */
 }
 
 .search-area{
@@ -119,7 +117,7 @@
 							</tr>
 						</c:forEach>
 					</table>
-					<!-- 페이징 영역 -->
+					<!-- ページング -->	
 					<div class="paging-area">
 						<c:if test="${ pi.currentPage <= 1 }">
 							[이전] &nbsp;

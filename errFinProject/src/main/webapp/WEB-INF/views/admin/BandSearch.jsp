@@ -16,10 +16,8 @@
 <link href="resources/css/light-pink-blue.css" rel="stylesheet">
 <style>
 .menu-list {
-	/* width:200px; */
 	height: 50px;
 	padding-left: 10px;
-	/* text-align:center; */
 	font-size: 15px;
 	padding-top: 20px;
 	color:black;
@@ -29,8 +27,6 @@
 .admin-container {
 	width: 800px;
 	margin-bottom: 20%;
-	/* background-color: lightgray; */
-	/* font-color: white; */
 }
 
 .admin-table {
@@ -54,7 +50,6 @@
 	height: 70px;
 	font-size: 20px;
 	text-align: center;
-	/* border: 1px solid black; */
 }
 
 
@@ -81,11 +76,11 @@
 				</button>
 			</div>
 		</div>
-		<!-- LOGO AREA -->
 		<!-- MAIN NAV -->
 		<div class="container" style="width:1170px; height:600px;">
 
 			<div class="left-sidebar col-md-3" role="complementary">
+				<!-- メニューList -->
 				<div class="menu-container">
 					<ul>
 						<li class="menu-list" onclick="location.href='MemberSelect.ad'">회원조회</li>
@@ -102,55 +97,39 @@
 			<div class="main col-md-6 col-xs-12">
 				<div class="admin-container">
 					<h1 style="height: 50px; padding-left: 20px; padding-top: 10px;">밴드검색</h1>
-					<!-- <form action="BandSearch.ad"> -->
 						<div class="search-area">
 							검색방법  : 
 							<select name="keywordValue" style="margin-left:2%; font-size:15px; height:25px;">
-								<!-- <option>-------</option> -->
-								
 								<c:if test="${ keywordValue == 'bandName' }">
-								
 									<option value="bandName" selected="selected">밴드명</option>
 									<option value="bandMaster">밴드장</option>
 								</c:if>
-								
 								<c:if test="${ keywordValue == 'bandMaster' }">
-								
 									<option value="bandName">밴드명</option>
 									<option value="bandMaster" selected="selected">밴드장</option>
 								</c:if>
-								
-								
 							</select>
 							<c:if test="${ keyword eq null }">
-									<input id="searchNickName" type="text" name="searchNickName" value="">
-								</c:if>
-								<c:if test="${ keyword ne null }">
-									<input id="searchNickName" type="text" name="searchNickName" value="${ keyword }">
-								</c:if>
-							<button id="searchBu">검색</button>
-						</div>
-					<!-- </form> -->
+								<input id="searchNickName" type="text" name="searchNickName" value="">
+							</c:if>
+							<c:if test="${ keyword ne null }">
+								<input id="searchNickName" type="text" name="searchNickName" value="${ keyword }">
+							</c:if>
+						<button id="searchBu">검색</button>
+					</div>
 					
+					<!-- 検索結果を固定する　 -->
 					<script>
-						
 						$('#searchBu').click(function(){
-							
 							var keyword = $("#searchNickName").val();
 							var pi = 1;
-
 							var keywordValue = $("select[name='keywordValue']").val();
 							
 							console.log("keywordValue : " + keywordValue);
 							
 							location.href="BandSearch.ad?keyword=" + keyword + "&currentPage=" + pi + "&keywordValue=" + keywordValue;
-						
 						});
-						
-						</script>
-					
-					
-					
+					</script>
 					
 					<table class="admin-table">
 						<tr style="background-color:lightblue">
@@ -171,8 +150,8 @@
 							</tr>
 						</c:forEach>
 					</table>
-						<!-- 페이징 영역 -->
-						
+					
+					<!-- ページング -->	
 					<div class="paging-area">
 						<c:if test="${ pi.currentPage <= 1 }">
 							[이전] &nbsp;
@@ -207,8 +186,9 @@
 				</div>
 			</div>
 		</div>
-			<script>
-		
+	</div>
+		<!-- ページングの機能　 -->
+		<script>
 		$('.pageBu').click(function(){
 			
 			var pi = $(this).text();
@@ -223,7 +203,6 @@
 			
 			
 		});
-		
 		</script>
 </body>
 </html>

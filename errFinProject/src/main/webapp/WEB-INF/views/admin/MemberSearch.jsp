@@ -5,10 +5,8 @@
 <html>
 <head>
 <meta charset="utf-8">
-<!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content=" width=device-width, initial-scale=1">
 <title>관리자 | 회원검색</title>
-<!-- CSS --> 
 <jsp:include page="../admin/adminMenubar.jsp" />
 <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 <link href="resources/css/font-awesome.min.css" rel="stylesheet">
@@ -17,10 +15,8 @@
 <link href="resources/css/light-pink-blue.css" rel="stylesheet"> 
 <style>
 .menu-list {
-	/* width:200px; */
 	height: 50px;
 	padding-left: 10px;
-	/* text-align:center; */
 	font-size: 15px;
 	padding-top: 20px;
 	color:black;
@@ -30,8 +26,6 @@
 .admin-container {
 	width: 800px;
 	margin-bottom: 20%;
-	/* background-color: lightgray; */
-	/* font-color: white; */
 }
 
 .admin-table {
@@ -55,7 +49,6 @@
 	height: 70px;
 	font-size: 20px;
 	text-align: center;
-	/* border: 1px solid black; */
 }
 
 .search-area{
@@ -71,21 +64,8 @@
 	class="home page page-id-4 page-template page-template-template_home-php">
 	<!-- TOP NAV -->
 	<div class="navbar navbar-default top-nav-bar" role="navigation">
-		<!-- <div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".topmenu">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-			</div>
-		</div> -->
-		<!-- LOGO AREA -->
-		
 		<!-- MAIN NAV -->
 		<div class="container" style="width:1170px; height:600px;">
-
 			<div class="left-sidebar col-md-3" role="complementary">
 				<div class="menu-container">
 					<ul>
@@ -103,44 +83,33 @@
 			<div class="main col-md-6 col-xs-12">
 				<div class="admin-container">
 					<h1 style="height: 50px; padding-left: 20px; padding-top: 10px;">회원검색</h1>
-					<!-- <form action="MemberSearch.ad?keyword="> -->
 						<div class="search-area">
 							검색방법  : 
 							<select style="margin-left:2%; font-size:15px; height:25px;">
-								<!-- <option>-------</option> -->
 								<option>닉네임</option>
-								<!-- <option>연락처</option> -->
 							</select>
 								
-								<c:if test="${ keyword eq null }">
-									<input id="searchNickName" type="text" name="searchNickName">
-								</c:if>
-								<c:if test="${ keyword ne null }">
-									<input id="searchNickName" type="text" name="searchNickName" value="${ keyword }">
-								</c:if>
-								<button id="searchBu">검색</button>
+							<c:if test="${ keyword eq null }">
+								<input id="searchNickName" type="text" name="searchNickName">
+							</c:if>
+							<c:if test="${ keyword ne null }">
+								<input id="searchNickName" type="text" name="searchNickName" value="${ keyword }">
+							</c:if>
+							<button id="searchBu">검색</button>
 						</div>
 						
+						<!-- 検索結果を固定する　 -->
 						<script>
-						
-						$('#searchBu').click(function(){
-							
-							console.log('눌림???');
-							
-							var keyword = $("#searchNickName").val();
-							
-							console.log('keywprd : '+ keyword);
-							
-							var pi = 1;
-							
-							location.href="MemberSearch.ad?keyword=" + keyword + "&currentPage=" + pi; 
-							
-						
-						});
+							$('#searchBu').click(function(){
+								console.log('눌림???');
+								var keyword = $("#searchNickName").val();
+								console.log('keywprd : '+ keyword);
+								var pi = 1;
+								location.href="MemberSearch.ad?keyword=" + keyword + "&currentPage=" + pi; 
+							});
 						
 						</script>
-						
-					<!-- </form> -->
+					
 					<table class="admin-table">
 						<tr style="background-color:lightblue">
 							<td>회원번호</td>
@@ -165,7 +134,7 @@
 						</c:forEach>
 					</table>
 
-					<!-- 페이징 영역 -->
+					<!-- ページング -->	
 					<div class="paging-area">
 						<c:if test="${ pi.currentPage <= 1 }">
 							[이전] &nbsp;
@@ -174,7 +143,6 @@
 							<c:url var='mListBack' value="MemberSearch.ad">
 								<c:param name="requestCurrentPage" value="${ pi.currentPage -1 }"/>
 							</c:url>
-							<!-- <a class="pageBack" >[이전]</a> -->
 							<a href="${ mListBack }">[이전]</a> &nbsp;
 						</c:if>
 						<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
@@ -197,22 +165,21 @@
 							</c:url>
 							<a href="${ mListNext }"> [다음]</a>
 						</c:if>
+						<script>
+						<!-- ページング -->		
+						$('.pageBu').click(function(){
+							var pi = $(this).text();
+							console.log("pi : " + pi);
+							var keyword = $("#searchNickName").val();
+							console.log('keywprd : '+ keyword);
+							location.href="MemberSearch.ad?keyword=" + keyword + "&currentPage=" + pi; 
+								
+						});
+						</script>
 					</div>
-				
 				</div>
 			</div>
 		</div>
 	</div>
-	<script>
-		
-	$('.pageBu').click(function(){
-		var pi = $(this).text();
-		console.log("pi : " + pi);
-		var keyword = $("#searchNickName").val();
-		console.log('keywprd : '+ keyword);
-		location.href="MemberSearch.ad?keyword=" + keyword + "&currentPage=" + pi; 
-			
-	});
-	</script>
 </body>
 </html>

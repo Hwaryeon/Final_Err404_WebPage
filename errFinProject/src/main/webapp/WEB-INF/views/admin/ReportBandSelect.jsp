@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta charset="utf-8">
-<!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content=" width=device-width, initial-scale=1">
 <title>관리자 | 신고받은 밴드 상세 조회</title>
 <!-- CSS --> 
@@ -17,10 +16,8 @@
 <link href="resources/css/light-pink-blue.css" rel="stylesheet"> 
 <style>
 .menu-list {
-	/* width:200px; */
 	height: 50px;
 	padding-left: 10px;
-	/* text-align:center; */
 	font-size: 15px;
 	padding-top: 20px;
 	color:black;
@@ -30,8 +27,6 @@
 .admin-container {
 	width: 800px;
 	margin-bottom: 20%;
-	/* background-color: lightgray; */
-	/* font-color: white; */
 }
 
 .admin-table {
@@ -55,7 +50,6 @@
 	height: 70px;
 	font-size: 20px;
 	text-align: center;
-	/* border: 1px solid black; */
 }
 
 .search-area{
@@ -78,8 +72,6 @@
 .banreason-area textarea {
 	margin-left:auto;
 	margin-right:auto;
-	/* width:70%;
-	height:80px; */
 }
 </style>
 </head>
@@ -97,7 +89,6 @@
 				</button>
 			</div>
 		</div>
-		<!-- LOGO AREA -->
 		
 		<!-- MAIN NAV -->
 		<div class="container" style="width:1170px; height:702px;">
@@ -119,18 +110,8 @@
 			<div class="main col-md-6 col-xs-12">
 				<div class="admin-container">
 					<h1 style="height: 50px; padding-left: 20px; padding-top: 10px;">신고받은 밴드 상세 조회</h1>
-					<!-- <div class="search-area">
-						정렬방법  : 
-						<select style="margin-left:2%; font-size:15px; height:25px;">
-							<option>-------</option>
-							<option>플랫폼타입</option>
-							<option>가입일</option>
-							<option>닉네임</option>
-						</select>
-						<button>정렬</button>
-					</div> -->
+					
 					<table class="admin-table">
-						<p> 
 						<tr style="background-color:lightblue">
 							<td width="13%">신고자</td>
 							<td width="20%">신고 사유</td>
@@ -146,7 +127,7 @@
 						</c:forEach>
 					</table>
 
-					<!-- 페이징 영역 -->
+					<!-- ページング -->	
 					<div class="paging-area">
 						<c:if test="${ pi.currentPage <= 1 }">
 							[이전] &nbsp;
@@ -179,7 +160,6 @@
 						</c:if>
 					</div>
 					
-					<!-- 차단사유 영역 -->
 					<div class="banReason-area">
 						<form action="insertBlackBand.ad" >
 							<h3 align="center">차단사유</h3>

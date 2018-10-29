@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta charset="utf-8">
-<!--[if lt IE 9]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content=" width=device-width, initial-scale=1">
 <title>관리자 | 회원검색</title>
 <!-- CSS -->
@@ -17,10 +16,8 @@
 <link href="resources/css/light-pink-blue.css" rel="stylesheet">
 <style>
 .menu-list {
-	/* width:200px; */
 	height: 50px;
 	padding-left: 10px;
-	/* text-align:center; */
 	font-size: 15px;
 	padding-top: 20px;
 	color: black;
@@ -30,8 +27,6 @@
 .admin-container {
 	width: 800px;
 	margin-bottom: 20%;
-	/* background-color: lightgray; */
-	/* font-color: white; */
 }
 
 .admin-table {
@@ -55,7 +50,6 @@
 	height: 70px;
 	font-size: 20px;
 	text-align: center;
-	/* border: 1px solid black; */
 }
 
 .search-area {
@@ -67,9 +61,7 @@
 }
 </style>
 </head>
-<body
-	class="home page page-id-4 page-template page-template-template_home-php">
-	<!-- TOP NAV -->
+<body　class="home page page-id-4 page-template page-template-template_home-php">
 	<div class="navbar navbar-default top-nav-bar" role="navigation">
 	<!-- MAIN NAV -->
 		<div class="container" style="width: 1170px; height: 600px;">
@@ -104,7 +96,7 @@
 						</c:if>
 						<button id="searchBu">검색</button>
 					</div>
-	
+					<!-- 検索結果を固定する　 -->
 					<script>	
 						$('#searchBu').click(function(){
 							console.log('눌림???');	
