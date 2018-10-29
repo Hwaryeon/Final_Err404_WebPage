@@ -1,6 +1,5 @@
 package com.kh.efp.admin.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.kh.efp.admin.model.service.adminService;
 import com.kh.efp.admin.model.vo.ReportList;
 import com.kh.efp.commons.Pagination;
-import com.kh.efp.member.model.vo.Member;
 import com.kh.efp.member.model.vo.loginUser;
 import com.kh.efp.member_band.model.vo.PageInfo;
 
@@ -24,11 +22,11 @@ import com.kh.efp.member_band.model.vo.PageInfo;
 public class AdminController {
 	@Autowired private adminService as; 
 	
-	//회원조회하기
+	//会員照会
 	@RequestMapping("MemberSelect.ad")
 	public String goMemberSelect(String requestCurrentPage, Model model, HttpServletRequest request){
 		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
-		//페이징처리
+		//ページング
 		int currentPage = 1;
 		if(requestCurrentPage != null)
 			currentPage = Integer.parseInt(requestCurrentPage);
@@ -40,7 +38,7 @@ public class AdminController {
 		model.addAttribute("pi", pi);
 		return "admin/memberSelect"; 
 	}
-	//밴드조회하기
+	//バンド照会
 	@RequestMapping("BandSelect.ad")
 	public String goBandSelect(String requestCurrentPage, Model model, HttpServletRequest request){
 		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
@@ -56,7 +54,7 @@ public class AdminController {
 		model.addAttribute("pi", pi);
 		return "admin/BandSelect";
 	}
-	//회원검색 페이지 진입
+	//会員検索ページ進入
 	@RequestMapping("goMemberSearch.ad")
 	public String goMemberSearch(Model model, HttpServletRequest request){
 		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
@@ -64,13 +62,11 @@ public class AdminController {
 		
 		return "admin/MemberSearchBar";
 	}
-	//회원 검색해오기
+	//会員検索
 	@RequestMapping("MemberSearch.ad")
 	public String memberSearch(@RequestParam("keyword") String keyword, int currentPage, String requestCurrentPage, Model model, HttpServletRequest request) {
 		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
-		//String keyword = request.getParameter("searchNickName");
-		//페이징처리
-		/*int currentPage = 1;*/
+		//ページング
 		if(requestCurrentPage != null)
 			currentPage = Integer.parseInt(requestCurrentPage);	
 		int listCount = as.getSearchlistCount(1, keyword);
@@ -88,23 +84,20 @@ public class AdminController {
 		model.addAttribute("keyword", keyword);
 		return "admin/MemberSearch";
 	}
-	//밴드검색 페이지 진입
+	//バンド検索ページ進入
 	@RequestMapping("goBandSearch.ad")
 	public String goBandSearch(Model model, HttpServletRequest request){
 		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
 		model.addAttribute("loginUser", loginUser);
 		return "admin/BandSearchBar";
 	}
-	//밴드 검색해오기
+	//バンド検索
 	@RequestMapping("BandSearch.ad")
 	public String bandSearch(@RequestParam("keyword") String keyword, int currentPage,  String keywordValue,
 			String requestCurrentPage, Model model, HttpServletRequest request) {
 		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
-		/*String keyword = request.getParameter("keyword");*/
-		/*String keywordValue = request.getParameter("keywordValue");*/
-		//페이징처리
-		/*int currentPage = 1;*/
 		
+		//ページング
 		System.out.println("keyword : " + keyword);
 		System.out.println("keywordValue : " + keywordValue);
 		System.out.println("currentPage : " + currentPage);
@@ -129,11 +122,11 @@ public class AdminController {
 		
 		return "admin/BandSearch";
 	}
-	//신고받은 회원 조회
+	//申告された会員照会
 	@RequestMapping("ReportMemberSelect.ad")
 	public String goBMSelect(String requestCurrentPage, Model model, HttpServletRequest request){
 		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
-		//페이징처리
+		//ページング
 		int currentPage = 1;
 		if(requestCurrentPage != null)
 			currentPage = Integer.parseInt(requestCurrentPage);
@@ -146,7 +139,7 @@ public class AdminController {
 		model.addAttribute("pi", pi);
 		return "admin/ReportMember";
 	}
-	//신고받은 회원 상세조회
+	//申告された会員詳細照会
 	@RequestMapping("showReportMember.ad")
 	public String showReportMember(@RequestParam("mid") int mid, String requestCurrentPage, Model model, HttpServletRequest request){
 		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
@@ -154,9 +147,7 @@ public class AdminController {
 		System.out.println("mid : " + mid);
 		System.out.println("requestCurrentPage : " + requestCurrentPage);
 		
-		//mid = 40;
-		
-		//페이징처리
+		//ページング
 		int currentPage = 1;
 		if(requestCurrentPage != null)
 			currentPage = Integer.parseInt(requestCurrentPage);
@@ -168,11 +159,10 @@ public class AdminController {
 		model.addAttribute("reportMember", list);
 		model.addAttribute("pi", pi);
 		model.addAttribute("cid", ((ReportList)list.get(0)).getCid());
-		//model.addAttribute("cid", mid);
 		
 		return "admin/ReportMemberSelect";
 	}
-	//신고받은 회원 블랙리스트로 이동
+	//BlackListに入れる
 	@RequestMapping("insertBlackMember.ad")
 	public String insertBlackMember(@RequestParam int cid, String banReason, HttpServletRequest request){
 		int result = as.insertBlackMember(cid, banReason);
@@ -181,11 +171,11 @@ public class AdminController {
 		else
 			return "redirect:/BlackMember.ad";
 	}
-	//신고받은 밴드 조회
+	//申告されたバンド照会
 	@RequestMapping("ReportBandSelect.ad")
 	public String goBBSelect(String requestCurrentPage, Model model, HttpServletRequest request){
 		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
-		//페이징처리
+		//ページング
 		int currentPage = 1;
 		if(requestCurrentPage != null)
 			currentPage = Integer.parseInt(requestCurrentPage);
@@ -199,7 +189,7 @@ public class AdminController {
 		model.addAttribute("pi", pi);
 		return "admin/ReportBand";
 	}
-	//신고받은 밴드 상세조회
+	//申告されたバンド詳細照会
 	@RequestMapping("showReportBand.ad")
 	public String showReportBand(@RequestParam("bid") int bid, String requestCurrentPage, Model model, HttpServletRequest request){
 		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
@@ -218,7 +208,7 @@ public class AdminController {
 			
 		return "admin/ReportBandSelect";
 	}
-	//신고받은 밴드 블랙리스트로 이동
+	//BlackListに入れる
 	@RequestMapping("insertBlackBand.ad")
 	public String insertBlackBand(@RequestParam("cid") int bid, String banReason, HttpServletRequest request){
 		int result = as.insertBlackBand(bid, banReason);
@@ -227,11 +217,11 @@ public class AdminController {
 		else
 			return "redirect:/BlackBand.ad";
 	}
-	//블랙리스트 회원 조회
+	//BlackList会員照会
 	@RequestMapping("BlackMember.ad")
 	public String goBlackMember(String requestCurrentPage, Model model, HttpServletRequest request){
 		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
-		//페이징처리
+		//ページング
 		int currentPage = 1;
 		if(requestCurrentPage != null)
 			currentPage = Integer.parseInt(requestCurrentPage);
@@ -246,11 +236,11 @@ public class AdminController {
 		return "admin/BlackMember";
 	}
 	
-	//블랙리스트 밴드 조회
+	//BlackListバンド照会
 	@RequestMapping("BlackBand.ad")
 	public String goBlackBand(String requestCurrentPage, Model model, HttpServletRequest request){
 		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
-		//페이징처리
+		//ページング
 		int currentPage = 1;
 		if(requestCurrentPage != null)
 			currentPage = Integer.parseInt(requestCurrentPage);
@@ -264,41 +254,4 @@ public class AdminController {
 		model.addAttribute("pi", pi);
 		return "admin/BlackBand";
 	}
-	
-	
-	
-	
-	
-	//블랙리스트 회원 조회 정렬화면
-		/*@RequestMapping("BlackMember.ad")
-		public String BlackMember(Model model, HttpServletRequest request){
-			loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
-			String alignment=request.getParameter("alignment");
-			//페이징처리
-			int currentPage = Integer.parseInt(request.getParameter("currentPage"));		
-			int listCount = as.getlistCount(8);
-			PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-			List<Object> list = as.banMemberList(pi, alignment);
-			
-			model.addAttribute("loginUser", loginUser);
-			model.addAttribute("banMember", list);
-			model.addAttribute("pi", pi);
-			return "admin/BlackMember";
-		}*/
-	//블랙리스트 밴드 조회 정렬화면
-	/*@RequestMapping("BlackBand.ad")
-	public String BlackBand(Model model, HttpServletRequest request){
-		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
-		String alignment=request.getParameter("alignment");
-		//페이징처리
-		int currentPage = Integer.parseInt(request.getParameter("currentPage"));		
-		int listCount = as.getlistCount(2);
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		List<Object> list = as.banBandList(pi, alignment);
-		
-		model.addAttribute("loginUser", loginUser);
-		model.addAttribute("banBand", list);
-		model.addAttribute("pi", pi);
-		return "admin/BlackBand";
-	}*/
 }
