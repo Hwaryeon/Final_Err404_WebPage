@@ -1,9 +1,9 @@
 package com.kh.efp.admin.model.vo;
 
 public class BanReason {
-	private int cid; //신고당한 사람
-	private int bid; //신고당한 밴드
-	private String banReason; //차단 사유
+	private int cid; //申告されたメンバー
+	private int bid; //申告されたバンド
+	private String banReason; //遮断された理由
 	
 	public BanReason(){}
 

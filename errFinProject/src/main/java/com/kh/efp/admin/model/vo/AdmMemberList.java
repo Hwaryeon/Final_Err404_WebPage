@@ -3,14 +3,14 @@ package com.kh.efp.admin.model.vo;
 import java.sql.Date;
 
 public class AdmMemberList {
-	private int no;
-	private int mid;
-	private String mEmail;
-	private String mName; 
-	private String mPhone;
-	private String mNational;
-	private Date mDate;
-    private String mType;
+	private int no; //RowNumber
+	private int mid; //Member ID
+	private String mEmail; //Member Email
+	private String mName;  //Member Name
+	private String mPhone; //Member Phone
+	private String mNational; //Member National Code
+	private Date mDate; //Member Date
+    private String mType; //Member Type
     
     public AdmMemberList(){}
 

@@ -1,16 +1,15 @@
 package com.kh.efp.admin.model.vo;
 
 public class AdmBandList implements java.io.Serializable{
-	private int bid;
-	private String bname;
-	private String cname;
-	private String bopen_status; 
-	private String mname;
+	private int bid; //bandId
+	private String bname; //Band Name
+	private String cname; //Category Name
+	private String bopen_status; //バンド公開可否
+	private String mname; //Band Master Name
 	
 	public AdmBandList(){} 
 	
 	public AdmBandList(int bid, String bname, String cname, String bopen_status, String mname) {
-		super();
 		this.bid = bid;
 		this.bname = bname;
 		this.cname = cname;

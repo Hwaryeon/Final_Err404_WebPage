@@ -3,20 +3,20 @@ package com.kh.efp.admin.model.vo;
 import java.sql.Date;
 
 public class ReportList implements java.io.Serializable{
-	private int cid; //신고당한회원번호
-	private String memail; //신고당한회원이메일 
-	private String mcname; //신고당한회원이름
-	private String mname; //신고자이름
-	private int bid; //신고된 밴드번호 
-	private String bname; //신고당한밴드이름
-	private Date rdate; //신고된날짜
-	private String bopen_status; //신고된 밴드 유형
-	private String mbname; //신고된 밴드 밴드장 이름
-	private int times; //신고당한횟수
-	private String rcontent; //신고사유
-	private String bcontent; //신고당한 게시글
-	private int boardid; //신고당한 게시글 아이디
-	private int ref_bid; //신고당한 게시글 댓글여부 확인하기용도
+	private int cid; //申告されたメンバのID
+	private String memail; //Member Email
+	private String mcname; //申告されたメンバの名
+	private String mname; //申告者の名
+	private int bid; //申告されたバンドのID
+	private String bname; //Band Name
+	private Date rdate; //申告された日
+	private String bopen_status; //Band Open Status
+	private String mbname; //申告されたバンドマスタの名
+	private int times; //申告された回数
+	private String rcontent; //申告された理由
+	private String bcontent; //申告されたコンテンツの内容
+	private int boardid; //申告されたコンテンツのID
+	private int ref_bid; //スレとかないかを判断する変数
 	
 	public ReportList(){}
 	

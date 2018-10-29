@@ -3,18 +3,18 @@ package com.kh.efp.admin.model.vo;
 import java.sql.Date;
 
 public class BanList implements java.io.Serializable{
-	private int mid; 
-	private String memail;
-	private String mname;
-	private String mphone;
-	private String mnational;
-	private Date mdate; 
-	private String mtype;
-	private String banreason;
-	private int bid;
-	private String bname;
-	private String cname;
-	private String bopen_status;
+	private int mid;  //Member ID
+	private String memail; //Member Email
+	private String mname; //Member Name
+	private String mphone; //Member Phone
+	private String mnational; //Member National Code
+	private Date mdate;  //Member Entry Date
+	private String mtype; //Member Type
+	private String banreason; //遮断された理由
+	private int bid; //Band ID
+	private String bname; //Band Name
+	private String cname; //Category Name
+	private String bopen_status; //Band Open Status
 	
 	public BanList(){}
 	
