@@ -34,6 +34,7 @@
 		<result property="bintro" column="BINTRO"/>
 	</resultMap>
 
+	<!-- loginしたuserのバンドを照会 -->
 	<select id="selectMyBand" resultMap="MyBand" parameterType="java.util.ArrayList" resultType="java.util.ArrayList">
       select m.mid, b.bname, c.membercount, p.edit_name, p.fdate, p.bid
       from profile p
@@ -51,7 +52,7 @@
       and (p.bid, p.fdate) in (select bid, max(fdate) from profile  where bid is not null group by bid)
       and b.bstatus = 'Y'
    </select>
-	
+	<!-- 人気なコンテンツを選択 -->
 	<select id="selectPopContent" resultMap="PopContent" parameterType="java.util.ArrayList" resultType="java.util.ArrayList">
       SELECT R.NO, R.REF_COUNT, B.BID, D.BNAME, B.MID, M.MNAME, A.EDIT_NAME, A.FLEVEL, B.BCONTENT, b.boardid
       FROM(SELECT ROWNUM AS NO, C.REF_COUNT, C.REF_BID
@@ -70,7 +71,7 @@
       <!-- WHERE D.BOPEN_STATUS = 'PUB' -->
    </select>
 
-	
+	<!-- 推薦バンドを照会 -->
 	<select id="selectRcmContent" resultMap="RcmContent" parameterType="java.util.ArrayList" resultType="java.util.ArrayList">
 		SELECT B.BID, B.BNAME, C.CNAME, P.EDIT_NAME, B.BINTRO
 		FROM BAND B
@@ -83,22 +84,26 @@
 		                  WHERE MID = #{mid})
 	</select>
 	
+	<!-- 新しいバンドを作る -->
 	<insert id="insertBand" parameterType="Band">
 		INSERT INTO BAND
 		VALUES(SEQ_BID.NEXTVAL, #{bname}, #{bopen_status}, null, 999, null, 'Y')
 	</insert>
 	
+	<!-- 新しい作ったバンドのIDを検索 -->
 	<select id="selectBand" parameterType="java.lang.String" resultType="_int">
 		SELECT BID
 		FROM BAND
 		WHERE BNAME = #{bName}
 	</select>
 	
+	<!-- Member_Bandテーブルに　Insert -->
 	<insert id="insertMemberBand" parameterType="MyBandList">
 		INSERT INTO MEMBER_BAND
 		VALUES(SEQ_MBID.NEXTVAL, #{bid}, #{mid}, SYSDATE, 'Y', 1)
 	</insert>
 	
+	<!-- プロフィール写真を入れる -->
 	<insert id="insertProfile" parameterType="Profile">
 		INSERT INTO PROFILE
 		VALUES(SEQ_PID.NEXTVAL, #{originName}, #{editName}, #{fileSrc}, SYSDATE, 2, NULL, #{bid})
