@@ -6,7 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.efp.member_band.model.vo.PageInfo;
 
-public interface adminDao { 
+public interface adminDao {  
 	List<Object> memberAllList(SqlSessionTemplate sqlSession, PageInfo pi);
 
 	List<Object> bandAllList(SqlSessionTemplate sqlSession, PageInfo pi);
