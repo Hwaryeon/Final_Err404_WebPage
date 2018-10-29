@@ -17,7 +17,6 @@ public class mainServiceImpl implements mainService {
 
 	@Override
 	public List<Object> bandList(int mid) {
-
 		return md.bandList(sqlSession, mid);
 	}
 
@@ -29,23 +28,20 @@ public class mainServiceImpl implements mainService {
 	@Override
 	public int insertBand(Profile pf, Band b, int mid) {
 		int result = -99;
-		//System.out.println("오긴했니?");
 
-		//band테이블에 insert
+		//bandテーブルに insert
 		int bandResult = md.insertBand(sqlSession, b);
-		//System.out.println("bandResult : " + bandResult);
 
-		//insert된 밴드의 bid 찾아오기
+		//先insertしたバンドのIDを探す
 		int bandId = md.selectBand(sqlSession, b.getBname());
-		//System.out.println("bandId : " + bandId);
 
-		//member-band테이블에 insert
+		//member-bandテーブルに insert
 		int memberBandResult = md.insertMemberBand(sqlSession, bandId, mid);
-		//System.out.println("memberBandResult : " + memberBandResult);
-		//profile테이블에 profile insert
+		
+		//profileテーブルに profile insert
 		pf.setBid(bandId);
 		int profileResult = md.insertProfile(sqlSession, pf);
-		//System.out.println("profileResult : " + profileResult);
+		
 		if(bandResult > 0 && memberBandResult > 0 && profileResult > 0)
 			result = 1;
 		else
@@ -61,8 +57,6 @@ public class mainServiceImpl implements mainService {
 	
 	@Override
 	public int selectBandId(Band b) {
-		// TODO Auto-generated method stub
 		return md.selectBand(sqlSession, b.getBname());
-
 	}
 }
