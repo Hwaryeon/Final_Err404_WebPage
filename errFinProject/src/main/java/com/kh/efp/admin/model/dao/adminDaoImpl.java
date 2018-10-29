@@ -15,7 +15,7 @@ import com.kh.efp.member_band.model.vo.PageInfo;
 @Repository
 public class adminDaoImpl implements adminDao {  
 	
-	//전체 리스트 조회용 메소드
+	//結果の全体リスト数をcount
 	@Override
 	public int getListCount(SqlSessionTemplate sqlSession, int type) {
 		int result = -99;
@@ -30,7 +30,7 @@ public class adminDaoImpl implements adminDao {
 		}
 		return result;
 	}
-	//전체 검색 리스트 조회용 메소드
+	//検索結果の全体リスト数をcount
 	@Override
 	public int getSearchListCount(SqlSessionTemplate sqlSession, int type, String keyword) {
 		int result = -99;
@@ -42,7 +42,7 @@ public class adminDaoImpl implements adminDao {
 		}
 		return result;
 	}
-	//신고받은 회원 상세 조회용 카운트 메소드
+	//申告された会員の数をcount
 	@Override
 	public int getListCount2(SqlSessionTemplate sqlSession, int i, int mid) {
 		int result = -99;
@@ -54,7 +54,7 @@ public class adminDaoImpl implements adminDao {
 		return result;
 	}
 	
-	//회원조회하기
+	//会員照会
 	@Override
 	public List<Object> memberAllList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		List<Object> memberList = new ArrayList<Object>();
@@ -64,7 +64,7 @@ public class adminDaoImpl implements adminDao {
 		
 		return memberList;
 	}
-
+	//バンド照会
 	@Override
 	public List<Object> bandAllList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		List<Object> bandList = new ArrayList<Object>();
@@ -74,7 +74,7 @@ public class adminDaoImpl implements adminDao {
 		
 		return bandList;
 	}
-
+	//会員検索結果
 	@Override
 	public List<Object> memberSearchList(SqlSessionTemplate sqlSession, PageInfo pi, String keyword) {
 		List<Object> memberSearchList = new ArrayList<Object>();
@@ -84,7 +84,7 @@ public class adminDaoImpl implements adminDao {
 		
 		return memberSearchList;
 	}
-
+	//バンド検索結果
 	@Override
 	public List<Object> bandSearchList(SqlSessionTemplate sqlSession, PageInfo pi, String keyword, String keywordValue) {
 		List<Object> bandSearchList = new ArrayList<Object>();
@@ -96,7 +96,7 @@ public class adminDaoImpl implements adminDao {
 			bandSearchList = sqlSession.selectList("Admin.searchBandByMaster", keyword, rowBounds);
 		return bandSearchList;
 	}
-
+	//申告された会員照会結果
 	@Override
 	public List<Object> reportMemberList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		List<Object> reportMemberList = new ArrayList<Object>();
@@ -106,7 +106,7 @@ public class adminDaoImpl implements adminDao {
 		return reportMemberList;
 	}
 	
-	//신고받은 회원 상세보기
+	//申告された会員詳細照会
 	@Override
 	public List<Object> showReportMember(SqlSessionTemplate sqlSession, PageInfo pi, int mid) {
 		List<Object> showReportMember = new ArrayList<Object>();
@@ -115,7 +115,7 @@ public class adminDaoImpl implements adminDao {
 		showReportMember = sqlSession.selectList("Admin.showReportMember", mid, rowBounds);
 		return showReportMember;
 	}
-	
+	//申告された会員blacklistに入れる
 	@Override
 	public int insertBlackMember(SqlSessionTemplate sqlSession, int cid, String banReason) {
 		BanReason br = new BanReason();
@@ -124,16 +124,17 @@ public class adminDaoImpl implements adminDao {
 		
 		return sqlSession.insert("Admin.insertBlackMember", br);
 	}
-	
+	//メンバーテーブルupdate
 	@Override
 	public void updateMember(SqlSessionTemplate sqlSession, int cid){
 		sqlSession.update("Admin.updateMember", cid);
 	}
+	//メンバーバンドテーブルupdate
 	@Override
 	public void updateMemberBand(SqlSessionTemplate sqlSession, int cid){
 		sqlSession.update("Admin.updateMemberBand", cid);
 	}
-
+	//申告されたバンド照会結果
 	@Override
 	public List<Object> reportBandList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		List<Object> reportBandList = new ArrayList<Object>();
@@ -142,7 +143,7 @@ public class adminDaoImpl implements adminDao {
 		reportBandList = sqlSession.selectList("Admin.selectReportBand", 0, rowBounds);
 		return reportBandList;
 	}
-	
+	//申告されたバンド詳細照会
 	@Override
 	public List<Object> showReportBand(SqlSessionTemplate sqlSession, PageInfo pi, int bid) {
 		List<Object> showReportBand = new ArrayList<Object>();
@@ -151,7 +152,7 @@ public class adminDaoImpl implements adminDao {
 		showReportBand = sqlSession.selectList("Admin.showReportBand", bid, rowBounds);
 		return showReportBand;
 	}
-
+	//申告されたバンドblacklistに入れる
 	@Override
 	public int insertBlackBand(SqlSessionTemplate sqlSession, int bid, String banReason) {
 		BanReason br = new BanReason();
@@ -159,29 +160,25 @@ public class adminDaoImpl implements adminDao {
 		br.setBanReason(banReason);
 		return sqlSession.insert("Admin.insertBlackBand", br);
 	}
-	
+	//バンドテーブルupdate
 	@Override
 	public void updateBand(SqlSessionTemplate sqlSession, int bid){
 		sqlSession.update("Admin.updateBand", bid);
 	}
-	
+	//blacklist会員照会
 	@Override
 	public List<Object> banMemberList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		List<Object> banMemberList = new ArrayList<Object>();
-		/*Map<String, Object> align = new HashMap<String, Object>();
-		align.put("alignment", alignment);*/
 		int offset = (pi.getCurrentPage() -1) * pi.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		banMemberList = sqlSession.selectList("Admin.selectBanMember", 0, rowBounds);
 		
 		return banMemberList;
 	}
-
+	//blacklistバンド照会
 	@Override
 	public List<Object> banBandList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		List<Object> banBandList = new ArrayList<Object>();
-		/*Map<String, Object> align = new HashMap<String, Object>();
-		align.put("alignment", alignment);*/
 		int offset = (pi.getCurrentPage() -1) * pi.getLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		banBandList = sqlSession.selectList("Admin.selectBanBand", 0, rowBounds);
