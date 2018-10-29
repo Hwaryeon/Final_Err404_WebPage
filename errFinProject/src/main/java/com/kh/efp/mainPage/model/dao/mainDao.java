@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.efp.band.model.vo.Band;
 import com.kh.efp.member.model.vo.Profile;
 
-public interface mainDao {
+public interface mainDao { 
 
 	List<Object> bandList(SqlSessionTemplate sqlSession, int mid);
 

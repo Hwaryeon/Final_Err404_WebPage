@@ -14,16 +14,17 @@ import com.kh.efp.member.model.vo.Profile;
 
 @Repository
 public class mainDaoImpl implements mainDao {
-   @Override
-   public List<Object> bandList(SqlSessionTemplate sqlSession, int mid) {
+   
+	@Override
+	
+	public List<Object> bandList(SqlSessionTemplate sqlSession, int mid) {
       List<Object> bandList = new ArrayList<Object>();
-      //System.out.println("Dao mid : " + mid);
       bandList = sqlSession.selectList("Main.selectMyBand", mid);
-      //System.out.println("밴드리스트 : " + bandList);
       
       List<Object> resultList = new ArrayList<Object>();
-      //글자수 세기
+      
       MyBandList list = new MyBandList();
+      //バンドの名の文字数カウント
       for(int i=0;i<bandList.size();i++)
       {
          list = (MyBandList)bandList.get(i);
@@ -46,8 +47,6 @@ public class mainDaoImpl implements mainDao {
             if(txtByte < 17 && txtByte >= 15)
                length = j;
          }
-         //txtByte = en + ko + etc;
-         //length = bandtitle.length()-1;
          list.setChar_count((int)txtByte);
          list.setLength(length);
          System.out.println("band title : " + bandtitle + " | Byte : " + txtByte);
@@ -56,6 +55,7 @@ public class mainDaoImpl implements mainDao {
       return resultList;
    }
 
+	//Select Popular Content
    @Override
    public List<Object> popContent(SqlSessionTemplate sqlSession) {
       List<Object> popContent = new ArrayList<Object>();
@@ -90,7 +90,6 @@ public class mainDaoImpl implements mainDao {
 
    @Override
    public int selectBand(SqlSessionTemplate sqlSession, String bName) {
-      // TODO Auto-generated method stub
       return sqlSession.selectOne("Main.selectBand", bName);
    }
 
@@ -111,11 +110,12 @@ public class mainDaoImpl implements mainDao {
       return sqlSession.insert("Main.insertProfile", pf);
    }
 
+   
+   //公開バンド推薦
    @Override
    public List<Object> recommendContent(SqlSessionTemplate sqlSession, int mid) {
       List<Object> recommendContent = new ArrayList<Object>();
       recommendContent = sqlSession.selectList("Main.selectRcmContent", mid);
-      //System.out.println("popContent (first) : " + popContent);
       
       List<Object> finalContent = new ArrayList<Object>();
       int rcLength = recommendContent.size();
