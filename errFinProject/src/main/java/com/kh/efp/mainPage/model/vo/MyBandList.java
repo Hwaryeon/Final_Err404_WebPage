@@ -5,12 +5,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class MyBandList implements java.io.Serializable{
 	
-	private int memberCount;
-	private String bname;
-	private int mid;
-	private String edit_name;
-	private int bid;
-	private int char_count;
+	private int memberCount; //バンドのメンバー数をcount
+	private String bname; //Band Name
+	private int mid; //　My ID
+	private String edit_name; //　Profile File Name
+	private int bid; //　Band ID
+	private int char_count; //　バンドの名の文字数をcount
 	private int length;
 	
 	public MyBandList(){}

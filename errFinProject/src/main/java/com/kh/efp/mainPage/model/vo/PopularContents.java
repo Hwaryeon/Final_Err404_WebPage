@@ -4,15 +4,15 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class PopularContents implements java.io.Serializable{
-	private int no;
-	private int replyCount;
-	private int bid;
-	private String bname;
-	private int mid;
-	private String mname;
-	private String edit_name;
-	private String flevel;
-	private String bcontent;
+	private int no; //RowNumber
+	private int replyCount; //Count Reply
+	private int bid; //Band ID
+	private String bname; //Band Name
+	private int mid; //Member ID
+	private String mname; //Member Name
+	private String edit_name; //Profile File Name
+	private String flevel; //File Level
+	private String bcontent; //Content内容
 	private int boardid;
 	
 	public PopularContents(){}

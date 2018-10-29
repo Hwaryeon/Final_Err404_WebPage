@@ -4,11 +4,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class RecommendContents implements java.io.Serializable {
-	private int bid;
-	private String bname;
-	private String cname;
-	private String edit_name; 
-	private String bintro;
+	private int bid; //Band ID
+	private String bname; //Band Name
+	private String cname; //Category Name
+	private String edit_name;  //Profile File Name
+	private String bintro; //Band Intro
 	
 	public RecommendContents(){}
 
