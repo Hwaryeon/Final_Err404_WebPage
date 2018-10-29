@@ -34,7 +34,4 @@ public interface adminService {
 	List<Object> showReportBand(PageInfo pi, int bid);
 
 	int insertBlackBand(int bid, String banReason);
-	
-	
-	
 }

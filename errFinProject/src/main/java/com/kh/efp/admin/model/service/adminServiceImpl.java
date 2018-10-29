@@ -14,7 +14,7 @@ public class adminServiceImpl implements adminService {
 	
 	@Autowired private SqlSessionTemplate sqlSession;
 	@Autowired private adminDao ad;
-
+	
 	@Override
 	public int getlistCount(int type) {
 		int listCount = ad.getListCount(sqlSession, type);
