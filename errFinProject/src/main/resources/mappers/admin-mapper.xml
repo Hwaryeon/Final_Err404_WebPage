@@ -85,7 +85,7 @@
 	</resultMap>	
 	
 	
-	<!-- 전체 멤버 갯수 조회 -->
+	<!-- 全体メンバー数照会　 -->
 	<select id="countAllMember" resultType="_int">
 		select count(mid)
 		from (SELECT MID
@@ -93,7 +93,7 @@
       		  WHERE MID != 0
       		  AND MSTATUS = 'Y')
 	</select>
-	<!-- 전체 멤버 리스트 조회 -->
+	<!-- 全体メンバー照会 -->
 	<select id="selectAllMember" resultMap="adMember">
 		SELECT MID, MEMAIL, MNAME, MPHONE, MNATIONAL, MDATE, 
        		 		DECODE(mtype, 'LOCAL', '로컬', 'FB', '페이스북', 'NAVER', '네이버', 'GOOGLE', '구글') mType
@@ -102,13 +102,13 @@
      	AND MSTATUS = 'Y'
      	order by mid asc
 	</select>
-	<!-- 전체 밴드 갯수 조회 -->
+	<!-- 全体バンド数照会 -->
 	<select id="countAllBand" resultType="_int">
 		select COUNT(b.bid)
 		from band b
 		WHERE B.BSTATUS = 'Y'
 	</select>
-	<!-- 전체 밴드 리스트 조회 -->
+	<!-- 全体バンド照会 -->
 	<select id="selectAllBand" resultMap="adBand">
 		select b.bid, b.bname, c.cname, DECODE(b.bopen_status, 'PRV', '비공개 밴드', 'PTD', '밴드명 공개', 'PUB', '공개 밴드') bopen_status
 		from band b
@@ -116,28 +116,28 @@
 		WHERE B.BSTATUS = 'Y'
 		order by bid asc
 	</select>
-	<!-- 회원 검색 갯수 조회 -->
+	<!-- メンバー検索結果数を照会 -->
 	<select id="countSearchMember" resultType="_int" parameterType="java.lang.String">
 		select COUNT(mid)
 		from member
 		where mname like '%' || #{keyword} || '%'
 		AND MSTATUS = 'Y'
 	</select>
-	<!-- 회원 검색 리스트 조회 -->
+	<!-- メンバーを検索した結果 -->
 	<select id="searchMember" resultMap="searchMember" parameterType="java.lang.String">
 		select mid, memail, mname, mphone, mnational, mdate, DECODE(mtype, 'LOCA', '로컬', 'FB', '페이스북', 'NAVER', '네이버', 'GOOGLE', '구글') mType
 		from member
 		where mname like '%' || #{keyword} || '%'
 		AND MSTATUS = 'Y'
 	</select>
-	<!-- 밴드 검색 (이름으로)갯수 조회 -->
+	<!-- 名前でバンド検索した結果の数 -->
 	<select id="countSearchBandByName" resultType="_int" parameterType="java.lang.String">
 		select COUNT(b.bid)
 		from band b
 		where b.bname like '%' || #{keyword} || '%'
 		AND B.BSTATUS = 'Y'
 	</select>
-	<!-- 밴드 검색(이름으로) 리스트 조회 -->
+	<!-- 名前でバンド検索した結果を照会 -->
 	<select id="searchBandByName" resultMap="searchBand" parameterType="java.lang.String">
 		select b.bid, b.bname, c.cname, DECODE(b.bopen_status, 'PRV', '비공개 밴드', 'PTD', '밴드명 공개', 'PUB', '공개 밴드') bopen_status, tb.mname
 		from band b
@@ -149,7 +149,7 @@
 		where b.bname like '%' || #{keyword} || '%'
 		AND B.BSTATUS = 'Y'
 	</select>
-	<!-- 밴드 검색(밴드장으로) 갯수 조회 -->
+	<!--　バンドのマスタでバンド検索した結果の数 -->
 	<select id="countSearchBandByMaster" resultType="_int" parameterType="java.lang.String">
 		select COUNT(tb.mname)
 		from band b
@@ -160,7 +160,7 @@
 		where tb.mname like '%' || #{keyword} || '%'
 		AND B.BSTATUS = 'Y'
 	</select>
-	<!-- 밴드 검색(밴드장으로) 리스트 조회 -->
+	<!-- バンドのマスタでバンド検索した結果を照会 -->
 	<select id="searchBandByMaster" resultMap="searchBand" parameterType="java.lang.String">
 		select b.bid, b.bname, c.cname, DECODE(b.bopen_status, 'PRV', '비공개 밴드', 'PTD', '밴드명 공개', 'PUB', '공개 밴드') bopen_status, tb.mname
 		from band b
@@ -172,7 +172,7 @@
 		where tb.mname like '%' || #{keyword} || '%'
 		AND B.BSTATUS = 'Y'
 	</select>
-	<!-- 신고받은 회원 갯수 조회 -->
+	<!-- 申告されたメンバー数をcount -->
 	<select id="countReportMember" resultType="_int">
 		SELECT COUNT(ROWNUM)
 		FROM(SELECT ROWNUM, R.CID, M.MNAME, M.MEMAIL, R.TIMES
@@ -183,7 +183,7 @@
 		     WHERE M.MSTATUS = 'Y'
 		     ORDER BY R.TIMES DESC)
 	</select>
-	<!-- 신고받은 회원 리스트 조회 -->
+	<!-- 申告されたメンバーを照会 -->
 	<select id="selectReportMember" resultMap="reportMember">
 		SELECT R.CID, M.MNAME, M.MEMAIL, R.TIMES
 		FROM (SELECT CID, COUNT(RID) AS TIMES
@@ -193,7 +193,7 @@
 		WHERE M.MSTATUS = 'Y'
 		ORDER BY R.TIMES DESC
 	</select>
-	<!-- 신고받은 회원 상세정보 갯수 조회 -->
+	<!-- 申告されたメンバーを詳細に照会した結果をcount -->
 	<select id="countShowReportMember" parameterType="_int" resultType="_int">
 	select count(rownum)
 	from(select rownum, m.mname, b.bname, r.rdate, r.rcontent
@@ -203,7 +203,7 @@
 	     where r.cid = #{mid}
 	     and m.mstatus = 'Y')
 	</select>
-	<!-- 신고받은 회원 상세정보 조회 -->
+	<!-- 申告されたメンバーを詳細に照会 -->
 	<select id="showReportMember" parameterType="_int" resultMap="showReportMember">
 		select r.cid, m.mname, b.bname, r.rdate, r.rcontent
 		from report r
@@ -212,22 +212,22 @@
 		where m.mstatus = 'Y'
 		and r.cid = #{mid}
 	</select>
-	<!-- 신고받은 회원 Ban테이블에 저장하기 -->
+	<!-- insert　into　blacklist -->
 	<insert id="insertBlackMember" parameterType="BanReason">
 		INSERT INTO BAN
 		VALUES(SEQ_BANID.NEXTVAL, NULL, #{cid}, 'M', #{banReason})
 	</insert>
-	<!-- 신고받은 회원  차단하기 -->
+	<!-- change　member　Status to N -->
 	<update id="updateMember" parameterType="_int">
 		UPDATE MEMBER SET MSTATUS = 'N'
 		WHERE MID = #{cid}
 	</update>
-	<!-- 신고받은 회원 밴드에서 탈퇴시키기 -->
+	<!-- 申告されたメンバーをバンドから脱退する -->
 	<update id="updateMemberBand" parameterType="_int">
 		UPDATE MEMBER_BAND SET ISTATUS = 'N'
 		WHERE MID = #{cid}
 	</update>
-	<!-- 신고받은 밴드 갯수 조회 -->
+	<!-- 申告されたバンド数をcount -->
 	<select id="countReportBand" resultType="_int">
 		select count(bid)
 	    from(select f.bid, b.bname, m.mname, DECODE(b.bopen_status, 'PTD', '비공개 밴드', 'PRV', '밴드명 공개', 'PUB', '공개 밴드') as bopen_status, f.times
@@ -241,7 +241,7 @@
 			 and b.bstatus='Y'
 			 order by f.times desc)
 	</select>
-	<!-- 신고받은 밴드 리스트 조회 -->
+	<!-- 申告されたバンドを照会 -->
 	<select id="selectReportBand" resultMap="reportBand">
 		select f.bid, b.bname, m.mname, DECODE(b.bopen_status, 'PTD', '비공개 밴드', 'PRV', '밴드명 공개', 'PUB', '공개 밴드') as bopen_status, f.times
 		from(select r.bid, count(r.bid) as times
@@ -254,7 +254,7 @@
 		and b.bstatus='Y'
 		order by f.times desc
 	</select>
-	<!-- 신고받은 밴드 상세정보 갯수 조회 -->
+	<!-- 申告されたバンドを詳細に照会した結果をcount -->
 	<select id="countShowReportBand" parameterType="_int" resultType="_int">
 		select count(rownum)
 		from(select rownum, m.mname, r.rdate, r.rcontent, b.bname
@@ -263,7 +263,7 @@
 		     join band b on (r.bid = b.bid)
 		     where b.bid = #{bid})
 	</select>
-	<!-- 신고받은 밴드 상세정보 조회 -->
+	<!-- 申告されたバンドを詳細に照会 -->
 	<select id="showReportBand" parameterType="_int" resultMap="showReportBand">
 		select m.mname, r.rdate, r.rcontent, r.bid
 		from report r
@@ -271,17 +271,17 @@
 		join band b on (r.bid = b.bid)
 		where b.bid = #{bid}
 	</select>
-	<!-- 신고받은 밴드 Ban 테이블에 저장하기 -->
+	<!-- insert　into　blacklist -->
 	<insert id="insertBlackBand" parameterType="BanReason">
 		INSERT INTO BAN
 		VALUES(SEQ_BANID.NEXTVAL, #{bid}, NULL, 'B', #{banReason})
 	</insert>
-	<!-- 신고받은 밴드 차단하기 -->
+	<!-- change　Band Status to N -->
 	<update id="updateBand" parameterType="_int">
 		UPDATE BAND SET BSTATUS = 'N'
 		WHERE BID = #{bid}
 	</update>
-	<!-- 차단당한 회원 갯수 조회 -->
+	<!-- Blacklistのメンバーをcount -->
 	<select id="countBanMember" resultType="_int">
 		SELECT COUNT(MID)
 		FROM(select ba.mid, m.memail, m.mname, m.mphone, m.mnational, m.mdate, DECODE(m.mtype, 'LOCAL', '로컬', 'FB', '페이스북', 'NAVER', '네이버', 'GOOGLE', '구글') mType, ba.banreason
@@ -289,7 +289,7 @@
 		     join member m on (ba.mid = m.mid)
 		     where ba.bid is null)
 	</select>
-	<!-- 차단당한 회원 리스트 조회 -->
+	<!-- Blacklistのメンバーを照会 -->
 	<select id="selectBanMember" resultMap="banMember">
 		select ba.mid, m.memail, m.mname, m.mphone, m.mnational, m.mdate, 
 			   DECODE(m.mtype, 'LOCAL', '로컬', 'FB', '페이스북', 'NAVER', '네이버', 'GOOGLE', '구글') mType, ba.banreason
@@ -298,7 +298,7 @@
 		where ba.bid is null
 		order by ba.mid asc
 	</select>
-	<!-- 차단당한 밴드 갯수 조회 -->
+	<!-- Blacklistのバンドをcount -->
 	<select id="countBanBand" resultType="_int">
 		SELECT COUNT(BID)
 		FROM(select ba.bid, b.bname, c.cname, DECODE(b.bopen_status, 'PTD', '비공개 밴드', 'PRV', '밴드명 공개', 'PUB', '공개 밴드') as bopen_status, m.mname, ba.banreason
@@ -310,7 +310,7 @@
 		     where mb.mlevel = 1
 		     and ba.mid is null)
 	</select>
-	<!-- 차단당한 밴드 리스트 조회 -->
+	<!-- Blacklistのバンドを照会 -->
 	<select id="selectBanBand" resultMap="banBand">
 		select ba.bid, b.bname, c.cname, DECODE(b.bopen_status, 'PTD', '비공개 밴드', 'PRV', '밴드명 공개', 'PUB', '공개 밴드') as bopen_status, m.mname, ba.banreason
 		from ban ba
