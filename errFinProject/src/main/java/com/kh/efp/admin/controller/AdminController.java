@@ -193,7 +193,7 @@ public class AdminController {
 	@RequestMapping("showReportBand.ad")
 	public String showReportBand(@RequestParam("bid") int bid, String requestCurrentPage, Model model, HttpServletRequest request){
 		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
-		//페이징처리
+		//ページング
 		int currentPage = 1;
 		if(requestCurrentPage != null)
 			currentPage = Integer.parseInt(requestCurrentPage);
