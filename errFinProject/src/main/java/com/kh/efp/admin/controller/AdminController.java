@@ -42,7 +42,7 @@ public class AdminController {
 	@RequestMapping("BandSelect.ad")
 	public String goBandSelect(String requestCurrentPage, Model model, HttpServletRequest request){
 		loginUser loginUser = (loginUser)request.getSession().getAttribute("loginUser");
-		//페이징처리
+		//ページング
 		int currentPage = 1;
 		if(requestCurrentPage != null)
 			currentPage = Integer.parseInt(requestCurrentPage);
